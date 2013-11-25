@@ -1,0 +1,43 @@
+//
+//  Prefix header
+//
+//  The contents of this file are implicitly included at the beginning of every source file.
+//
+
+#import <Availability.h>
+
+#ifndef __IPHONE_3_0
+#warning "This project uses features only available in iOS SDK 3.0 and later."
+#endif
+
+#ifdef __OBJC__
+    #import <UIKit/UIKit.h>
+    #import <Foundation/Foundation.h>
+
+    #define         TestMiuTripURL                  @"http://test.miutrip.com/api"
+    #define         PublicMiuTripURL                @"http://www.miutrip.com/api"
+
+    #define         deviceVersion                   [[[UIDevice currentDevice] systemVersion] floatValue]
+    #define         appFrame                        [[UIScreen mainScreen] applicationFrame]
+    #define         appBounds                       [[UIScreen mainScreen] bounds]
+
+    #define         stringFormat(string...)            [NSString stringWithFormat:@"%@",string...]
+
+    #define         imageNameAndType(name,type)     [UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:name ofType:type?type:@"png"]]
+    #define         stretchImage(name,type)         [imageNameAndType(name,type) stretchableImageWithLeftCapWidth:imageNameAndType(name,type).size.width/2 topCapHeight:imageNameAndType(name,type).size.height/2]
+
+    #define         controlXLength(control)         (control.frame.origin.x + control.frame.size.width)
+    #define         controlYLength(control)         (control.frame.origin.y + control.frame.size.height)
+
+    #define         color(colorName)                [UIColor colorName]
+    #define         UIColorFromRGB(rgbValue)        [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 \
+                                                    green:((float)((rgbValue & 0xFF00) >> 8))/255.0\
+                                                    blue:((float)(rgbValue & 0xFF))/255.0\
+                                                    alpha:1.0]
+
+#define         Dispatch_Get_Gloabal(gloabalHandle) dispatch_async(dispatch_get_global_queue(0, 0),gloabalHandle())
+#define         Dispatch_Get_Main(mainHandle)       dispatch_async(dispatch_get_main_queue(),mainHandle())
+
+    #define         ARC4RANDOM_MAX                  0x100000000
+
+#endif
