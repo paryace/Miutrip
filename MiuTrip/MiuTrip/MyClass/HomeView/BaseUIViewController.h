@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "ASIHTTPRequest.h"
+#import "SBJson.h"
 #import "ASIFormDataRequest.h"
 #import "ASINetworkQueue.h"
 #import "CustomMethod.h"
@@ -15,7 +16,7 @@
 @class BaseContentView;
 
 typedef NS_OPTIONS(NSInteger, RequestType){
-    RequestGet,
+    //RequestGet,
     RequestPost,
     RequestLogIn,
     RequestLogOut
@@ -57,6 +58,8 @@ typedef NS_OPTIONS(NSInteger, RequestType){
 - (void)keyBoardWillShow:(NSNotification *)notification;
 - (void)keyBoardWillHide:(NSNotification *)notification;
 - (void)keyBoardChangeFrame:(NSNotification *)notification;
+
+- (UIImageView *)createLineWithParam:(NSObject*)param frame:(CGRect)frame;
 
 @end
 

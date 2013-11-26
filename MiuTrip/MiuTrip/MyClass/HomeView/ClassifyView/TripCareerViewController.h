@@ -6,12 +6,7 @@
 //  Copyright (c) 2013年 michael. All rights reserved.
 //
 
-/**
- * 商旅生涯页面
- */
-
 #import "BaseUIViewController.h"
-
 
 @interface TripCareerViewController : BaseUIViewController
 

@@ -58,6 +58,7 @@ static      Model       *shareModel;
         [_tipView.titleLabel setNumberOfLines:0];
         [_tipView.layer setMasksToBounds:YES];
         [_tipView.layer setCornerRadius:10.0f];
+        [_tipView.titleLabel setTextAlignment:NSTextAlignmentCenter];
         [_tipView.titleLabel setLineBreakMode:NSLineBreakByWordWrapping];
         [_tipView.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:13]];
         [_tipView setBackgroundColor:color(darkGrayColor)];

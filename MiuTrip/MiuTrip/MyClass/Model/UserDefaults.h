@@ -41,6 +41,8 @@
 @property (assign, nonatomic) BOOL                      allowShake;                 //摇动设置      //0:关闭 1:开启
 @property (assign, nonatomic) CGFloat                   searchRadiu;                //搜索半径
 
+@property (strong, nonatomic) NSString                  *authTkn;                   //token
+
 - (void)clearDefaults;
 
 @end

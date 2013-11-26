@@ -1,11 +1,10 @@
 //
 //  HotelAndAirOrderViewController.h
-//  MiuTrip  机票酒店订单
+//  MiuTrip
 //
 //  Created by SuperAdmin on 13-11-21.
 //  Copyright (c) 2013年 michael. All rights reserved.
 //
-
 
 #import "BaseUIViewController.h"
 

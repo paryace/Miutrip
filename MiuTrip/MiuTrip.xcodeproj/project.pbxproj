@@ -178,6 +178,7 @@
 		12DDD836183B5C4E00E774AF /* set_sgitem_l_select.png in Resources */ = {isa = PBXBuildFile; fileRef = 12DDD832183B5C4E00E774AF /* set_sgitem_l_select.png */; };
 		12DDD837183B5C4E00E774AF /* set_sgitem_r_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 12DDD833183B5C4E00E774AF /* set_sgitem_r_normal.png */; };
 		12DDD838183B5C4E00E774AF /* set_sgitem_r_select.png in Resources */ = {isa = PBXBuildFile; fileRef = 12DDD834183B5C4E00E774AF /* set_sgitem_r_select.png */; };
+		1807C0B51844868800199E5D /* AirListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1807C0B41844868800199E5D /* AirListViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -197,8 +198,8 @@
 		122BD720184057F100BAA9A9 /* HotelOrderDetailCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HotelOrderDetailCell.m; sourceTree = "<group>"; };
 		122BD728184061E200BAA9A9 /* hotel_done_press.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hotel_done_press.png; sourceTree = "<group>"; };
 		122BD729184061E200BAA9A9 /* hotel_done_nromal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hotel_done_nromal.png; sourceTree = "<group>"; };
-		122BD72C1840659800BAA9A9 /* MyMiuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MyMiuViewController.h; path = ClassifyView/MyMiuViewController.h; sourceTree = "<group>"; };
-		122BD72D1840659800BAA9A9 /* MyMiuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MyMiuViewController.m; path = ClassifyView/MyMiuViewController.m; sourceTree = "<group>"; };
+		122BD72C1840659800BAA9A9 /* MyMiuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyMiuViewController.h; sourceTree = "<group>"; };
+		122BD72D1840659800BAA9A9 /* MyMiuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyMiuViewController.m; sourceTree = "<group>"; };
 		122BD72F18406D2E00BAA9A9 /* query_checkIn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = query_checkIn.png; sourceTree = "<group>"; };
 		122BD73018406D2E00BAA9A9 /* query_city_name.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = query_city_name.png; sourceTree = "<group>"; };
 		122BD73118406D2E00BAA9A9 /* query_hotel_name.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = query_hotel_name.png; sourceTree = "<group>"; };
@@ -208,8 +209,8 @@
 		122BD73518406D2E00BAA9A9 /* shake.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = shake.png; sourceTree = "<group>"; };
 		122BD73618406D2E00BAA9A9 /* voice_btn_press.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = voice_btn_press.png; sourceTree = "<group>"; };
 		122BD73718406D2E00BAA9A9 /* voice_btn_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = voice_btn_normal.png; sourceTree = "<group>"; };
-		122CE5BA183A34D4001771DC /* SettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingViewController.h; sourceTree = "<group>"; };
-		122CE5BB183A34D4001771DC /* SettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingViewController.m; sourceTree = "<group>"; };
+		122CE5BA183A34D4001771DC /* SettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SettingViewController.h; path = ../SettingViewController.h; sourceTree = "<group>"; };
+		122CE5BB183A34D4001771DC /* SettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SettingViewController.m; path = ../SettingViewController.m; sourceTree = "<group>"; };
 		122CE5BE183A3AB5001771DC /* set_item_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = set_item_normal.png; sourceTree = "<group>"; };
 		122CE5BF183A3AB5001771DC /* set_item_select.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = set_item_select.png; sourceTree = "<group>"; };
 		122CE5C0183A3AB5001771DC /* set_location.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = set_location.png; sourceTree = "<group>"; };
@@ -230,8 +231,8 @@
 		12350A6B183CFC8D00F9E8A7 /* t_career_checkedIn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = t_career_checkedIn.png; sourceTree = "<group>"; };
 		12350A6C183CFC8D00F9E8A7 /* t_career_paied.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = t_career_paied.png; sourceTree = "<group>"; };
 		12350A6D183CFC8D00F9E8A7 /* t_career_tripevaluate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = t_career_tripevaluate.png; sourceTree = "<group>"; };
-		12350A79183CFD5A00F9E8A7 /* TripCareerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TripCareerViewController.h; path = ClassifyView/TripCareerViewController.h; sourceTree = "<group>"; };
-		12350A7A183CFD5A00F9E8A7 /* TripCareerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TripCareerViewController.m; path = ClassifyView/TripCareerViewController.m; sourceTree = "<group>"; };
+		12350A79183CFD5A00F9E8A7 /* TripCareerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TripCareerViewController.h; sourceTree = "<group>"; };
+		12350A7A183CFD5A00F9E8A7 /* TripCareerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TripCareerViewController.m; sourceTree = "<group>"; };
 		12350A7C183D0B8E00F9E8A7 /* t_item_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = t_item_bg.png; sourceTree = "<group>"; };
 		12350A7E183D176700F9E8A7 /* t_line.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = t_line.png; sourceTree = "<group>"; };
 		123DA430183E0F260031F3F1 /* cell_arrow_down.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cell_arrow_down.png; sourceTree = "<group>"; };
@@ -307,8 +308,8 @@
 		12478A0118363B2800AA0083 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		12478A0318363B2F00AA0083 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		12478A0518363B4000AA0083 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
-		1253D4F51835C324004B595D /* CommonlyNameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommonlyNameViewController.h; sourceTree = "<group>"; };
-		1253D4F61835C324004B595D /* CommonlyNameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommonlyNameViewController.m; sourceTree = "<group>"; };
+		1253D4F51835C324004B595D /* CommonlyNameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CommonlyNameViewController.h; path = ../CommonlyNameViewController.h; sourceTree = "<group>"; };
+		1253D4F61835C324004B595D /* CommonlyNameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CommonlyNameViewController.m; path = ../CommonlyNameViewController.m; sourceTree = "<group>"; };
 		1253D5F01835D1E1004B595D /* bottombar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bottombar.png; sourceTree = "<group>"; };
 		1253D5F11835D1E1004B595D /* home_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = home_bg.png; sourceTree = "<group>"; };
 		1253D5F31835D1E1004B595D /* autolog_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = autolog_normal.png; sourceTree = "<group>"; };
@@ -390,10 +391,10 @@
 		1279154E1833292700CF94F4 /* DatePickerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DatePickerViewController.xib; sourceTree = "<group>"; };
 		1279154F1833292700CF94F4 /* ImagePickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImagePickerViewController.h; sourceTree = "<group>"; };
 		127915501833292700CF94F4 /* ImagePickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImagePickerViewController.m; sourceTree = "<group>"; };
-		127915511833292700CF94F4 /* Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Utils.h; path = Element/Utils.h; sourceTree = "<group>"; };
-		127915521833292700CF94F4 /* Utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Utils.m; path = Element/Utils.m; sourceTree = "<group>"; };
-		127915541833292700CF94F4 /* Model.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Model.h; path = ../Model/Model.h; sourceTree = "<group>"; };
-		127915551833292700CF94F4 /* Model.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Model.m; path = ../Model/Model.m; sourceTree = "<group>"; };
+		127915511833292700CF94F4 /* Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utils.h; sourceTree = "<group>"; };
+		127915521833292700CF94F4 /* Utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Utils.m; sourceTree = "<group>"; };
+		127915541833292700CF94F4 /* Model.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Model.h; sourceTree = "<group>"; };
+		127915551833292700CF94F4 /* Model.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Model.m; sourceTree = "<group>"; };
 		1279155C18332A3100CF94F4 /* DatePickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DatePickerViewController.h; sourceTree = "<group>"; };
 		1279155E18334D1400CF94F4 /* BaseUIViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseUIViewController.h; sourceTree = "<group>"; };
 		1279155F18334D1400CF94F4 /* BaseUIViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseUIViewController.m; sourceTree = "<group>"; };
@@ -403,8 +404,8 @@
 		127915761833659D00CF94F4 /* HomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; };
 		127C6842183A0AB20055784D /* CustomBtn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomBtn.h; sourceTree = "<group>"; };
 		127C6843183A0AB20055784D /* CustomBtn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomBtn.m; sourceTree = "<group>"; };
-		12835DA5183DB39500D97422 /* HotelAndAirOrderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HotelAndAirOrderViewController.h; path = ClassifyView/HotelAndAirOrderViewController.h; sourceTree = "<group>"; };
-		12835DA6183DB39500D97422 /* HotelAndAirOrderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HotelAndAirOrderViewController.m; path = ClassifyView/HotelAndAirOrderViewController.m; sourceTree = "<group>"; };
+		12835DA5183DB39500D97422 /* HotelAndAirOrderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HotelAndAirOrderViewController.h; sourceTree = "<group>"; };
+		12835DA6183DB39500D97422 /* HotelAndAirOrderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HotelAndAirOrderViewController.m; sourceTree = "<group>"; };
 		12C37DC0183DD5FF00EA6D26 /* CustomMethod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomMethod.h; sourceTree = "<group>"; };
 		12C37DC1183DD5FF00EA6D26 /* CustomMethod.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomMethod.m; sourceTree = "<group>"; };
 		12DDD82B183B10C300E774AF /* set_box_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = set_box_bg.png; sourceTree = "<group>"; };
@@ -414,6 +415,8 @@
 		12DDD832183B5C4E00E774AF /* set_sgitem_l_select.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = set_sgitem_l_select.png; sourceTree = "<group>"; };
 		12DDD833183B5C4E00E774AF /* set_sgitem_r_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = set_sgitem_r_normal.png; sourceTree = "<group>"; };
 		12DDD834183B5C4E00E774AF /* set_sgitem_r_select.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = set_sgitem_r_select.png; sourceTree = "<group>"; };
+		1807C0B31844868800199E5D /* AirListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AirListViewController.h; sourceTree = "<group>"; };
+		1807C0B41844868800199E5D /* AirListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AirListViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -485,6 +488,25 @@
 				12350A6D183CFC8D00F9E8A7 /* t_career_tripevaluate.png */,
 			);
 			path = TripCareerImage;
+			sourceTree = "<group>";
+		};
+		12350A78183CFCBF00F9E8A7 /* ClassifyView */ = {
+			isa = PBXGroup;
+			children = (
+				1253D4F51835C324004B595D /* CommonlyNameViewController.h */,
+				1253D4F61835C324004B595D /* CommonlyNameViewController.m */,
+				122CE5BA183A34D4001771DC /* SettingViewController.h */,
+				122CE5BB183A34D4001771DC /* SettingViewController.m */,
+				12350A79183CFD5A00F9E8A7 /* TripCareerViewController.h */,
+				12350A7A183CFD5A00F9E8A7 /* TripCareerViewController.m */,
+				12835DA5183DB39500D97422 /* HotelAndAirOrderViewController.h */,
+				12835DA6183DB39500D97422 /* HotelAndAirOrderViewController.m */,
+				122BD72C1840659800BAA9A9 /* MyMiuViewController.h */,
+				122BD72D1840659800BAA9A9 /* MyMiuViewController.m */,
+				1807C0B21844866400199E5D /* AirQuery */,
+			);
+			name = ClassifyView;
+			path = HomeView/ClassifyView;
 			sourceTree = "<group>";
 		};
 		124789A01836363000AA0083 /* ASIHttpRequest */ = {
@@ -706,7 +728,7 @@
 			children = (
 				127915561833292700CF94F4 /* Resource */,
 				1279154A1833292700CF94F4 /* Library */,
-				1279154B1833292700CF94F4 /* Classes */,
+				1279154B1833292700CF94F4 /* MyClass */,
 				1279151E183326B700CF94F4 /* MiuTrip */,
 				12791537183326B700CF94F4 /* MiuTripTests */,
 				12791517183326B700CF94F4 /* Frameworks */,
@@ -789,46 +811,54 @@
 			path = MiuTrip/Library;
 			sourceTree = "<group>";
 		};
-		1279154B1833292700CF94F4 /* Classes */ = {
+		1279154B1833292700CF94F4 /* MyClass */ = {
 			isa = PBXGroup;
 			children = (
-				14009EC01841ED2600D93DEF /* Helpers */,
-				1279154C1833292700CF94F4 /* Views */,
-				127915531833292700CF94F4 /* Models */,
-				1279155D18334CE500CF94F4 /* Controllers */,
+				1279154C1833292700CF94F4 /* Element */,
+				127915531833292700CF94F4 /* Model */,
+				1279155D18334CE500CF94F4 /* HomeView */,
+				12350A78183CFCBF00F9E8A7 /* ClassifyView */,
 			);
-			name = Classes;
+			name = MyClass;
 			path = MiuTrip/MyClass;
 			sourceTree = "<group>";
 		};
-		1279154C1833292700CF94F4 /* Views */ = {
+		1279154C1833292700CF94F4 /* Element */ = {
 			isa = PBXGroup;
 			children = (
-				127915551833292700CF94F4 /* Model.m */,
-				127915541833292700CF94F4 /* Model.h */,
 				1279155C18332A3100CF94F4 /* DatePickerViewController.h */,
 				1279154D1833292700CF94F4 /* DatePickerViewController.m */,
 				1279154E1833292700CF94F4 /* DatePickerViewController.xib */,
 				1279154F1833292700CF94F4 /* ImagePickerViewController.h */,
 				127915501833292700CF94F4 /* ImagePickerViewController.m */,
+				127915511833292700CF94F4 /* Utils.h */,
+				127915521833292700CF94F4 /* Utils.m */,
 				127C6842183A0AB20055784D /* CustomBtn.h */,
 				127C6843183A0AB20055784D /* CustomBtn.m */,
 				12C37DC0183DD5FF00EA6D26 /* CustomMethod.h */,
 				12C37DC1183DD5FF00EA6D26 /* CustomMethod.m */,
 			);
-			name = Views;
 			path = Element;
 			sourceTree = "<group>";
 		};
-		127915531833292700CF94F4 /* Models */ = {
+		127915531833292700CF94F4 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				14009EBB1841EAB500D93DEF /* Account */,
-				14009EBA1841EA5900D93DEF /* Common */,
-				14009EB91841EA2D00D93DEF /* Hotel */,
-				14009EB81841EA0200D93DEF /* Flight */,
+				1247899D183633E700AA0083 /* UserDefaults.h */,
+				1247899E183633E700AA0083 /* UserDefaults.m */,
+				1247639B18362F0F008900F8 /* AirOrderDetail.h */,
+				1247639C18362F0F008900F8 /* AirOrderDetail.m */,
+				1247639D18362F0F008900F8 /* HotelOrderDetail.h */,
+				1247639E18362F0F008900F8 /* HotelOrderDetail.m */,
+				127915541833292700CF94F4 /* Model.h */,
+				127915551833292700CF94F4 /* Model.m */,
+				1247899A18362F8700AA0083 /* CommonlyName.h */,
+				1247899B18362F8700AA0083 /* CommonlyName.m */,
+				122BD71C184057B800BAA9A9 /* AirOrderDetailCell.h */,
+				122BD71D184057B800BAA9A9 /* AirOrderDetailCell.m */,
+				122BD71F184057F100BAA9A9 /* HotelOrderDetailCell.h */,
+				122BD720184057F100BAA9A9 /* HotelOrderDetailCell.m */,
 			);
-			name = Models;
 			path = Model;
 			sourceTree = "<group>";
 		};
@@ -846,109 +876,26 @@
 			path = MiuTrip/Resource;
 			sourceTree = "<group>";
 		};
-		1279155D18334CE500CF94F4 /* Controllers */ = {
+		1279155D18334CE500CF94F4 /* HomeView */ = {
 			isa = PBXGroup;
 			children = (
-				14009EBF1841EB6E00D93DEF /* MyMiu */,
-				14009EBE1841EB5E00D93DEF /* Hotel */,
-				14009EBD1841EB5400D93DEF /* Flight */,
-				14009EBC1841EB0E00D93DEF /* Common */,
-			);
-			name = Controllers;
-			path = HomeView;
-			sourceTree = "<group>";
-		};
-		14009EB81841EA0200D93DEF /* Flight */ = {
-			isa = PBXGroup;
-			children = (
-				122BD71C184057B800BAA9A9 /* AirOrderDetailCell.h */,
-				122BD71D184057B800BAA9A9 /* AirOrderDetailCell.m */,
-				1247639C18362F0F008900F8 /* AirOrderDetail.m */,
-				1247639B18362F0F008900F8 /* AirOrderDetail.h */,
-			);
-			name = Flight;
-			sourceTree = "<group>";
-		};
-		14009EB91841EA2D00D93DEF /* Hotel */ = {
-			isa = PBXGroup;
-			children = (
-				1247639D18362F0F008900F8 /* HotelOrderDetail.h */,
-				1247639E18362F0F008900F8 /* HotelOrderDetail.m */,
-				122BD71F184057F100BAA9A9 /* HotelOrderDetailCell.h */,
-				122BD720184057F100BAA9A9 /* HotelOrderDetailCell.m */,
-			);
-			name = Hotel;
-			sourceTree = "<group>";
-		};
-		14009EBA1841EA5900D93DEF /* Common */ = {
-			isa = PBXGroup;
-			children = (
-				1247899A18362F8700AA0083 /* CommonlyName.h */,
-				1247899B18362F8700AA0083 /* CommonlyName.m */,
-			);
-			name = Common;
-			sourceTree = "<group>";
-		};
-		14009EBB1841EAB500D93DEF /* Account */ = {
-			isa = PBXGroup;
-			children = (
-				1247899D183633E700AA0083 /* UserDefaults.h */,
-				1247899E183633E700AA0083 /* UserDefaults.m */,
-			);
-			name = Account;
-			sourceTree = "<group>";
-		};
-		14009EBC1841EB0E00D93DEF /* Common */ = {
-			isa = PBXGroup;
-			children = (
+				1279155E18334D1400CF94F4 /* BaseUIViewController.h */,
+				1279155F18334D1400CF94F4 /* BaseUIViewController.m */,
 				127915611833512700CF94F4 /* RegisterAndLogViewController.h */,
 				127915621833512700CF94F4 /* RegisterAndLogViewController.m */,
 				127915751833659D00CF94F4 /* HomeViewController.h */,
 				127915761833659D00CF94F4 /* HomeViewController.m */,
-				1279155F18334D1400CF94F4 /* BaseUIViewController.m */,
-				1279155E18334D1400CF94F4 /* BaseUIViewController.h */,
 			);
-			name = Common;
+			path = HomeView;
 			sourceTree = "<group>";
 		};
-		14009EBD1841EB5400D93DEF /* Flight */ = {
+		1807C0B21844866400199E5D /* AirQuery */ = {
 			isa = PBXGroup;
 			children = (
+				1807C0B31844868800199E5D /* AirListViewController.h */,
+				1807C0B41844868800199E5D /* AirListViewController.m */,
 			);
-			name = Flight;
-			sourceTree = "<group>";
-		};
-		14009EBE1841EB5E00D93DEF /* Hotel */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Hotel;
-			sourceTree = "<group>";
-		};
-		14009EBF1841EB6E00D93DEF /* MyMiu */ = {
-			isa = PBXGroup;
-			children = (
-				12350A79183CFD5A00F9E8A7 /* TripCareerViewController.h */,
-				12350A7A183CFD5A00F9E8A7 /* TripCareerViewController.m */,
-				12835DA5183DB39500D97422 /* HotelAndAirOrderViewController.h */,
-				12835DA6183DB39500D97422 /* HotelAndAirOrderViewController.m */,
-				122BD72C1840659800BAA9A9 /* MyMiuViewController.h */,
-				122BD72D1840659800BAA9A9 /* MyMiuViewController.m */,
-				1253D4F51835C324004B595D /* CommonlyNameViewController.h */,
-				1253D4F61835C324004B595D /* CommonlyNameViewController.m */,
-				122CE5BA183A34D4001771DC /* SettingViewController.h */,
-				122CE5BB183A34D4001771DC /* SettingViewController.m */,
-			);
-			name = MyMiu;
-			sourceTree = "<group>";
-		};
-		14009EC01841ED2600D93DEF /* Helpers */ = {
-			isa = PBXGroup;
-			children = (
-				127915511833292700CF94F4 /* Utils.h */,
-				127915521833292700CF94F4 /* Utils.m */,
-			);
-			name = Helpers;
+			path = AirQuery;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1181,6 +1128,7 @@
 				124789F81836363100AA0083 /* SBJsonStreamParserState.m in Sources */,
 				122BD721184057F100BAA9A9 /* HotelOrderDetailCell.m in Sources */,
 				124789FC1836363100AA0083 /* SBJsonTokeniser.m in Sources */,
+				1807C0B51844868800199E5D /* AirListViewController.m in Sources */,
 				124789F51836363100AA0083 /* SBJsonStreamParser.m in Sources */,
 				124789FB1836363100AA0083 /* SBJsonStreamWriterState.m in Sources */,
 				124789F21836363100AA0083 /* LoadingMoreTableFooterView.m in Sources */,
@@ -1248,7 +1196,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -1261,6 +1208,7 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer: QIAO HE (Y88572P6Z4)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -1287,7 +1235,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -1300,6 +1247,7 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer: QIAO HE (Y88572P6Z4)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
@@ -1321,7 +1269,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer: QIAO HE (Y88572P6Z4)";
+				CODE_SIGN_IDENTITY = "";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MiuTrip/MiuTrip-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
@@ -1345,7 +1293,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer: QIAO HE (Y88572P6Z4)";
+				CODE_SIGN_IDENTITY = "";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MiuTrip/MiuTrip-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
@@ -1367,7 +1315,6 @@
 		12791545183326B700CF94F4 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/MiuTrip.app/MiuTrip";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
@@ -1390,7 +1337,6 @@
 		12791546183326B700CF94F4 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/MiuTrip.app/MiuTrip";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",

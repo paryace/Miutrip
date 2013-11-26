@@ -1,7 +1,7 @@
 //
 //  HomeViewController.h
 //  MiuTrip
-//  首页
+//
 //  Created by SuperAdmin on 11/13/13.
 //  Copyright (c) 2013 michael. All rights reserved.
 //
@@ -36,6 +36,8 @@
 @property (strong, nonatomic) UILabel                   *position;
 @property (strong, nonatomic) UILabel                   *company;
 
+- (void)getLoginUserInfo;                                               //获取用户信息
+
 @end
 
 @interface HomeCustomBtn : UIView<BtnItemDelegate>
@@ -68,3 +70,4 @@
 @property (strong, nonatomic) NSString      *leftPlaceholder;
 
 @end
+

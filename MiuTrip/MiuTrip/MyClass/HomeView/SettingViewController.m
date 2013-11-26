@@ -62,7 +62,7 @@
         [UserDefaults shareUserDefault].tripGoal = sender.tag - 200;
     }
     for (CustomStatusBtn *control in array) {
-        [control setHighlighted:(control.tag == sender.tag)];
+        [control setHighlighteds:(control.tag == sender.tag)];
     }
 }
 
@@ -134,7 +134,7 @@
     CustomStatusBtn *reserveForSelf = [[CustomStatusBtn alloc]initWithFrame:CGRectMake(controlXLength(reserveObjectLabel) + 10, reserveObjectLabel.frame.origin.y, (preferBGView.frame.size.width - controlXLength(reserveObjectLabel) - 20)/2, reserveObjectLabel.frame.size.height)];
     [reserveForSelf setDetail:@"本人"];
     [reserveForSelf setTag:100];
-    [reserveForSelf setHighlighted:([UserDefaults shareUserDefault].reserveObject == 0)];
+    [reserveForSelf setHighlighteds:([UserDefaults shareUserDefault].reserveObject == 0)];
     [reserveForSelf setBackgroundColor:color(clearColor)];
     [reserveForSelf setImage:imageNameAndType(@"set_item_normal", nil) selectedImage:imageNameAndType(@"set_item_select", nil)];
     [reserveForSelf addTarget:self action:@selector(selectReserveGoal:) forControlEvents:UIControlEventTouchUpInside];
@@ -143,7 +143,7 @@
     CustomStatusBtn *reserveForOthers = [[CustomStatusBtn alloc]initWithFrame:CGRectMake(controlXLength(reserveForSelf), reserveObjectLabel.frame.origin.y, reserveForSelf.frame.size.width, reserveForSelf.frame.size.height)];
     [reserveForOthers setDetail:@"他人/多人"];
     [reserveForOthers setTag:101];
-    [reserveForOthers setHighlighted:([UserDefaults shareUserDefault].reserveObject == 1)];
+    [reserveForOthers setHighlighteds:([UserDefaults shareUserDefault].reserveObject == 1)];
     [reserveForOthers setBackgroundColor:color(clearColor)];
     [reserveForOthers setImage:imageNameAndType(@"set_item_normal", nil) selectedImage:imageNameAndType(@"set_item_select", nil)];
     [reserveForOthers addTarget:self action:@selector(selectReserveGoal:) forControlEvents:UIControlEventTouchUpInside];
@@ -165,7 +165,7 @@
     CustomStatusBtn *onBusiness = [[CustomStatusBtn alloc]initWithFrame:CGRectMake(controlXLength(tripGoalLabel) + 10, tripGoalLabel.frame.origin.y, reserveForSelf.frame.size.width, reserveForSelf.frame.size.height)];
     [onBusiness setDetail:@"因公"];
     [onBusiness setTag:200];
-    [onBusiness setHighlighted:([UserDefaults shareUserDefault].tripGoal == 0)];
+    [onBusiness setHighlighteds:([UserDefaults shareUserDefault].tripGoal == 0)];
     [onBusiness setBackgroundColor:color(clearColor)];
     [onBusiness setImage:imageNameAndType(@"set_item_normal", nil) selectedImage:imageNameAndType(@"set_item_select", nil)];
     [onBusiness addTarget:self action:@selector(selectReserveGoal:) forControlEvents:UIControlEventTouchUpInside];
@@ -174,7 +174,7 @@
     CustomStatusBtn *forPrivate = [[CustomStatusBtn alloc]initWithFrame:CGRectMake(controlXLength(onBusiness), tripGoalLabel.frame.origin.y, reserveForSelf.frame.size.width, reserveForSelf.frame.size.height)];
     [forPrivate setDetail:@"因私"];
     [forPrivate setTag:201];
-    [forPrivate setHighlighted:([UserDefaults shareUserDefault].tripGoal == 1)];
+    [forPrivate setHighlighteds:([UserDefaults shareUserDefault].tripGoal == 1)];
     [forPrivate setBackgroundColor:color(clearColor)];
     [forPrivate setImage:imageNameAndType(@"set_item_normal", nil) selectedImage:imageNameAndType(@"set_item_select", nil)];
     [forPrivate addTarget:self action:@selector(selectReserveGoal:) forControlEvents:UIControlEventTouchUpInside];

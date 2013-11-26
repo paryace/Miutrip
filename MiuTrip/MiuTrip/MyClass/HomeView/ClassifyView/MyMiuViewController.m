@@ -30,7 +30,7 @@
 - (void)setSubviewFrame
 {
     [self setBackGroundImage:imageNameAndType(@"home_bg", nil)];
-
+    [self setTitle:@"我的觅优"];
     [self setTopBarBackGroundImage:imageNameAndType(@"topbar", nil)];
     
     UIButton *returnBtn = [UIButton buttonWithType:UIButtonTypeCustom];

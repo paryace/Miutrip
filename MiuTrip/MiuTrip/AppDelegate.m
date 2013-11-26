@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "RegisterAndLogViewController.h"
+#import "HomeViewController.h"
 
 @implementation AppDelegate
 
@@ -15,8 +16,11 @@
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
-    RegisterAndLogViewController *registerAndLogView = [[RegisterAndLogViewController alloc]init];
-    UINavigationController *navigationController = [[UINavigationController alloc]initWithRootViewController:registerAndLogView];
+    if ([UserDefaults shareUserDefault].authTkn) {
+        _viewController = [[HomeViewController alloc]init];
+    }else
+        _viewController = [[RegisterAndLogViewController alloc]init];
+    UINavigationController *navigationController = [[UINavigationController alloc]initWithRootViewController:_viewController];
     [navigationController setNavigationBarHidden:YES];
     self.window.rootViewController = navigationController;
     //[[UIApplication sharedApplication] setStatusBarHidden:YES];

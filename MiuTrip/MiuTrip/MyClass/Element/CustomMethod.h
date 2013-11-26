@@ -54,6 +54,8 @@ typedef NS_OPTIONS(NSInteger, ButtonImageState){
 - (void)setBorderColor:(UIColor*)color width:(CGFloat)width;//设置边框
 - (void)setCornerRadius:(CGFloat)radius;
 
+- (void)createLineWithParam:(NSObject*)param frame:(CGRect)frame;
+
 @end
 
 @interface UIButton (UIButtonCustomMethod)
@@ -75,10 +77,11 @@ typedef NS_OPTIONS(NSInteger, ButtonImageState){
 @property (assign, nonatomic) BOOL                  select;
 
 - (void)setDetail:(NSString*)detail;
+- (void)setTextColor:(UIColor*)color;
 - (void)setImage:(UIImage*)image selectedImage:(UIImage*)selectedImage;
 - (void)setLeftViewScaleX:(CGFloat)sx scaleY:(CGFloat)sy;
 
-- (void)setHighlighted:(BOOL)highLighted;
+- (void)setHighlighteds:(BOOL)highLighted;
 
 - (void)addTarget:(id)target action:(SEL)action forControlEvents:(UIControlEvents)controlEvents;
 - (void)removeTarger:(id)target action:(SEL)action forControlEvents:(UIControlEvents)controlEvents;

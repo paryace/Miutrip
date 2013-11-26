@@ -8,30 +8,6 @@
 
 #import "BaseUIViewController.h"
 
-@implementation NSString (OAURLEncodingAdditions)
-- (NSString *)URLEncodedString
-{
-    NSString *result = (NSString *)CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault,(CFStringRef)self,NULL,CFSTR("!*'();:@&=+$,/?%#[]"),kCFStringEncodingUTF8));
-    
-    return result;
-}
-
-- (NSString *)URLDecodedString
-{
-    NSString *result = (NSString *)CFBridgingRelease(CFURLCreateStringByReplacingPercentEscapesUsingEncoding
-                                                     (kCFAllocatorDefault,
-                                                      (CFStringRef)self, CFSTR(""),
-                                                      kCFStringEncodingUTF8));
-    result = [result stringByReplacingOccurrencesOfString:@"+" withString:@" "];
-    
-    return result;
-    /*
-     NSString *result = (NSString *)CFURLCreateStringByReplacingPercentEscapesUsingEncoding(kCFAllocatorDefault, (CFStringRef)self, CFSTR("!*'();:@&=+$,/?%#[]"), kCFStringEncodingUTF8);
-     [result autorelease];
-     return result;*/
-} 
-@end
-
 @interface BaseUIViewController ()
 
 @property (strong, nonatomic) UIImageView               *backGroundImageView;
@@ -314,41 +290,47 @@
     return nil;
 }
 
-- (void)sendRequestWithURL:(NSString*)URLString params:(NSDictionary*)params requestMethod:(RequestType)requestType userInfo:(NSDictionary*)userInfo
+- (void)sendRequestWithURL:(NSString*)URLString params:(NSDictionary*)_params requestMethod:(RequestType)requestType userInfo:(NSDictionary*)userInfo
 {
-    if (requestType == RequestGet) {
-        NSMutableDictionary *cookie = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                                       [UserDefaults shareUserDefault].cookie,  @"Cookie",
-                                       nil];
-        NSString *urlParams = @"";
-        if (params != nil) {
-            NSArray *keys = [params allKeys];
-            for (NSString *key in keys) {
-                urlParams = [urlParams stringByAppendingFormat:@"%@=%@",key,[params objectForKey:key]];
-                if (key != [keys lastObject]) {
-                    urlParams = [urlParams stringByAppendingString:@"&"];
-                }
-            }
-            if (urlParams) {
-                URLString = [URLString stringByAppendingFormat:@"?%@",urlParams];
-            }
-        }
-        ASIHTTPRequest *request = [[ASIHTTPRequest alloc]initWithURL:[NSURL URLWithString:URLString]];
-        [request setUserInfo:userInfo];
-        [request setTimeOutSeconds:10];
-        [request setRequestHeaders:cookie];
-        [request setUseCookiePersistence:NO];
-        [request setDelegate:self];
-        [request startAsynchronous];
-    }else if (requestType == RequestPost || requestType == RequestLogIn){
-        
+//    if (requestType == RequestGet) {
+//        NSMutableDictionary *cookie = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+//                                       [UserDefaults shareUserDefault].cookie,  @"Cookie",
+//                                       nil];
+//        NSString *urlParams = @"";
+//        if (params != nil) {
+//            NSArray *keys = [params allKeys];
+//            for (NSString *key in keys) {
+//                urlParams = [urlParams stringByAppendingFormat:@"%@=%@",key,[params objectForKey:key]];
+//                if (key != [keys lastObject]) {
+//                    urlParams = [urlParams stringByAppendingString:@"&"];
+//                }
+//            }
+//            if (urlParams) {
+//                URLString = [URLString stringByAppendingFormat:@"?%@",urlParams];
+//            }
+//        }
+//        ASIHTTPRequest *request = [[ASIHTTPRequest alloc]initWithURL:[NSURL URLWithString:URLString]];
+//        [request setUserInfo:userInfo];
+//        [request setTimeOutSeconds:30];
+//        [request setRequestHeaders:cookie];
+//        [request setUseCookiePersistence:NO];
+//        [request setDelegate:self];
+//        [request startAsynchronous];
+//    }else
+    NSMutableDictionary *params = nil;
+    if (_params) {
+        params = [NSMutableDictionary dictionaryWithDictionary:_params];
+    }else{
+        params = [NSMutableDictionary dictionary];
+    }
+    if (requestType == RequestPost || requestType == RequestLogIn){
+    
         ASIFormDataRequest *request = [[ASIFormDataRequest alloc]initWithURL:[NSURL URLWithString:URLString]];
         [request setUserInfo:userInfo];
-        NSArray *keys = [params allKeys];
-        for (NSString *key in keys) {
-            [request setPostValue:[params objectForKey:key] forKey:key];
-        }
-        [request setDelegate:self];
+        
+        [params setObject:deviceId forKey:@"deviceId"];
+        [params setObject:@"0" forKey:@"appId"];
+        [params setObject:[Utils stringWithDate:[NSDate date] withFormat:@"yyyy-MM-dd HH:mm:ss"] forKey:@"processTime"];
         if (requestType != RequestLogIn) {
             if ([UserDefaults shareUserDefault].cookie) {
                 NSMutableDictionary *cookie = [NSMutableDictionary dictionaryWithObjectsAndKeys:
@@ -356,16 +338,30 @@
                                                nil];
                 [request setRequestHeaders:cookie];
             }
+            if ([UserDefaults shareUserDefault].authTkn) {
+                [params setObject:[UserDefaults shareUserDefault].authTkn forKey:@"authTkn"];
+            }
         }
-        [request setTimeOutSeconds:10];
+        
+        [request setPostValue:[params JSONRepresentation] forKey:@"Json"];
+        [request setDelegate:self];
+        
+        [request setTimeOutSeconds:30];
         [request setUseCookiePersistence:NO];
         [request startAsynchronous];
     }else if (requestType == RequestLogOut){
-        ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:URLString]];
+        ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:[NSURL URLWithString:URLString]];
         request.requestHeaders = [NSMutableDictionary dictionaryWithDictionary:params];
         [request setUserInfo:userInfo];
+        
+        [params setObject:deviceId forKey:@"deviceId"];
+        [params setObject:@"0" forKey:@"appId"];
+        [params setObject:[Utils stringWithDate:[NSDate date] withFormat:@"yyyy-MM-dd HH:mm:ss"] forKey:@"processTime"];
+        [params setObject:[UserDefaults shareUserDefault].authTkn forKey:@"authTkn"];
+        NSLog(@"json = %@",[params JSONRepresentation]);
+        [request setPostValue:[params JSONRepresentation] forKey:@"Json"];
         [request setUseCookiePersistence:NO];
-        [request setTimeOutSeconds:10];
+        [request setTimeOutSeconds:30];
         request.delegate = self;
         [request startAsynchronous];
     }
@@ -374,8 +370,20 @@
 
 - (void)requestFinished:(ASIHTTPRequest *)request
 {
+    NSLog(@"response string = %@",request.responseString);
     self.view.userInteractionEnabled = YES;
-    [self requestDone:request];
+    NSDictionary *dic = [request.responseString JSONValue];
+    if ([[dic objectForKey:@"process_status"] isEqualToString:@"0"]) {
+        NSString *requestType = [request.userInfo objectForKey:@"requestType"];
+        if ([requestType isEqualToString:@"RequestLogIn"]) {
+            [UserDefaults shareUserDefault].authTkn = [dic objectForKey:@"authTkn"];
+        }else if ([requestType isEqualToString:@"RequestLogOut"]) {
+            [[UserDefaults shareUserDefault] clearDefaults];
+        }
+        [self requestDone:request];
+    }else{
+        [[Model shareModel] showPromptText:[NSString stringWithFormat:@"%@\n错误码%@",[dic objectForKey:@"errorMessage"],[dic objectForKey:@"errorCode"]] model:YES];
+    }
 }
 - (void)requestFailed:(ASIHTTPRequest *)request
 {
@@ -470,6 +478,20 @@
 - (UIStatusBarStyle)preferredStatusBarStyle
 {
     return UIStatusBarStyleDefault;
+}
+
+- (UIImageView *)createLineWithParam:(NSObject*)param frame:(CGRect)frame
+{
+    UIImageView *line = [[UIImageView alloc]initWithFrame:frame];
+    if ([param isKindOfClass:[UIColor class]]) {
+        UIColor *color = (UIColor*)param;
+        [line setBackgroundColor:color];
+        [line setAlpha:0.5];
+    }else if ([param isKindOfClass:[UIImage class]]){
+        UIImage *image = (UIImage*)param;
+        [line setImage:image];
+    }
+    return line;
 }
 
 - (void)viewDidLoad

@@ -1,7 +1,7 @@
 //
 //  CommonlyNameViewController.h
 //  MiuTrip
-//  常用出行人页面
+//
 //  Created by SuperAdmin on 13-11-15.
 //  Copyright (c) 2013年 michael. All rights reserved.
 //

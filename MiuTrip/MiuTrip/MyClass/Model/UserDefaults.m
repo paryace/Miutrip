@@ -35,6 +35,8 @@ static UserDefaults *shareUserDefault;
 @synthesize allowShake;
 @synthesize searchRadiu;
 
+@synthesize authTkn;
+
 + (UserDefaults*)shareUserDefault
 {
     @synchronized(self){
@@ -66,6 +68,8 @@ static UserDefaults *shareUserDefault;
     [self setEmail:nil];
     [self setSex:nil];
     [self setGetUserInfo:NO];
+    
+    [self setAuthTkn:nil];
 }
 
 - (void)setReserveObject:(NSInteger)_reserveObject
@@ -229,6 +233,18 @@ static UserDefaults *shareUserDefault;
     return searchRadiu;
 }
 
+- (void)setAuthTkn:(NSString *)_authTkn
+{
+    if (authTkn != _authTkn) {
+        [[NSUserDefaults standardUserDefaults] setObject:_authTkn forKey:@"authTkn"];
+        authTkn = _authTkn;
+    }
+}
+
+- (NSString *)authTkn
+{
+    return [[NSUserDefaults standardUserDefaults] objectForKey:@"authTkn"];
+}
 
 @end
 

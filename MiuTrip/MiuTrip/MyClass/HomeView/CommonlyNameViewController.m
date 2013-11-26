@@ -28,7 +28,6 @@
 -(id)init
 {
     if (self = [super init]) {
-        
         _dataSource = [NSMutableArray arrayWithArray:[CommonlyName getCommonDataWithNum:7]];
 
         [self setSubviewFrame];
@@ -69,8 +68,6 @@
     }
     CustomBtn *deleteBtn = (CustomBtn*)[cell viewWithTag:303];
     CustomBtn *saveBtn   = (CustomBtn*)[cell viewWithTag:304];
-    [deleteBtn addTarget:self action:@selector(pressBtn:) forControlEvents:UIControlEventTouchUpInside];
-    [saveBtn   addTarget:self action:@selector(pressBtn:) forControlEvents:UIControlEventTouchUpInside];
     
     [deleteBtn setIndexPath:indexPath];
     [saveBtn   setIndexPath:indexPath];
@@ -152,6 +149,8 @@
 
 @property (strong, nonatomic) UIImageView                   *backGroundImageView;
 
+@property (strong, nonatomic) NSMutableArray                *optionBtnArray;
+
 @end
 
 @implementation CommonlyNameViewCell
@@ -160,6 +159,7 @@
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
+        _optionBtnArray = [NSMutableArray array];
         [self setSubviewFrame];
     }
     return self;
@@ -202,7 +202,7 @@
     
     _unfoldView = [[UIView alloc]initWithFrame:CGRectMake(_userName.frame.origin.x, controlYLength(_userName), _userName.frame.size.width, 0)];
     [_unfoldView setTag:300];
-    [_unfoldView setBackgroundColor:color(clearColor)];
+    [_unfoldView setBackgroundColor:color(colorWithRed:231.0/255.0 green:235.0/255.0 blue:241.0/255.0 alpha:1)];
     [self.contentView addSubview:_unfoldView];
     
     UILabel *unfoldUserNameLeft = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, _unfoldView.frame.size.width/4, CommonlyNameViewCellHeight)];
@@ -212,12 +212,14 @@
     [unfoldUserNameLeft setTextColor:color(grayColor)];
     _unfoldUserName = [[UITextField alloc]initWithFrame:CGRectMake(0, 0, _unfoldView.frame.size.width, unfoldUserNameLeft.frame.size.height)];
     [_unfoldUserName setBackgroundColor:color(clearColor)];
-    [_unfoldUserName setBackground:imageNameAndType(@"cname_unfold_box_bg", nil)];
+    //[_unfoldUserName setBackground:imageNameAndType(@"cname_unfold_box_bg", nil)];
     [_unfoldUserName setEnabled:NO];
     [_unfoldUserName setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
     [_unfoldUserName setLeftView:unfoldUserNameLeft];
     [_unfoldUserName setLeftViewMode:UITextFieldViewModeAlways];
     [_unfoldView addSubview:_unfoldUserName];
+    
+    [_unfoldView addSubview:[self createLineWithFrame:CGRectMake(_unfoldUserName.frame.origin.x, controlYLength(_unfoldUserName), _unfoldUserName.frame.size.width, 1)]];
     
     UILabel *nationalityLeft = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, unfoldUserNameLeft.frame.size.width, unfoldUserNameLeft.frame.size.height)];
     [nationalityLeft setBackgroundColor:color(clearColor)];
@@ -226,12 +228,14 @@
     [nationalityLeft setTextColor:color(grayColor)];
     _nationality = [[UITextField alloc]initWithFrame:CGRectMake(_unfoldUserName.frame.origin.x, controlYLength(_unfoldUserName), _unfoldUserName.frame.size.width, _unfoldUserName.frame.size.height)];
     [_nationality setBackgroundColor:color(clearColor)];
-    [_nationality setBackground:imageNameAndType(@"cname_unfold_box_bg", nil)];
+    //[_nationality setBackground:imageNameAndType(@"cname_unfold_box_bg", nil)];
     [_nationality setEnabled:NO];
     [_nationality setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
     [_nationality setLeftView:nationalityLeft];
     [_nationality setLeftViewMode:UITextFieldViewModeAlways];
     [_unfoldView addSubview:_nationality];
+    
+    [_unfoldView addSubview:[self createLineWithFrame:CGRectMake(_unfoldUserName.frame.origin.x, controlYLength(_nationality), _unfoldUserName.frame.size.width, 1)]];
     
     UILabel *cardTypeLeft = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, unfoldUserNameLeft.frame.size.width, unfoldUserNameLeft.frame.size.height)];
     [cardTypeLeft setBackgroundColor:color(clearColor)];
@@ -240,12 +244,14 @@
     [cardTypeLeft setTextColor:color(grayColor)];
     _cardType = [[UITextField alloc]initWithFrame:CGRectMake(_unfoldUserName.frame.origin.x, controlYLength(_nationality), _unfoldUserName.frame.size.width, _unfoldUserName.frame.size.height)];
     [_cardType setBackgroundColor:color(clearColor)];
-    [_cardType setBackground:imageNameAndType(@"cname_unfold_box_bg", nil)];
+    //[_cardType setBackground:imageNameAndType(@"cname_unfold_box_bg", nil)];
     [_cardType setEnabled:NO];
     [_cardType setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
     [_cardType setLeftView:cardTypeLeft];
     [_cardType setLeftViewMode:UITextFieldViewModeAlways];
     [_unfoldView addSubview:_cardType];
+    
+    [_unfoldView addSubview:[self createLineWithFrame:CGRectMake(_unfoldUserName.frame.origin.x, controlYLength(_cardType), _unfoldUserName.frame.size.width, 1)]];
     
     UILabel *cardNumLeft = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, unfoldUserNameLeft.frame.size.width, unfoldUserNameLeft.frame.size.height)];
     [cardNumLeft setBackgroundColor:color(clearColor)];
@@ -254,12 +260,14 @@
     [cardNumLeft setTextColor:color(grayColor)];
     _cardNum = [[UITextField alloc]initWithFrame:CGRectMake(_unfoldUserName.frame.origin.x, controlYLength(_cardType), _unfoldUserName.frame.size.width, _unfoldUserName.frame.size.height)];
     [_cardNum setBackgroundColor:color(clearColor)];
-    [_cardNum setBackground:imageNameAndType(@"cname_unfold_box_bg", nil)];
+    //[_cardNum setBackground:imageNameAndType(@"cname_unfold_box_bg", nil)];
     [_cardNum setEnabled:NO];
     [_cardNum setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
     [_cardNum setLeftView:cardNumLeft];
     [_cardNum setLeftViewMode:UITextFieldViewModeAlways];
     [_unfoldView addSubview:_cardNum];
+    
+    [_unfoldView addSubview:[self createLineWithFrame:CGRectMake(_unfoldUserName.frame.origin.x, controlYLength(_cardNum), _unfoldUserName.frame.size.width, 1)]];
     
     UILabel *phoneNumLeft = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, unfoldUserNameLeft.frame.size.width, unfoldUserNameLeft.frame.size.height)];
     [phoneNumLeft setBackgroundColor:color(clearColor)];
@@ -268,142 +276,194 @@
     [phoneNumLeft setTextColor:color(grayColor)];
     _phoneNum = [[UITextField alloc]initWithFrame:CGRectMake(_unfoldUserName.frame.origin.x, controlYLength(_cardNum), _unfoldUserName.frame.size.width, _unfoldUserName.frame.size.height)];
     [_phoneNum setBackgroundColor:color(clearColor)];
-    [_phoneNum setBackground:imageNameAndType(@"cname_unfold_box_bg", nil)];
+    //[_phoneNum setBackground:imageNameAndType(@"cname_unfold_box_bg", nil)];
     [_phoneNum setEnabled:NO];
     [_phoneNum setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
     [_phoneNum setLeftView:phoneNumLeft];
     [_phoneNum setLeftViewMode:UITextFieldViewModeAlways];
+    
+    [_unfoldView addSubview:[self createLineWithFrame:CGRectMake(_unfoldUserName.frame.origin.x, controlYLength(_phoneNum), _unfoldUserName.frame.size.width, 1)]];
     [_unfoldView addSubview:_phoneNum];
     
-    UIImageView *passengerBackImage = [[UIImageView alloc]initWithFrame:CGRectMake(_phoneNum.frame.origin.x, controlYLength(_phoneNum), _phoneNum.frame.size.width, _phoneNum.frame.size.height)];
-    [passengerBackImage setBackgroundColor:color(clearColor)];
-    [passengerBackImage setImage:imageNameAndType(@"cname_unfold_box_bg", nil)];
-    [_unfoldView addSubview:passengerBackImage];
+    CustomStatusBtn *passengersBtn = [[CustomStatusBtn alloc]initWithFrame:CGRectMake(_phoneNum.frame.origin.x, controlYLength(_phoneNum), _phoneNum.frame.size.width/3, _phoneNum.frame.size.height)];
+    [passengersBtn setTag:300];
+    [passengersBtn addTarget:self action:@selector(pressBtn:) forControlEvents:UIControlEventTouchUpInside];
+    [passengersBtn setImage:imageNameAndType(@"cname_item_normal", nil) selectedImage:imageNameAndType(@"cname_item_select", nil)];
+    [passengersBtn setLeftViewScaleX:0.65 scaleY:0.65];
+    [passengersBtn setDetail:@"默认乘机人"];
+    [_unfoldView addSubview:passengersBtn];
+    [_optionBtnArray addObject:passengersBtn];
     
-    UIButton *leftImageView1 = [UIButton buttonWithType:UIButtonTypeCustom];
-    [leftImageView1 setFrame:CGRectMake(_unfoldView.frame.origin.x + _phoneNum.frame.origin.x, _unfoldView.frame.origin.y + controlYLength(_phoneNum), _phoneNum.frame.size.height, _phoneNum.frame.size.height)];
-    [leftImageView1 setBackgroundColor:color(clearColor)];
-    [leftImageView1 setTag:200];
-    [leftImageView1 setImage:imageNameAndType(@"cname_item_normal", nil) highlightImage:imageNameAndType(@"cname_item_select", nil) forState:ButtonImageStateTop];
-    [self addSubview:leftImageView1];
+    CustomStatusBtn *checkInBtn = [[CustomStatusBtn alloc]initWithFrame:CGRectMake(controlXLength(passengersBtn), passengersBtn.frame.origin.y, passengersBtn.frame.size.width, passengersBtn.frame.size.height)];
+    [checkInBtn setTag:301];
+    [checkInBtn addTarget:self action:@selector(pressBtn:) forControlEvents:UIControlEventTouchUpInside];
+    [checkInBtn setImage:imageNameAndType(@"cname_item_normal", nil) selectedImage:imageNameAndType(@"cname_item_select", nil)];
+    [checkInBtn setLeftViewScaleX:0.65 scaleY:0.65];
+    [checkInBtn setDetail:@"默认入住人"];
+    [_unfoldView addSubview:checkInBtn];
+    [_optionBtnArray addObject:checkInBtn];
     
-    UILabel *detailLabel1 = [[UILabel alloc]initWithFrame:CGRectMake(controlXLength(leftImageView1), leftImageView1.frame.origin.y, _phoneNum.frame.size.width/3 - controlXLength(leftImageView1), leftImageView1.frame.size.height)];
-    [detailLabel1 setBackgroundColor:color(clearColor)];
-    [detailLabel1 setFont:[UIFont systemFontOfSize:12]];
-    [detailLabel1 setAdjustsFontSizeToFitWidth:YES];
-    [detailLabel1 setAdjustsLetterSpacingToFitWidth:YES];
-    [detailLabel1 setBaselineAdjustment:UIBaselineAdjustmentAlignBaselines];
-    [detailLabel1 setMinimumScaleFactor:0.3];
-    [detailLabel1 setText:@"默认乘机人"];
-    [self addSubview:detailLabel1];
+    CustomStatusBtn *contactsBtn = [[CustomStatusBtn alloc]initWithFrame:CGRectMake(controlXLength(checkInBtn), checkInBtn.frame.origin.y, passengersBtn.frame.size.width, passengersBtn.frame.size.height)];
+    [contactsBtn setTag:302];
+    [contactsBtn addTarget:self action:@selector(pressBtn:) forControlEvents:UIControlEventTouchUpInside];
+    [contactsBtn setImage:imageNameAndType(@"cname_item_normal", nil) selectedImage:imageNameAndType(@"cname_item_select", nil)];
+    [contactsBtn setLeftViewScaleX:0.65 scaleY:0.65];
+    [contactsBtn setDetail:@"默认联系人"];
+    [_unfoldView addSubview:contactsBtn];
+    [_optionBtnArray addObject:contactsBtn];
     
-    UIButton *btn1 = [UIButton buttonWithType:UIButtonTypeCustom];
-    [btn1 setFrame:CGRectMake(leftImageView1.frame.origin.x, leftImageView1.frame.origin.y, _phoneNum.frame.size.width/3, _phoneNum.frame.size.height)];
-    [btn1 setBackgroundColor:color(clearColor)];
-    [btn1 setTag:300];
-    [btn1 addTarget:self action:@selector(pressBtn:) forControlEvents:UIControlEventTouchUpInside];
-    [self addSubview:btn1];
-    
-    UIButton *leftImageView2 = [UIButton buttonWithType:UIButtonTypeCustom];
-    [leftImageView2 setFrame:CGRectMake(controlXLength(btn1), leftImageView1.frame.origin.y, leftImageView1.frame.size.width, leftImageView1.frame.size.height)];
-    [leftImageView2 setBackgroundColor:color(clearColor)];
-    [leftImageView2 setTag:201];
-    [leftImageView2 setImage:imageNameAndType(@"cname_item_normal", nil) highlightImage:imageNameAndType(@"cname_item_select", nil) forState:ButtonImageStateTop];
-    [self addSubview:leftImageView2];
-    
-    UILabel *detailLabel2 = [[UILabel alloc]initWithFrame:CGRectMake(controlXLength(leftImageView2), leftImageView2.frame.origin.y, detailLabel1.frame.size.width, detailLabel1.frame.size.height)];
-    [detailLabel2 setBackgroundColor:color(clearColor)];
-    [detailLabel2 setFont:[UIFont systemFontOfSize:12]];
-    [detailLabel2 setAdjustsFontSizeToFitWidth:YES];
-    [detailLabel2 setAdjustsLetterSpacingToFitWidth:YES];
-    [detailLabel2 setBaselineAdjustment:UIBaselineAdjustmentAlignBaselines];
-    [detailLabel2 setMinimumScaleFactor:0.3];
-    [detailLabel2 setText:@"默认入住人"];
-    [self addSubview:detailLabel2];
-    
-    UIButton *btn2 = [UIButton buttonWithType:UIButtonTypeCustom];
-    [btn2 setFrame:CGRectMake(leftImageView2.frame.origin.x, btn1.frame.origin.y, btn1.frame.size.width, btn1.frame.size.height)];
-    [btn2 setBackgroundColor:color(clearColor)];
-    [btn2 setTag:301];
-    [btn2 addTarget:self action:@selector(pressBtn:) forControlEvents:UIControlEventTouchUpInside];
-    [self addSubview:btn2];
-    
-    UIButton *leftImageView3 = [UIButton buttonWithType:UIButtonTypeCustom];
-    [leftImageView3 setFrame:CGRectMake(controlXLength(btn2), leftImageView1.frame.origin.y, leftImageView1.frame.size.width, leftImageView1.frame.size.height)];
-    [leftImageView3 setBackgroundColor:color(clearColor)];
-    [leftImageView3 setTag:202];
-    [leftImageView3 setImage:imageNameAndType(@"cname_item_normal", nil) highlightImage:imageNameAndType(@"cname_item_select", nil) forState:ButtonImageStateTop];
-    [self addSubview:leftImageView3];
-    
-    UILabel *detailLabel3 = [[UILabel alloc]initWithFrame:CGRectMake(controlXLength(leftImageView3), leftImageView2.frame.origin.y, detailLabel2.frame.size.width, detailLabel2.frame.size.height)];
-    [detailLabel3 setBackgroundColor:color(clearColor)];
-    [detailLabel3 setFont:[UIFont systemFontOfSize:12]];
-    [detailLabel3 setAdjustsFontSizeToFitWidth:YES];
-    [detailLabel3 setAdjustsLetterSpacingToFitWidth:YES];
-    [detailLabel3 setBaselineAdjustment:UIBaselineAdjustmentAlignBaselines];
-    [detailLabel3 setMinimumScaleFactor:0.3];
-    [detailLabel3 setText:@"默认联系人"];
-    [self addSubview:detailLabel3];
-    
-    UIButton *btn3 = [UIButton buttonWithType:UIButtonTypeCustom];
-    [btn3 setFrame:CGRectMake(leftImageView3.frame.origin.x, btn1.frame.origin.y, btn1.frame.size.width, btn1.frame.size.height)];
-    [btn3 setBackgroundColor:color(clearColor)];
-    [btn3 setTag:302];
-    [btn3 addTarget:self action:@selector(pressBtn:) forControlEvents:UIControlEventTouchUpInside];
-    [self addSubview:btn3];
-    
-    [leftImageView1 setScaleX:0.65 scaleY:0.65];
-    [leftImageView2 setScaleX:0.65 scaleY:0.65];
-    [leftImageView3 setScaleX:0.65 scaleY:0.65];
-    
-    UIImageView *contactsEditBackImage = [[UIImageView alloc]initWithFrame:CGRectMake(passengerBackImage.frame.origin.x, controlYLength(passengerBackImage), passengerBackImage.frame.size.width, passengerBackImage.frame.size.height * 2)];
-    [contactsEditBackImage setBackgroundColor:color(clearColor)];
-    [contactsEditBackImage setImage:stretchImage(@"cname_unfold_box_bg", nil)];
-    [_unfoldView addSubview:contactsEditBackImage];
+    [_unfoldView addSubview:[self createLineWithFrame:CGRectMake(_unfoldUserName.frame.origin.x, controlYLength(passengersBtn), _unfoldUserName.frame.size.width, 1)]];
+    [_unfoldView addSubview:_phoneNum];
     
     CustomBtn *deleteBtn = [CustomBtn buttonWithType:UIButtonTypeCustom];
     [deleteBtn setBackgroundColor:color(clearColor)];
     [deleteBtn setTag:303];
-    [deleteBtn setFrame:CGRectMake(self.contentView.frame.size.width/7, controlYLength(_unfoldView) + contactsEditBackImage.frame.origin.y + contactsEditBackImage.frame.size.height/4, self.contentView.frame.size.width * 2/7, passengerBackImage.frame.size.height)];
+    [deleteBtn setFrame:CGRectMake(_phoneNum.frame.size.width/6, controlYLength(passengersBtn) + passengersBtn.frame.size.height/2, passengersBtn.frame.size.width,passengersBtn.frame.size.height)];
     [deleteBtn setImage:imageNameAndType(@"cname_delete_normal", nil) highlightImage:imageNameAndType(@"cname_delete_press", nil) forState:ButtonImageStateBottom];
     [deleteBtn setTitle:@"删除" forState:UIControlStateNormal];
-    [self.contentView addSubview:deleteBtn];
+    [_unfoldView addSubview:deleteBtn];
     
     CustomBtn *saveBtn = [CustomBtn buttonWithType:UIButtonTypeCustom];
     [saveBtn setBackgroundColor:color(clearColor)];
     [saveBtn setTag:304];
-    [saveBtn setFrame:CGRectMake(self.contentView.frame.size.width * 4/7, deleteBtn.frame.origin.y, deleteBtn.frame.size.width, deleteBtn.frame.size.height)];
+    [saveBtn setFrame:CGRectMake(_unfoldView.frame.size.width - controlXLength(deleteBtn), deleteBtn.frame.origin.y, deleteBtn.frame.size.width, deleteBtn.frame.size.height)];
     [saveBtn setImage:imageNameAndType(@"cname_save_normal", nil) highlightImage:imageNameAndType(@"cname_save_press", nil) forState:ButtonImageStateBottom];
     [saveBtn setTitle:@"保存" forState:UIControlStateNormal];
-    [self.contentView addSubview:saveBtn];
+    [_unfoldView addSubview:saveBtn];
+
     
-    [self subviewUnfold:NO];
+    [deleteBtn addTarget:self action:@selector(pressBtn:) forControlEvents:UIControlEventTouchUpInside];
+    [saveBtn   addTarget:self action:@selector(pressBtn:) forControlEvents:UIControlEventTouchUpInside];
+    
+    [_unfoldView setFrame:CGRectMake(_unfoldView.frame.origin.x, _unfoldView.frame.origin.y, _unfoldView.frame.size.width, controlYLength(deleteBtn) + deleteBtn.frame.size.height/2)];
+    
+    
+    {
+//    
+//    UIImageView *passengerBackImage = [[UIImageView alloc]initWithFrame:CGRectMake(_phoneNum.frame.origin.x, controlYLength(_phoneNum), _phoneNum.frame.size.width, _phoneNum.frame.size.height)];
+//    [passengerBackImage setBackgroundColor:color(clearColor)];
+//    [passengerBackImage setImage:imageNameAndType(@"cname_unfold_box_bg", nil)];
+//    [_unfoldView addSubview:passengerBackImage];
+//    
+//    UIButton *leftImageView1 = [UIButton buttonWithType:UIButtonTypeCustom];
+//    [leftImageView1 setFrame:CGRectMake(_unfoldView.frame.origin.x + _phoneNum.frame.origin.x, _unfoldView.frame.origin.y + controlYLength(_phoneNum), _phoneNum.frame.size.height, _phoneNum.frame.size.height)];
+//    [leftImageView1 setBackgroundColor:color(clearColor)];
+//    [leftImageView1 setTag:200];
+//    [leftImageView1 setImage:imageNameAndType(@"cname_item_normal", nil) highlightImage:imageNameAndType(@"cname_item_select", nil) forState:ButtonImageStateTop];
+//    [self addSubview:leftImageView1];
+//    
+//    UILabel *detailLabel1 = [[UILabel alloc]initWithFrame:CGRectMake(controlXLength(leftImageView1), leftImageView1.frame.origin.y, _phoneNum.frame.size.width/3 - controlXLength(leftImageView1), leftImageView1.frame.size.height)];
+//    [detailLabel1 setBackgroundColor:color(clearColor)];
+//    [detailLabel1 setFont:[UIFont systemFontOfSize:12]];
+//    [detailLabel1 setAdjustsFontSizeToFitWidth:YES];
+//    [detailLabel1 setAdjustsLetterSpacingToFitWidth:YES];
+//    [detailLabel1 setBaselineAdjustment:UIBaselineAdjustmentAlignBaselines];
+//    [detailLabel1 setMinimumScaleFactor:0.3];
+//    [detailLabel1 setText:@"默认乘机人"];
+//    [self addSubview:detailLabel1];
+//    
+//    UIButton *btn1 = [UIButton buttonWithType:UIButtonTypeCustom];
+//    [btn1 setFrame:CGRectMake(leftImageView1.frame.origin.x, leftImageView1.frame.origin.y, _phoneNum.frame.size.width/3, _phoneNum.frame.size.height)];
+//    [btn1 setBackgroundColor:color(clearColor)];
+//    [btn1 setTag:300];
+//    [btn1 addTarget:self action:@selector(pressBtn:) forControlEvents:UIControlEventTouchUpInside];
+//    [self addSubview:btn1];
+//    
+//    UIButton *leftImageView2 = [UIButton buttonWithType:UIButtonTypeCustom];
+//    [leftImageView2 setFrame:CGRectMake(controlXLength(btn1), leftImageView1.frame.origin.y, leftImageView1.frame.size.width, leftImageView1.frame.size.height)];
+//    [leftImageView2 setBackgroundColor:color(clearColor)];
+//    [leftImageView2 setTag:201];
+//    [leftImageView2 setImage:imageNameAndType(@"cname_item_normal", nil) highlightImage:imageNameAndType(@"cname_item_select", nil) forState:ButtonImageStateTop];
+//    [self addSubview:leftImageView2];
+//    
+//    UILabel *detailLabel2 = [[UILabel alloc]initWithFrame:CGRectMake(controlXLength(leftImageView2), leftImageView2.frame.origin.y, detailLabel1.frame.size.width, detailLabel1.frame.size.height)];
+//    [detailLabel2 setBackgroundColor:color(clearColor)];
+//    [detailLabel2 setFont:[UIFont systemFontOfSize:12]];
+//    [detailLabel2 setAdjustsFontSizeToFitWidth:YES];
+//    [detailLabel2 setAdjustsLetterSpacingToFitWidth:YES];
+//    [detailLabel2 setBaselineAdjustment:UIBaselineAdjustmentAlignBaselines];
+//    [detailLabel2 setMinimumScaleFactor:0.3];
+//    [detailLabel2 setText:@"默认入住人"];
+//    [self addSubview:detailLabel2];
+//    
+//    UIButton *btn2 = [UIButton buttonWithType:UIButtonTypeCustom];
+//    [btn2 setFrame:CGRectMake(leftImageView2.frame.origin.x, btn1.frame.origin.y, btn1.frame.size.width, btn1.frame.size.height)];
+//    [btn2 setBackgroundColor:color(clearColor)];
+//    [btn2 setTag:301];
+//    [btn2 addTarget:self action:@selector(pressBtn:) forControlEvents:UIControlEventTouchUpInside];
+//    [self addSubview:btn2];
+//    
+//    UIButton *leftImageView3 = [UIButton buttonWithType:UIButtonTypeCustom];
+//    [leftImageView3 setFrame:CGRectMake(controlXLength(btn2), leftImageView1.frame.origin.y, leftImageView1.frame.size.width, leftImageView1.frame.size.height)];
+//    [leftImageView3 setBackgroundColor:color(clearColor)];
+//    [leftImageView3 setTag:202];
+//    [leftImageView3 setImage:imageNameAndType(@"cname_item_normal", nil) highlightImage:imageNameAndType(@"cname_item_select", nil) forState:ButtonImageStateTop];
+//    [self addSubview:leftImageView3];
+//    
+//    UILabel *detailLabel3 = [[UILabel alloc]initWithFrame:CGRectMake(controlXLength(leftImageView3), leftImageView2.frame.origin.y, detailLabel2.frame.size.width, detailLabel2.frame.size.height)];
+//    [detailLabel3 setBackgroundColor:color(clearColor)];
+//    [detailLabel3 setFont:[UIFont systemFontOfSize:12]];
+//    [detailLabel3 setAdjustsFontSizeToFitWidth:YES];
+//    [detailLabel3 setAdjustsLetterSpacingToFitWidth:YES];
+//    [detailLabel3 setBaselineAdjustment:UIBaselineAdjustmentAlignBaselines];
+//    [detailLabel3 setMinimumScaleFactor:0.3];
+//    [detailLabel3 setText:@"默认联系人"];
+//    [self addSubview:detailLabel3];
+//    
+//    UIButton *btn3 = [UIButton buttonWithType:UIButtonTypeCustom];
+//    [btn3 setFrame:CGRectMake(leftImageView3.frame.origin.x, btn1.frame.origin.y, btn1.frame.size.width, btn1.frame.size.height)];
+//    [btn3 setBackgroundColor:color(clearColor)];
+//    [btn3 setTag:302];
+//    [btn3 addTarget:self action:@selector(pressBtn:) forControlEvents:UIControlEventTouchUpInside];
+//    [self addSubview:btn3];
+//    
+//    [leftImageView1 setScaleX:0.65 scaleY:0.65];
+//    [leftImageView2 setScaleX:0.65 scaleY:0.65];
+//    [leftImageView3 setScaleX:0.65 scaleY:0.65];
+//    
+//    UIImageView *contactsEditBackImage = [[UIImageView alloc]initWithFrame:CGRectMake(passengerBackImage.frame.origin.x, controlYLength(passengerBackImage), passengerBackImage.frame.size.width, passengerBackImage.frame.size.height * 2)];
+//    [contactsEditBackImage setBackgroundColor:color(clearColor)];
+//    [contactsEditBackImage setImage:stretchImage(@"cname_unfold_box_bg", nil)];
+//    [_unfoldView addSubview:contactsEditBackImage];
+//    
+//    CustomBtn *deleteBtn = [CustomBtn buttonWithType:UIButtonTypeCustom];
+//    [deleteBtn setBackgroundColor:color(clearColor)];
+//    [deleteBtn setTag:303];
+//    [deleteBtn setFrame:CGRectMake(self.contentView.frame.size.width/7, controlYLength(_unfoldView) + contactsEditBackImage.frame.origin.y + contactsEditBackImage.frame.size.height/4, self.contentView.frame.size.width * 2/7, passengerBackImage.frame.size.height)];
+//    [deleteBtn setImage:imageNameAndType(@"cname_delete_normal", nil) highlightImage:imageNameAndType(@"cname_delete_press", nil) forState:ButtonImageStateBottom];
+//    [deleteBtn addTarget:self action:@selector(pressBtn:) forControlEvents:UIControlEventTouchUpInside];
+//    [deleteBtn setTitle:@"删除" forState:UIControlStateNormal];
+//    [self.contentView addSubview:deleteBtn];
+//    
+//    CustomBtn *saveBtn = [CustomBtn buttonWithType:UIButtonTypeCustom];
+//    [saveBtn setBackgroundColor:color(clearColor)];
+//    [saveBtn setTag:304];
+//    [saveBtn setFrame:CGRectMake(self.contentView.frame.size.width * 4/7, deleteBtn.frame.origin.y, deleteBtn.frame.size.width, deleteBtn.frame.size.height)];
+//    [saveBtn setImage:imageNameAndType(@"cname_save_normal", nil) highlightImage:imageNameAndType(@"cname_save_press", nil) forState:ButtonImageStateBottom];
+//    [saveBtn addTarget:self action:@selector(pressBtn:) forControlEvents:UIControlEventTouchUpInside];
+//    [saveBtn setTitle:@"保存" forState:UIControlStateNormal];
+//    [self.contentView addSubview:saveBtn];
+//    
+//    [self subviewUnfold:NO];
+    }
 }
 
-- (void)pressBtn:(UIButton*)sender
+- (UIImageView *)createLineWithFrame:(CGRect)frame
 {
-    UIButton *imageView1 = (UIButton*)[self viewWithTag:200];
-    UIButton *imageView2 = (UIButton*)[self viewWithTag:201];
-    UIButton *imageView3 = (UIButton*)[self viewWithTag:202];
-    switch (sender.tag) {
-        case 300:{
-            [imageView1 setHighlighted:YES];
-            [imageView2 setHighlighted:NO];
-            [imageView3 setHighlighted:NO];
-            break;
-        }case 301:{
-            [imageView1 setHighlighted:NO];
-            [imageView2 setHighlighted:YES];
-            [imageView3 setHighlighted:NO];
-            break;
-        }case 302:{
-            [imageView1 setHighlighted:NO];
-            [imageView2 setHighlighted:NO];
-            [imageView3 setHighlighted:YES];
-            break;
+    UIImageView *line = [[UIImageView alloc]initWithFrame:frame];
+    [line setBackgroundColor:color(lightGrayColor)];
+    [line setAlpha:0.5];
+    return line;
+}
+
+- (void)pressBtn:(CustomStatusBtn*)sender
+{
+    if (sender.tag == 300 || sender.tag == 301 || sender.tag == 302) {
+        for (CustomStatusBtn *btn in _optionBtnArray) {
+            [btn setHighlighteds:(btn.tag == sender.tag)];
         }
-        default:
-            break;
+    }else{
+        NSLog(@"sender tag = %d",sender.tag);
     }
 }
 

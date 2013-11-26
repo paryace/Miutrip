@@ -41,24 +41,27 @@
     }else if (sender.tag == 101){
         
     }else if (sender.tag == 104){
-//        NSString *urlString = [TestMiuTripURL stringByAppendingString:@"/account_1_0/login/api"];
-//        NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
-//                                self.userName.text,                 @"username",
-//                                self.passWord.text,                 @"password",
-//                                nil];
-//        NSLog(@"url = %@,params = %@",urlString,params);
-//        [self sendRequestWithURL:urlString params:params requestMethod:RequestLogIn userInfo:nil];
-        HomeViewController *homeView = [[HomeViewController alloc]init];
-        [self pushViewController:homeView transitionType:TransitionPush completionHandler:^{
-            [homeView setSubjoinViewFrame];
-        }];
+        NSString *urlString = [MiuTripURL stringByAppendingString:@"/account_1_0/login/api"];
+        NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
+                                self.userName.text,                 @"username",
+                                self.passWord.text,                 @"password",
+                                nil];
+        NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:
+                                  @"RequestLogIn",          @"requestType",
+                                  nil];
+        NSLog(@"url = %@,params = %@",urlString,params);
+        [self sendRequestWithURL:urlString params:params requestMethod:RequestLogIn userInfo:userInfo];
     }
 }
 
 #pragma mark - request handle
 - (void)requestDone:(ASIHTTPRequest *)request
 {
-    NSLog(@"response = %@",request.responseString);
+    [[Model shareModel] showPromptText:@"登陆成功" model:YES];
+    HomeViewController *homeView = [[HomeViewController alloc]init];
+    [self pushViewController:homeView transitionType:TransitionPush completionHandler:^{
+        [homeView getLoginUserInfo];
+    }];
 }
 
 - (void)requestError:(ASIHTTPRequest *)request
@@ -111,7 +114,7 @@
     CGAffineTransform uNewTransform = CGAffineTransformScale(uCurrentTransform, 0.65, 0.65);
     [unameLeftView setTransform:uNewTransform];
     [_userName setPlaceholder:@"帐号/手机号"];
-    [_userName setText:@"15000609705"];
+    [_userName setText:@"13918776746"];
     [_userName setBackground:imageNameAndType(@"log_text_bg", nil)];
     [self.contentView addSubview:_userName];
     
@@ -128,7 +131,7 @@
     CGAffineTransform pNewTransform = CGAffineTransformScale(pCurrentTransform, 0.65, 0.65);
     [pwordLeftView setTransform:pNewTransform];
     [_passWord setPlaceholder:@"帐号/手机号"];
-    [_passWord setText:@"w5998991"];
+    [_passWord setText:@"111111"];
     [_passWord setSecureTextEntry:YES];
     [_passWord setBackground:imageNameAndType(@"log_text_bg", nil)];
     [self.contentView addSubview:_passWord];

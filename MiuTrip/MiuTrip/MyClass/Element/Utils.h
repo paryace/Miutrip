@@ -41,7 +41,7 @@ typedef NS_OPTIONS(NSInteger, Direction){
 +(BOOL)textIsEmpty:(NSString*)value;
 +(NSString *)stringWithDate:(NSDate*)date withFormat:(NSString*)format;
 +(NSDate*)dateWithString:(NSString *)date withFormat:(NSString*)format;
-+ (float)heightForWidth:(CGFloat)textViewWidth text:(NSString *)strText font:(UIFont*)font;
++(float)heightForWidth:(CGFloat)textViewWidth text:(NSString *)strText font:(UIFont*)font;
 +(BOOL)isValidatePhoneNum:(NSString *)phoneNum;
 +(BOOL)isValidateIdNum:(NSString *)idNum;
 +(BOOL)isValidatePassportNum:(NSString *)passportNum;

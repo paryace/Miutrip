@@ -8,7 +8,29 @@
 
 #import "CustomMethod.h"
 
+@implementation NSString (OAURLEncodingAdditions)
+- (NSString *)URLEncodedString
+{
+    NSString *result = (NSString *)CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault,(CFStringRef)self,NULL,CFSTR("!*'();:@&=+$,/?%#[]"),kCFStringEncodingUTF8));
+    
+    return result;
+}
 
+- (NSString *)URLDecodedString
+{
+    NSString *result = (NSString *)CFBridgingRelease(CFURLCreateStringByReplacingPercentEscapesUsingEncoding
+                                                     (kCFAllocatorDefault,
+                                                      (CFStringRef)self, CFSTR(""),
+                                                      kCFStringEncodingUTF8));
+    result = [result stringByReplacingOccurrencesOfString:@"+" withString:@" "];
+    
+    return result;
+    /*
+     NSString *result = (NSString *)CFURLCreateStringByReplacingPercentEscapesUsingEncoding(kCFAllocatorDefault, (CFStringRef)self, CFSTR("!*'();:@&=+$,/?%#[]"), kCFStringEncodingUTF8);
+     [result autorelease];
+     return result;*/
+}
+@end
 
 @implementation BaseContentView
 
@@ -98,7 +120,7 @@
         
         _largeHeight = [array lastObject];
         
-        CGFloat contentHeight = (controlYLength(_largeHeight) - self.frame.size.height > -35)?controlYLength(_largeHeight) + 35:self.frame.size.width;
+        CGFloat contentHeight = (controlYLength(_largeHeight) - self.frame.size.height > -40)?controlYLength(_largeHeight) + 40:self.frame.size.width;
         
         [self setContentSize:CGSizeMake(self.contentSize.width, contentHeight)];
     }else{
@@ -165,6 +187,22 @@
     }
 }
 
+
+- (void)createLineWithParam:(NSObject*)param frame:(CGRect)frame
+{
+    UIImageView *line = [[UIImageView alloc]initWithFrame:frame];
+    if ([param isKindOfClass:[UIColor class]]) {
+        UIColor *color = (UIColor*)param;
+        [line setBackgroundColor:color];
+        [line setAlpha:0.5];
+    }else if ([param isKindOfClass:[UIImage class]]){
+        UIImage *image = (UIImage*)param;
+        [line setImage:image];
+    }
+    [self addSubview:line];
+}
+
+
 @end
 
 @implementation UIButton (UIButtonCustomMethod)
@@ -216,7 +254,7 @@
 @interface CustomStatusBtn ()
 
 @property (strong, nonatomic) UIButton              *btn;
-@property (strong, nonatomic) UIImageView           *leftImageView;
+@property (strong, nonatomic) UIButton              *leftImageView;
 @property (strong, nonatomic) UILabel               *detailLabel;
 
 @end
@@ -252,15 +290,20 @@
     [_detailLabel setText:detail];
 }
 
+- (void)setTextColor:(UIColor*)color
+{
+    [_detailLabel setTextColor:color];
+}
+
 - (void)setImage:(UIImage*)image selectedImage:(UIImage*)selectedImage
 {
-    [_leftImageView setImage:image];
-    [_leftImageView setHighlightedImage:selectedImage];
+    [_leftImageView setImage:image forState:UIControlStateNormal];
+    [_leftImageView setImage:selectedImage forState:UIControlStateHighlighted];
 }
 
 - (void)setSubviewFrame
 {
-    _leftImageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, self.frame.size.height, self.frame.size.height)];
+    _leftImageView = [UIButton buttonWithType:UIButtonTypeCustom];
     [_leftImageView setFrame:CGRectMake(0, 0, self.frame.size.height, self.frame.size.height)];
     [_leftImageView setBackgroundColor:color(clearColor)];
     [self addSubview:_leftImageView];
@@ -280,7 +323,7 @@
     [self insertSubview:_btn aboveSubview:_detailLabel];
 }
 
-- (void)setHighlighted:(BOOL)highLighted
+- (void)setHighlighteds:(BOOL)highLighted
 {
     [_leftImageView setHighlighted:highLighted];
     _select = highLighted;

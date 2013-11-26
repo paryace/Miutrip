@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>8E251CD5-24E3-49A9-96A6-72D37A249C6F</string>
+	<key>IDESourceControlProjectName</key>
+	<string>MiuTrip</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>66A4A572-7C18-4F7D-8373-B52345CA4773</key>
+		<string>https://github.com/taiyang521hao/MiuTrip.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>MiuTrip.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>66A4A572-7C18-4F7D-8373-B52345CA4773</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/taiyang521hao/MiuTrip.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>66A4A572-7C18-4F7D-8373-B52345CA4773</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>66A4A572-7C18-4F7D-8373-B52345CA4773</string>
+			<key>IDESourceControlWCCName</key>
+			<string>MiuTrip</string>
+		</dict>
+	</array>
+</dict>
+</plist>
