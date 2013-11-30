@@ -346,7 +346,7 @@
         params = [NSMutableDictionary dictionary];
     }
     
-<<<<<<< HEAD
+
     ASIFormDataRequest *request = [[ASIFormDataRequest alloc]initWithURL:[NSURL URLWithString:URLString]];
     [request setUserInfo:userInfo];
     
@@ -356,7 +356,6 @@
     
     if(requestType != RequestLogIn){
             [params setObject:[UserDefaults shareUserDefault].authTkn forKey:@"authTkn"];
-=======
         ASIFormDataRequest *request = [[ASIFormDataRequest alloc]initWithURL:[NSURL URLWithString:URLString]];
         [request setUserInfo:userInfo];
         
@@ -391,7 +390,6 @@
         [request setTimeOutSeconds:30];
         request.delegate = self;
         [request startAsynchronous];
->>>>>>> 108a4d6d70d6d3d1aad23020c614221bd282cca0
     }
     
     NSString *json = [params JSONRepresentation];

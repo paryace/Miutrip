@@ -18,7 +18,7 @@ typedef NS_ENUM(NSUInteger, BusinessType){
     BUSINESS_FLIGHT = 0,
     BUSINESS_HOTEL = 1,
     BUSINESS_COMMON = 2,
-    BUSINESS_ACOUNT = 3
+    BUSINESS_ACCOUNT = 3
     
 } ;
 

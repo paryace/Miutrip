@@ -17,13 +17,11 @@
  *  将服务端返回的响应JSON字符串解析，并赋值给当前的Response
  *  对象
  */
--(void)parshJsonToResponse:(NSString *)jsonData{
+-(void)parshJsonToResponse:(NSDictionary *)responseData{
     
-    if(jsonData == NULL){
+    if(responseData == NULL){
         return;
     }
-    
-    NSDictionary *dic = [jsonData JSONValue];
     
     unsigned int outCount;
     objc_property_t *properties = class_copyPropertyList([self class], &outCount);
@@ -35,7 +33,7 @@
         NSString *key=[[NSString alloc]initWithCString:property_getName(property)
                                               encoding:NSUTF8StringEncoding];
         //获取属性对应的值
-        id value = [dic objectForKey:key];
+        id value = [responseData objectForKey:key];
                 
         NSError *error = nil;
         //校验值是否正确，正确则用KVC赋值

@@ -10,6 +10,17 @@
 
 @implementation BaseRequestModel
 
+-(BaseRequestModel *)initWidthBusinessType:(BusinessType) bussinessType methodName:(NSString *)methodName{
+    
+    if(self == [super init]){
+        _methodName = methodName;
+        _businessType = bussinessType;
+    }
+    
+    return self;
+}
+
+
 /**
  *  是否缓存该响应
  *
@@ -65,8 +76,8 @@
 }
 
 -(NSString*)getRequestURLString{
-    //子类必须重写 ！！！！！
-    return @"";
+    
+    return [URLHelper getRequestURLByBusinessType:_businessType widthMethodName:_methodName];
 }
 
 @end

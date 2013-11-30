@@ -31,14 +31,14 @@
     if (self = [super init]) {
         [self setSubviewFrame];
 
-        [self.requestManager getContact:nil];
+//        [self.requestManager getContact:nil];
     }
     return self;
 }
 
 - (void)pressRightBtn:(UIButton*)sender
 {
-    [self.requestManager getContact:nil];
+//    [self.requestManager getContact:nil];
 }
 
 #pragma mark - request handle
@@ -74,7 +74,7 @@
     
     BookPassengersDTO *passengerDetail = [_dataSource objectAtIndex:indexPath.row];
     
-    [cell setContentWithParams:passengerDetail];
+//    [cell setContentWithParams:passengerDetail];
     
     [deleteBtn setIndexPath:indexPath];
     [saveBtn   setIndexPath:indexPath];

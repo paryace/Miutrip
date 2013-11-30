@@ -12,11 +12,9 @@
 #import "ASIFormDataRequest.h"
 #import "ASINetworkQueue.h"
 #import "CustomMethod.h"
-<<<<<<< HEAD
 #import "BaseRequestModel.h"
-=======
 #import "RequestManager.h"
->>>>>>> 108a4d6d70d6d3d1aad23020c614221bd282cca0
+
 
 @class BaseContentView;
 
@@ -42,7 +40,7 @@ typedef NS_OPTIONS(NSInteger, RequestType){
     RequestLogOut
 };
 
-@interface BaseUIViewController : UIViewController<UIGestureRecognizerDelegate,BaseContentViewDelegate,RequestDelegate>
+@interface BaseUIViewController : UIViewController<UIGestureRecognizerDelegate,BaseContentViewDelegate,BusinessDelegate>
 
 @property (strong, nonatomic)                       BaseContentView                 *contentView;
 @property (strong, nonatomic, setter = setTopBar:)  UIImageView                     *topBar;

@@ -43,39 +43,34 @@
     }else if (sender.tag == 101){
         
     }else if (sender.tag == 104){
-<<<<<<< HEAD
         
-        NSString *urlString = [MiuTripURL stringByAppendingString:@"/account_1_0/login/api"];
-=======
->>>>>>> 108a4d6d70d6d3d1aad23020c614221bd282cca0
-        NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
-                                self.userName.text,                 @"username",
-                                self.passWord.text,                 @"password",
-                                nil];
-        [self.requestManager logIn:params];
+        LoginRequest *request = [[LoginRequest alloc]initWidthBusinessType:BUSINESS_ACCOUNT methodName:@"Login"];
+        
+        request.username = @"18621001200";
+        request.password = @"123456";
+        request.rememberMe = [NSNumber numberWithBool:YES];
+        
+        [self.requestManager sendRequestWithoutToken:request];
+        
         [[Model shareModel] setUserInteractionEnabled:NO];
     }
 }
 
 #pragma mark - request handle
-<<<<<<< HEAD
-- (void)requestDone:(NSDictionary *)responseData
-{
-    [[Model shareModel] showPromptText:@"登陆成功" model:YES];
-        
-    //保存TOKEN
-    [UserDefaults shareUserDefault].authTkn = [responseData objectForKey:@"authTkn"];
+
+-(void)requestFailedWithErrorCode:(NSNumber *)errorCode withErrorMsg:(NSString *)errorMsg{
     
-    [UserDefaults shareUserDefault].userName = self.userName.text;
+}
+
+-(void)requestDone:(BaseResponseModel *) response{
     
-=======
-- (void)logInDone
-{
     [[Model shareModel] setUserInteractionEnabled:YES];
->>>>>>> 108a4d6d70d6d3d1aad23020c614221bd282cca0
+    LoginResponse *loginReponse = (LoginResponse*)response;
+    [[UserDefaults shareUserDefault] setAuthTkn:loginReponse.authTkn];
     HomeViewController *homeView = [[HomeViewController alloc]init];
     [[Model shareModel] showPromptText:@"登陆成功" model:YES];
     [self pushViewController:homeView transitionType:TransitionPush completionHandler:nil];
+    
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event

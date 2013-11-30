@@ -79,18 +79,15 @@
 
 - (void)getUserLoginInfo
 {
-<<<<<<< HEAD
     NSString *urlString = [MiuTripURL stringByAppendingString:@"/account_1_0/GetUesrLoginInfo/api"];
     NSDictionary *params = [[NSDictionary alloc] initWithObjectsAndKeys:[UserDefaults shareUserDefault].userName,@"uid", nil];
     [self sendRequestWithURL:urlString params:params requestMethod:RequestPost userInfo:nil];
-=======
-    [self.requestManager getUserLoginInfo];
->>>>>>> 108a4d6d70d6d3d1aad23020c614221bd282cca0
+//    [self.requestManager getUserLoginInfo];
 }
 
 - (void)logOff:(UIButton*)sender
 {
-    [self.requestManager logOut];
+//    [self.requestManager logOut];
 }
 
 #pragma mark - request handle
@@ -102,17 +99,17 @@
 
 - (void)requestError:(ASIHTTPRequest *)request
 {
-    NSString *requestType = [request.userInfo objectForKey:@"requestType"];
-    if ([requestType isEqualToString:Logout]) {
+//    NSString *requestType = [request.userInfo objectForKey:@"requestType"];
+//    if ([requestType isEqualToString:Logout]) {
         [self popToMainViewControllerTransitionType:TransitionPush completionHandler:nil];
-    }
+//    }
 }
 
 - (void)getUserLoginInfoDone:(LoginInfoDTO*)loginInfo
 {
-    [_userName setText:loginInfo.UserName];
-    [_position setText:[Utils nilToEmpty:loginInfo.DeptName]];
-    [_company setText:[Utils nilToEmpty:loginInfo.CorpName]];
+//    [_userName setText:loginInfo.UserName];
+//    [_position setText:[Utils nilToEmpty:loginInfo.DeptName]];
+//    [_company setText:[Utils nilToEmpty:loginInfo.CorpName]];
 }
 
 - (void)pressSubitem:(UIButton*)sender
@@ -229,14 +226,14 @@
     [_userName setBackgroundColor:color(clearColor)];
     [_userName setFont:[UIFont boldSystemFontOfSize:14]];
     [_userName setTextColor:color(whiteColor)];
-    [_userName setText:[UserDefaults shareUserDefault].loginInfo.UserName];
+//    [_userName setText:[UserDefaults shareUserDefault].loginInfo.UserName];
     [self.view addSubview:_userName];
     
     _position = [[UILabel alloc]initWithFrame:CGRectMake(controlXLength(_userName), _userName.frame.origin.y, _userName.frame.size.width, _userName.frame.size.height)];
     [_position setBackgroundColor:color(clearColor)];
     [_position setFont:[UIFont systemFontOfSize:12]];
     [_position setTextColor:color(whiteColor)];
-    [_position setText:[UserDefaults shareUserDefault].loginInfo.DeptName];
+//    [_position setText:[UserDefaults shareUserDefault].loginInfo.DeptName];
     [self.view addSubview:_position];
     
     _company = [[UILabel alloc]initWithFrame:CGRectMake(_userName.frame.origin.x, controlYLength(_userName), _userName.frame.size.width * 2, _userName.frame.size.height)];
@@ -244,7 +241,7 @@
     [_company setFont:[UIFont systemFontOfSize:12]];
     [_company setTextColor:color(whiteColor)];
     [_company setAutoSize:YES];
-    [_company setText:[UserDefaults shareUserDefault].loginInfo.CorpName];
+//    [_company setText:[UserDefaults shareUserDefault].loginInfo.CorpName];
     [self.view addSubview:_company];
     
     UIButton *inlandBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -299,13 +296,10 @@
     
 //    [self getLoginUserInfo];
     [self setSubjoinViewFrame];
-<<<<<<< HEAD
-    
-=======
+
     if (![UserDefaults shareUserDefault].loginInfo) {
-        [self.requestManager getUserLoginInfo];
+//        [self.requestManager getUserLoginInfo];
     }
->>>>>>> 108a4d6d70d6d3d1aad23020c614221bd282cca0
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
@@ -640,26 +634,13 @@
     }
 }
 
--(void)searchHotelCites{
-    HotelCitesRequest *request = [[HotelCitesRequest alloc] init];
-    [self sendRequestWithRequest:request];
-}
 
--(void)requestSuccess:(NSString *)responseData{
-    
-    HotelCitesResponse *response = [[HotelCitesResponse alloc] init];
-    
-    [response parshJsonToResponse:responseData];
-    
-    NSDictionary *data = response.Data;
-}
 
 - (void)pressHotelItemBtn:(UIButton*)sender
 {
     NSLog(@"item tag = %d",sender.tag);
     switch (sender.tag) {
         case 500:
-            [self searchHotelCites];
             break;
         default:
             break;
@@ -1138,7 +1119,7 @@
         }case 402:{
             TripCareerViewController *tripCareerView = [[TripCareerViewController alloc]init];
             [self pushViewController:tripCareerView transitionType:TransitionPush completionHandler:^{
-                [tripCareerView.requestManager getTravelLifeInfo];
+//                [tripCareerView.requestManager getTravelLifeInfo];
             }];
             break;
         }case 403:{

@@ -26,7 +26,7 @@
         case BUSINESS_COMMON:
             [string appendString:URL_TYPE_COMMON];
             break;
-        case BUSINESS_ACOUNT:
+        case BUSINESS_ACCOUNT:
             [string appendString:URL_TYPE_ACCOUNT];
             break;
     }
