@@ -10,6 +10,7 @@
 
 @class BaseUIViewController;
 
+
 @interface Model : NSObject
 
 + (Model*)shareModel;
@@ -19,5 +20,7 @@
 @property (nonatomic, retain) UIButton                  *tipView;
 
 - (void)showPromptText:(NSString*)text model:(BOOL)model;
+
+- (void)setUserInteractionEnabled:(BOOL)enabled;
 
 @end

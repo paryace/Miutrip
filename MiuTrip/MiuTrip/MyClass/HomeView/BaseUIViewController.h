@@ -12,8 +12,24 @@
 #import "ASIFormDataRequest.h"
 #import "ASINetworkQueue.h"
 #import "CustomMethod.h"
+#import "RequestManager.h"
 
 @class BaseContentView;
+
+/**
+ error code:
+    5:用户不存在
+    6：用户名密码不匹配
+    7：密码必须修改
+    90：需要强制升级
+    91：缺少token
+    92：参数异常
+    93：参数验证异常
+    94: 无效Token
+    95: 无效DeviceID
+    96: Token 过期
+    97: 手机用户登录失败
+ */
 
 typedef NS_OPTIONS(NSInteger, RequestType){
     //RequestGet,
@@ -22,11 +38,12 @@ typedef NS_OPTIONS(NSInteger, RequestType){
     RequestLogOut
 };
 
-@interface BaseUIViewController : UIViewController<UIGestureRecognizerDelegate,BaseContentViewDelegate>
+@interface BaseUIViewController : UIViewController<UIGestureRecognizerDelegate,BaseContentViewDelegate,RequestDelegate>
 
 @property (strong, nonatomic)                       BaseContentView                 *contentView;
 @property (strong, nonatomic, setter = setTopBar:)  UIImageView                     *topBar;
 @property (strong, nonatomic)                       UIButton                        *bottomBar;
+@property (strong, nonatomic)                       RequestManager                  *requestManager;
 
 - (void)setSubjoinViewFrame;
 
@@ -62,6 +79,4 @@ typedef NS_OPTIONS(NSInteger, RequestType){
 - (UIImageView *)createLineWithParam:(NSObject*)param frame:(CGRect)frame;
 
 @end
-
-
 

@@ -25,6 +25,8 @@
 - (NSString*)URLEncodedString;
 - (NSString*)URLDecodedString;
 
+//- (BOOL)predicateWithFormat:(NSString*)format;
+
 @end
 
 typedef NS_OPTIONS(NSInteger, ButtonImageState){

@@ -38,35 +38,26 @@
     if (sender.tag == 100) {
         UIImageView *logStatusImage = (UIImageView*)[self.contentView viewWithTag:200];
         [logStatusImage setHighlighted:!(logStatusImage.highlighted)];
+        [UserDefaults shareUserDefault].autoLogin = logStatusImage.highlighted;
     }else if (sender.tag == 101){
         
     }else if (sender.tag == 104){
-        NSString *urlString = [MiuTripURL stringByAppendingString:@"/account_1_0/login/api"];
         NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
                                 self.userName.text,                 @"username",
                                 self.passWord.text,                 @"password",
                                 nil];
-        NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:
-                                  @"RequestLogIn",          @"requestType",
-                                  nil];
-        NSLog(@"url = %@,params = %@",urlString,params);
-        [self sendRequestWithURL:urlString params:params requestMethod:RequestLogIn userInfo:userInfo];
+        [self.requestManager logIn:params];
+        [[Model shareModel] setUserInteractionEnabled:NO];
     }
 }
 
 #pragma mark - request handle
-- (void)requestDone:(ASIHTTPRequest *)request
+- (void)logInDone
 {
-    [[Model shareModel] showPromptText:@"登陆成功" model:YES];
+    [[Model shareModel] setUserInteractionEnabled:YES];
     HomeViewController *homeView = [[HomeViewController alloc]init];
-    [self pushViewController:homeView transitionType:TransitionPush completionHandler:^{
-        [homeView getLoginUserInfo];
-    }];
-}
-
-- (void)requestError:(ASIHTTPRequest *)request
-{
-    
+    [[Model shareModel] showPromptText:@"登陆成功" model:YES];
+    [self pushViewController:homeView transitionType:TransitionPush completionHandler:nil];
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
@@ -114,7 +105,7 @@
     CGAffineTransform uNewTransform = CGAffineTransformScale(uCurrentTransform, 0.65, 0.65);
     [unameLeftView setTransform:uNewTransform];
     [_userName setPlaceholder:@"帐号/手机号"];
-    [_userName setText:@"13918776746"];
+    [_userName setText:@"15000609705"];
     [_userName setBackground:imageNameAndType(@"log_text_bg", nil)];
     [self.contentView addSubview:_userName];
     
@@ -131,7 +122,7 @@
     CGAffineTransform pNewTransform = CGAffineTransformScale(pCurrentTransform, 0.65, 0.65);
     [pwordLeftView setTransform:pNewTransform];
     [_passWord setPlaceholder:@"帐号/手机号"];
-    [_passWord setText:@"111111"];
+    [_passWord setText:@"w5998991"];
     [_passWord setSecureTextEntry:YES];
     [_passWord setBackground:imageNameAndType(@"log_text_bg", nil)];
     [self.contentView addSubview:_passWord];
@@ -139,6 +130,7 @@
     UIImageView *autoLogImage = [[UIImageView alloc]initWithFrame:CGRectMake(_passWord.frame.origin.x, controlYLength(_passWord) + 15, 15, 15)];
     [autoLogImage setBackgroundColor:color(clearColor)];
     [autoLogImage setTag:200];
+    [autoLogImage setHighlighted:[UserDefaults shareUserDefault].autoLogin];
     [autoLogImage setImage:imageNameAndType(@"autolog_normal", nil)];
     [autoLogImage setHighlightedImage:imageNameAndType(@"autolog_select", nil)];
     [self.contentView addSubview:autoLogImage];

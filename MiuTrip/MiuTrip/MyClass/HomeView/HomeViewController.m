@@ -74,32 +74,36 @@
     return self;
 }
 
-- (void)getLoginUserInfo
+- (void)getUserLoginInfo
 {
-    NSString *urlString = [MiuTripURL stringByAppendingString:@"/account_1_0/getLoginUserInfo/api"];
-    [self sendRequestWithURL:urlString params:nil requestMethod:RequestPost userInfo:nil];
+    [self.requestManager getUserLoginInfo];
 }
 
 - (void)logOff:(UIButton*)sender
 {
-    NSString *urlString = [MiuTripURL stringByAppendingString:@"/account_1_0/logout/api"];
-    NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:
-                              @"RequestLogOut",          @"requestType",
-                              nil];
-    [self sendRequestWithURL:urlString params:nil requestMethod:RequestLogOut userInfo:userInfo];
+    [self.requestManager logOut];
 }
 
 #pragma mark - request handle
-- (void)requestDone:(ASIHTTPRequest *)request
+- (void)logOutDone
 {
-    NSLog(@"token = %@",[UserDefaults shareUserDefault].authTkn);
     [[Model shareModel] showPromptText:@"注销成功" model:YES];
-    [self.navigationController popToRootViewControllerAnimated:YES];
+    [self popToMainViewControllerTransitionType:TransitionPush completionHandler:nil];
 }
 
 - (void)requestError:(ASIHTTPRequest *)request
 {
-    
+    NSString *requestType = [request.userInfo objectForKey:@"requestType"];
+    if ([requestType isEqualToString:Logout]) {
+        [self popToMainViewControllerTransitionType:TransitionPush completionHandler:nil];
+    }
+}
+
+- (void)getUserLoginInfoDone:(LoginInfoDTO*)loginInfo
+{
+    [_userName setText:loginInfo.UserName];
+    [_position setText:[Utils nilToEmpty:loginInfo.DeptName]];
+    [_company setText:[Utils nilToEmpty:loginInfo.CorpName]];
 }
 
 - (void)pressSubitem:(UIButton*)sender
@@ -198,9 +202,10 @@
     
     UIButton *returnBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [returnBtn setBackgroundColor:color(clearColor)];
-    [returnBtn setImage:imageNameAndType(@"home_return", nil) forState:UIControlStateNormal];
+    [returnBtn setImage:imageNameAndType(@"home_return", nil) forState:UIControlStateDisabled];
     [returnBtn setFrame:CGRectMake(0, 0, 70, self.topBar.frame.size.height)];
     [self setReturnButton:returnBtn];
+    [returnBtn setEnabled:NO];
     [self.view addSubview:returnBtn];
     
     UIButton *rightBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -215,21 +220,22 @@
     [_userName setBackgroundColor:color(clearColor)];
     [_userName setFont:[UIFont boldSystemFontOfSize:14]];
     [_userName setTextColor:color(whiteColor)];
-    [_userName setText:@"大豆"];
+    [_userName setText:[UserDefaults shareUserDefault].loginInfo.UserName];
     [self.view addSubview:_userName];
     
     _position = [[UILabel alloc]initWithFrame:CGRectMake(controlXLength(_userName), _userName.frame.origin.y, _userName.frame.size.width, _userName.frame.size.height)];
     [_position setBackgroundColor:color(clearColor)];
     [_position setFont:[UIFont systemFontOfSize:12]];
     [_position setTextColor:color(whiteColor)];
-    [_position setText:@"卖鱼的"];
+    [_position setText:[UserDefaults shareUserDefault].loginInfo.DeptName];
     [self.view addSubview:_position];
     
     _company = [[UILabel alloc]initWithFrame:CGRectMake(_userName.frame.origin.x, controlYLength(_userName), _userName.frame.size.width * 2, _userName.frame.size.height)];
     [_company setBackgroundColor:color(clearColor)];
     [_company setFont:[UIFont systemFontOfSize:12]];
     [_company setTextColor:color(whiteColor)];
-    [_company setText:@"村头菜市场"];
+    [_company setAutoSize:YES];
+    [_company setText:[UserDefaults shareUserDefault].loginInfo.CorpName];
     [self.view addSubview:_company];
     
     UIButton *inlandBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -282,7 +288,11 @@
     [segmentedControl setAlpha:0.1];
     [self.view addSubview:segmentedControl];
     
+//    [self getLoginUserInfo];
     [self setSubjoinViewFrame];
+    if (![UserDefaults shareUserDefault].loginInfo) {
+        [self.requestManager getUserLoginInfo];
+    }
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
@@ -377,9 +387,8 @@
     
     [self.contentView resetContentSize];
 }
-/**
- hotel item method
- */
+
+#pragma mark - hotel item method
 - (void)createItemHotel
 {
     if (!_viewPageHotel) {
@@ -430,6 +439,10 @@
         [_cityNameTf setLeftViewMode:UITextFieldViewModeAlways];
         [_cityNameTf setText:[UserDefaults shareUserDefault].goalCity];
         [pageHotelBottomView addSubview:_cityNameTf];
+        UIImageView *cityNameRightImage = [[UIImageView alloc]initWithFrame:CGRectMake(controlXLength(_cityNameTf) - _cityNameTf.frame.size.height, _cityNameTf.frame.origin.y, _cityNameTf.frame.size.height, _cityNameTf.frame.size.height)];
+        [cityNameRightImage setImage:imageNameAndType(@"arrow", nil)];
+        [cityNameRightImage setScaleX:0.2 scaleY:0.3];
+        [pageHotelBottomView addSubview:cityNameRightImage];
         UIButton *cityNameBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [cityNameBtn setFrame:_cityNameTf.frame];
         [cityNameBtn setTag:500];
@@ -454,6 +467,10 @@
         [_checkInTimeTf setYear:[NSString stringWithFormat:@"%@年",[Utils stringWithDate:date withFormat:@"yyyy"]]];
         [_checkInTimeTf setMonthAndDay:[NSString stringWithFormat:@"%@",[Utils stringWithDate:date withFormat:@"MM月dd日"]]];
         [pageHotelBottomView addSubview:_checkInTimeTf];
+        UIImageView *checkInRightImage = [[UIImageView alloc]initWithFrame:CGRectMake(controlXLength(_checkInTimeTf) - _checkInTimeTf.frame.size.height, _checkInTimeTf.frame.origin.y, _checkInTimeTf.frame.size.height, _checkInTimeTf.frame.size.height)];
+        [checkInRightImage setImage:imageNameAndType(@"arrow", nil)];
+        [checkInRightImage setScaleX:0.2 scaleY:0.3];
+        [pageHotelBottomView addSubview:checkInRightImage];
         UIButton *checkInTimeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [checkInTimeBtn setFrame:_checkInTimeTf.frame];
         [checkInTimeBtn setTag:501];
@@ -469,10 +486,14 @@
         
         _leaveTimeTf = [[CustomDateTextField alloc]initWithFrame:CGRectMake(controlXLength(leaveImageView), leaveImageView.frame.origin.y, _cityNameTf.frame.size.width, _cityNameTf.frame.size.height)];
         [_leaveTimeTf setWeek:[[WeekDays componentsSeparatedByString:@","] objectAtIndex:[comps weekday] - 1]];
-        [_leaveTimeTf setLeftPlaceholder:@"入住时间"];
+        [_leaveTimeTf setLeftPlaceholder:@"离开时间"];
         [_leaveTimeTf setYear:[NSString stringWithFormat:@"%@年",[Utils stringWithDate:date withFormat:@"yyyy"]]];
         [_leaveTimeTf setMonthAndDay:[NSString stringWithFormat:@"%@",[Utils stringWithDate:date withFormat:@"MM月dd日"]]];
         [pageHotelBottomView addSubview:_leaveTimeTf];
+        UIImageView *leaveTimeRightImage = [[UIImageView alloc]initWithFrame:CGRectMake(controlXLength(_leaveTimeTf) - _leaveTimeTf.frame.size.height, _leaveTimeTf.frame.origin.y, _leaveTimeTf.frame.size.height, _leaveTimeTf.frame.size.height)];
+        [leaveTimeRightImage setImage:imageNameAndType(@"arrow", nil)];
+        [leaveTimeRightImage setScaleX:0.2 scaleY:0.3];
+        [pageHotelBottomView addSubview:leaveTimeRightImage];
         UIButton *leaveTimeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [leaveTimeBtn setFrame:_leaveTimeTf.frame];
         [leaveTimeBtn setTag:502];
@@ -503,6 +524,10 @@
         [_priceRangeTf setLeftViewMode:UITextFieldViewModeAlways];
         [_priceRangeTf setText:@"￥1 ~ ￥2"];
         [pageHotelBottomView addSubview:_priceRangeTf];
+        UIImageView *priceRangeRightImage = [[UIImageView alloc]initWithFrame:CGRectMake(controlXLength(_priceRangeTf) - _priceRangeTf.frame.size.height, _priceRangeTf.frame.origin.y, _priceRangeTf.frame.size.height, _priceRangeTf.frame.size.height)];
+        [priceRangeRightImage setImage:imageNameAndType(@"arrow", nil)];
+        [priceRangeRightImage setScaleX:0.2 scaleY:0.3];
+        [pageHotelBottomView addSubview:priceRangeRightImage];
         UIButton *priceRangeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [priceRangeBtn setFrame:_priceRangeTf.frame];
         [priceRangeBtn setTag:503];
@@ -528,6 +553,10 @@
         [_hotelLocationTf setLeftViewMode:UITextFieldViewModeAlways];
         [_hotelLocationTf setText:@"黄浦区"];
         [pageHotelBottomView addSubview:_hotelLocationTf];
+        UIImageView *hotelLocationRightImage = [[UIImageView alloc]initWithFrame:CGRectMake(controlXLength(_hotelLocationTf) - _hotelLocationTf.frame.size.height, _hotelLocationTf.frame.origin.y, _hotelLocationTf.frame.size.height, _hotelLocationTf.frame.size.height)];
+        [hotelLocationRightImage setImage:imageNameAndType(@"arrow", nil)];
+        [hotelLocationRightImage setScaleX:0.2 scaleY:0.3];
+        [pageHotelBottomView addSubview:hotelLocationRightImage];
         UIButton *hotelLocationBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [hotelLocationBtn setFrame:_hotelLocationTf.frame];
         [hotelLocationBtn setTag:504];
@@ -548,7 +577,7 @@
         UILabel *hotelNameLeft = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, cityNameLeft.frame.size.width, cityNameLeft.frame.size.height)];
         [hotelNameLeft setBackgroundColor:color(clearColor)];
         [hotelNameLeft setTextColor:color(darkGrayColor)];
-        [hotelNameLeft setText:@"酒店位置"];
+        [hotelNameLeft setText:@"酒店名称"];
         [hotelNameLeft setFont:[UIFont systemFontOfSize:13]];
         _hotelNameTf = [[UITextField alloc]initWithFrame:CGRectMake(controlXLength(hotelNameImageView),
                                                                     hotelNameImageView.frame.origin.y,
@@ -560,7 +589,10 @@
         [_hotelNameTf setLeftViewMode:UITextFieldViewModeAlways];
         [_hotelNameTf setPlaceholder:@"酒店名称"];
         [pageHotelBottomView addSubview:_hotelNameTf];
-        
+        UIImageView *hotelNameRightImage = [[UIImageView alloc]initWithFrame:CGRectMake(controlXLength(_hotelNameTf) - _hotelNameTf.frame.size.height, _hotelNameTf.frame.origin.y, _hotelNameTf.frame.size.height, _hotelNameTf.frame.size.height)];
+        [hotelNameRightImage setImage:imageNameAndType(@"arrow", nil)];
+        [hotelNameRightImage setScaleX:0.2 scaleY:0.3];
+        [pageHotelBottomView addSubview:hotelNameRightImage];
         UIButton *queryBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [queryBtn setImage:imageNameAndType(@"hotel_done_nromal", nil)
             highlightImage:imageNameAndType(@"hotel_done_press", nil)
@@ -603,6 +635,7 @@
 - (void)pressHotelItemDone:(UIButton*)sender
 {
     NSLog(@"sender tag = %d",sender.tag);
+    NSLog(@"user authTkn = %@",[UserDefaults shareUserDefault].authTkn);
 }
 
 - (UIImageView*)createLineWithFrame:(CGRect)frame
@@ -612,9 +645,7 @@
     return imageView;
 }
 
-/**
- air item method
- */
+#pragma mark - air item method
 - (void)createItemAir
 {
     if (!_viewPageAir) {
@@ -644,14 +675,16 @@
         [_viewPageAir addSubview:pageAirBottomView];
         
         CustomStatusBtn *startImage = [[CustomStatusBtn alloc]initWithFrame:CGRectMake(10, 0, 80, 25)];
-        //[startImage setImage:imageNameAndType(@"", nil) selectedImage:nil];
+        [startImage setImage:imageNameAndType(@"air_from_icon", nil) selectedImage:nil];
+        [startImage setLeftViewScaleX:0.7 scaleY:0.7];
         [startImage setEnabled:NO];
         [startImage setDetail:@"出发"];
         [startImage setTextColor:color(grayColor)];
         [pageAirBottomView addSubview:startImage];
         
         CustomStatusBtn *endImage = [[CustomStatusBtn alloc]initWithFrame:CGRectMake(pageAirBottomView.frame.size.width - controlXLength(startImage), startImage.frame.origin.y, startImage.frame.size.width, startImage.frame.size.height)];
-        //[endImage setImage:imageNameAndType(@"", nil) selectedImage:nil];
+        [endImage setImage:imageNameAndType(@"air_arr_icon", nil) selectedImage:nil];
+        [endImage setLeftViewScaleX:0.7 scaleY:0.7];
         [endImage setEnabled:NO];
         [endImage setDetail:@"到达"];
         [endImage setTextColor:color(grayColor)];
@@ -670,6 +703,9 @@
         
         UIButton *exchangeFromAndTo = [UIButton buttonWithType:UIButtonTypeCustom];
         [exchangeFromAndTo setFrame:CGRectMake(controlXLength(_fromCity) + 5, _fromCity.frame.origin.y, _fromCity.frame.size.height, _fromCity.frame.size.height)];
+        [exchangeFromAndTo setImage:imageNameAndType(@"air_exchange", nil) forState:UIControlStateNormal];
+        [exchangeFromAndTo addTarget:self action:@selector(pressExchangeBtn:) forControlEvents:UIControlEventTouchUpInside];
+        [pageAirBottomView addSubview:exchangeFromAndTo];
         
         _toCity = [UIButton buttonWithType:UIButtonTypeCustom];
         [_toCity setBackgroundColor:color(whiteColor)];
@@ -705,6 +741,10 @@
         [_startDateTf setYear:[NSString stringWithFormat:@"%@年",[Utils stringWithDate:date withFormat:@"yyyy"]]];
         [_startDateTf setMonthAndDay:[NSString stringWithFormat:@"%@",[Utils stringWithDate:date withFormat:@"MM月dd日"]]];
         [pageAirBottomView addSubview:_startDateTf];
+        UIImageView *startDateRightImage = [[UIImageView alloc]initWithFrame:CGRectMake(controlXLength(_startDateTf) - _startDateTf.frame.size.height, _startDateTf.frame.origin.y, _startDateTf.frame.size.height, _startDateTf.frame.size.height)];
+        [startDateRightImage setImage:imageNameAndType(@"arrow", nil)];
+        [startDateRightImage setScaleX:0.2 scaleY:0.3];
+        [pageAirBottomView addSubview:startDateRightImage];
         UIButton *startDateBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [startDateBtn setFrame:_startDateTf.frame];
         [startDateBtn setTag:500];
@@ -721,7 +761,7 @@
         UILabel *startTimeLeft = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, (topItemBG.frame.size.width - startTimeImage.frame.size.width)/3, startTimeImage.frame.size.height)];
         [startTimeLeft setBackgroundColor:color(clearColor)];
         [startTimeLeft setTextColor:color(darkGrayColor)];
-        [startTimeLeft setText:@"酒店位置"];
+        [startTimeLeft setText:@"出发时间"];
         [startTimeLeft setFont:[UIFont systemFontOfSize:13]];
         _startTime = [[UITextField alloc]initWithFrame:CGRectMake(_startDateTf.frame.origin.x, controlYLength(startDateImage), _startDateTf.frame.size.width, _startDateTf.frame.size.height)];
         [_startTime setBackgroundColor:color(clearColor)];
@@ -729,7 +769,10 @@
         [_startTime setLeftViewMode:UITextFieldViewModeAlways];
         [_startTime setFont:[UIFont boldSystemFontOfSize:15]];
         [pageAirBottomView addSubview:_startTime];
-        
+        UIImageView *startTimeRightImage = [[UIImageView alloc]initWithFrame:CGRectMake(controlXLength(_startTime) - _startTime.frame.size.height, _startTime.frame.origin.y, _startTime.frame.size.height, _startTime.frame.size.height)];
+        [startTimeRightImage setImage:imageNameAndType(@"arrow", nil)];
+        [startTimeRightImage setScaleX:0.2 scaleY:0.3];
+        [pageAirBottomView addSubview:startTimeRightImage];
         UILabel *moreConditionLabel = [[UILabel alloc]initWithFrame:CGRectMake(startTimeImage.frame.origin.x, controlYLength(startTimeImage), 65, startTimeImage.frame.size.height)];
         [moreConditionLabel setFont:[UIFont systemFontOfSize:13]];
         [moreConditionLabel setTextAlignment:NSTextAlignmentRight];
@@ -879,6 +922,22 @@
     }
 }
 
+- (void)pressExchangeBtn:(UIButton*)sender
+{
+    UIButton *fromCity = _fromCity;
+    UIButton *toCity   = _toCity;
+    CGRect fromFrame = _fromCity.frame;
+    CGRect toFrame   = _toCity.frame;
+    [UIView animateWithDuration:0.25
+                     animations:^{
+                         [_fromCity setFrame:toFrame];
+                         [_toCity setFrame:fromFrame];
+                     }completion:^(BOOL finished){
+                         _fromCity = toCity;
+                         _toCity   = fromCity;
+                     }];
+}
+
 - (void)pressAirItemBtn:(UIButton*)sender
 {
     NSLog(@"air tag = %d",sender.tag);
@@ -887,9 +946,19 @@
 - (void)pressAirItemDone:(UIButton*)sender
 {
     NSLog(@"btn tag = %d",sender.tag);
-    
-    AirListViewController *airListView = [[AirListViewController alloc]init];
-    [self pushViewController:airListView transitionType:TransitionPush completionHandler:Nil];
+//    AirListViewController *airListView = [[AirListViewController alloc]init];
+//    [self pushViewController:airListView transitionType:TransitionPush completionHandler:Nil];
+    switch (sender.tag) {
+        case 750:{
+            
+            break;
+        }case 751:{
+            
+            break;
+        }
+        default:
+            break;
+    }
 }
 
 - (void)pressMoreConditionBtn:(UIButton*)sender
@@ -941,10 +1010,7 @@
     }
 }
 
-/**
- my miu item method
- */
-
+#pragma mark - my miu item method
 - (void)createItemMiu
 {
     if (!_viewPageMiu) {
@@ -1038,7 +1104,7 @@
         }case 402:{
             TripCareerViewController *tripCareerView = [[TripCareerViewController alloc]init];
             [self pushViewController:tripCareerView transitionType:TransitionPush completionHandler:^{
-                [tripCareerView setSubjoinViewFrame];
+                [tripCareerView.requestManager getTravelLifeInfo];
             }];
             break;
         }case 403:{

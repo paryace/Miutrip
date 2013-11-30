@@ -10,6 +10,8 @@
 
 @interface TripCareerViewController ()
 
+@property (strong, nonatomic) TravelLifeInfo    *travelLifeInfo;
+
 @end
 
 @implementation TripCareerViewController
@@ -30,6 +32,13 @@
         [self setSubviewFrame];
     }
     return self;
+}
+
+#pragma mark - request handle
+- (void)getTravelLifeInfoDone:(TravelLifeInfo *)traveLifeInfo
+{
+    _travelLifeInfo = traveLifeInfo;
+    [self setSubjoinViewFrame];
 }
 
 #pragma mark - view init
@@ -59,7 +68,7 @@
     [airLevelItem setTitleImage:imageNameAndType(@"t_career_ariLevel", nil)];
     [airLevelItem setTitle:imageNameAndType(@"sub_arilevel", nil)];
     [airLevelItem.leftImageView setScaleX:0.85 scaleY:0.85];
-    NSString *airText = [NSString stringWithFormat:@"您一年半内飞行了%d公里,搭乘%d次飞机;\n轻松击败的商务人士,超级百分之%d飞人名副其实!",45002,14,93];
+    NSString *airText = [NSString stringWithFormat:@"您%@飞行了%@公里,搭乘%d次飞机;\n轻松击败百分之%d的商务人士,超级飞人名副其实!",_travelLifeInfo.TimeSpan,_travelLifeInfo.Fli_FlightKM,_travelLifeInfo.Fli_FliCount,93];
     [airLevelItem setContentText:airText];
     [itemBg addSubview:airLevelItem];
     
@@ -69,7 +78,7 @@
     [arrivedItem setTitleImage:imageNameAndType(@"t_career_arrived", nil)];
     [arrivedItem setTitle:imageNameAndType(@"sub_arrived", nil)];
     [arrivedItem.leftImageView setScaleX:0.85 scaleY:0.85];
-    NSString *arrivedText = [NSString stringWithFormat:@"您一年班内去过%d个省份,%d个城市;\n其中%@去过%d次,是您商务出行高发地哦!",5,8,@"郑州",4];
+    NSString *arrivedText = [NSString stringWithFormat:@"您%@去过%d个省份,%d个城市;\n其中%@去过%d次,是您商务出行高发地哦!",_travelLifeInfo.TimeSpan,_travelLifeInfo.Fli_province,_travelLifeInfo.Fli_City,_travelLifeInfo.Fli_HotCityName,_travelLifeInfo.Fli_HotCityCount];
     [arrivedItem setContentText:arrivedText];
     [itemBg addSubview:arrivedItem];
     
@@ -79,7 +88,7 @@
     [checkedInItem setTitleImage:imageNameAndType(@"t_career_checkedIn", nil)];
     [checkedInItem setTitle:imageNameAndType(@"sub_checkedIn", nil)];
     [checkedInItem.leftImageView setScaleX:0.85 scaleY:0.85];
-    NSString *checkedInText = [NSString stringWithFormat:@"您一年班内住过%d家酒店;\n其中北京%@住过%d次共%d晚,情有独钟!",6,@"万豪酒店",5,10];
+    NSString *checkedInText = [NSString stringWithFormat:@"您%@住过%d家酒店;\n其中北京%@住过%d次共%d晚,情有独钟!",_travelLifeInfo.TimeSpan,_travelLifeInfo.Hot_HotTotalCount,_travelLifeInfo.Hot_HotName,_travelLifeInfo.Hot_HotMostCount,_travelLifeInfo.Hot_HotDayCount];
     [checkedInItem setContentText:checkedInText];
     [itemBg addSubview:checkedInItem];
     
@@ -89,7 +98,7 @@
     [paidItem setTitleImage:imageNameAndType(@"t_career_paied", nil)];
     [paidItem setTitle:imageNameAndType(@"sub_paied", nil)];
     [paidItem.leftImageView setScaleX:0.85 scaleY:0.85];
-    NSString *paidText = [NSString stringWithFormat:@"您一年班内:\n机票支出%d元,平均%d/张,%@居多;\n酒店支出%d元,平均%d元/间夜,%d星级为主;",25000,670,@"经济舱",13000,400,4];
+    NSString *paidText = [NSString stringWithFormat:@"您%@:\n机票支出%.0f元,平均%.0f/张,%@居多;\n酒店支出%.0f元,平均%.0f元/间夜,%@星级为主;",_travelLifeInfo.TimeSpan,_travelLifeInfo.Fli_FliTotalPrice,_travelLifeInfo.Fli_FliPrice,_travelLifeInfo.Fli_FliMostStutes,_travelLifeInfo.Hot_HotTotalPrice,_travelLifeInfo.Hot_HotPrice,_travelLifeInfo.Hot_HotStars];
     [paidItem setContentText:paidText];
     [itemBg addSubview:paidItem];
     
@@ -99,7 +108,7 @@
     [tripEvaluateItem setTitleImage:imageNameAndType(@"t_career_tripevaluate", nil)];
     [tripEvaluateItem setTitle:imageNameAndType(@"sub_tripevaluate", nil)];
     [tripEvaluateItem.leftImageView setScaleX:0.85 scaleY:0.85];
-    NSString *tripEvaluateText = [NSString stringWithFormat:@"您一年班内:\n机票预订完全合规,好同志!\n酒店预订有4次RC,小心老板有意见哦!"];
+    NSString *tripEvaluateText = [NSString stringWithFormat:@"您%@:\n机票预订完全合规,好同志!\n酒店预订有%d次RC,小心老板有意见哦!",_travelLifeInfo.TimeSpan,_travelLifeInfo.Hot_RC_Count];
     [tripEvaluateItem setContentText:tripEvaluateText];
     [itemBg addSubview:tripEvaluateItem];
     

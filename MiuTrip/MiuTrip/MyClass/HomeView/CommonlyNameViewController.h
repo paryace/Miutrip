@@ -26,5 +26,7 @@
 - (void)setBackGroundImage:(UIImage*)image;
 - (void)subviewUnfold:(BOOL)show;
 
+- (void)setContentWithParams:(BookPassengersDTO*)passengerDetail;
+
 @end
 
