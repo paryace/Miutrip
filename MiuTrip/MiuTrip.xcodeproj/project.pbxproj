@@ -179,6 +179,12 @@
 		12DDD837183B5C4E00E774AF /* set_sgitem_r_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 12DDD833183B5C4E00E774AF /* set_sgitem_r_normal.png */; };
 		12DDD838183B5C4E00E774AF /* set_sgitem_r_select.png in Resources */ = {isa = PBXBuildFile; fileRef = 12DDD834183B5C4E00E774AF /* set_sgitem_r_select.png */; };
 		1807C0B51844868800199E5D /* AirListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1807C0B41844868800199E5D /* AirListViewController.m */; };
+		B5035FEF184891F2002B1481 /* HotelCitesResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = B5035FEE184891F2002B1481 /* HotelCitesResponse.m */; };
+		B523F73B18478B94005C45C5 /* BaseRequestModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B523F73A18478B94005C45C5 /* BaseRequestModel.m */; };
+		B53496B91846E3C6001BC8D1 /* BaseResponseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B53496B81846E3C6001BC8D1 /* BaseResponseModel.m */; };
+		B59849B918477B830037C5F0 /* (null) in Sources */ = {isa = PBXBuildFile; };
+		B59849C0184783DA0037C5F0 /* HotelCitesRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = B59849BF184783DA0037C5F0 /* HotelCitesRequest.m */; };
+		B5A249221845F63A005BB217 /* URLHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = B5A249211845F63A005BB217 /* URLHelper.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -417,6 +423,18 @@
 		12DDD834183B5C4E00E774AF /* set_sgitem_r_select.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = set_sgitem_r_select.png; sourceTree = "<group>"; };
 		1807C0B31844868800199E5D /* AirListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AirListViewController.h; sourceTree = "<group>"; };
 		1807C0B41844868800199E5D /* AirListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AirListViewController.m; sourceTree = "<group>"; };
+		B5035FED184891F2002B1481 /* HotelCitesResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HotelCitesResponse.h; sourceTree = "<group>"; };
+		B5035FEE184891F2002B1481 /* HotelCitesResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HotelCitesResponse.m; sourceTree = "<group>"; };
+		B523F73918478B94005C45C5 /* BaseRequestModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseRequestModel.h; sourceTree = "<group>"; };
+		B523F73A18478B94005C45C5 /* BaseRequestModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseRequestModel.m; sourceTree = "<group>"; };
+		B53496B61846E310001BC8D1 /* ResponseDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ResponseDelegate.h; sourceTree = "<group>"; };
+		B53496B71846E3C6001BC8D1 /* BaseResponseModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseResponseModel.h; sourceTree = "<group>"; };
+		B53496B81846E3C6001BC8D1 /* BaseResponseModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseResponseModel.m; sourceTree = "<group>"; };
+		B59849BA18477BB80037C5F0 /* RequestDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RequestDelegate.h; sourceTree = "<group>"; };
+		B59849BE184783DA0037C5F0 /* HotelCitesRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HotelCitesRequest.h; sourceTree = "<group>"; };
+		B59849BF184783DA0037C5F0 /* HotelCitesRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HotelCitesRequest.m; sourceTree = "<group>"; };
+		B5A249201845F63A005BB217 /* URLHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = URLHelper.h; sourceTree = "<group>"; };
+		B5A249211845F63A005BB217 /* URLHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = URLHelper.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -837,6 +855,8 @@
 				127C6843183A0AB20055784D /* CustomBtn.m */,
 				12C37DC0183DD5FF00EA6D26 /* CustomMethod.h */,
 				12C37DC1183DD5FF00EA6D26 /* CustomMethod.m */,
+				B5A249201845F63A005BB217 /* URLHelper.h */,
+				B5A249211845F63A005BB217 /* URLHelper.m */,
 			);
 			path = Element;
 			sourceTree = "<group>";
@@ -844,6 +864,8 @@
 		127915531833292700CF94F4 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				B523F73918478B94005C45C5 /* BaseRequestModel.h */,
+				B523F73A18478B94005C45C5 /* BaseRequestModel.m */,
 				1247899D183633E700AA0083 /* UserDefaults.h */,
 				1247899E183633E700AA0083 /* UserDefaults.m */,
 				1247639B18362F0F008900F8 /* AirOrderDetail.h */,
@@ -858,6 +880,14 @@
 				122BD71D184057B800BAA9A9 /* AirOrderDetailCell.m */,
 				122BD71F184057F100BAA9A9 /* HotelOrderDetailCell.h */,
 				122BD720184057F100BAA9A9 /* HotelOrderDetailCell.m */,
+				B53496B61846E310001BC8D1 /* ResponseDelegate.h */,
+				B53496B71846E3C6001BC8D1 /* BaseResponseModel.h */,
+				B53496B81846E3C6001BC8D1 /* BaseResponseModel.m */,
+				B59849BA18477BB80037C5F0 /* RequestDelegate.h */,
+				B59849BE184783DA0037C5F0 /* HotelCitesRequest.h */,
+				B59849BF184783DA0037C5F0 /* HotelCitesRequest.m */,
+				B5035FED184891F2002B1481 /* HotelCitesResponse.h */,
+				B5035FEE184891F2002B1481 /* HotelCitesResponse.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1111,6 +1141,7 @@
 				122CE5BC183A34D4001771DC /* SettingViewController.m in Sources */,
 				12791529183326B700CF94F4 /* AppDelegate.m in Sources */,
 				124789E11836363100AA0083 /* ASIDataCompressor.m in Sources */,
+				B5035FEF184891F2002B1481 /* HotelCitesResponse.m in Sources */,
 				127915631833512700CF94F4 /* RegisterAndLogViewController.m in Sources */,
 				1279155A1833292700CF94F4 /* Utils.m in Sources */,
 				124789E41836363100AA0083 /* ASIFormDataRequest.m in Sources */,
@@ -1125,6 +1156,8 @@
 				124789F71836363100AA0083 /* SBJsonStreamParserAdapter.m in Sources */,
 				124789F61836363100AA0083 /* SBJsonStreamParserAccumulator.m in Sources */,
 				122BD72E1840659800BAA9A9 /* MyMiuViewController.m in Sources */,
+				B523F73B18478B94005C45C5 /* BaseRequestModel.m in Sources */,
+				B59849B918477B830037C5F0 /* (null) in Sources */,
 				124789F81836363100AA0083 /* SBJsonStreamParserState.m in Sources */,
 				122BD721184057F100BAA9A9 /* HotelOrderDetailCell.m in Sources */,
 				124789FC1836363100AA0083 /* SBJsonTokeniser.m in Sources */,
@@ -1133,6 +1166,7 @@
 				124789FB1836363100AA0083 /* SBJsonStreamWriterState.m in Sources */,
 				124789F21836363100AA0083 /* LoadingMoreTableFooterView.m in Sources */,
 				127C6844183A0AB20055784D /* CustomBtn.m in Sources */,
+				B53496B91846E3C6001BC8D1 /* BaseResponseModel.m in Sources */,
 				124789E01836363100AA0083 /* ASIAuthenticationDialog.m in Sources */,
 				124789E91836363100AA0083 /* EGORefreshTableHeaderView.m in Sources */,
 				127915771833659D00CF94F4 /* HomeViewController.m in Sources */,
@@ -1144,7 +1178,9 @@
 				124789FE1836363100AA0083 /* SBJsonWriter.m in Sources */,
 				124789E31836363100AA0083 /* ASIDownloadCache.m in Sources */,
 				124789E81836363100AA0083 /* Reachability.m in Sources */,
+				B59849C0184783DA0037C5F0 /* HotelCitesRequest.m in Sources */,
 				1247639F18362F0F008900F8 /* AirOrderDetail.m in Sources */,
+				B5A249221845F63A005BB217 /* URLHelper.m in Sources */,
 				124789E51836363100AA0083 /* ASIHTTPRequest.m in Sources */,
 				124763A018362F0F008900F8 /* HotelOrderDetail.m in Sources */,
 				124789F41836363100AA0083 /* SBJsonParser.m in Sources */,

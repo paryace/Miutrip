@@ -12,6 +12,7 @@
 #import "ASIFormDataRequest.h"
 #import "ASINetworkQueue.h"
 #import "CustomMethod.h"
+#import "BaseRequestModel.h"
 
 @class BaseContentView;
 
@@ -43,9 +44,11 @@ typedef NS_OPTIONS(NSInteger, RequestType){
 
 - (UIView *)findKeyboard;
 
+-(void)sendRequestWithRequest:(BaseRequestModel *)request;
 - (void)sendRequestWithURL:(NSString*)URLString params:(NSDictionary*)params requestMethod:(RequestType)requestType userInfo:(NSDictionary*)userInfo;
-- (void)requestDone:(ASIHTTPRequest*)request;
+- (void)requestDone:(NSDictionary*)responseData;
 - (void)requestError:(ASIHTTPRequest*)request;
+- (void)requestSuccess:(NSString*)responseData;
 
 - (void)pushViewController:(BaseUIViewController*)_viewController transitionType:(TransitionType)_transitionType completionHandler:(void (^) (void))_compleHandler;
 - (void)popViewControllerTransitionType:(TransitionType)_transitionType completionHandler:(void (^) (void))_compleHandler;

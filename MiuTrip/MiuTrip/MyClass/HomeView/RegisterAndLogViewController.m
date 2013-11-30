@@ -8,6 +8,7 @@
 
 #import "RegisterAndLogViewController.h"
 #import "HomeViewController.h"
+#import "HotelCitesRequest.h"
 
 @interface RegisterAndLogViewController ()
 
@@ -41,6 +42,7 @@
     }else if (sender.tag == 101){
         
     }else if (sender.tag == 104){
+        
         NSString *urlString = [MiuTripURL stringByAppendingString:@"/account_1_0/login/api"];
         NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
                                 self.userName.text,                 @"username",
@@ -55,9 +57,15 @@
 }
 
 #pragma mark - request handle
-- (void)requestDone:(ASIHTTPRequest *)request
+- (void)requestDone:(NSDictionary *)responseData
 {
     [[Model shareModel] showPromptText:@"登陆成功" model:YES];
+        
+    //保存TOKEN
+    [UserDefaults shareUserDefault].authTkn = [responseData objectForKey:@"authTkn"];
+    
+    [UserDefaults shareUserDefault].userName = self.userName.text;
+    
     HomeViewController *homeView = [[HomeViewController alloc]init];
     [self pushViewController:homeView transitionType:TransitionPush completionHandler:^{
         [homeView getLoginUserInfo];

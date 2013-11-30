@@ -14,7 +14,7 @@
     #import <UIKit/UIKit.h>
     #import <Foundation/Foundation.h>
 
-//    #define         MiuTripURL                      @"http://test.miutrip.com/api"
+    #define         MiuTripTestURL                      @"http://test.miutrip.com/api"
     #define         MiuTripURL                      @"http://www.miutrip.com/api"
 
     #define         deviceVersion                   [[[UIDevice currentDevice] systemVersion] floatValue]

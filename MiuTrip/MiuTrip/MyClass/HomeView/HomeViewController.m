@@ -15,6 +15,9 @@
 #import "SettingViewController.h"
 #import "AirListViewController.h"
 
+#import "HotelCitesRequest.h"
+#import "HotelCitesResponse.h"
+
 @interface HomeViewController ()
 
 @property (strong, nonatomic) UIView                *viewPageHotel;
@@ -76,8 +79,9 @@
 
 - (void)getLoginUserInfo
 {
-    NSString *urlString = [MiuTripURL stringByAppendingString:@"/account_1_0/getLoginUserInfo/api"];
-    [self sendRequestWithURL:urlString params:nil requestMethod:RequestPost userInfo:nil];
+    NSString *urlString = [MiuTripURL stringByAppendingString:@"/account_1_0/GetUesrLoginInfo/api"];
+    NSDictionary *params = [[NSDictionary alloc] initWithObjectsAndKeys:[UserDefaults shareUserDefault].userName,@"uid", nil];
+    [self sendRequestWithURL:urlString params:params requestMethod:RequestPost userInfo:nil];
 }
 
 - (void)logOff:(UIButton*)sender
@@ -283,6 +287,7 @@
     [self.view addSubview:segmentedControl];
     
     [self setSubjoinViewFrame];
+    
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
@@ -595,9 +600,30 @@
     }
 }
 
+-(void)searchHotelCites{
+    HotelCitesRequest *request = [[HotelCitesRequest alloc] init];
+    [self sendRequestWithRequest:request];
+}
+
+-(void)requestSuccess:(NSString *)responseData{
+    
+    HotelCitesResponse *response = [[HotelCitesResponse alloc] init];
+    
+    [response parshJsonToResponse:responseData];
+    
+    NSDictionary *data = response.Data;
+}
+
 - (void)pressHotelItemBtn:(UIButton*)sender
 {
     NSLog(@"item tag = %d",sender.tag);
+    switch (sender.tag) {
+        case 500:
+            [self searchHotelCites];
+            break;
+        default:
+            break;
+    }
 }
 
 - (void)pressHotelItemDone:(UIButton*)sender
