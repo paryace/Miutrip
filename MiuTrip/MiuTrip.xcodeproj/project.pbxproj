@@ -930,6 +930,9 @@
 		127915531833292700CF94F4 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				B591AF691849F44D003BA7A3 /* Hotel */,
+				B591AF681849F42C003BA7A3 /* Flight */,
+				B591AF671849F40C003BA7A3 /* Common */,
 				B591AF5F1849D2FD003BA7A3 /* Account */,
 				B523F73918478B94005C45C5 /* BaseRequestModel.h */,
 				B523F73A18478B94005C45C5 /* BaseRequestModel.m */,
@@ -1043,6 +1046,27 @@
 				B591AF641849DD01003BA7A3 /* LoginResponse.m */,
 			);
 			path = Account;
+			sourceTree = "<group>";
+		};
+		B591AF671849F40C003BA7A3 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		B591AF681849F42C003BA7A3 /* Flight */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Flight;
+			sourceTree = "<group>";
+		};
+		B591AF691849F44D003BA7A3 /* Hotel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Hotel;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
