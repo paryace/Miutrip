@@ -7,6 +7,8 @@
 //
 
 #import "BaseUIViewController.h"
+#import "RegisterAndLogViewController.h"
+#import "AppDelegate.h"
 
 @interface BaseUIViewController ()
 
@@ -32,7 +34,9 @@
     if (self) {
         _contentView = [[BaseContentView alloc]initWithFrame:appBounds];
         [_contentView setSuperResponder:self];
-        [_contentView setHidden:YES];
+        //[_contentView setHidden:YES];
+        _requestManager = [[RequestManager alloc]init];
+        [_requestManager setDelegate:self];
         [self.view addSubview:_contentView];
 
         [self superViewInit];
@@ -174,7 +178,25 @@
     if (self.navigationController) {
         [self.navigationController popViewControllerAnimated:YES];
     }else{
-        [self dismissViewControllerAnimated:YES completion:nil];
+        [self dismissViewControllerAnimated:YES completion:^{
+            AppDelegate *appDelegate = (AppDelegate*)[UIApplication  sharedApplication].delegate;
+            if (deviceVersion >= 7.0) {
+                UIViewController *viewController = nil;
+                if (appDelegate.window.rootViewController.presentedViewController) {
+                    viewController = appDelegate.window.rootViewController.presentedViewController;
+                }else{
+                    viewController = appDelegate.window.rootViewController;
+                }
+                CGAffineTransform currentTransform = appDelegate.window.transform;
+                CGAffineTransform newTransform = CGAffineTransformScale(currentTransform, 1, (appFrame.size.height - 20)/appFrame.size.height);
+                [viewController.view.layer setAnchorPoint:CGPointMake(0.5f, 1.0f)];
+                
+                [viewController.view setFrame:CGRectMake(0, 0, viewController.view.frame.size.width, viewController.view.frame.size.height)];
+                [UIView animateWithDuration:0.25 animations:^{
+                    [viewController.view setTransform:newTransform];
+                }];
+            }
+        }];
     }
 }
 
@@ -324,6 +346,7 @@
         params = [NSMutableDictionary dictionary];
     }
     
+<<<<<<< HEAD
     ASIFormDataRequest *request = [[ASIFormDataRequest alloc]initWithURL:[NSURL URLWithString:URLString]];
     [request setUserInfo:userInfo];
     
@@ -333,6 +356,42 @@
     
     if(requestType != RequestLogIn){
             [params setObject:[UserDefaults shareUserDefault].authTkn forKey:@"authTkn"];
+=======
+        ASIFormDataRequest *request = [[ASIFormDataRequest alloc]initWithURL:[NSURL URLWithString:URLString]];
+        [request setUserInfo:userInfo];
+        
+        [params setObject:deviceId forKey:@"deviceId"];
+        [params setObject:@"0" forKey:@"appId"];
+        [params setObject:[Utils stringWithDate:[NSDate date] withFormat:@"yyyy-MM-dd HH:mm:ss"] forKey:@"processTime"];
+        if (requestType != RequestLogIn) {
+            if ([UserDefaults shareUserDefault].authTkn) {
+                [params setObject:[UserDefaults shareUserDefault].authTkn forKey:@"authTkn"];
+            }
+        }
+        
+        [request setPostValue:[params JSONRepresentation] forKey:@"Json"];
+        NSLog(@"params json = %@",[params JSONRepresentation]);
+        [request setDelegate:self];
+        
+        [request setTimeOutSeconds:30];
+        [request setUseCookiePersistence:NO];
+        [request startAsynchronous];
+    }else if (requestType == RequestLogOut){
+        ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:[NSURL URLWithString:URLString]];
+        request.requestHeaders = [NSMutableDictionary dictionaryWithDictionary:params];
+        [request setUserInfo:userInfo];
+        
+        [params setObject:deviceId forKey:@"deviceId"];
+        [params setObject:@"0" forKey:@"appId"];
+        [params setObject:[Utils stringWithDate:[NSDate date] withFormat:@"yyyy-MM-dd HH:mm:ss"] forKey:@"processTime"];
+        [params setObject:[UserDefaults shareUserDefault].authTkn forKey:@"authTkn"];
+        NSLog(@"json = %@",[params JSONRepresentation]);
+        [request setPostValue:[params JSONRepresentation] forKey:@"Json"];
+        [request setUseCookiePersistence:NO];
+        [request setTimeOutSeconds:30];
+        request.delegate = self;
+        [request startAsynchronous];
+>>>>>>> 108a4d6d70d6d3d1aad23020c614221bd282cca0
     }
     
     NSString *json = [params JSONRepresentation];
@@ -360,6 +419,7 @@
     }else{
         [[Model shareModel] showPromptText:[NSString stringWithFormat:@"%@\n错误码%@",[dic objectForKey:@"errorMessage"],[dic objectForKey:@"errorCode"]] model:YES];
     }
+    [self.view setUserInteractionEnabled:YES];
 }
 - (void)requestFailed:(ASIHTTPRequest *)request
 {
@@ -426,7 +486,11 @@
 - (void)popToMainViewControllerTransitionType:(TransitionType)_transitionType completionHandler:(void (^) (void))_compleHandler
 {
     if (self.navigationController) {
-        [self.navigationController popToViewController:[Model shareModel].mainView animated:NO];
+        if (![Model shareModel].mainView) {
+            [Model shareModel].mainView = [[RegisterAndLogViewController alloc]init];
+            [self.navigationController pushViewController:[Model shareModel].mainView animated:YES];
+        }else
+            [self.navigationController popToViewController:[Model shareModel].mainView animated:YES];
         CATransition *transition = [Utils getAnimation:_transitionType subType:DirectionLeft];
         [self.navigationController.view.layer addAnimation:transition forKey:@"viewtransition"];
         [self performSelector:@selector(completionHandler:) withObject:_compleHandler afterDelay:transitionDuration];
@@ -462,7 +526,7 @@
     if ([param isKindOfClass:[UIColor class]]) {
         UIColor *color = (UIColor*)param;
         [line setBackgroundColor:color];
-        [line setAlpha:0.5];
+        //[line setAlpha:0.5];
     }else if ([param isKindOfClass:[UIImage class]]){
         UIImage *image = (UIImage*)param;
         [line setImage:image];

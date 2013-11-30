@@ -179,12 +179,35 @@
 		12DDD837183B5C4E00E774AF /* set_sgitem_r_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 12DDD833183B5C4E00E774AF /* set_sgitem_r_normal.png */; };
 		12DDD838183B5C4E00E774AF /* set_sgitem_r_select.png in Resources */ = {isa = PBXBuildFile; fileRef = 12DDD834183B5C4E00E774AF /* set_sgitem_r_select.png */; };
 		1807C0B51844868800199E5D /* AirListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1807C0B41844868800199E5D /* AirListViewController.m */; };
+<<<<<<< HEAD
 		B5035FEF184891F2002B1481 /* HotelCitesResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = B5035FEE184891F2002B1481 /* HotelCitesResponse.m */; };
 		B523F73B18478B94005C45C5 /* BaseRequestModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B523F73A18478B94005C45C5 /* BaseRequestModel.m */; };
 		B53496B91846E3C6001BC8D1 /* BaseResponseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B53496B81846E3C6001BC8D1 /* BaseResponseModel.m */; };
 		B59849B918477B830037C5F0 /* (null) in Sources */ = {isa = PBXBuildFile; };
 		B59849C0184783DA0037C5F0 /* HotelCitesRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = B59849BF184783DA0037C5F0 /* HotelCitesRequest.m */; };
 		B5A249221845F63A005BB217 /* URLHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = B5A249211845F63A005BB217 /* URLHelper.m */; };
+=======
+		183E48931845E2F9009F6C4E /* RequestManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 183E48921845E2F9009F6C4E /* RequestManager.m */; };
+		18573C8A1849A94800A19D7E /* CityPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18573C891849A94800A19D7E /* CityPickerViewController.m */; };
+		18573C931849B36100A19D7E /* MiuTripOrderDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = 18573C921849B36100A19D7E /* MiuTripOrderDetail.m */; };
+		187CBD1218485D2D00F25BD7 /* air_arr_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 187CBD0E18485D2D00F25BD7 /* air_arr_icon.png */; };
+		187CBD1318485D2D00F25BD7 /* air_arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 187CBD0F18485D2D00F25BD7 /* air_arrow.png */; };
+		187CBD1418485D2D00F25BD7 /* air_exchange.png in Resources */ = {isa = PBXBuildFile; fileRef = 187CBD1018485D2D00F25BD7 /* air_exchange.png */; };
+		187CBD1518485D2D00F25BD7 /* air_from_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 187CBD1118485D2D00F25BD7 /* air_from_icon.png */; };
+		187CBD18184879DB00F25BD7 /* OnLineAllClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 187CBD17184879DB00F25BD7 /* OnLineAllClass.m */; };
+		187CBD1A18487E7900F25BD7 /* arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 187CBD1918487E7900F25BD7 /* arrow.png */; };
+		18B4734E1846DF48003FF7AD /* LoginInfoDTO.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B4734D1846DF48003FF7AD /* LoginInfoDTO.m */; };
+		18B473511846E977003FF7AD /* TravelLifeInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B473501846E977003FF7AD /* TravelLifeInfo.m */; };
+		18B473541846EB84003FF7AD /* BookPassengersDTO.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B473531846EB84003FF7AD /* BookPassengersDTO.m */; };
+		18B473571846F5A2003FF7AD /* CorpServerCardDTO.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B473561846F5A2003FF7AD /* CorpServerCardDTO.m */; };
+		18B4735A1846F74D003FF7AD /* CorpStaffDTO.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B473591846F74D003FF7AD /* CorpStaffDTO.m */; };
+		18B4735D1846F9A5003FF7AD /* CorpUserBaseInfoDTO.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B4735C1846F9A5003FF7AD /* CorpUserBaseInfoDTO.m */; };
+		18B473601846FC7A003FF7AD /* CorpPolicyDTO.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B4735F1846FC7A003FF7AD /* CorpPolicyDTO.m */; };
+		18B47363184700F3003FF7AD /* CorpCostCenterDTO.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B47362184700F3003FF7AD /* CorpCostCenterDTO.m */; };
+		18B473661847062C003FF7AD /* MemberDeliverDTO.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B473651847062C003FF7AD /* MemberDeliverDTO.m */; };
+		18B47368184731AB003FF7AD /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 18B47367184731AB003FF7AD /* libicucore.dylib */; };
+		18B4736C184731DC003FF7AD /* RegexKitLite.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B4736B184731DC003FF7AD /* RegexKitLite.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+>>>>>>> 108a4d6d70d6d3d1aad23020c614221bd282cca0
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -423,6 +446,7 @@
 		12DDD834183B5C4E00E774AF /* set_sgitem_r_select.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = set_sgitem_r_select.png; sourceTree = "<group>"; };
 		1807C0B31844868800199E5D /* AirListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AirListViewController.h; sourceTree = "<group>"; };
 		1807C0B41844868800199E5D /* AirListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AirListViewController.m; sourceTree = "<group>"; };
+<<<<<<< HEAD
 		B5035FED184891F2002B1481 /* HotelCitesResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HotelCitesResponse.h; sourceTree = "<group>"; };
 		B5035FEE184891F2002B1481 /* HotelCitesResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HotelCitesResponse.m; sourceTree = "<group>"; };
 		B523F73918478B94005C45C5 /* BaseRequestModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseRequestModel.h; sourceTree = "<group>"; };
@@ -435,6 +459,42 @@
 		B59849BF184783DA0037C5F0 /* HotelCitesRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HotelCitesRequest.m; sourceTree = "<group>"; };
 		B5A249201845F63A005BB217 /* URLHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = URLHelper.h; sourceTree = "<group>"; };
 		B5A249211845F63A005BB217 /* URLHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = URLHelper.m; sourceTree = "<group>"; };
+=======
+		183E48911845E2F9009F6C4E /* RequestManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RequestManager.h; sourceTree = "<group>"; };
+		183E48921845E2F9009F6C4E /* RequestManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RequestManager.m; sourceTree = "<group>"; };
+		18573C881849A94800A19D7E /* CityPickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CityPickerViewController.h; sourceTree = "<group>"; };
+		18573C891849A94800A19D7E /* CityPickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CityPickerViewController.m; sourceTree = "<group>"; };
+		18573C911849B36100A19D7E /* MiuTripOrderDetail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MiuTripOrderDetail.h; sourceTree = "<group>"; };
+		18573C921849B36100A19D7E /* MiuTripOrderDetail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MiuTripOrderDetail.m; sourceTree = "<group>"; };
+		187CBD0E18485D2D00F25BD7 /* air_arr_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = air_arr_icon.png; sourceTree = "<group>"; };
+		187CBD0F18485D2D00F25BD7 /* air_arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = air_arrow.png; sourceTree = "<group>"; };
+		187CBD1018485D2D00F25BD7 /* air_exchange.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = air_exchange.png; sourceTree = "<group>"; };
+		187CBD1118485D2D00F25BD7 /* air_from_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = air_from_icon.png; sourceTree = "<group>"; };
+		187CBD16184879DB00F25BD7 /* OnLineAllClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OnLineAllClass.h; sourceTree = "<group>"; };
+		187CBD17184879DB00F25BD7 /* OnLineAllClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OnLineAllClass.m; sourceTree = "<group>"; };
+		187CBD1918487E7900F25BD7 /* arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrow.png; sourceTree = "<group>"; };
+		18B4734C1846DF48003FF7AD /* LoginInfoDTO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginInfoDTO.h; sourceTree = "<group>"; };
+		18B4734D1846DF48003FF7AD /* LoginInfoDTO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginInfoDTO.m; sourceTree = "<group>"; };
+		18B4734F1846E977003FF7AD /* TravelLifeInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TravelLifeInfo.h; sourceTree = "<group>"; };
+		18B473501846E977003FF7AD /* TravelLifeInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TravelLifeInfo.m; sourceTree = "<group>"; };
+		18B473521846EB84003FF7AD /* BookPassengersDTO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BookPassengersDTO.h; sourceTree = "<group>"; };
+		18B473531846EB84003FF7AD /* BookPassengersDTO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BookPassengersDTO.m; sourceTree = "<group>"; };
+		18B473551846F5A2003FF7AD /* CorpServerCardDTO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CorpServerCardDTO.h; sourceTree = "<group>"; };
+		18B473561846F5A2003FF7AD /* CorpServerCardDTO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CorpServerCardDTO.m; sourceTree = "<group>"; };
+		18B473581846F74D003FF7AD /* CorpStaffDTO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CorpStaffDTO.h; sourceTree = "<group>"; };
+		18B473591846F74D003FF7AD /* CorpStaffDTO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CorpStaffDTO.m; sourceTree = "<group>"; };
+		18B4735B1846F9A5003FF7AD /* CorpUserBaseInfoDTO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CorpUserBaseInfoDTO.h; sourceTree = "<group>"; };
+		18B4735C1846F9A5003FF7AD /* CorpUserBaseInfoDTO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CorpUserBaseInfoDTO.m; sourceTree = "<group>"; };
+		18B4735E1846FC7A003FF7AD /* CorpPolicyDTO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CorpPolicyDTO.h; sourceTree = "<group>"; };
+		18B4735F1846FC7A003FF7AD /* CorpPolicyDTO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CorpPolicyDTO.m; sourceTree = "<group>"; };
+		18B47361184700F3003FF7AD /* CorpCostCenterDTO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CorpCostCenterDTO.h; sourceTree = "<group>"; };
+		18B47362184700F3003FF7AD /* CorpCostCenterDTO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CorpCostCenterDTO.m; sourceTree = "<group>"; };
+		18B473641847062C003FF7AD /* MemberDeliverDTO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MemberDeliverDTO.h; sourceTree = "<group>"; };
+		18B473651847062C003FF7AD /* MemberDeliverDTO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MemberDeliverDTO.m; sourceTree = "<group>"; };
+		18B47367184731AB003FF7AD /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
+		18B4736A184731DC003FF7AD /* RegexKitLite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegexKitLite.h; sourceTree = "<group>"; };
+		18B4736B184731DC003FF7AD /* RegexKitLite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegexKitLite.m; sourceTree = "<group>"; };
+>>>>>>> 108a4d6d70d6d3d1aad23020c614221bd282cca0
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -442,6 +502,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				18B47368184731AB003FF7AD /* libicucore.dylib in Frameworks */,
 				12478A0618363B4000AA0083 /* libz.dylib in Frameworks */,
 				1279151B183326B700CF94F4 /* CoreGraphics.framework in Frameworks */,
 				12478A0418363B2F00AA0083 /* MobileCoreServices.framework in Frameworks */,
@@ -626,12 +687,12 @@
 		1253D5F21835D1E1004B595D /* HomeImage */ = {
 			isa = PBXGroup;
 			children = (
+				1253D5F81835D1E1004B595D /* homeviewimage */,
 				1253D5F31835D1E1004B595D /* autolog_normal.png */,
 				1253D5F41835D1E1004B595D /* autolog_select.png */,
 				1253D5F51835D1E1004B595D /* done_btn_normal.png */,
 				1253D5F61835D1E1004B595D /* done_btn_press.png */,
 				1253D5F71835D1E1004B595D /* home_return.png */,
-				1253D5F81835D1E1004B595D /* homeviewimage */,
 				1253D6181835D1E2004B595D /* log_pword.png */,
 				1253D6191835D1E2004B595D /* log_text_bg.png */,
 				1253D61A1835D1E2004B595D /* log_uname.png */,
@@ -648,6 +709,10 @@
 		1253D5F81835D1E1004B595D /* homeviewimage */ = {
 			isa = PBXGroup;
 			children = (
+				187CBD0F18485D2D00F25BD7 /* air_arrow.png */,
+				187CBD1018485D2D00F25BD7 /* air_exchange.png */,
+				187CBD1118485D2D00F25BD7 /* air_from_icon.png */,
+				187CBD0E18485D2D00F25BD7 /* air_arr_icon.png */,
 				1253D5F91835D1E1004B595D /* air_normal.png */,
 				1253D5FA1835D1E1004B595D /* air_press.png */,
 				1253D5FB1835D1E1004B595D /* home_item1_bottom.png */,
@@ -766,6 +831,7 @@
 		12791517183326B700CF94F4 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				18B47367184731AB003FF7AD /* libicucore.dylib */,
 				12478A0518363B4000AA0083 /* libz.dylib */,
 				12478A0318363B2F00AA0083 /* MobileCoreServices.framework */,
 				12478A0118363B2800AA0083 /* SystemConfiguration.framework */,
@@ -821,6 +887,7 @@
 		1279154A1833292700CF94F4 /* Library */ = {
 			isa = PBXGroup;
 			children = (
+				18B47369184731DC003FF7AD /* RegexKitLite */,
 				124789A01836363000AA0083 /* ASIHttpRequest */,
 				124789B81836363000AA0083 /* EGORefireshTableHeader */,
 				124789C61836363000AA0083 /* SBJson */,
@@ -832,6 +899,7 @@
 		1279154B1833292700CF94F4 /* MyClass */ = {
 			isa = PBXGroup;
 			children = (
+				183E48901845E2DB009F6C4E /* RequestHandle */,
 				1279154C1833292700CF94F4 /* Element */,
 				127915531833292700CF94F4 /* Model */,
 				1279155D18334CE500CF94F4 /* HomeView */,
@@ -849,6 +917,8 @@
 				1279154E1833292700CF94F4 /* DatePickerViewController.xib */,
 				1279154F1833292700CF94F4 /* ImagePickerViewController.h */,
 				127915501833292700CF94F4 /* ImagePickerViewController.m */,
+				18573C881849A94800A19D7E /* CityPickerViewController.h */,
+				18573C891849A94800A19D7E /* CityPickerViewController.m */,
 				127915511833292700CF94F4 /* Utils.h */,
 				127915521833292700CF94F4 /* Utils.m */,
 				127C6842183A0AB20055784D /* CustomBtn.h */,
@@ -880,6 +950,7 @@
 				122BD71D184057B800BAA9A9 /* AirOrderDetailCell.m */,
 				122BD71F184057F100BAA9A9 /* HotelOrderDetailCell.h */,
 				122BD720184057F100BAA9A9 /* HotelOrderDetailCell.m */,
+<<<<<<< HEAD
 				B53496B61846E310001BC8D1 /* ResponseDelegate.h */,
 				B53496B71846E3C6001BC8D1 /* BaseResponseModel.h */,
 				B53496B81846E3C6001BC8D1 /* BaseResponseModel.m */,
@@ -888,6 +959,30 @@
 				B59849BF184783DA0037C5F0 /* HotelCitesRequest.m */,
 				B5035FED184891F2002B1481 /* HotelCitesResponse.h */,
 				B5035FEE184891F2002B1481 /* HotelCitesResponse.m */,
+=======
+				18B4734C1846DF48003FF7AD /* LoginInfoDTO.h */,
+				18B4734D1846DF48003FF7AD /* LoginInfoDTO.m */,
+				18B4734F1846E977003FF7AD /* TravelLifeInfo.h */,
+				18B473501846E977003FF7AD /* TravelLifeInfo.m */,
+				18B473521846EB84003FF7AD /* BookPassengersDTO.h */,
+				18B473531846EB84003FF7AD /* BookPassengersDTO.m */,
+				18B473551846F5A2003FF7AD /* CorpServerCardDTO.h */,
+				18B473561846F5A2003FF7AD /* CorpServerCardDTO.m */,
+				18B473581846F74D003FF7AD /* CorpStaffDTO.h */,
+				18B473591846F74D003FF7AD /* CorpStaffDTO.m */,
+				18B4735B1846F9A5003FF7AD /* CorpUserBaseInfoDTO.h */,
+				18B4735C1846F9A5003FF7AD /* CorpUserBaseInfoDTO.m */,
+				18B4735E1846FC7A003FF7AD /* CorpPolicyDTO.h */,
+				18B4735F1846FC7A003FF7AD /* CorpPolicyDTO.m */,
+				18B47361184700F3003FF7AD /* CorpCostCenterDTO.h */,
+				18B47362184700F3003FF7AD /* CorpCostCenterDTO.m */,
+				18B473641847062C003FF7AD /* MemberDeliverDTO.h */,
+				18B473651847062C003FF7AD /* MemberDeliverDTO.m */,
+				187CBD16184879DB00F25BD7 /* OnLineAllClass.h */,
+				187CBD17184879DB00F25BD7 /* OnLineAllClass.m */,
+				18573C911849B36100A19D7E /* MiuTripOrderDetail.h */,
+				18573C921849B36100A19D7E /* MiuTripOrderDetail.m */,
+>>>>>>> 108a4d6d70d6d3d1aad23020c614221bd282cca0
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -895,6 +990,7 @@
 		127915561833292700CF94F4 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				187CBD1918487E7900F25BD7 /* arrow.png */,
 				1253D5F01835D1E1004B595D /* bottombar.png */,
 				1253D5F11835D1E1004B595D /* home_bg.png */,
 				1253D6211835D1E2004B595D /* return.png */,
@@ -926,6 +1022,24 @@
 				1807C0B41844868800199E5D /* AirListViewController.m */,
 			);
 			path = AirQuery;
+			sourceTree = "<group>";
+		};
+		183E48901845E2DB009F6C4E /* RequestHandle */ = {
+			isa = PBXGroup;
+			children = (
+				183E48911845E2F9009F6C4E /* RequestManager.h */,
+				183E48921845E2F9009F6C4E /* RequestManager.m */,
+			);
+			path = RequestHandle;
+			sourceTree = "<group>";
+		};
+		18B47369184731DC003FF7AD /* RegexKitLite */ = {
+			isa = PBXGroup;
+			children = (
+				18B4736A184731DC003FF7AD /* RegexKitLite.h */,
+				18B4736B184731DC003FF7AD /* RegexKitLite.m */,
+			);
+			path = RegexKitLite;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1004,6 +1118,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				122BD73818406D2E00BAA9A9 /* query_checkIn.png in Resources */,
+				187CBD1518485D2D00F25BD7 /* air_from_icon.png in Resources */,
 				1253D6581835D1E2004B595D /* phone_press.png in Resources */,
 				122BD72A184061E200BAA9A9 /* hotel_done_press.png in Resources */,
 				12DDD835183B5C4E00E774AF /* set_sgitem_l_normal.png in Resources */,
@@ -1063,6 +1178,7 @@
 				1253D63C1835D1E2004B595D /* home_item3_bottom.png in Resources */,
 				12DDD837183B5C4E00E774AF /* set_sgitem_r_normal.png in Resources */,
 				1253D6481835D1E2004B595D /* btn_detail.png in Resources */,
+				187CBD1A18487E7900F25BD7 /* arrow.png in Resources */,
 				1253D6411835D1E2004B595D /* home_item5_top.png in Resources */,
 				12DDD838183B5C4E00E774AF /* set_sgitem_r_select.png in Resources */,
 				122CE5CB183A3AB5001771DC /* set_prefer.png in Resources */,
@@ -1084,6 +1200,8 @@
 				122CE5CE183A3AB5001771DC /* set_save_normal.png in Resources */,
 				1253D6391835D1E2004B595D /* home_item1_top.png in Resources */,
 				1253D6511835D1E2004B595D /* subitem_normal.png in Resources */,
+				187CBD1418485D2D00F25BD7 /* air_exchange.png in Resources */,
+				187CBD1218485D2D00F25BD7 /* air_arr_icon.png in Resources */,
 				1253D6341835D1E2004B595D /* done_btn_press.png in Resources */,
 				1253D65F1835D1E2004B595D /* cname_arrow.png in Resources */,
 				1253D6561835D1E2004B595D /* log_uname.png in Resources */,
@@ -1112,6 +1230,7 @@
 				1253D6401835D1E2004B595D /* home_item5_bottom.png in Resources */,
 				124789EC1836363100AA0083 /* blueArrow.png in Resources */,
 				12350A71183CFC8D00F9E8A7 /* sub_paied.png in Resources */,
+				187CBD1318485D2D00F25BD7 /* air_arrow.png in Resources */,
 				1279152B183326B700CF94F4 /* Images.xcassets in Resources */,
 				1253D6331835D1E2004B595D /* done_btn_normal.png in Resources */,
 				122CE5D0183A3AB5001771DC /* set_setting.png in Resources */,
@@ -1136,30 +1255,45 @@
 			buildActionMask = 2147483647;
 			files = (
 				127915571833292700CF94F4 /* DatePickerViewController.m in Sources */,
+				18B473601846FC7A003FF7AD /* CorpPolicyDTO.m in Sources */,
 				124789E21836363100AA0083 /* ASIDataDecompressor.m in Sources */,
+				18B4735D1846F9A5003FF7AD /* CorpUserBaseInfoDTO.m in Sources */,
+				18B473511846E977003FF7AD /* TravelLifeInfo.m in Sources */,
 				122BD71E184057B800BAA9A9 /* AirOrderDetailCell.m in Sources */,
 				122CE5BC183A34D4001771DC /* SettingViewController.m in Sources */,
+				18573C8A1849A94800A19D7E /* CityPickerViewController.m in Sources */,
 				12791529183326B700CF94F4 /* AppDelegate.m in Sources */,
+				18B4734E1846DF48003FF7AD /* LoginInfoDTO.m in Sources */,
 				124789E11836363100AA0083 /* ASIDataCompressor.m in Sources */,
 				B5035FEF184891F2002B1481 /* HotelCitesResponse.m in Sources */,
 				127915631833512700CF94F4 /* RegisterAndLogViewController.m in Sources */,
 				1279155A1833292700CF94F4 /* Utils.m in Sources */,
 				124789E41836363100AA0083 /* ASIFormDataRequest.m in Sources */,
 				124789F91836363100AA0083 /* SBJsonStreamWriter.m in Sources */,
+				183E48931845E2F9009F6C4E /* RequestManager.m in Sources */,
 				124789FA1836363100AA0083 /* SBJsonStreamWriterAccumulator.m in Sources */,
+				18B473571846F5A2003FF7AD /* CorpServerCardDTO.m in Sources */,
 				12C37DC2183DD5FF00EA6D26 /* CustomMethod.m in Sources */,
+				18B4735A1846F74D003FF7AD /* CorpStaffDTO.m in Sources */,
 				1253D4F71835C324004B595D /* CommonlyNameViewController.m in Sources */,
 				124789E71836363100AA0083 /* ASINetworkQueue.m in Sources */,
 				124789FD1836363100AA0083 /* SBJsonUTF8Stream.m in Sources */,
 				1279155B1833292700CF94F4 /* Model.m in Sources */,
+				187CBD18184879DB00F25BD7 /* OnLineAllClass.m in Sources */,
 				1247899F183633E700AA0083 /* UserDefaults.m in Sources */,
 				124789F71836363100AA0083 /* SBJsonStreamParserAdapter.m in Sources */,
 				124789F61836363100AA0083 /* SBJsonStreamParserAccumulator.m in Sources */,
 				122BD72E1840659800BAA9A9 /* MyMiuViewController.m in Sources */,
+<<<<<<< HEAD
 				B523F73B18478B94005C45C5 /* BaseRequestModel.m in Sources */,
 				B59849B918477B830037C5F0 /* (null) in Sources */,
+=======
+				18B473541846EB84003FF7AD /* BookPassengersDTO.m in Sources */,
+>>>>>>> 108a4d6d70d6d3d1aad23020c614221bd282cca0
 				124789F81836363100AA0083 /* SBJsonStreamParserState.m in Sources */,
+				18B47363184700F3003FF7AD /* CorpCostCenterDTO.m in Sources */,
 				122BD721184057F100BAA9A9 /* HotelOrderDetailCell.m in Sources */,
+				18B473661847062C003FF7AD /* MemberDeliverDTO.m in Sources */,
 				124789FC1836363100AA0083 /* SBJsonTokeniser.m in Sources */,
 				1807C0B51844868800199E5D /* AirListViewController.m in Sources */,
 				124789F51836363100AA0083 /* SBJsonStreamParser.m in Sources */,
@@ -1171,9 +1305,11 @@
 				124789E91836363100AA0083 /* EGORefreshTableHeaderView.m in Sources */,
 				127915771833659D00CF94F4 /* HomeViewController.m in Sources */,
 				127915591833292700CF94F4 /* ImagePickerViewController.m in Sources */,
+				18573C931849B36100A19D7E /* MiuTripOrderDetail.m in Sources */,
 				1279156018334D1400CF94F4 /* BaseUIViewController.m in Sources */,
 				12791525183326B700CF94F4 /* main.m in Sources */,
 				124789F31836363100AA0083 /* NSObject+SBJson.m in Sources */,
+				18B4736C184731DC003FF7AD /* RegexKitLite.m in Sources */,
 				12835DA7183DB39500D97422 /* HotelAndAirOrderViewController.m in Sources */,
 				124789FE1836363100AA0083 /* SBJsonWriter.m in Sources */,
 				124789E31836363100AA0083 /* ASIDownloadCache.m in Sources */,

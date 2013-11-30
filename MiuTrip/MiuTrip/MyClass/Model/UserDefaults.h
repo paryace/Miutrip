@@ -8,22 +8,22 @@
 
 #import <Foundation/Foundation.h>
 
+@class LoginInfoDTO;
+
 @interface UserDefaults : NSObject
 
 +(UserDefaults*)shareUserDefault;
 
+@property (strong, nonatomic) LoginInfoDTO              *loginInfo;
+
 @property (strong, nonatomic) NSString                  *userName;
 @property (strong, nonatomic) NSString                  *passWord;
-@property (strong, nonatomic) NSString                  *userId;
-@property (strong, nonatomic) NSString                  *cookie;
-@property (strong, nonatomic) NSString                  *realName;
 @property (strong, nonatomic) NSString                  *mobile;
 @property (strong, nonatomic) NSString                  *email;
 @property (strong, nonatomic) NSString                  *sex;
 @property (assign, nonatomic) BOOL                      getUserInfo;
 
-@property (retain, nonatomic) NSMutableArray            *subService;
-
+@property (assign, nonatomic) BOOL                      autoLogin;
 
 //0:本人 1:他人/多人
 @property (assign, nonatomic) NSInteger                 reserveObject;              //预定对象

@@ -30,6 +30,9 @@
      [result autorelease];
      return result;*/
 }
+
+
+
 @end
 
 @implementation BaseContentView

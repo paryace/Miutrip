@@ -8,6 +8,7 @@
 
 #import "CommonlyNameViewController.h"
 #import "CommonlyName.h"
+#import "BookPassengersDTO.h"
 #import "CustomBtn.h"
 
 @interface CommonlyNameViewController ()
@@ -28,27 +29,29 @@
 -(id)init
 {
     if (self = [super init]) {
-        _dataSource = [NSMutableArray arrayWithArray:[CommonlyName getCommonDataWithNum:7]];
-
         [self setSubviewFrame];
+
+        [self.requestManager getContact:nil];
     }
     return self;
 }
 
 - (void)pressRightBtn:(UIButton*)sender
 {
-    
+    [self.requestManager getContact:nil];
 }
 
-- (void)pressBtn:(CustomBtn*)sender
+#pragma mark - request handle
+- (void)getContactDone:(NSArray *)contacts
 {
-    NSLog(@"index = %@,tag = %d",sender.indexPath,sender.tag);
+    _dataSource = [NSMutableArray arrayWithArray:contacts];
+    [_theTableView reloadData];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    CommonlyName *nameDetail = [_dataSource objectAtIndex:indexPath.row];
-    if (nameDetail.unfold) {
+    BookPassengersDTO *passengerDetail = [_dataSource objectAtIndex:indexPath.row];
+    if (passengerDetail.unfold) {
         return CommonlyNameViewCellHeight * 9;
     }else
         return CommonlyNameViewCellHeight;
@@ -69,6 +72,10 @@
     CustomBtn *deleteBtn = (CustomBtn*)[cell viewWithTag:303];
     CustomBtn *saveBtn   = (CustomBtn*)[cell viewWithTag:304];
     
+    BookPassengersDTO *passengerDetail = [_dataSource objectAtIndex:indexPath.row];
+    
+    [cell setContentWithParams:passengerDetail];
+    
     [deleteBtn setIndexPath:indexPath];
     [saveBtn   setIndexPath:indexPath];
     
@@ -78,9 +85,9 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     CommonlyNameViewCell *cell = (CommonlyNameViewCell*)[tableView cellForRowAtIndexPath:indexPath];
-    CommonlyName *nameDetail = [_dataSource objectAtIndex:indexPath.row];
-    nameDetail.unfold = !nameDetail.unfold;
-    [cell subviewUnfold:nameDetail.unfold];
+    BookPassengersDTO *passengerDetail = [_dataSource objectAtIndex:indexPath.row];
+    passengerDetail.unfold = !passengerDetail.unfold;
+    [cell subviewUnfold:passengerDetail.unfold];
     [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
 }
 
@@ -165,6 +172,14 @@
     return self;
 }
 
+- (void)setContentWithParams:(BookPassengersDTO*)passengerDetail
+{
+    [_userName setText:passengerDetail.UserName];
+    [_unfoldUserName setText:passengerDetail.UserName];
+    [_nationality setText:[Utils NULLToEmpty:passengerDetail.Country]];
+    [_phoneNum setText:passengerDetail.Mobilephone];
+}
+
 - (void)subviewUnfold:(BOOL)show
 {
     if (show) {
@@ -195,12 +210,11 @@
 {
     [self setBackGroundImage:imageNameAndType(@"cname_box_bg", nil)];
     
-    _userName = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, appFrame.size.width - 20, CommonlyNameViewCellHeight)];
+    _userName = [[UILabel alloc]initWithFrame:CGRectMake(10, 0, appFrame.size.width - 40, CommonlyNameViewCellHeight)];
     [_userName setBackgroundColor:color(clearColor)];
-    [_userName setText:@"  土豆大猪"];
     [self.contentView addSubview:_userName];
     
-    _unfoldView = [[UIView alloc]initWithFrame:CGRectMake(_userName.frame.origin.x, controlYLength(_userName), _userName.frame.size.width, 0)];
+    _unfoldView = [[UIView alloc]initWithFrame:CGRectMake(0, controlYLength(_userName), appFrame.size.width - 20, 0)];
     [_unfoldView setTag:300];
     [_unfoldView setBackgroundColor:color(colorWithRed:231.0/255.0 green:235.0/255.0 blue:241.0/255.0 alpha:1)];
     [self.contentView addSubview:_unfoldView];
@@ -208,7 +222,8 @@
     UILabel *unfoldUserNameLeft = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, _unfoldView.frame.size.width/4, CommonlyNameViewCellHeight)];
     [unfoldUserNameLeft setBackgroundColor:color(clearColor)];
     [unfoldUserNameLeft setTextAlignment:NSTextAlignmentRight];
-    [unfoldUserNameLeft setText:@"姓名"];
+    [unfoldUserNameLeft setText:@"姓名："];
+    [unfoldUserNameLeft setAutoSize:YES];
     [unfoldUserNameLeft setTextColor:color(grayColor)];
     _unfoldUserName = [[UITextField alloc]initWithFrame:CGRectMake(0, 0, _unfoldView.frame.size.width, unfoldUserNameLeft.frame.size.height)];
     [_unfoldUserName setBackgroundColor:color(clearColor)];
@@ -224,7 +239,8 @@
     UILabel *nationalityLeft = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, unfoldUserNameLeft.frame.size.width, unfoldUserNameLeft.frame.size.height)];
     [nationalityLeft setBackgroundColor:color(clearColor)];
     [nationalityLeft setTextAlignment:NSTextAlignmentRight];
-    [nationalityLeft setText:@"国籍"];
+    [nationalityLeft setText:@"国籍："];
+    [nationalityLeft setAutoSize:YES];
     [nationalityLeft setTextColor:color(grayColor)];
     _nationality = [[UITextField alloc]initWithFrame:CGRectMake(_unfoldUserName.frame.origin.x, controlYLength(_unfoldUserName), _unfoldUserName.frame.size.width, _unfoldUserName.frame.size.height)];
     [_nationality setBackgroundColor:color(clearColor)];
@@ -240,7 +256,8 @@
     UILabel *cardTypeLeft = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, unfoldUserNameLeft.frame.size.width, unfoldUserNameLeft.frame.size.height)];
     [cardTypeLeft setBackgroundColor:color(clearColor)];
     [cardTypeLeft setTextAlignment:NSTextAlignmentRight];
-    [cardTypeLeft setText:@"证件类型"];
+    [cardTypeLeft setText:@"证件类型："];
+    [cardTypeLeft setAutoSize:YES];
     [cardTypeLeft setTextColor:color(grayColor)];
     _cardType = [[UITextField alloc]initWithFrame:CGRectMake(_unfoldUserName.frame.origin.x, controlYLength(_nationality), _unfoldUserName.frame.size.width, _unfoldUserName.frame.size.height)];
     [_cardType setBackgroundColor:color(clearColor)];
@@ -256,7 +273,8 @@
     UILabel *cardNumLeft = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, unfoldUserNameLeft.frame.size.width, unfoldUserNameLeft.frame.size.height)];
     [cardNumLeft setBackgroundColor:color(clearColor)];
     [cardNumLeft setTextAlignment:NSTextAlignmentRight];
-    [cardNumLeft setText:@"证件号码"];
+    [cardNumLeft setText:@"证件号码："];
+    [cardNumLeft setAutoSize:YES];
     [cardNumLeft setTextColor:color(grayColor)];
     _cardNum = [[UITextField alloc]initWithFrame:CGRectMake(_unfoldUserName.frame.origin.x, controlYLength(_cardType), _unfoldUserName.frame.size.width, _unfoldUserName.frame.size.height)];
     [_cardNum setBackgroundColor:color(clearColor)];
@@ -272,7 +290,8 @@
     UILabel *phoneNumLeft = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, unfoldUserNameLeft.frame.size.width, unfoldUserNameLeft.frame.size.height)];
     [phoneNumLeft setBackgroundColor:color(clearColor)];
     [phoneNumLeft setTextAlignment:NSTextAlignmentRight];
-    [phoneNumLeft setText:@"手机号码"];
+    [phoneNumLeft setText:@"手机号码："];
+    [phoneNumLeft setAutoSize:YES];
     [phoneNumLeft setTextColor:color(grayColor)];
     _phoneNum = [[UITextField alloc]initWithFrame:CGRectMake(_unfoldUserName.frame.origin.x, controlYLength(_cardNum), _unfoldUserName.frame.size.width, _unfoldUserName.frame.size.height)];
     [_phoneNum setBackgroundColor:color(clearColor)];
