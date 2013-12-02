@@ -29,8 +29,18 @@
     NSLog(@"URL = %@",URLString);
     ASIFormDataRequest *asiRequest = [ASIFormDataRequest requestWithURL:[NSURL URLWithString:URLString]];
     
+    ASIDownloadCache *cache = [ASIDownloadCache sharedCache];
+    NSString *cachePath = [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"];
+    [cache setStoragePath:cachePath];
+    asiRequest.downloadCache = cache;
+    asiRequest.cacheStoragePolicy = ASICachePermanentlyCacheStoragePolicy;
+    
     //将请求类名称放入到请求中
-    NSDictionary *dic = [[NSDictionary alloc] initWithObjectsAndKeys:  [NSString stringWithUTF8String:object_getClassName(request)],KEY_REQUEST_CLASS_NAME,nil];
+    NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
+    [dic setObject:[NSString stringWithUTF8String:object_getClassName(request)] forKey:KEY_REQUEST_CLASS_NAME];
+    [dic setObject:[NSNumber numberWithBool:request.isCacheabled]forKey:KEY_REQUEST_CACHEABLE];
+    [dic setObject:request.getRequestConditions forKey:KEY_REQUEST_CONDITION];
+    
     [asiRequest setUserInfo:dic];
     
     //解析request,生成对应的请求JSON
@@ -76,12 +86,20 @@
 
 - (void)requestFinished:(ASIHTTPRequest *)request
 {
-    NSLog(@"responseString = %@",[request.responseString JSONValue]);
-    NSDictionary *reposneData = [request.responseString JSONValue];
+    NSString *responseString = request.responseString;
+    NSLog(@"responseString = %@",responseString);
+    NSDictionary *reposneData = [responseString JSONValue];
     if ([[reposneData objectForKey:@"process_status"] isEqualToString:@"0"]) {
         
         NSDictionary *userInfo = [request userInfo];
         if(userInfo != nil){
+            
+            BOOL cacheable = [[userInfo objectForKey:KEY_REQUEST_CACHEABLE] boolValue];
+            NSString *condition = [userInfo objectForKey:KEY_REQUEST_CONDITION];
+            if(cacheable && condition != nil && condition.length > 0){
+                [request.downloadCache storeResponseData:responseString forRequestCondition:condition];
+            }
+            
             //获取请求的类名称
             NSString *requestClassName = [userInfo objectForKey:KEY_REQUEST_CLASS_NAME];
             if([requestClassName hasSuffix:@"Request"]){
@@ -99,6 +117,7 @@
                 [response parshJsonToResponse:reposneData];
                 
                 [_delegate requestDone:response];
+                
             }
             
         }
