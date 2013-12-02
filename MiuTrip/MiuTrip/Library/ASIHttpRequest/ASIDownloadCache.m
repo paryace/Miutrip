@@ -118,28 +118,6 @@ static NSArray *fileExtensionsToHandleAsHTML = nil;
   return [ASIHTTPRequest expiryDateForRequest:request maxAge:maxAge];
 }
 
--(void)storeResponseData:(NSString *)data forRequestCondition:(NSString *)requestCondition{
-    
-    [[self accessLock] lock];
-    
-    if(requestCondition == nil || requestCondition.length == 0 || data == nil){
-        [[self accessLock] unlock];
-        return;
-    }
-    
-    
-    NSString *dataPath = [self pathToStoreCachedResponseForRequestCondition:requestCondition];
-    NSFileManager* manager = [[NSFileManager alloc] init];
-    NSError *error = nil;
-    if ([manager fileExistsAtPath:dataPath]) {
-        [manager removeItemAtPath:dataPath error:&error];
-    }
-    [manager release];
-    [data writeToFile:dataPath atomically:YES encoding:NSUTF8StringEncoding error:&error];
-    
-    [[self accessLock] unlock];
-}
-
 - (void)storeResponseForRequest:(ASIHTTPRequest *)request maxAge:(NSTimeInterval)maxAge
 {
 	[[self accessLock] lock];
@@ -291,19 +269,6 @@ static NSArray *fileExtensionsToHandleAsHTML = nil;
 		extension = @"html";
 	}
 	path =  [path stringByAppendingPathComponent:[[[self class] keyForURL:[request url]] stringByAppendingPathExtension:extension]];
-	[[self accessLock] unlock];
-	return path;
-}
-
-- (NSString *)pathToStoreCachedResponseForRequestCondition:(NSString *)requestCondition
-{
-	[[self accessLock] lock];
-	if (![self storagePath]) {
-		[[self accessLock] unlock];
-		return nil;
-	}
-	NSString *path = [[self storagePath] stringByAppendingPathComponent:permanentCacheFolder];
-	path =  [path stringByAppendingPathComponent:requestCondition];
 	[[self accessLock] unlock];
 	return path;
 }

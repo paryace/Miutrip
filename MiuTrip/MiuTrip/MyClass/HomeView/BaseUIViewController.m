@@ -431,7 +431,12 @@
 }
 - (void)requestError:(ASIHTTPRequest*)request
 {
-    //subview inherit this method to do request finished handle
+    //subview inherit this method to do error finished handle
+}
+
+- (void)requestSuccess:(NSString *)responseData
+{
+    //subview inherit this method to do success finished handle
 }
 
 - (void)pushViewController:(BaseUIViewController*)_viewController transitionType:(TransitionType)_transitionType completionHandler:(void (^) (void))_compleHandler

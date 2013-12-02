@@ -46,8 +46,8 @@
         
         LoginRequest *request = [[LoginRequest alloc]initWidthBusinessType:BUSINESS_ACCOUNT methodName:@"Login"];
         
-        request.username = @"18621001200";
-        request.password = @"123456";
+        request.username = _userName.text;
+        request.password = _passWord.text;
         request.rememberMe = [NSNumber numberWithBool:YES];
         
         [self.requestManager sendRequestWithoutToken:request];

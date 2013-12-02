@@ -7,8 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "BaseRequestModel.h"
-
 @class ASIHTTPRequest;
 
 // Cache policies control the behaviour of a cache and how requests use the cache
@@ -77,9 +75,6 @@ typedef enum _ASICacheStoragePolicy {
 // Should store the response for the passed request in the cache
 // When a non-zero maxAge is passed, it should be used as the expiry time for the cached response
 - (void)storeResponseForRequest:(ASIHTTPRequest *)request maxAge:(NSTimeInterval)maxAge;
-
-// store the response for the request conditon
-- (void)storeResponseData:(NSString *) data forRequestCondition:(NSString *)requestCondition;
 
 // Removes cached data for a particular url
 - (void)removeCachedDataForURL:(NSURL *)url;

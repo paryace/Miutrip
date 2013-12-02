@@ -18,6 +18,8 @@
 #import "HotelCitesRequest.h"
 #import "HotelCitesResponse.h"
 
+#import "LoginInfoDTO.h"
+
 @interface HomeViewController ()
 
 @property (strong, nonatomic) UIView                *viewPageHotel;
@@ -226,14 +228,14 @@
     [_userName setBackgroundColor:color(clearColor)];
     [_userName setFont:[UIFont boldSystemFontOfSize:14]];
     [_userName setTextColor:color(whiteColor)];
-//    [_userName setText:[UserDefaults shareUserDefault].loginInfo.UserName];
+    [_userName setText:[UserDefaults shareUserDefault].loginInfo.UserName];
     [self.view addSubview:_userName];
     
     _position = [[UILabel alloc]initWithFrame:CGRectMake(controlXLength(_userName), _userName.frame.origin.y, _userName.frame.size.width, _userName.frame.size.height)];
     [_position setBackgroundColor:color(clearColor)];
     [_position setFont:[UIFont systemFontOfSize:12]];
     [_position setTextColor:color(whiteColor)];
-//    [_position setText:[UserDefaults shareUserDefault].loginInfo.DeptName];
+    [_position setText:[UserDefaults shareUserDefault].loginInfo.DeptName];
     [self.view addSubview:_position];
     
     _company = [[UILabel alloc]initWithFrame:CGRectMake(_userName.frame.origin.x, controlYLength(_userName), _userName.frame.size.width * 2, _userName.frame.size.height)];
@@ -241,7 +243,7 @@
     [_company setFont:[UIFont systemFontOfSize:12]];
     [_company setTextColor:color(whiteColor)];
     [_company setAutoSize:YES];
-//    [_company setText:[UserDefaults shareUserDefault].loginInfo.CorpName];
+    [_company setText:[UserDefaults shareUserDefault].loginInfo.CorpName];
     [self.view addSubview:_company];
     
     UIButton *inlandBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -961,8 +963,8 @@
 - (void)pressAirItemDone:(UIButton*)sender
 {
     NSLog(@"btn tag = %d",sender.tag);
-//    AirListViewController *airListView = [[AirListViewController alloc]init];
-//    [self pushViewController:airListView transitionType:TransitionPush completionHandler:Nil];
+    AirListViewController *airListView = [[AirListViewController alloc]init];
+    [self pushViewController:airListView transitionType:TransitionPush completionHandler:Nil];
     switch (sender.tag) {
         case 750:{
             

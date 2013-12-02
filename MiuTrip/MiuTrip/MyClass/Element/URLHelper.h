@@ -6,9 +6,9 @@
 //  Copyright (c) 2013年 michael. All rights reserved.
 //
 
-#define URL_TYPE_FLIGHT @"/flight_1_0/"
-#define URL_TYPE_HOTEL @"/hotel_1_0/"
-#define URL_TYPE_COMMON @"/common_1_0/"
+#define URL_TYPE_FLIGHT  @"/flight_1_0/"
+#define URL_TYPE_HOTEL   @"/hotel_1_0/"
+#define URL_TYPE_COMMON  @"/common_1_0/"
 #define URL_TYPE_ACCOUNT @"/account_1_0/"
 
 #import <Foundation/Foundation.h>
