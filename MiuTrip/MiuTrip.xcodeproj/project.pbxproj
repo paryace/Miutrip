@@ -234,6 +234,8 @@
 		B5035FEF184891F2002B1481 /* HotelCitesResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = B5035FEE184891F2002B1481 /* HotelCitesResponse.m */; };
 		B523F73B18478B94005C45C5 /* BaseRequestModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B523F73A18478B94005C45C5 /* BaseRequestModel.m */; };
 		B53496B91846E3C6001BC8D1 /* BaseResponseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B53496B81846E3C6001BC8D1 /* BaseResponseModel.m */; };
+		B5729B41184D74BB002497B3 /* LoginUserInfoRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = B5729B40184D74BB002497B3 /* LoginUserInfoRequest.m */; };
+		B5729B44184D75E5002497B3 /* LoginUserInfoResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = B5729B43184D75E5002497B3 /* LoginUserInfoResponse.m */; };
 		B591AF621849D320003BA7A3 /* LoginRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = B591AF611849D320003BA7A3 /* LoginRequest.m */; };
 		B591AF651849DD01003BA7A3 /* LoginResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = B591AF641849DD01003BA7A3 /* LoginResponse.m */; };
 		B59849C0184783DA0037C5F0 /* HotelCitesRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = B59849BF184783DA0037C5F0 /* HotelCitesRequest.m */; };
@@ -549,6 +551,10 @@
 		B53496B61846E310001BC8D1 /* ResponseDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ResponseDelegate.h; sourceTree = "<group>"; };
 		B53496B71846E3C6001BC8D1 /* BaseResponseModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseResponseModel.h; sourceTree = "<group>"; };
 		B53496B81846E3C6001BC8D1 /* BaseResponseModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseResponseModel.m; sourceTree = "<group>"; };
+		B5729B3F184D74BB002497B3 /* LoginUserInfoRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginUserInfoRequest.h; sourceTree = "<group>"; };
+		B5729B40184D74BB002497B3 /* LoginUserInfoRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginUserInfoRequest.m; sourceTree = "<group>"; };
+		B5729B42184D75E5002497B3 /* LoginUserInfoResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginUserInfoResponse.h; sourceTree = "<group>"; };
+		B5729B43184D75E5002497B3 /* LoginUserInfoResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginUserInfoResponse.m; sourceTree = "<group>"; };
 		B591AF601849D320003BA7A3 /* LoginRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginRequest.h; sourceTree = "<group>"; };
 		B591AF611849D320003BA7A3 /* LoginRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginRequest.m; sourceTree = "<group>"; };
 		B591AF631849DD01003BA7A3 /* LoginResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginResponse.h; sourceTree = "<group>"; };
@@ -1161,6 +1167,10 @@
 				B591AF611849D320003BA7A3 /* LoginRequest.m */,
 				B591AF631849DD01003BA7A3 /* LoginResponse.h */,
 				B591AF641849DD01003BA7A3 /* LoginResponse.m */,
+				B5729B3F184D74BB002497B3 /* LoginUserInfoRequest.h */,
+				B5729B40184D74BB002497B3 /* LoginUserInfoRequest.m */,
+				B5729B42184D75E5002497B3 /* LoginUserInfoResponse.h */,
+				B5729B43184D75E5002497B3 /* LoginUserInfoResponse.m */,
 			);
 			path = Account;
 			sourceTree = "<group>";
@@ -1484,12 +1494,14 @@
 				18564719184C5C8D0031E5D6 /* LoginInfoDTO.m in Sources */,
 				124789F31836363100AA0083 /* NSObject+SBJson.m in Sources */,
 				18B4736C184731DC003FF7AD /* RegexKitLite.m in Sources */,
+				B5729B41184D74BB002497B3 /* LoginUserInfoRequest.m in Sources */,
 				12835DA7183DB39500D97422 /* HotelAndAirOrderViewController.m in Sources */,
 				124789FE1836363100AA0083 /* SBJsonWriter.m in Sources */,
 				124789E31836363100AA0083 /* ASIDownloadCache.m in Sources */,
 				124789E81836363100AA0083 /* Reachability.m in Sources */,
 				B59849C0184783DA0037C5F0 /* HotelCitesRequest.m in Sources */,
 				1247639F18362F0F008900F8 /* AirOrderDetail.m in Sources */,
+				B5729B44184D75E5002497B3 /* LoginUserInfoResponse.m in Sources */,
 				B5A249221845F63A005BB217 /* URLHelper.m in Sources */,
 				124789E51836363100AA0083 /* ASIHTTPRequest.m in Sources */,
 				124763A018362F0F008900F8 /* HotelOrderDetail.m in Sources */,

@@ -19,18 +19,52 @@
 @implementation RequestManager
 
 
+-(id)init{
+    if(self == [super init]){
+        //设置缓存路径
+        ASIDownloadCache *cache = [ASIDownloadCache sharedCache];
+        NSString *cachePath = [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"];
+        [cache setStoragePath:cachePath];
+    }
+    return self;
+}
+
+
 -(void)sendRequest:(BaseRequestModel*)request{
     
     if(request == nil){
         return;
     }
     
+    //从缓存中读取上次缓存的响应
+    if([request isCacheabled]){
+        NSString *condition = [request getRequestConditions];
+        if(condition){
+            //从缓存中获取响应数据
+            NSString *data = [[ASIDownloadCache sharedCache] cachedResponseDataFotCondition:condition withMaxAage:[request getCachePeriod]];
+            
+            if(data && data.length > 0){
+                BaseResponseModel *response = [self getResponseFromRequestClassName: [NSString stringWithUTF8String:object_getClassName(request)]];
+                if(response){
+                    NSLog(@"从缓存中读取response = %@",data);
+                    [response parshJsonToResponse:[data JSONValue]];
+                    [_delegate requestDone:response];
+                    return;
+                }
+            }
+        }
+    }
+    
     NSString *URLString = [request getRequestURLString];
     NSLog(@"URL = %@",URLString);
     ASIFormDataRequest *asiRequest = [ASIFormDataRequest requestWithURL:[NSURL URLWithString:URLString]];
     
+    
     //将请求类名称放入到请求中
-    NSDictionary *dic = [[NSDictionary alloc] initWithObjectsAndKeys:  [NSString stringWithUTF8String:object_getClassName(request)],KEY_REQUEST_CLASS_NAME,nil];
+    NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
+    [dic setObject:[NSString stringWithUTF8String:object_getClassName(request)] forKey:KEY_REQUEST_CLASS_NAME];
+    [dic setObject:[NSNumber numberWithBool:request.isCacheabled]forKey:KEY_REQUEST_CACHEABLE];
+    [dic setObject:request.getRequestConditions forKey:KEY_REQUEST_CONDITION];
     [asiRequest setUserInfo:dic];
     
     //解析request,生成对应的请求JSON
@@ -75,33 +109,29 @@
 
 - (void)requestFinished:(ASIHTTPRequest *)request
 {
-    NSLog(@"responseString = %@",[request.responseString JSONValue]);
+    NSString *responseString = request.responseString;
+    NSLog(@"responseString = %@",responseString);
     if ([[request.responseString JSONValue] isKindOfClass:[NSDictionary class]]) {
-        NSDictionary *reposneData = [request.responseString JSONValue];
+        NSDictionary *reposneData = [responseString JSONValue];
         if ([[reposneData objectForKey:@"process_status"] isEqualToString:@"0"]) {
             
             NSDictionary *userInfo = [request userInfo];
             if(userInfo != nil){
                 //获取请求的类名称
                 NSString *requestClassName = [userInfo objectForKey:KEY_REQUEST_CLASS_NAME];
-                
-                if([requestClassName hasSuffix:@"Request"]){
-                    //替换字符串生成对应的RESPONSE类名称
-                    NSString *responseClassName = [requestClassName stringByReplacingOccurrencesOfString:@"Request" withString:@"Response"];
-                    //反射出对应的类
-                    Class responseClass = NSClassFromString(responseClassName);
-                    //没找到该类，或出错
-                    if(!responseClass){
-                        return;
-                    }
-                    //生成对应的对象
-                    BaseResponseModel *response = [[responseClass alloc] init];
-                    //反射解析赋值
-                    [response parshJsonToResponse:reposneData];
-                    
-                    [_delegate requestDone:response];
+                BOOL cacheable = [[userInfo objectForKey:KEY_REQUEST_CACHEABLE] boolValue];
+                NSString *condition = [userInfo objectForKey:KEY_REQUEST_CONDITION];
+                if(cacheable && condition != nil && condition.length > 0){
+                    [[ASIDownloadCache sharedCache] storeResponseData:responseString forRequestCondition:condition];
                 }
                 
+                BaseResponseModel *response = [self getResponseFromRequestClassName:requestClassName];
+                if(!response){
+                    return;
+                }
+                
+                [response parshJsonToResponse:reposneData];
+                [_delegate requestDone:response];
             }
             
         }else{
@@ -117,5 +147,26 @@
 
 }
 
+-(BaseResponseModel*) getResponseFromRequestClassName:(NSString*) requestClassName{
+    
+    if(requestClassName == nil || requestClassName.length == 0){
+        return nil;
+    }
+    
+    if([requestClassName hasSuffix:@"Request"]){
+        //替换字符串生成对应的RESPONSE类名称
+        NSString *responseClassName = [requestClassName stringByReplacingOccurrencesOfString:@"Request" withString:@"Response"];
+        //反射出对应的类
+        Class responseClass = NSClassFromString(responseClassName);
+        //没找到该类，或出错
+        if(!responseClass){
+            return nil;
+        }
+        //生成对应的对象
+        return [[responseClass alloc] init];
+    }
+    
+    return nil;
+}
 
 @end

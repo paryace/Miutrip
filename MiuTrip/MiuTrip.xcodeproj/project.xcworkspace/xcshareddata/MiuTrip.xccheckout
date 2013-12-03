@@ -5,36 +5,36 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
-	<string>B73368BA-DC0E-49DF-AFDB-ABB7B975C45D</string>
+	<string>D7E34FE9-915D-4E29-AA58-FFEA0DE5B2D6</string>
 	<key>IDESourceControlProjectName</key>
 	<string>MiuTrip</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>C0206AF5-3835-4D58-A5A6-470048600DA9</key>
-		<string>https://github.com/taiyang521hao/MiuTrip.git</string>
+		<key>42C29542-9BA0-4396-A656-66639E57C391</key>
+		<string>https://github.com/chengxd/Miutrip.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>MiuTrip.xcodeproj/project.xcworkspace</string>
+	<string>MiuTrip/MiuTrip.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>C0206AF5-3835-4D58-A5A6-470048600DA9</key>
-		<string>../..</string>
+		<key>42C29542-9BA0-4396-A656-66639E57C391</key>
+		<string>../../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>https://github.com/taiyang521hao/MiuTrip.git</string>
+	<string>https://github.com/chengxd/Miutrip.git</string>
 	<key>IDESourceControlProjectVersion</key>
 	<integer>110</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>C0206AF5-3835-4D58-A5A6-470048600DA9</string>
+	<string>42C29542-9BA0-4396-A656-66639E57C391</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>C0206AF5-3835-4D58-A5A6-470048600DA9</string>
+			<string>42C29542-9BA0-4396-A656-66639E57C391</string>
 			<key>IDESourceControlWCCName</key>
-			<string>MiuTrip</string>
+			<string>Miutrip</string>
 		</dict>
 	</array>
 </dict>

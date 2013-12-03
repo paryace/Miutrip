@@ -15,8 +15,7 @@
 #import "SettingViewController.h"
 #import "AirListViewController.h"
 
-#import "HotelCitesRequest.h"
-#import "HotelCitesResponse.h"
+#import "LoginUserInfoRequest.h"
 
 #import "LoginInfoDTO.h"
 
@@ -297,6 +296,10 @@
     [self.view addSubview:segmentedControl];
     
 //    [self getLoginUserInfo];
+    LoginUserInfoRequest *request = [[LoginUserInfoRequest alloc] initWidthBusinessType:BUSINESS_ACCOUNT methodName:@"GetUserLoginInfo"];
+    
+    [self.requestManager sendRequest:request];
+    
     [self setSubjoinViewFrame];
 
     if (![UserDefaults shareUserDefault].loginInfo) {

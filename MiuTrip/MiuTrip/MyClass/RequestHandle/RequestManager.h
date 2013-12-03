@@ -11,11 +11,15 @@
 #import "ASIHTTPRequest.h"
 #import "BaseRequestModel.h"
 #import "BaseResponseModel.h"
+#import "ASIDownloadCache.h"
 
 #define KEY_REQUEST_CLASS_NAME  @"request_class_name"
+#define KEY_REQUEST_CACHEABLE @"request_cacheable"
+#define KEY_REQUEST_CONDITION @"request_condition"
 
 
 @protocol BusinessDelegate <NSObject>
+
 
 @optional
 
@@ -46,6 +50,7 @@
 
 
 @property (nonatomic,strong) id<BusinessDelegate> delegate;
+
 
 /**
  *  发送一个请求到服务端
