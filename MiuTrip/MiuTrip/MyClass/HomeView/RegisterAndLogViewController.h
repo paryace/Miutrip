@@ -9,6 +9,7 @@
 #import "BaseUIViewController.h"
 #import "LoginRequest.h"
 #import "LoginResponse.h"
+#import "TestRequestViewController.h"
 
 @interface RegisterAndLogViewController : BaseUIViewController
 

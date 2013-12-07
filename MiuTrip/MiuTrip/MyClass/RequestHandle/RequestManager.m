@@ -94,7 +94,7 @@
     [asiRequest setUserInfo:dic];
     
     //解析request,生成对应的请求JSON
-    NSString *jsonString = [request getRequestJsonString:YES];
+    NSString *jsonString = [request getRequestJsonString:NO];
     NSLog(@"JSON = %@",jsonString);
 
     
@@ -109,6 +109,24 @@
 
 - (void)requestFinished:(ASIHTTPRequest *)request
 {
+<<<<<<< HEAD
+    NSLog(@"responseString = %@",[request.responseString JSONValue]);
+    NSDictionary *reposneData = [request.responseString JSONValue];
+    if ([[reposneData objectForKey:@"process_status"] isEqualToString:@"0"]) {
+        
+        NSDictionary *userInfo = [request userInfo];
+        if(userInfo != nil){
+            //获取请求的类名称
+            NSString *requestClassName = [userInfo objectForKey:KEY_REQUEST_CLASS_NAME];
+            if([requestClassName hasSuffix:@"Request"]){
+                //替换字符串生成对应的RESPONSE类名称
+                NSString *responseClassName = [requestClassName stringByReplacingOccurrencesOfString:@"Request" withString:@"Response"];
+                //反射出对应的类
+                NSLog(@"responseClassName = %@",responseClassName);
+                Class responseClass = NSClassFromString(responseClassName);
+                //没找到该类，或出错
+                if(!responseClass){
+=======
     NSString *responseString = request.responseString;
     NSLog(@"responseString = %@",responseString);
     if ([[request.responseString JSONValue] isKindOfClass:[NSDictionary class]]) {
@@ -127,6 +145,7 @@
                 
                 BaseResponseModel *response = [self getResponseFromRequestClassName:requestClassName];
                 if(!response){
+>>>>>>> f81063fc592899879e4cd5efe0ba9b0f4f2a4fd8
                     return;
                 }
                 

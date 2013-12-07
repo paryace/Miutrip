@@ -47,7 +47,7 @@
     if(hasToken && token != nil){
         [dict setObject:token forKey:@"authTkn"];
     }
-    
+
     //获取父类的属性数量
     unsigned int outCount;
     objc_property_t *properties = class_copyPropertyList([self class], &outCount);

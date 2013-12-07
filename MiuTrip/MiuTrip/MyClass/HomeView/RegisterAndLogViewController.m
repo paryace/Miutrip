@@ -41,13 +41,21 @@
         [logStatusImage setHighlighted:!(logStatusImage.highlighted)];
         [UserDefaults shareUserDefault].autoLogin = logStatusImage.highlighted;
     }else if (sender.tag == 101){
-        
+        LoginRequest *request = [[LoginRequest alloc]initWidthBusinessType:BUSINESS_ACCOUNT methodName:@"login"];
+        [request setUsername:@"10000017"];
+        [request setPassword:@"123456"];
+        [self.requestManager sendRequestWithoutToken:request];
     }else if (sender.tag == 104){
         
         LoginRequest *request = [[LoginRequest alloc]initWidthBusinessType:BUSINESS_ACCOUNT methodName:@"Login"];
         
+<<<<<<< HEAD
+        request.username = @"10000017";
+        request.password = @"123456";
+=======
         request.username = _userName.text;
         request.password = _passWord.text;
+>>>>>>> f81063fc592899879e4cd5efe0ba9b0f4f2a4fd8
         request.rememberMe = [NSNumber numberWithBool:YES];
         
         [self.requestManager sendRequestWithoutToken:request];
@@ -67,8 +75,12 @@
     [[Model shareModel] setUserInteractionEnabled:YES];
     LoginResponse *loginReponse = (LoginResponse*)response;
     [[UserDefaults shareUserDefault] setAuthTkn:loginReponse.authTkn];
+<<<<<<< HEAD
 //    HomeViewController *homeView = [[HomeViewController alloc]init];
     TestRequestViewController *testView = [[TestRequestViewController alloc ]init];
+=======
+    TestRequestViewController *homeView = [[TestRequestViewController alloc]init];
+>>>>>>> 347a7ed92b80842ef40898451aca226ff430d117
     [[Model shareModel] showPromptText:@"登陆成功" model:YES];
     [self pushViewController:testView transitionType:TransitionPush completionHandler:nil];
     
@@ -198,5 +210,6 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
 
 @end
