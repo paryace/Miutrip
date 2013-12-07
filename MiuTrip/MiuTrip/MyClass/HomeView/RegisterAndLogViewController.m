@@ -41,12 +41,15 @@
         [logStatusImage setHighlighted:!(logStatusImage.highlighted)];
         [UserDefaults shareUserDefault].autoLogin = logStatusImage.highlighted;
     }else if (sender.tag == 101){
-        
+        LoginRequest *request = [[LoginRequest alloc]initWidthBusinessType:BUSINESS_ACCOUNT methodName:@"login"];
+        [request setUsername:@"10000017"];
+        [request setPassword:@"123456"];
+        [self.requestManager sendRequestWithoutToken:request];
     }else if (sender.tag == 104){
         
         LoginRequest *request = [[LoginRequest alloc]initWidthBusinessType:BUSINESS_ACCOUNT methodName:@"Login"];
         
-        request.username = @"18621001200";
+        request.username = @"10000017";
         request.password = @"123456";
         request.rememberMe = [NSNumber numberWithBool:YES];
         
@@ -67,7 +70,7 @@
     [[Model shareModel] setUserInteractionEnabled:YES];
     LoginResponse *loginReponse = (LoginResponse*)response;
     [[UserDefaults shareUserDefault] setAuthTkn:loginReponse.authTkn];
-    HomeViewController *homeView = [[HomeViewController alloc]init];
+    TestRequestViewController *homeView = [[TestRequestViewController alloc]init];
     [[Model shareModel] showPromptText:@"登陆成功" model:YES];
     [self pushViewController:homeView transitionType:TransitionPush completionHandler:nil];
     
@@ -197,5 +200,6 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
 
 @end
