@@ -23,7 +23,7 @@
 @optional
 
 //响应缓存的时长，过时后将删除该缓存。
--(long)getCachePeriod;
+-(long long)getCachePeriod;
 
 //获取该请求对应的条件（条件字符串必须唯一）
 -(NSString *)getRequestConditions;

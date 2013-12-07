@@ -72,12 +72,16 @@ typedef enum _ASICacheStoragePolicy {
 // Should return NO is the data is not cached, or (for example) if the cached headers state the request should have expired
 - (BOOL)isCachedDataCurrentForRequest:(ASIHTTPRequest *)request;
 
+-(void)storeResponseData:(NSString *)data forRequestCondition:(NSString *)requestCondition;
+
 // Should store the response for the passed request in the cache
 // When a non-zero maxAge is passed, it should be used as the expiry time for the cached response
 - (void)storeResponseForRequest:(ASIHTTPRequest *)request maxAge:(NSTimeInterval)maxAge;
 
 // Removes cached data for a particular url
 - (void)removeCachedDataForURL:(NSURL *)url;
+
+- (NSString*)cachedResponseDataFotCondition:(NSString *) condition withMaxAage:(long long) age;
 
 // Should return an NSDictionary of cached headers for the passed URL, if it is stored in the cache
 - (NSDictionary *)cachedResponseHeadersForURL:(NSURL *)url;
