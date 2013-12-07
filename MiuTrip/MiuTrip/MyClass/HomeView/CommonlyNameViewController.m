@@ -74,7 +74,7 @@
     
     BookPassengersDTO *passengerDetail = [_dataSource objectAtIndex:indexPath.row];
     
-//    [cell setContentWithParams:passengerDetail];
+    [cell setContentWithParams:passengerDetail];
     
     [deleteBtn setIndexPath:indexPath];
     [saveBtn   setIndexPath:indexPath];

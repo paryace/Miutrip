@@ -6,6 +6,7 @@
 //  Copyright (c) 2013年 michael. All rights reserved.
 //
 
+#import "LoginInfoDTO.h"
 #import "Model.h"
 #import "Utils.h"
 

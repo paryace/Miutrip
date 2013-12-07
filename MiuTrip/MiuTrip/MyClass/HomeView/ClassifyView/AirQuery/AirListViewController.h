@@ -37,3 +37,15 @@
 @interface AirListViewSubjoinCell : UIView
 
 @end
+
+@interface AirListCustomBtn : UIButton
+
+@property (strong, nonatomic) UIImageView   *subjoinImageView;
+
+- (void)setSubjoinImage:(UIImage*)image;
+- (void)setSubjoinHighlightedImage:(UIImage*)image;
+
+- (void)setTitle:(NSString *)title;
+- (void)setFont:(UIFont *)font;
+
+@end

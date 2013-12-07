@@ -12,7 +12,7 @@
 
 @property (strong, nonatomic) UILabel               *titleLabel;
 @property (strong, nonatomic) UILabel               *detailLabel;
-@property (strong, nonatomic) UILabel               *dateLabel;
+@property (strong, nonatomic) UIButton              *dateLabel;
 
 @end
 
@@ -88,34 +88,27 @@
     [_detailLabel setTextColor:color(whiteColor)];
     [_detailLabel setText:@"12个航班"];
     [self.view addSubview:_detailLabel];
-    
-    UIImageView *dateLabelBackImage = [self createLineWithParam:color(colorWithRed:35.0/255.0 green:110.0/255.0 blue:185.0/255.0 alpha:1) frame:CGRectMake(controlXLength(_titleLabel) + 10, 7.5, (self.topBar.frame.size.width/2 - 20), self.topBar.frame.size.height - 15)];
-    [dateLabelBackImage setCornerRadius:2.5];
-    [dateLabelBackImage setShaowColor:dateLabelBackImage.backgroundColor offset:CGSizeMake(4, 4) opacity:1 radius:5];
-    [self.view addSubview:dateLabelBackImage];
-    
-    [dateLabelBackImage createLineWithParam:color(darkGrayColor) frame:CGRectMake(dateLabelBackImage.frame.size.width/5, 0, 1, dateLabelBackImage.frame.size.height)];
-    [dateLabelBackImage createLineWithParam:color(darkGrayColor) frame:CGRectMake(dateLabelBackImage.frame.size.width*4/5, 0, 1, dateLabelBackImage.frame.size.height)];
 
     UIButton *prevBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [prevBtn setTitle:@"prev" forState:UIControlStateNormal];
     [prevBtn.titleLabel setAutoSize:YES];
-    [prevBtn setContentEdgeInsets:UIEdgeInsetsMake(0, 0, 6.5, 0)];
-    [prevBtn setFrame:CGRectMake(dateLabelBackImage.frame.origin.x, dateLabelBackImage.frame.origin.y, dateLabelBackImage.frame.size.width/5, dateLabelBackImage.frame.size.height)];
+    [prevBtn setImage:imageNameAndType(@"button_date-left", nil) forState:UIControlStateNormal];
+    [prevBtn setFrame:CGRectMake(controlXLength(_titleLabel) + 10, 7.5, (self.topBar.frame.size.width/2 - 20)/5, self.topBar.frame.size.height - 15)];
     [self.view addSubview:prevBtn];
     
-    _dateLabel = [[UILabel alloc]initWithFrame:CGRectMake(controlXLength(prevBtn), prevBtn.frame.origin.y, prevBtn.frame.size.width * 3, prevBtn.frame.size.height)];
-    [_dateLabel setFont:[UIFont systemFontOfSize:13]];
-    [_dateLabel setAutoSize:YES];
-    [_dateLabel setTextAlignment:NSTextAlignmentCenter];
-    [_dateLabel setTextColor:color(whiteColor)];
-    [_dateLabel setText:[Utils stringWithDate:[NSDate date] withFormat:@"MM月dd日"]];
+    _dateLabel = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_dateLabel setFrame:CGRectMake(controlXLength(prevBtn), prevBtn.frame.origin.y, prevBtn.frame.size.width * 3, prevBtn.frame.size.height)];
+    [_dateLabel setBackgroundImage:imageNameAndType(@"bg_date", nil) forState:UIControlStateDisabled];
+    [_dateLabel setEnabled:NO];
+    [_dateLabel.titleLabel setFont:[UIFont systemFontOfSize:13]];
+    [_dateLabel.titleLabel setAutoSize:YES];
+    [_dateLabel.titleLabel setTextAlignment:NSTextAlignmentCenter];
+    [_dateLabel.titleLabel setTextColor:color(whiteColor)];
+    [_dateLabel setTitle:[Utils stringWithDate:[NSDate date] withFormat:@"MM月dd日"] forState:UIControlStateNormal];
     [self.view addSubview:_dateLabel];
     
     UIButton *nextBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [nextBtn setTitle:@"next" forState:UIControlStateNormal  ];
     [nextBtn.titleLabel setAutoSize:YES];
-    [nextBtn setContentEdgeInsets:UIEdgeInsetsMake(0, 0, 6.5, 0)];
+    [nextBtn setImage:imageNameAndType(@"button_date-right", nil) forState:UIControlStateNormal];
     [nextBtn setFrame:CGRectMake(controlXLength(_dateLabel), prevBtn.frame.origin.y, prevBtn.frame.size.width, prevBtn.frame.size.height)];
     [self.view addSubview:nextBtn];
     
@@ -124,22 +117,25 @@
 
 - (void)setSubjoinViewFrame
 {
-    UIButton *dateCompareBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [dateCompareBtn setFrame:CGRectMake(10, 5 + controlYLength(self.topBar), self.view.frame.size.width/4, 30)];
-    [dateCompareBtn setTitle:@"时间" forState:UIControlStateNormal];
-    [dateCompareBtn setBackgroundColor:color(cyanColor)];
+    AirListCustomBtn *dateCompareBtn = [[AirListCustomBtn alloc]initWithFrame:CGRectMake(10, 5 + controlYLength(self.topBar), self.view.frame.size.width/4, 30)];
+    [dateCompareBtn setTitle:@"时间"];
+    [dateCompareBtn setBackgroundImage:imageNameAndType(@"button_style2", nil) forState:UIControlStateNormal];
+    [dateCompareBtn setSubjoinImage:imageNameAndType(@"icon_arrow1", nil)];
+    [dateCompareBtn setSubjoinHighlightedImage:imageNameAndType(@"icon_arrow2", nil)];
     [self.view addSubview:dateCompareBtn];
     
-    UIButton *priceCompareBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [priceCompareBtn setFrame:CGRectMake(controlXLength(dateCompareBtn) + 10, dateCompareBtn.frame.origin.y, dateCompareBtn.frame.size.width, dateCompareBtn.frame.size.height)];
-    [priceCompareBtn setTitle:@"价格" forState:UIControlStateNormal];
-    [priceCompareBtn setBackgroundColor:color(redColor)];
+    AirListCustomBtn *priceCompareBtn = [[AirListCustomBtn alloc]initWithFrame:CGRectMake(controlXLength(dateCompareBtn) + 10, dateCompareBtn.frame.origin.y, dateCompareBtn.frame.size.width, dateCompareBtn.frame.size.height)];
+    [priceCompareBtn setTitle:@"价格"];
+    [priceCompareBtn setBackgroundImage:imageNameAndType(@"button_style1", nil) forState:UIControlStateNormal];
+    [priceCompareBtn setSubjoinImage:imageNameAndType(@"icon_arrow1", nil)];
+    [priceCompareBtn setSubjoinHighlightedImage:imageNameAndType(@"icon_arrow2", nil)];
     [self.view addSubview:priceCompareBtn];
     
-    UIButton *filterBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [filterBtn setFrame:CGRectMake(self.view.frame.size.width - controlXLength(dateCompareBtn), dateCompareBtn.frame.origin.y, dateCompareBtn.frame.size.width, dateCompareBtn.frame.size.height)];
-    [filterBtn setTitle:@"筛选" forState:UIControlStateNormal];
-    [filterBtn setBackgroundColor:color(blueColor)];
+    AirListCustomBtn *filterBtn = [[AirListCustomBtn alloc]initWithFrame:CGRectMake(self.view.frame.size.width - controlXLength(dateCompareBtn), dateCompareBtn.frame.origin.y, dateCompareBtn.frame.size.width, dateCompareBtn.frame.size.height)];
+    [filterBtn setTitle:@"筛选"];
+    [filterBtn setBackgroundImage:imageNameAndType(@"button_style1", nil) forState:UIControlStateNormal];
+    [filterBtn setSubjoinImage:imageNameAndType(@"icon_screening", nil)];
+    //[dateCompareBtn setSubjoinHighlightedImage:imageNameAndType(@"icon_screening", nil)];
     [self.view addSubview:filterBtn];
     
     UIImageView *titleImage = [self createLineWithParam:imageNameAndType(@"shadow", nil) frame:CGRectMake(0, controlYLength(dateCompareBtn) + 5, self.contentView.frame.size.width, 15)];
@@ -200,19 +196,26 @@
     [_endTileLb setText:[Utils stringWithDate:[NSDate date] withFormat:@"HH:mm"]];
     [self.contentView addSubview:_endTileLb];
     
-    _fromAndToLb = [[UILabel alloc]initWithFrame:CGRectMake(controlXLength(_startTimeLb), 5, (appFrame.size.width - controlXLength(_startTimeLb))*3/4, (AirListViewCellHeight - 10)/3)];
-    [_fromAndToLb setText:@"上海虹桥机场 - 深圳宝安机场"];
-    [_fromAndToLb setAutoSize:YES];
-    [self.contentView addSubview:_fromAndToLb];
+
     
-    _lineNumLb = [[UILabel alloc]initWithFrame:CGRectMake(_fromAndToLb.frame.origin.x, controlYLength(_fromAndToLb), (appFrame.size.width - controlXLength(_startTimeLb))/2, _fromAndToLb.frame.size.height)];
+    UIImageView *lineNumLeft = [[UIImageView alloc]initWithFrame:CGRectMake(controlXLength(_startTimeLb), 5, (AirListViewCellHeight - 10)/3, (AirListViewCellHeight - 10)/3)];
+    [lineNumLeft setImage:imageNameAndType(@"logo_fm@2x", Nil)];
+    [self.contentView addSubview:lineNumLeft];
+    _lineNumLb = [[UILabel alloc]initWithFrame:CGRectMake(controlXLength(lineNumLeft), lineNumLeft.frame.origin.y, (appFrame.size.width - controlXLength(lineNumLeft))/2, lineNumLeft.frame.size.height)];
     [_lineNumLb setTextColor:color(darkGrayColor)];
-    [_lineNumLb setFont:[UIFont systemFontOfSize:12]];
+    [_lineNumLb setFont:[UIFont systemFontOfSize:11]];
     [_lineNumLb setText:@"上海航空 FM2908"];
     [self.contentView addSubview:_lineNumLb];
     
-    _recommonSeatTypeLb = [[UILabel alloc]initWithFrame:CGRectMake(_lineNumLb.frame.origin.x, controlYLength(_lineNumLb), _lineNumLb.frame.size.width/2, _lineNumLb.frame.size.height)];
+    _fromAndToLb = [[UILabel alloc]initWithFrame:CGRectMake(lineNumLeft.frame.origin.x, controlYLength(lineNumLeft), _lineNumLb.frame.size.width + lineNumLeft.frame.size.width, _lineNumLb.frame.size.height)];
+    [_fromAndToLb setText:@"上海虹桥机场 - 深圳宝安机场"];
+    [_fromAndToLb setFont:[UIFont systemFontOfSize:11]];
+    [_fromAndToLb setAutoSize:YES];
+    [self.contentView addSubview:_fromAndToLb];
+    
+    _recommonSeatTypeLb = [[UILabel alloc]initWithFrame:CGRectMake(_fromAndToLb.frame.origin.x, controlYLength(_fromAndToLb), _fromAndToLb.frame.size.width/2, _fromAndToLb.frame.size.height)];
     [_recommonSeatTypeLb setText:@"经济舱/A"];
+    [_recommonSeatTypeLb setFont:[UIFont systemFontOfSize:11]];
     [_recommonSeatTypeLb setAutoSize:YES];
     [self.contentView addSubview:_recommonSeatTypeLb];
     
@@ -223,24 +226,27 @@
     [_virginiaTicketLb setTextColor:color(darkGrayColor)];
     [self.contentView addSubview:_virginiaTicketLb];
     
-    _ticketPriceLb = [[UILabel alloc]initWithFrame:CGRectMake(controlXLength(_lineNumLb), controlYLength(_fromAndToLb) - 7.5, _recommonSeatTypeLb.frame.size.width, _startTimeLb.frame.size.height)];
+    _ticketPriceLb = [[UILabel alloc]initWithFrame:CGRectMake(controlXLength(_fromAndToLb), _lineNumLb.center.y, (appFrame.size.width - controlXLength(_fromAndToLb))*2/5, _fromAndToLb.frame.size.height)];
     [_ticketPriceLb setTextColor:color(colorWithRed:245.0/255.0 green:117.0/255.0 blue:36.0/255.0 alpha:1)];
-    [_ticketPriceLb setFont:[UIFont systemFontOfSize:13]];
+    [_ticketPriceLb setFont:[UIFont systemFontOfSize:12]];
     [_ticketPriceLb setTextAlignment:NSTextAlignmentCenter];
     [_ticketPriceLb setText:[NSString stringWithFormat:@"¥1020"]];
+    [_ticketPriceLb setAutoSize:YES];
     [self.contentView addSubview:_ticketPriceLb];
     
-    _discountLb = [[UILabel alloc]initWithFrame:CGRectMake(_ticketPriceLb.frame.origin.x, controlYLength(_ticketPriceLb) - 15, _ticketPriceLb.frame.size.width, _ticketPriceLb.frame.size.height)];
+    _discountLb = [[UILabel alloc]initWithFrame:CGRectMake(_ticketPriceLb.frame.origin.x, controlYLength(_ticketPriceLb), _ticketPriceLb.frame.size.width, _ticketPriceLb.frame.size.height)];
     [_discountLb setTextColor:color(grayColor)];
     [_discountLb setFont:[UIFont systemFontOfSize:12]];
     [_discountLb setText:@"全价"];
     [_discountLb setTextAlignment:NSTextAlignmentCenter];
+    [_discountLb setAutoSize:YES];
     [self.contentView addSubview:_discountLb];
     
     UIButton *doneBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [doneBtn setFrame:CGRectMake(controlXLength(_ticketPriceLb), AirListViewCellHeight/2 - 20, _ticketPriceLb.frame.size.width, 40)];
+    [doneBtn setFrame:CGRectMake(controlXLength(_ticketPriceLb), AirListViewCellHeight/2 - 20, appFrame.size.width - controlXLength(_ticketPriceLb), 40)];
     [doneBtn setTitle:@"预定" forState:UIControlStateNormal];
-    [doneBtn setBackgroundColor:color(colorWithRed:30.0/255.0 green:100.0/255.0 blue:185.0/255.0 alpha:1)];
+    [doneBtn setBackgroundImage:imageNameAndType(@"done_btn_normal", nil) forState:UIControlStateNormal];
+    [doneBtn setBackgroundImage:imageNameAndType(@"done_btn_press", nil) forState:UIControlStateHighlighted];
     [doneBtn setBounds:CGRectMake(0, 0, doneBtn.frame.size.width * 0.7, doneBtn.frame.size.height * 0.7)];
     [doneBtn.titleLabel setFont:[UIFont systemFontOfSize:13]];
     [self.contentView addSubview:doneBtn ];
@@ -250,15 +256,22 @@
 {
     _unfoldView = [[UIView alloc]initWithFrame:CGRectMake(0, AirListViewCellHeight, appFrame.size.width, AirListViewSubjoinCellHeight * [param count])];
     for (int i = 0;i<4;i++) {
-//        NSObject *object = [param objectAtIndex:i];
-//        AirListViewSubjoinCell *subjoinCell = [[AirListViewSubjoinCell alloc]initWithFrame:CGRectMake(0, AirListViewSubjoinCellHeight * i, appFrame.size.height, AirListViewSubjoinCellHeight)];
+        AirListViewSubjoinCell *subjoinCell = [[AirListViewSubjoinCell alloc]initWithFrame:CGRectMake(0, AirListViewSubjoinCellHeight * i, appFrame.size.width, AirListViewSubjoinCellHeight)];
+        [_unfoldView addSubview:subjoinCell];
     }
 }
 
-- (void)unfoldViewShowWithParams:(NSArray*)param
+- (void)unfoldViewShow:(BOOL)show
 {
-    if (!_unfoldView) {
-        [self createUnfoldViewWithParams:param];
+    if (show) {
+        if (_unfoldView.superview) {
+            [_unfoldView removeFromSuperview];
+        }
+        [self.contentView addSubview:_unfoldView];
+    }else{
+        if (_unfoldView.superview) {
+            [_unfoldView removeFromSuperview];
+        }
     }
 }
 
@@ -313,6 +326,66 @@
 - (void)pressDoneBtn:(UIButton*)sender
 {
     NSLog(@"done");
+}
+
+@end
+
+@interface AirListCustomBtn ()
+
+@property (strong, nonatomic) UILabel       *textLabel;
+
+@end
+
+@implementation AirListCustomBtn
+
+- (id)initWithFrame:(CGRect)frame
+{
+    if (self = [super initWithFrame:frame]) {
+        [self setSubviewFrame];
+    }
+    return self;
+}
+
+- (void)setSubviewFrame
+{
+    _textLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, self.frame.size.width * 2/3, self.frame.size.height)];
+    [_textLabel setTextAlignment:NSTextAlignmentRight];
+    [self addSubview:_textLabel];
+    
+    _subjoinImageView = [[UIImageView alloc]initWithFrame:CGRectMake(controlXLength(_textLabel) - 5, _textLabel.frame.origin.y, _textLabel.frame.size.height, _textLabel.frame.size.height)];
+    [_subjoinImageView setBackgroundColor:color(clearColor)];
+    [self addSubview:_subjoinImageView];
+    
+    [_subjoinImageView setScaleX:0.7 scaleY:0.7];
+    self.highlighted = _subjoinImageView.highlighted;
+    
+    [self addTarget:self action:@selector(pressSelf:) forControlEvents:UIControlEventTouchUpInside];
+}
+
+- (void)pressSelf:(UIButton*)sender
+{
+    [_subjoinImageView setHighlighted:!_subjoinImageView.highlighted];
+    self.highlighted = _subjoinImageView.highlighted;
+}
+
+- (void)setSubjoinImage:(UIImage *)image
+{
+    [_subjoinImageView setImage:image];
+}
+
+- (void)setSubjoinHighlightedImage:(UIImage*)image
+{
+    [_subjoinImageView setHighlightedImage:image];
+}
+
+- (void)setTitle:(NSString *)title
+{
+    [_textLabel setText:title];
+}
+
+- (void)setFont:(UIFont *)font
+{
+    [_textLabel setFont:font];
 }
 
 @end

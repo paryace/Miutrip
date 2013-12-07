@@ -13,7 +13,7 @@
 @property (strong, nonatomic) NSString      *ID;                //订单ID
 @property (strong, nonatomic) NSString      *UID;               //用户ID
 @property (strong, nonatomic) NSString      *CorpID;            //企业ID
-@property (strong, nonatomic) NSString      *OrderSource;       //预定渠道      "Ctrip --携程 Mango --芒果 TongCheng --同城"
+@property (strong, nonatomic) NSString      *OrderSource;       //预定渠道      OTA "Ctrip --携程 Mango --芒果 TongCheng --同城"
 @property (strong, nonatomic) NSString      *SUPOrderID;        //供应商订单号（如同城订单号）
 @property (strong, nonatomic) NSString      *SerialId;          //供应商流水号
 @property (strong, nonatomic) NSString      *CreateTime;        //订单创建时间

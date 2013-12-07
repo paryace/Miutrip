@@ -69,6 +69,28 @@ static NSArray *fileExtensionsToHandleAsHTML = nil;
 	return p;
 }
 
+-(void)storeResponseData:(NSString *)data forRequestCondition:(NSString *)requestCondition{
+    
+    [[self accessLock] lock];
+    
+    if(requestCondition == nil || requestCondition.length == 0 || data == nil){
+        [[self accessLock] unlock];
+        return;
+    }
+    
+    
+    NSString *dataPath = [self pathToStoreCachedResponseForRequestCondition:requestCondition];
+    NSFileManager* manager = [[NSFileManager alloc] init];
+    NSError *error = nil;
+    if ([manager fileExistsAtPath:dataPath]) {
+        [manager removeItemAtPath:dataPath error:&error];
+    }
+    [manager release];
+    [data writeToFile:dataPath atomically:YES encoding:NSUTF8StringEncoding error:&error];
+    
+    [[self accessLock] unlock];
+}
+
 
 - (void)setStoragePath:(NSString *)path
 {
@@ -189,6 +211,31 @@ static NSArray *fileExtensionsToHandleAsHTML = nil;
 	}
 	return nil;
 }
+
+-(NSString *)cachedResponseDataFotCondition:(NSString*)condition withMaxAage:(long long) age{
+    
+    NSString *path = [self pathToStoreCachedResponseForRequestCondition:condition];
+    NSError *error = nil;
+    if(path){
+        NSFileManager *manager = [NSFileManager defaultManager];
+        NSDictionary *fileAttributes = [manager attributesOfItemAtPath:path error:&error];
+        NSDate *date = [fileAttributes fileModificationDate];
+        NSTimeInterval time = [date timeIntervalSince1970];
+        long long longTime = [[NSNumber numberWithDouble:time] longLongValue];
+        long long sTime = longTime + age;
+        NSTimeInterval currentTimeInterval = [[NSDate date] timeIntervalSince1970];
+        if(sTime < currentTimeInterval){
+            [manager removeItemAtPath:path error:&error];
+            [manager release];
+            return nil;
+        }
+        
+        NSString *string = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:&error];
+        return string;
+    }
+    return nil;
+}
+
 
 - (NSData *)cachedResponseDataForURL:(NSURL *)url
 {
@@ -389,6 +436,19 @@ static NSArray *fileExtensionsToHandleAsHTML = nil;
 		defaultCachePolicy = cachePolicy;	
 	}
 	[[self accessLock] unlock];
+}
+
+- (NSString *)pathToStoreCachedResponseForRequestCondition:(NSString *)requestCondition
+{
+    [[self accessLock] lock];
+    if (![self storagePath]) {
+        [[self accessLock] unlock];
+        return nil;
+    }
+    NSString *path = [[self storagePath] stringByAppendingPathComponent:permanentCacheFolder];
+    path =  [path stringByAppendingPathComponent:requestCondition];
+    [[self accessLock] unlock];
+     return path;
 }
 
 - (void)clearCachedResponsesForStoragePolicy:(ASICacheStoragePolicy)storagePolicy
