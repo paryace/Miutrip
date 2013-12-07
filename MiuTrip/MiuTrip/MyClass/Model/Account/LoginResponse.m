@@ -7,7 +7,14 @@
 //
 
 #import "LoginResponse.h"
+#import "UserDefaults.h"
 
 @implementation LoginResponse
+
+- (void)parshJsonToResponse:(NSDictionary *)jsonData
+{
+    [super parshJsonToResponse:jsonData];
+    [UserDefaults shareUserDefault].authTkn = self.authTkn;
+}
 
 @end

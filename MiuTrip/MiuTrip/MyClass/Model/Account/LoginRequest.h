@@ -7,11 +7,12 @@
 //
 
 #import "BaseRequestModel.h"
+///////////////////////////////////////////////////////////////////////////////
 
 @interface LoginRequest : BaseRequestModel
 
 @property (nonatomic,strong) NSString *username;
 @property (nonatomic,strong) NSString *password;
-@property NSNumber *rememberMe;
+@property (nonatomic,strong) NSNumber *rememberMe;
 
 @end
