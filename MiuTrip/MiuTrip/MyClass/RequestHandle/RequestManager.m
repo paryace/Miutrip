@@ -109,7 +109,6 @@
 
 - (void)requestFinished:(ASIHTTPRequest *)request
 {
-<<<<<<< HEAD
     NSLog(@"responseString = %@",[request.responseString JSONValue]);
     NSDictionary *reposneData = [request.responseString JSONValue];
     if ([[reposneData objectForKey:@"process_status"] isEqualToString:@"0"]) {
@@ -118,36 +117,8 @@
         if(userInfo != nil){
             //获取请求的类名称
             NSString *requestClassName = [userInfo objectForKey:KEY_REQUEST_CLASS_NAME];
-            if([requestClassName hasSuffix:@"Request"]){
-                //替换字符串生成对应的RESPONSE类名称
-                NSString *responseClassName = [requestClassName stringByReplacingOccurrencesOfString:@"Request" withString:@"Response"];
-                //反射出对应的类
-                NSLog(@"responseClassName = %@",responseClassName);
-                Class responseClass = NSClassFromString(responseClassName);
-                //没找到该类，或出错
-                if(!responseClass){
-=======
-    NSString *responseString = request.responseString;
-    NSLog(@"responseString = %@",responseString);
-    if ([[request.responseString JSONValue] isKindOfClass:[NSDictionary class]]) {
-        NSDictionary *reposneData = [responseString JSONValue];
-        if ([[reposneData objectForKey:@"process_status"] isEqualToString:@"0"]) {
-            
-            NSDictionary *userInfo = [request userInfo];
-            if(userInfo != nil){
-                //获取请求的类名称
-                NSString *requestClassName = [userInfo objectForKey:KEY_REQUEST_CLASS_NAME];
-                BOOL cacheable = [[userInfo objectForKey:KEY_REQUEST_CACHEABLE] boolValue];
-                NSString *condition = [userInfo objectForKey:KEY_REQUEST_CONDITION];
-                if(cacheable && condition != nil && condition.length > 0){
-                    [[ASIDownloadCache sharedCache] storeResponseData:responseString forRequestCondition:condition];
-                }
                 
                 BaseResponseModel *response = [self getResponseFromRequestClassName:requestClassName];
-                if(!response){
->>>>>>> f81063fc592899879e4cd5efe0ba9b0f4f2a4fd8
-                    return;
-                }
                 
                 [response parshJsonToResponse:reposneData];
                 [_delegate requestDone:response];
@@ -157,7 +128,7 @@
             [[Model shareModel] showPromptText:[NSString stringWithFormat:@"%@\n错误码%@",[reposneData objectForKey:@"errorMessage"],[reposneData objectForKey:@"errorCode"]] model:YES];
             [_delegate requestFailedWithErrorCode:[reposneData objectForKey:@"errorCode"] withErrorMsg:[reposneData objectForKey:@"errorMessage"]];
         }
-    }
+    
 }
 
 - (void)failWithError:(NSError *)theError{
