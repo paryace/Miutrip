@@ -47,13 +47,17 @@
     float fPadding = 16.0; // 8.0px x 2
     CGSize constraint = CGSizeMake(textViewWidth - fPadding, CGFLOAT_MAX);
     
+    
     NSAttributedString *attribute = [[NSAttributedString alloc]initWithString:strText];
     NSRange range = NSMakeRange(0, attribute.length);
-    NSDictionary *dic = [attribute attributesAtIndex:0 effectiveRange:&range];
+//    NSDictionary *dic = [attribute attributesAtIndex:0 effectiveRange:&range];
     
-    CGSize size = [strText boundingRectWithSize:constraint options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading  attributes:dic context:nil].size;
+    CGRect size = [attribute boundingRectWithSize:constraint options:NSStringDrawingUsesLineFragmentOrigin |NSStringDrawingUsesFontLeading context:nil];
     
-    float fHeight = size.height + 16.0;
+//    CGSize size = [strText
+//                   boundingRectWithSize:constraint options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading  attributes:dic context:nil].size;
+    
+    float fHeight = size.origin.y + 16.0;
     
     return fHeight;
 }

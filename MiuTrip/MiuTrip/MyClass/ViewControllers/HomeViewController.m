@@ -14,8 +14,12 @@
 #import "CommonlyNameViewController.h"
 #import "SettingViewController.h"
 #import "AirListViewController.h"
+#import "HotelListViewController.h"
+#import "ImageAndTextTilteView.h"
+#import "HotelSearchView.h"
 
 #import "LoginUserInfoRequest.h"
+
 
 #import "LoginInfoDTO.h"
 
@@ -28,7 +32,7 @@
 @property (strong, nonatomic) NSMutableArray        *btnArray;
 
 #pragma mark - hotel control
-@property (strong, nonatomic) UITextField           *cityNameTf;            //cover btn tag         500
+@property (strong, nonatomic) UILabel              *cityNameTf;            //cover btn tag         500
 @property (strong, nonatomic) CustomDateTextField   *checkInTimeTf;         //cover btn tag         501
 @property (strong, nonatomic) CustomDateTextField   *leaveTimeTf;           //cover btn tag         502
 @property (strong, nonatomic) UITextField           *priceRangeTf;          //cover btn tag         503
@@ -406,236 +410,22 @@
     if (!_viewPageHotel) {
         UIView *segmentedControl = [self.view viewWithTag:10000];
         
-        _viewPageHotel = [[UIView alloc]initWithFrame:CGRectMake(0, controlYLength(segmentedControl), self.view.frame.size.width, 0)];
-        [_viewPageHotel setBackgroundColor:color(clearColor)];
+        CGRect frame = CGRectMake(0, controlYLength(segmentedControl), self.view.frame.size.width, self.view.frame.size.height);
         
-        UIImageView *titleImage = [[UIImageView alloc]initWithFrame:CGRectMake(0, - 1.5, self.view.frame.size.width, 15)];
-        [titleImage setBackgroundColor:color(clearColor)];
-        [titleImage setImage:imageNameAndType(@"shadow", nil)];
-        [_viewPageHotel addSubview:titleImage];
+        UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:frame];
         
-        HomeCustomBtn *customBtn = [[HomeCustomBtn alloc]initWithParams:[[HotelOrderDetail alloc]init]];
-        [customBtn setFrame:CGRectMake(0, controlYLength(titleImage), appFrame.size.width, 60)];
-        [customBtn setBackgroundColor:color(clearColor)];
-        [customBtn setTag:300];
-        [customBtn setDelegate:self];
-        [_viewPageHotel addSubview:customBtn];
+        UIView *hotelSearchView = [[HotelSearchView alloc] initWidthFrame:CGRectMake(0, 0, self.view.frame.size.width, 0) widthdata:[[HotelOrderDetail alloc] init] widthDelegate:self];
+        
+        [hotelSearchView setBackgroundColor:color(clearColor)];
+        
+        [scrollView setContentSize:CGSizeMake(frame.size.width, frame.size.height)];
+        scrollView.bounces = YES;
+        scrollView.scrollsToTop = NO;
+        scrollView.directionalLockEnabled = YES;
+        
+        [scrollView addSubview:hotelSearchView];
 
-        UIView *pageHotelBottomView = [[UIView alloc]initWithFrame:CGRectMake(0, controlYLength(customBtn) + 10, customBtn.frame.size.width, 0)];
-        [pageHotelBottomView setBackgroundColor:color(clearColor)];
-        [pageHotelBottomView setUserInteractionEnabled:YES];
-        [pageHotelBottomView setTag:600];
-        [_viewPageHotel addSubview:pageHotelBottomView];
-        
-        UIImageView *topItemBG = [[UIImageView alloc]initWithFrame:CGRectMake(5, 10, pageHotelBottomView.frame.size.width - 10, 40 * 3)];
-        [topItemBG setBackgroundColor:color(whiteColor)];
-        [topItemBG setBorderColor:color(lightGrayColor) width:1.0];
-        [topItemBG setCornerRadius:5.0];
-        [topItemBG setAlpha:0.5];
-        [pageHotelBottomView addSubview:topItemBG];
-        
-        UIImageView *cityNameImageView = [[UIImageView alloc]initWithFrame:CGRectMake(topItemBG.frame.origin.x, topItemBG.frame.origin.y, 40, 40)];
-        [cityNameImageView setBackgroundColor:color(clearColor)];
-        [cityNameImageView setImage:imageNameAndType(@"query_city_name", nil)];
-        [pageHotelBottomView addSubview:cityNameImageView];
-        
-        UILabel *cityNameLeft = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, (topItemBG.frame.size.width - cityNameImageView.frame.size.width)/3, cityNameImageView.frame.size.height)];
-        [cityNameLeft setBackgroundColor:color(clearColor)];
-        [cityNameLeft setTextColor:color(darkGrayColor)];
-        [cityNameLeft setText:@"城市名称"];
-        [cityNameLeft setFont:[UIFont systemFontOfSize:13]];
-        _cityNameTf = [[UITextField alloc]initWithFrame:CGRectMake(controlXLength(cityNameImageView), cityNameImageView.frame.origin.y, controlXLength(topItemBG) - controlXLength(cityNameImageView), cityNameImageView.frame.size.height)];
-        [_cityNameTf setBackgroundColor:color(clearColor)];
-        [_cityNameTf setFont:[UIFont boldSystemFontOfSize:15]];
-        [_cityNameTf setLeftView:cityNameLeft];
-        [_cityNameTf setLeftViewMode:UITextFieldViewModeAlways];
-        [_cityNameTf setText:[UserDefaults shareUserDefault].goalCity];
-        [pageHotelBottomView addSubview:_cityNameTf];
-        UIImageView *cityNameRightImage = [[UIImageView alloc]initWithFrame:CGRectMake(controlXLength(_cityNameTf) - _cityNameTf.frame.size.height, _cityNameTf.frame.origin.y, _cityNameTf.frame.size.height, _cityNameTf.frame.size.height)];
-        [cityNameRightImage setImage:imageNameAndType(@"arrow", nil)];
-        [cityNameRightImage setScaleX:0.2 scaleY:0.3];
-        [pageHotelBottomView addSubview:cityNameRightImage];
-        UIButton *cityNameBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [cityNameBtn setFrame:_cityNameTf.frame];
-        [cityNameBtn setTag:500];
-        [cityNameBtn addTarget:self action:@selector(pressHotelItemBtn:) forControlEvents:UIControlEventTouchUpInside];
-        [pageHotelBottomView addSubview:cityNameBtn];
-        
-        [pageHotelBottomView addSubview:[self createLineWithFrame:CGRectMake(topItemBG.frame.origin.x, controlYLength(_cityNameTf), topItemBG.frame.size.width, 1)]];
-
-        NSDate *date = [NSDate date];
-        NSCalendar *calendar = [NSCalendar currentCalendar];
-        //    [calendar setLocale:[NSLocale currentLocale]];
-        NSDateComponents *comps =[calendar components:(NSWeekCalendarUnit | NSWeekdayCalendarUnit |NSWeekdayOrdinalCalendarUnit) fromDate:date];
-        
-        UIImageView *checkInImageView = [[UIImageView alloc]initWithFrame:CGRectMake(topItemBG.frame.origin.x, controlYLength(cityNameImageView), cityNameImageView.frame.size.width, cityNameImageView.frame.size.height)];
-        [checkInImageView setBackgroundColor:color(clearColor)];
-        [checkInImageView setImage:imageNameAndType(@"query_checkIn", nil)];
-        [pageHotelBottomView addSubview:checkInImageView];
-        
-        _checkInTimeTf = [[CustomDateTextField alloc]initWithFrame:CGRectMake(controlXLength(checkInImageView), checkInImageView.frame.origin.y, _cityNameTf.frame.size.width, _cityNameTf.frame.size.height)];
-        [_checkInTimeTf setWeek:[[WeekDays componentsSeparatedByString:@","] objectAtIndex:[comps weekday] - 1]];
-        [_checkInTimeTf setLeftPlaceholder:@"入住时间"];
-        [_checkInTimeTf setYear:[NSString stringWithFormat:@"%@年",[Utils stringWithDate:date withFormat:@"yyyy"]]];
-        [_checkInTimeTf setMonthAndDay:[NSString stringWithFormat:@"%@",[Utils stringWithDate:date withFormat:@"MM月dd日"]]];
-        [pageHotelBottomView addSubview:_checkInTimeTf];
-        UIImageView *checkInRightImage = [[UIImageView alloc]initWithFrame:CGRectMake(controlXLength(_checkInTimeTf) - _checkInTimeTf.frame.size.height, _checkInTimeTf.frame.origin.y, _checkInTimeTf.frame.size.height, _checkInTimeTf.frame.size.height)];
-        [checkInRightImage setImage:imageNameAndType(@"arrow", nil)];
-        [checkInRightImage setScaleX:0.2 scaleY:0.3];
-        [pageHotelBottomView addSubview:checkInRightImage];
-        UIButton *checkInTimeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [checkInTimeBtn setFrame:_checkInTimeTf.frame];
-        [checkInTimeBtn setTag:501];
-        [checkInTimeBtn addTarget:self action:@selector(pressHotelItemBtn:) forControlEvents:UIControlEventTouchUpInside];
-        [pageHotelBottomView addSubview:checkInTimeBtn];
-        
-        [pageHotelBottomView addSubview:[self createLineWithFrame:CGRectMake(topItemBG.frame.origin.x, controlYLength(_checkInTimeTf), topItemBG.frame.size.width, 1)]];
-        
-        UIImageView *leaveImageView = [[UIImageView alloc]initWithFrame:CGRectMake(topItemBG.frame.origin.x, controlYLength(checkInImageView), cityNameImageView.frame.size.width, cityNameImageView.frame.size.height)];
-        [leaveImageView setBackgroundColor:color(clearColor)];
-        [leaveImageView setImage:imageNameAndType(@"query_leave", nil)];
-        [pageHotelBottomView addSubview:leaveImageView];
-        
-        _leaveTimeTf = [[CustomDateTextField alloc]initWithFrame:CGRectMake(controlXLength(leaveImageView), leaveImageView.frame.origin.y, _cityNameTf.frame.size.width, _cityNameTf.frame.size.height)];
-        [_leaveTimeTf setWeek:[[WeekDays componentsSeparatedByString:@","] objectAtIndex:[comps weekday] - 1]];
-        [_leaveTimeTf setLeftPlaceholder:@"离开时间"];
-        [_leaveTimeTf setYear:[NSString stringWithFormat:@"%@年",[Utils stringWithDate:date withFormat:@"yyyy"]]];
-        [_leaveTimeTf setMonthAndDay:[NSString stringWithFormat:@"%@",[Utils stringWithDate:date withFormat:@"MM月dd日"]]];
-        [pageHotelBottomView addSubview:_leaveTimeTf];
-        UIImageView *leaveTimeRightImage = [[UIImageView alloc]initWithFrame:CGRectMake(controlXLength(_leaveTimeTf) - _leaveTimeTf.frame.size.height, _leaveTimeTf.frame.origin.y, _leaveTimeTf.frame.size.height, _leaveTimeTf.frame.size.height)];
-        [leaveTimeRightImage setImage:imageNameAndType(@"arrow", nil)];
-        [leaveTimeRightImage setScaleX:0.2 scaleY:0.3];
-        [pageHotelBottomView addSubview:leaveTimeRightImage];
-        UIButton *leaveTimeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [leaveTimeBtn setFrame:_leaveTimeTf.frame];
-        [leaveTimeBtn setTag:502];
-        [leaveTimeBtn addTarget:self action:@selector(pressHotelItemBtn:) forControlEvents:UIControlEventTouchUpInside];
-        [pageHotelBottomView addSubview:leaveTimeBtn];
-        
-        UIImageView *bottomItemBG = [[UIImageView alloc]initWithFrame:CGRectMake(topItemBG.frame.origin.x, controlYLength(topItemBG) + 10, topItemBG.frame.size.width, topItemBG.frame.size.height)];
-        [bottomItemBG setBackgroundColor:color(whiteColor)];
-        [bottomItemBG setBorderColor:color(lightGrayColor) width:1.0];
-        [bottomItemBG setCornerRadius:5.0];
-        [bottomItemBG setAlpha:0.5];
-        [pageHotelBottomView addSubview:bottomItemBG];
-        
-        UIImageView *priceRangeImageView = [[UIImageView alloc]initWithFrame:CGRectMake(bottomItemBG.frame.origin.x, bottomItemBG.frame.origin.y, 40, 40)];
-        [priceRangeImageView setBackgroundColor:color(clearColor)];
-        [priceRangeImageView setImage:imageNameAndType(@"query_price", nil)];
-        [pageHotelBottomView addSubview:priceRangeImageView];
-        
-        UILabel *priceRangeLeft = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, cityNameLeft.frame.size.width, cityNameLeft.frame.size.height)];
-        [priceRangeLeft setBackgroundColor:color(clearColor)];
-        [priceRangeLeft setTextColor:color(darkGrayColor)];
-        [priceRangeLeft setText:@"价格范围"];
-        [priceRangeLeft setFont:[UIFont systemFontOfSize:13]];
-        _priceRangeTf = [[UITextField alloc]initWithFrame:CGRectMake(controlXLength(priceRangeImageView), priceRangeImageView.frame.origin.y, _cityNameTf.frame.size.width, _cityNameTf.frame.size.height)];
-        [_priceRangeTf setBackgroundColor:color(clearColor)];
-        [_priceRangeTf setFont:[UIFont boldSystemFontOfSize:15]];
-        [_priceRangeTf setLeftView:priceRangeLeft];
-        [_priceRangeTf setLeftViewMode:UITextFieldViewModeAlways];
-        [_priceRangeTf setText:@"￥1 ~ ￥2"];
-        [pageHotelBottomView addSubview:_priceRangeTf];
-        UIImageView *priceRangeRightImage = [[UIImageView alloc]initWithFrame:CGRectMake(controlXLength(_priceRangeTf) - _priceRangeTf.frame.size.height, _priceRangeTf.frame.origin.y, _priceRangeTf.frame.size.height, _priceRangeTf.frame.size.height)];
-        [priceRangeRightImage setImage:imageNameAndType(@"arrow", nil)];
-        [priceRangeRightImage setScaleX:0.2 scaleY:0.3];
-        [pageHotelBottomView addSubview:priceRangeRightImage];
-        UIButton *priceRangeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [priceRangeBtn setFrame:_priceRangeTf.frame];
-        [priceRangeBtn setTag:503];
-        [priceRangeBtn addTarget:self action:@selector(pressHotelItemBtn:) forControlEvents:UIControlEventTouchUpInside];
-        [pageHotelBottomView addSubview:priceRangeBtn];
-        
-        [pageHotelBottomView addSubview:[self createLineWithFrame:CGRectMake(topItemBG.frame.origin.x, controlYLength(_priceRangeTf), topItemBG.frame.size.width, 1)]];
-        
-        UIImageView *hotelLocationImageView = [[UIImageView alloc]initWithFrame:CGRectMake(bottomItemBG.frame.origin.x, controlYLength(priceRangeImageView), 40, 40)];
-        [hotelLocationImageView setBackgroundColor:color(clearColor)];
-        [hotelLocationImageView setImage:imageNameAndType(@"query_location", nil)];
-        [pageHotelBottomView addSubview:hotelLocationImageView];
-        
-        UILabel *hotelLocationLeft = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, cityNameLeft.frame.size.width, cityNameLeft.frame.size.height)];
-        [hotelLocationLeft setBackgroundColor:color(clearColor)];
-        [hotelLocationLeft setTextColor:color(darkGrayColor)];
-        [hotelLocationLeft setText:@"酒店位置"];
-        [hotelLocationLeft setFont:[UIFont systemFontOfSize:13]];
-        _hotelLocationTf = [[UITextField alloc]initWithFrame:CGRectMake(controlXLength(hotelLocationImageView), hotelLocationImageView.frame.origin.y, _cityNameTf.frame.size.width, _cityNameTf.frame.size.height)];
-        [_hotelLocationTf setBackgroundColor:color(clearColor)];
-        [_hotelLocationTf setFont:[UIFont boldSystemFontOfSize:15]];
-        [_hotelLocationTf setLeftView:hotelLocationLeft];
-        [_hotelLocationTf setLeftViewMode:UITextFieldViewModeAlways];
-        [_hotelLocationTf setText:@"黄浦区"];
-        [pageHotelBottomView addSubview:_hotelLocationTf];
-        UIImageView *hotelLocationRightImage = [[UIImageView alloc]initWithFrame:CGRectMake(controlXLength(_hotelLocationTf) - _hotelLocationTf.frame.size.height, _hotelLocationTf.frame.origin.y, _hotelLocationTf.frame.size.height, _hotelLocationTf.frame.size.height)];
-        [hotelLocationRightImage setImage:imageNameAndType(@"arrow", nil)];
-        [hotelLocationRightImage setScaleX:0.2 scaleY:0.3];
-        [pageHotelBottomView addSubview:hotelLocationRightImage];
-        UIButton *hotelLocationBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [hotelLocationBtn setFrame:_hotelLocationTf.frame];
-        [hotelLocationBtn setTag:504];
-        [hotelLocationBtn addTarget:self action:@selector(pressHotelItemBtn:) forControlEvents:UIControlEventTouchUpInside];
-        [pageHotelBottomView addSubview:hotelLocationBtn];
-        
-        [pageHotelBottomView addSubview:[self createLineWithFrame:
-                                         CGRectMake(topItemBG.frame.origin.x,
-                                                    controlYLength(_hotelLocationTf),
-                                                    topItemBG.frame.size.width,
-                                                    1)]];
-        
-        UIImageView *hotelNameImageView = [[UIImageView alloc]initWithFrame:CGRectMake(bottomItemBG.frame.origin.x, controlYLength(hotelLocationImageView), 40, 40)];
-        [hotelNameImageView setBackgroundColor:color(clearColor)];
-        [hotelNameImageView setImage:imageNameAndType(@"query_location", nil)];
-        [pageHotelBottomView addSubview:hotelNameImageView];
-        
-        UILabel *hotelNameLeft = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, cityNameLeft.frame.size.width, cityNameLeft.frame.size.height)];
-        [hotelNameLeft setBackgroundColor:color(clearColor)];
-        [hotelNameLeft setTextColor:color(darkGrayColor)];
-        [hotelNameLeft setText:@"酒店名称"];
-        [hotelNameLeft setFont:[UIFont systemFontOfSize:13]];
-        _hotelNameTf = [[UITextField alloc]initWithFrame:CGRectMake(controlXLength(hotelNameImageView),
-                                                                    hotelNameImageView.frame.origin.y,
-                                                                    _cityNameTf.frame.size.width,
-                                                                    _cityNameTf.frame.size.height)];
-        [_hotelNameTf setBackgroundColor:color(clearColor)];
-        [_hotelNameTf setFont:[UIFont boldSystemFontOfSize:15]];
-        [_hotelNameTf setLeftView:hotelNameLeft];
-        [_hotelNameTf setLeftViewMode:UITextFieldViewModeAlways];
-        [_hotelNameTf setPlaceholder:@"酒店名称"];
-        [pageHotelBottomView addSubview:_hotelNameTf];
-        UIImageView *hotelNameRightImage = [[UIImageView alloc]initWithFrame:CGRectMake(controlXLength(_hotelNameTf) - _hotelNameTf.frame.size.height, _hotelNameTf.frame.origin.y, _hotelNameTf.frame.size.height, _hotelNameTf.frame.size.height)];
-        [hotelNameRightImage setImage:imageNameAndType(@"arrow", nil)];
-        [hotelNameRightImage setScaleX:0.2 scaleY:0.3];
-        [pageHotelBottomView addSubview:hotelNameRightImage];
-        UIButton *queryBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [queryBtn setImage:imageNameAndType(@"hotel_done_nromal", nil)
-            highlightImage:imageNameAndType(@"hotel_done_press", nil)
-                  forState:ButtonImageStateBottom];
-        [queryBtn setTitle:@"查询" forState:UIControlStateNormal];
-        [queryBtn setContentEdgeInsets:UIEdgeInsetsMake(0, 35, 0, 0)];
-        [queryBtn setFrame:CGRectMake(pageHotelBottomView.frame.size.width/6, controlYLength(_hotelNameTf) + 15, pageHotelBottomView.frame.size.width * 2/3 - 50, 45)];
-        [queryBtn setTag:550];
-        [queryBtn addTarget:self action:@selector(pressHotelItemDone:) forControlEvents:UIControlEventTouchUpInside];
-        [pageHotelBottomView addSubview:queryBtn];
-        UIImageView *shakeImage = [[UIImageView alloc]initWithFrame:CGRectMake(queryBtn.frame.size.height/2, 0, queryBtn.frame.size.height, queryBtn.frame.size.height)];
-        [shakeImage setImage:imageNameAndType(@"shake", nil)];
-        [queryBtn addSubview:shakeImage];
-        [shakeImage setBounds:CGRectMake(0, 0, shakeImage.frame.size.width * 0.7, shakeImage.frame.size.height * 0.7)];
-        
-        UIButton *voiceBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [voiceBtn setFrame:CGRectMake(controlXLength(queryBtn) + 5, queryBtn.frame.origin.y, queryBtn.frame.size.height, queryBtn.frame.size.height)];
-        [voiceBtn setTag:551];
-        [voiceBtn setImage:imageNameAndType(@"voice_btn_normal", nil) highlightImage:imageNameAndType(@"voice_btn_press", nil) forState:ButtonImageStateBottom];
-        [voiceBtn addTarget:self action:@selector(pressHotelItemDone:) forControlEvents:UIControlEventTouchUpInside];
-        [pageHotelBottomView addSubview:voiceBtn];
-        
-        [pageHotelBottomView setFrame:CGRectMake(pageHotelBottomView.frame.origin.x,
-                                                 pageHotelBottomView.frame.origin.y,
-                                                 pageHotelBottomView.frame.size.width,
-                                                 controlYLength(queryBtn))];
-        
-        [_viewPageHotel setFrame:CGRectMake(_viewPageHotel.frame.origin.x,
-                                            _viewPageHotel.frame.origin.y,
-                                            _viewPageHotel.frame.size.width,
-                                            controlYLength(pageHotelBottomView))];
+        _viewPageHotel = scrollView;
     }
 }
 
@@ -656,6 +446,9 @@
 {
     NSLog(@"sender tag = %d",sender.tag);
     NSLog(@"user authTkn = %@",[UserDefaults shareUserDefault].authTkn);
+    
+    HotelListViewController *hotelListView = [[HotelListViewController alloc] init];
+    [self pushViewController:hotelListView transitionType:TransitionPush completionHandler:nil];
 }
 
 - (UIImageView*)createLineWithFrame:(CGRect)frame
