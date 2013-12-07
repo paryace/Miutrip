@@ -9,7 +9,7 @@
 #import "RegisterAndLogViewController.h"
 #import "HomeViewController.h"
 #import "HotelCitesRequest.h"
-
+#import "TestRequestViewController.h"
 @interface RegisterAndLogViewController ()
 
 @end
@@ -67,9 +67,10 @@
     [[Model shareModel] setUserInteractionEnabled:YES];
     LoginResponse *loginReponse = (LoginResponse*)response;
     [[UserDefaults shareUserDefault] setAuthTkn:loginReponse.authTkn];
-    HomeViewController *homeView = [[HomeViewController alloc]init];
+//    HomeViewController *homeView = [[HomeViewController alloc]init];
+    TestRequestViewController *testView = [[TestRequestViewController alloc ]init];
     [[Model shareModel] showPromptText:@"登陆成功" model:YES];
-    [self pushViewController:homeView transitionType:TransitionPush completionHandler:nil];
+    [self pushViewController:testView transitionType:TransitionPush completionHandler:nil];
     
 }
 
