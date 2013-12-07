@@ -331,7 +331,6 @@
 		B5D4C4281852BDFA00F1B0FC /* SubmitFlightOrderResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = B5D4C4041852BDFA00F1B0FC /* SubmitFlightOrderResponse.m */; };
 		B5D4C4291852BDFA00F1B0FC /* (null) in Sources */ = {isa = PBXBuildFile; };
 		B5F762591852045000E7244B /* HotelSearchView.m in Sources */ = {isa = PBXBuildFile; fileRef = B5F762581852045000E7244B /* HotelSearchView.m */; };
-		F292EE44184ED711006D6168 /* TestRequestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F292EE43184ED711006D6168 /* TestRequestViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -836,8 +835,6 @@
 		B5D4C4041852BDFA00F1B0FC /* SubmitFlightOrderResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubmitFlightOrderResponse.m; sourceTree = "<group>"; };
 		B5F762571852045000E7244B /* HotelSearchView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HotelSearchView.h; path = MiuTrip/MyClass/Views/HotelSearchView.h; sourceTree = SOURCE_ROOT; };
 		B5F762581852045000E7244B /* HotelSearchView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HotelSearchView.m; path = MiuTrip/MyClass/Views/HotelSearchView.m; sourceTree = SOURCE_ROOT; };
-		F292EE42184ED711006D6168 /* TestRequestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestRequestViewController.h; sourceTree = "<group>"; };
-		F292EE43184ED711006D6168 /* TestRequestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestRequestViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1305,8 +1302,6 @@
 				187CBD17184879DB00F25BD7 /* OnLineAllClass.m */,
 				18573C911849B36100A19D7E /* MiuTripOrderDetail.h */,
 				18573C921849B36100A19D7E /* MiuTripOrderDetail.m */,
-				F292EE42184ED711006D6168 /* TestRequestViewController.h */,
-				F292EE43184ED711006D6168 /* TestRequestViewController.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1911,7 +1906,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F292EE44184ED711006D6168 /* TestRequestViewController.m in Sources */,
 				127915571833292700CF94F4 /* DatePickerViewController.m in Sources */,
 				18A13701184EE53A00516ED3 /* GetMemberDeliverListResponse.m in Sources */,
 				18B473601846FC7A003FF7AD /* CorpPolicyDTO.m in Sources */,
