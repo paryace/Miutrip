@@ -1,16 +1,15 @@
 //
-//  GetDistrictsRequest.h
+//  CancelOrderRequest.h
 //  MiuTrip
 //
 //  Created by pingguo on 13-12-2.
-//  Created by Y on 13-12-3.
 //  Copyright (c) 2013年 michael. All rights reserved.
 //
 
 #import "BaseRequestModel.h"
 #import "URLHelper.h"
+@interface CancelOrderRequest : BaseRequestModel
 
-@interface GetDistrictsRequest : BaseRequestModel
-
-@property (nonatomic , strong) NSNumber  *CityID;
+@property(strong,nonatomic) NSString *OrderID;
+@property(strong,nonatomic) NSNumber *ReasonID;
 @end

@@ -24,8 +24,7 @@ typedef NS_ENUM(NSUInteger, BusinessType){
 
 @interface URLHelper : NSObject
 
-
-+(NSString *)getRequestURLByBusinessType:(BusinessType)businessType widthMethodName:(NSString *) mathodName;
++(NSString *)getRequestURLByBusinessType:(BusinessType)businessType widthMethodName:(NSString *) methodName;
 
 
 @end

@@ -69,6 +69,7 @@
     [[Model shareModel] setUserInteractionEnabled:YES];
     LoginResponse *loginReponse = (LoginResponse*)response;
     [[UserDefaults shareUserDefault] setAuthTkn:loginReponse.authTkn];
+
     HomeViewController *homeView = [[HomeViewController alloc]init];
     [[Model shareModel] showPromptText:@"登陆成功" model:YES];
     [self pushViewController:homeView transitionType:TransitionPush completionHandler:nil];
