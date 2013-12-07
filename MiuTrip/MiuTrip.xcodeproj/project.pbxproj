@@ -260,6 +260,8 @@
 		18B473661847062C003FF7AD /* MemberDeliverDTO.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B473651847062C003FF7AD /* MemberDeliverDTO.m */; };
 		18B47368184731AB003FF7AD /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 18B47367184731AB003FF7AD /* libicucore.dylib */; };
 		18B4736C184731DC003FF7AD /* RegexKitLite.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B4736B184731DC003FF7AD /* RegexKitLite.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		B501CFA01852F5DC00802FD9 /* HotelListCellviewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B501CF9F1852F5DC00802FD9 /* HotelListCellviewCell.m */; };
+		B501CFA318531D9300802FD9 /* HotelListBtnCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = B501CFA218531D9300802FD9 /* HotelListBtnCellView.m */; };
 		B523F73B18478B94005C45C5 /* BaseRequestModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B523F73A18478B94005C45C5 /* BaseRequestModel.m */; };
 		B53496B91846E3C6001BC8D1 /* BaseResponseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B53496B81846E3C6001BC8D1 /* BaseResponseModel.m */; };
 		B5729B41184D74BB002497B3 /* LoginUserInfoRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = B5729B40184D74BB002497B3 /* LoginUserInfoRequest.m */; };
@@ -693,6 +695,10 @@
 		18B47367184731AB003FF7AD /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
 		18B4736A184731DC003FF7AD /* RegexKitLite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegexKitLite.h; sourceTree = "<group>"; };
 		18B4736B184731DC003FF7AD /* RegexKitLite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegexKitLite.m; sourceTree = "<group>"; };
+		B501CF9E1852F5DC00802FD9 /* HotelListCellviewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HotelListCellviewCell.h; sourceTree = "<group>"; };
+		B501CF9F1852F5DC00802FD9 /* HotelListCellviewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HotelListCellviewCell.m; sourceTree = "<group>"; };
+		B501CFA118531D9300802FD9 /* HotelListBtnCellView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HotelListBtnCellView.h; sourceTree = "<group>"; };
+		B501CFA218531D9300802FD9 /* HotelListBtnCellView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HotelListBtnCellView.m; sourceTree = "<group>"; };
 		B523F73918478B94005C45C5 /* BaseRequestModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseRequestModel.h; sourceTree = "<group>"; };
 		B523F73A18478B94005C45C5 /* BaseRequestModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseRequestModel.m; sourceTree = "<group>"; };
 		B53496B61846E310001BC8D1 /* ResponseDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ResponseDelegate.h; sourceTree = "<group>"; };
@@ -1444,6 +1450,10 @@
 				B5F762581852045000E7244B /* HotelSearchView.m */,
 				B57A0AAD184F13F200A33831 /* ImageAndTextTilteView.h */,
 				B57A0AAE184F13F200A33831 /* ImageAndTextTilteView.m */,
+				B501CF9E1852F5DC00802FD9 /* HotelListCellviewCell.h */,
+				B501CF9F1852F5DC00802FD9 /* HotelListCellviewCell.m */,
+				B501CFA118531D9300802FD9 /* HotelListBtnCellView.h */,
+				B501CFA218531D9300802FD9 /* HotelListBtnCellView.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -2027,6 +2037,7 @@
 				B5729B44184D75E5002497B3 /* LoginUserInfoResponse.m in Sources */,
 				B5A249221845F63A005BB217 /* URLHelper.m in Sources */,
 				18A136EC184EE49C00516ED3 /* SearchPassengersResponse.m in Sources */,
+				B501CFA318531D9300802FD9 /* HotelListBtnCellView.m in Sources */,
 				124789E51836363100AA0083 /* ASIHTTPRequest.m in Sources */,
 				B57A0AAB184EC7E100A33831 /* HotelListViewController.m in Sources */,
 				B57B67661852C3CE0002C778 /* SubmitOrderResponse.m in Sources */,
@@ -2063,6 +2074,7 @@
 				18A90603184C8A1500AE4835 /* DeleteDeliverRequest.m in Sources */,
 				18A90606184C8A7000AE4835 /* SavePassengerListRequest.m in Sources */,
 				B5D4C41F1852BDFA00F1B0FC /* GetMailConfigRequest.m in Sources */,
+				B501CFA01852F5DC00802FD9 /* HotelListCellviewCell.m in Sources */,
 				18A90609184C8D7000AE4835 /* UpdateCropUserBaseByChinaUMSUIDRequest.m in Sources */,
 				18A9060C184C8E0D00AE4835 /* GetCorpNameByMumberUIDRequest.m in Sources */,
 				B57B674F1852BEEC0002C778 /* GetHotelRoomMultiRequest.m in Sources */,

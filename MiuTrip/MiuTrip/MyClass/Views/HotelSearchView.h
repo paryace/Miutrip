@@ -13,10 +13,10 @@
 @interface HotelSearchView : UIView
 
 @property (nonatomic,strong) HotelOrderDetail *data;
-@property (nonatomic,strong) HomeViewController *delegate;
+@property (nonatomic,strong) HomeViewController *viewController;
 
 -(id)initWidthFrame:(CGRect)frame widthdata:(HotelOrderDetail*)data
-      widthDelegate:(HomeViewController*) delegate;
+      widthDelegate:(HomeViewController*) viewController;
 
 -(void)pressHotelItemBtn:(UIButton*)sender;
 

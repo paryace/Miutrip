@@ -10,10 +10,5 @@
 
 @implementation SearchHotelsRequest
 
--(NSString *)getRequestURLString{
-    
-    return [URLHelper getRequestURLByBusinessType:BUSINESS_HOTEL widthMethodName:@"SearchHotels"];
-    
-}
 
 @end

@@ -8,6 +8,7 @@
 
 #import "HotelSearchView.h"
 #import "ImageAndTextTilteView.h"
+#import "HotelListViewController.h"
 
 
 @implementation HotelSearchView
@@ -21,11 +22,11 @@
     return self;
 }
 
--(id)initWidthFrame:(CGRect)frame widthdata:(HotelOrderDetail *)data widthDelegate:(HomeViewController*) delegate
+-(id)initWidthFrame:(CGRect)frame widthdata:(HotelOrderDetail *)data widthDelegate:(HomeViewController*) viewController
 {
     self = [super initWithFrame:frame];
     if (self) {
-        _delegate = delegate;
+        _viewController = viewController;
         _data = data;
         [self setUpView];
     }
@@ -44,7 +45,7 @@
     [customBtn setFrame:CGRectMake(0, controlYLength(titleImage), appFrame.size.width, 60)];
     [customBtn setBackgroundColor:color(clearColor)];
     [customBtn setTag:300];
-    [customBtn setDelegate:_delegate];
+    [customBtn setDelegate:_viewController];
     [self addSubview:customBtn];
     
     UIView *pageHotelBottomView = [[UIView alloc]initWithFrame:CGRectMake(0, controlYLength(customBtn) + 10, customBtn.frame.size.width, 0)];
@@ -205,7 +206,20 @@
 
 -(void)pressHotelItemBtn:(UIButton *)sender
 {
+    switch (sender.tag) {
+        case 550:
+            [self getToHotelListView];
+            break;
+        default:
+            break;
+    }
+
+}
+
+-(void)getToHotelListView{
     
+    HotelListViewController * hotelListView  = [[HotelListViewController alloc] init];
+    [_viewController pushViewController:hotelListView transitionType:TransitionPush completionHandler:nil];
 }
 
 

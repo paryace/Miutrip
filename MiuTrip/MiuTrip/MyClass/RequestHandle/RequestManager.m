@@ -63,8 +63,11 @@
     //将请求类名称放入到请求中
     NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
     [dic setObject:[NSString stringWithUTF8String:object_getClassName(request)] forKey:KEY_REQUEST_CLASS_NAME];
-    [dic setObject:[NSNumber numberWithBool:request.isCacheabled]forKey:KEY_REQUEST_CACHEABLE];
-    [dic setObject:request.getRequestConditions forKey:KEY_REQUEST_CONDITION];
+
+    [dic setObject:[NSNumber numberWithBool:request.isCacheabled] forKey:KEY_REQUEST_CACHEABLE];
+    if(request.isCacheabled){
+        [dic setObject:request.getRequestConditions forKey:KEY_REQUEST_CONDITION];
+    }
     [asiRequest setUserInfo:dic];
     
     //解析request,生成对应的请求JSON

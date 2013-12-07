@@ -10,6 +10,9 @@
 
 @interface SearchHotelsResponse : BaseResponseModel
 
+@property (nonatomic,strong) NSDictionary *Data;
+
+/**
 @property(strong,nonatomic) NSNumber *hotelId;           //酒店ID
 @property(strong,nonatomic) NSString *hotelName;         //酒店名字
 @property(strong,nonatomic) NSString *lowestPrice;       //最低价
@@ -23,9 +26,11 @@
 @property(strong,nonatomic) NSString *starRatedName;     //星级名称
 @property(strong,nonatomic) NSNumber *allRoomTypeCount;  //房型数
 @property(strong,nonatomic) NSNumber *score;             //好评占比
+ */
 
 @end
 
+/*
 @interface Rooms : NSObject                               //房型列表
 
 @property(strong,nonatomic) NSNumber *roomTypeId;        //房型ID
@@ -73,3 +78,4 @@
 @property(strong,nonatomic) NSString *roomState;         //房态
 
 @end
+*/
