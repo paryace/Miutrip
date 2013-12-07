@@ -540,7 +540,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self setEdgesForExtendedLayout:UIRectEdgeNone];
+    if ([self respondsToSelector:@selector(setEdgesForExtendedLayout:)]) {
+        self.edgesForExtendedLayout = UIRectEdgeNone;
+    }
     [self.view setAutoresizesSubviews:NO];
     [self.view setAutoresizingMask:UIViewAutoresizingNone];
 	// Do any additional setup after loading the view.
