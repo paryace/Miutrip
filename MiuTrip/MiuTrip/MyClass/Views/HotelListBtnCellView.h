@@ -8,6 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
+
+/**
+ *  酒店列表酒店信息下面的按钮CELL
+ */
 @interface HotelListBtnCellView : UITableViewCell
 
 @end

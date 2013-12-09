@@ -8,11 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
+/**
+ *  酒店列表酒店信息CELL
+ */
 @interface HotelListCellviewCell : UITableViewCell
 
-@property (nonatomic,strong) UILabel *hotelName;
-@property (nonatomic,strong) UILabel *address;
-@property (nonatomic,strong) UILabel *comment;
-@property (nonatomic,strong) UILabel *price;
+@property (nonatomic,strong) UILabel *hotelName;    //酒店名称
+@property (nonatomic,strong) UILabel *address;      //酒店地址
+@property (nonatomic,strong) UILabel *comment;      //酒店好评，评论
+@property (nonatomic,strong) UILabel *price;        //酒店价格
 
 @end

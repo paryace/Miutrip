@@ -14,7 +14,7 @@
 +(NSString *)getRequestURLByBusinessType:(BusinessType)businessType widthMethodName:(NSString *) methodName{
     
     NSMutableString *string = [[NSMutableString alloc]init];
-    [string appendString:MiuTripURL];
+    [string appendString:MiuTripTestURL];
     
     switch (businessType) {
         case BUSINESS_FLIGHT:

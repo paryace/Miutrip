@@ -7,16 +7,35 @@
 //
 
 #import "BaseUIViewController.h"
+#import "SearchHotelsRequest.h"
 
 @interface HotelListViewController : BaseUIViewController<UITableViewDataSource,UITableViewDelegate>
 
+@property (nonatomic,copy) SearchHotelsRequest *request;
+
+//页数索引
+@property int pageIndex;
+//总页数
 @property int totalPage;
-@property (nonatomic,copy) NSArray *hotelListData;
+//酒店列表数据
+@property (nonatomic,copy) NSMutableArray *hotelListData;
 
-
+//等待画面
 @property (nonatomic,copy) UIActivityIndicatorView *progressView;
 
-@property BOOL isOpen;                                                  //是否有酒店展开显示房型
-@property NSIndexPath *selectedIndex;                                   //展开的Index
+//是否有CELL展开
+@property BOOL isOpen;
+
+//当前展开的CELL
+@property NSIndexPath *selectIndex;
+
+@end
+
+@interface HotelListRoomCell : UITableViewCell
+
+@property (nonatomic,copy) UILabel *roomName;
+@property (nonatomic,copy) UILabel *bedAndBreakfast;
+@property (nonatomic,copy) UILabel *wifi;
+@property (nonatomic,copy) UILabel *price;
 
 @end

@@ -987,6 +987,10 @@
     return btn;
 }
 
+-(void)requestFailedWithErrorCode:(NSNumber *)errorCode withErrorMsg:(NSString *)errorMsg{
+    
+}
+
 - (BOOL)clearKeyBoard
 {
     BOOL canResignFirstResponder = NO;

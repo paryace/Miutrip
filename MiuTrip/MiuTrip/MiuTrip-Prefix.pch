@@ -41,5 +41,7 @@
     #define         Dispatch_Get_Main(mainHandle)       dispatch_async(dispatch_get_main_queue(),mainHandle())
 
     #define         ARC4RANDOM_MAX                  0x100000000
+    #define         PriceColor                      UIColorFromRGB(0xee7600)
+    #define         BlueColor                       UIColorFromRGB(0x4f7ab6)
 
 #endif

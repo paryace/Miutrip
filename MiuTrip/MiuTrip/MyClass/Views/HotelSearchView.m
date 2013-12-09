@@ -173,6 +173,7 @@
     [queryBtn setTag:550];
     [queryBtn addTarget:self action:@selector(pressHotelItemBtn:) forControlEvents:UIControlEventTouchUpInside];
     [pageHotelBottomView addSubview:queryBtn];
+    
     UIImageView *shakeImage = [[UIImageView alloc]initWithFrame:CGRectMake(queryBtn.frame.size.height/2, 0, queryBtn.frame.size.height, queryBtn.frame.size.height)];
     [shakeImage setImage:imageNameAndType(@"shake", nil)];
     [queryBtn addSubview:shakeImage];

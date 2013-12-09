@@ -41,14 +41,14 @@
         [UserDefaults shareUserDefault].autoLogin = logStatusImage.highlighted;
     }else if (sender.tag == 101){
         LoginRequest *request = [[LoginRequest alloc]initWidthBusinessType:BUSINESS_ACCOUNT methodName:@"login"];
-        [request setUsername:@"10000017"];
+        [request setUsername:@"18621001200"];
         [request setPassword:@"123456"];
         [self.requestManager sendRequestWithoutToken:request];
     }else if (sender.tag == 104){
         
         LoginRequest *request = [[LoginRequest alloc]initWidthBusinessType:BUSINESS_ACCOUNT methodName:@"Login"];
     
-        request.username = @"10000017";
+        request.username = @"18621001200";
         request.password = @"123456";
         request.rememberMe = [NSNumber numberWithBool:YES];
         

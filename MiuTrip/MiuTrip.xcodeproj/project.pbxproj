@@ -333,6 +333,11 @@
 		B5D4C4281852BDFA00F1B0FC /* SubmitFlightOrderResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = B5D4C4041852BDFA00F1B0FC /* SubmitFlightOrderResponse.m */; };
 		B5D4C4291852BDFA00F1B0FC /* (null) in Sources */ = {isa = PBXBuildFile; };
 		B5F762591852045000E7244B /* HotelSearchView.m in Sources */ = {isa = PBXBuildFile; fileRef = B5F762581852045000E7244B /* HotelSearchView.m */; };
+		B5F93B461855B90900814467 /* hotel_list_btn_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = B5F93B451855B90900814467 /* hotel_list_btn_bg.png */; };
+		B5F93B4A1855BC7500814467 /* ic_hotel_comment.png in Resources */ = {isa = PBXBuildFile; fileRef = B5F93B471855BC7500814467 /* ic_hotel_comment.png */; };
+		B5F93B4B1855BC7500814467 /* ic_hotel_detail.png in Resources */ = {isa = PBXBuildFile; fileRef = B5F93B481855BC7500814467 /* ic_hotel_detail.png */; };
+		B5F93B4C1855BC7500814467 /* ic_hotel_local.png in Resources */ = {isa = PBXBuildFile; fileRef = B5F93B491855BC7500814467 /* ic_hotel_local.png */; };
+		B5F93B4E1855C3C300814467 /* hotel_list_shadow.png in Resources */ = {isa = PBXBuildFile; fileRef = B5F93B4D1855C3C300814467 /* hotel_list_shadow.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -841,6 +846,11 @@
 		B5D4C4041852BDFA00F1B0FC /* SubmitFlightOrderResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubmitFlightOrderResponse.m; sourceTree = "<group>"; };
 		B5F762571852045000E7244B /* HotelSearchView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HotelSearchView.h; path = MiuTrip/MyClass/Views/HotelSearchView.h; sourceTree = SOURCE_ROOT; };
 		B5F762581852045000E7244B /* HotelSearchView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HotelSearchView.m; path = MiuTrip/MyClass/Views/HotelSearchView.m; sourceTree = SOURCE_ROOT; };
+		B5F93B451855B90900814467 /* hotel_list_btn_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hotel_list_btn_bg.png; sourceTree = "<group>"; };
+		B5F93B471855BC7500814467 /* ic_hotel_comment.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_hotel_comment.png; sourceTree = "<group>"; };
+		B5F93B481855BC7500814467 /* ic_hotel_detail.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_hotel_detail.png; sourceTree = "<group>"; };
+		B5F93B491855BC7500814467 /* ic_hotel_local.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_hotel_local.png; sourceTree = "<group>"; };
+		B5F93B4D1855C3C300814467 /* hotel_list_shadow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hotel_list_shadow.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1315,6 +1325,7 @@
 		127915561833292700CF94F4 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				B5F93B441855B8F000814467 /* Hotel */,
 				187CBD1918487E7900F25BD7 /* arrow.png */,
 				1253D5F01835D1E1004B595D /* bottombar.png */,
 				1253D5F11835D1E1004B595D /* home_bg.png */,
@@ -1672,6 +1683,18 @@
 			path = Hotel;
 			sourceTree = "<group>";
 		};
+		B5F93B441855B8F000814467 /* Hotel */ = {
+			isa = PBXGroup;
+			children = (
+				B5F93B4D1855C3C300814467 /* hotel_list_shadow.png */,
+				B5F93B471855BC7500814467 /* ic_hotel_comment.png */,
+				B5F93B481855BC7500814467 /* ic_hotel_detail.png */,
+				B5F93B491855BC7500814467 /* ic_hotel_local.png */,
+				B5F93B451855B90900814467 /* hotel_list_btn_bg.png */,
+			);
+			path = Hotel;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1767,6 +1790,7 @@
 				1253D63A1835D1E2004B595D /* home_item2_bottom.png in Resources */,
 				1253D64A1835D1E2004B595D /* inland_normal.png in Resources */,
 				122BD72B184061E200BAA9A9 /* hotel_done_nromal.png in Resources */,
+				B5F93B4E1855C3C300814467 /* hotel_list_shadow.png in Resources */,
 				124789ED1836363100AA0083 /* blueArrow@2x.png in Resources */,
 				12350A73183CFC8D00F9E8A7 /* t_career_ariLevel.png in Resources */,
 				122BD73B18406D2E00BAA9A9 /* query_leave.png in Resources */,
@@ -1808,6 +1832,7 @@
 				1253D6351835D1E2004B595D /* home_return.png in Resources */,
 				123DA432183E0F260031F3F1 /* cell_arrow_down.png in Resources */,
 				122CE5CA183A3AB5001771DC /* set_location.png in Resources */,
+				B5F93B4B1855BC7500814467 /* ic_hotel_detail.png in Resources */,
 				1253D6601835D1E2004B595D /* cname_box_bg.png in Resources */,
 				1253D64F1835D1E2004B595D /* mymiu_press.png in Resources */,
 				1253D6451835D1E2004B595D /* bg_box.png in Resources */,
@@ -1837,6 +1862,7 @@
 				1253D6371835D1E2004B595D /* air_press.png in Resources */,
 				1253D6541835D1E2004B595D /* log_pword.png in Resources */,
 				1253D6811835D2B1004B595D /* cname_unfold_box_last.png in Resources */,
+				B5F93B461855B90900814467 /* hotel_list_btn_bg.png in Resources */,
 				122BD74018406D2E00BAA9A9 /* voice_btn_normal.png in Resources */,
 				1253D64C1835D1E2004B595D /* logoff_normal.png in Resources */,
 				122CE5C9183A3AB5001771DC /* set_item_select.png in Resources */,
@@ -1851,6 +1877,8 @@
 				1253D6311835D1E2004B595D /* autolog_normal.png in Resources */,
 				18564750184C65F00031E5D6 /* logo_pn@2x.png in Resources */,
 				1856473F184C65F00031E5D6 /* logo_bk@2x.png in Resources */,
+				B5F93B4C1855BC7500814467 /* ic_hotel_local.png in Resources */,
+				B5F93B4A1855BC7500814467 /* ic_hotel_comment.png in Resources */,
 				122CE5CE183A3AB5001771DC /* set_save_normal.png in Resources */,
 				1253D6391835D1E2004B595D /* home_item1_top.png in Resources */,
 				18564746184C65F00031E5D6 /* logo_ho@2x.png in Resources */,
