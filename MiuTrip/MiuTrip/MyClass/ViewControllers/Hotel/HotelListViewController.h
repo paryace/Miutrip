@@ -8,8 +8,10 @@
 
 #import "BaseUIViewController.h"
 #import "SearchHotelsRequest.h"
+#import "LoadMoreTableFooterView.h"
+#import "RequestManager.h"
 
-@interface HotelListViewController : BaseUIViewController<UITableViewDataSource,UITableViewDelegate>
+@interface HotelListViewController : UITableViewController<LoadMoreTableFooterDelegate,UITableViewDataSource,UITableViewDelegate>
 
 @property (nonatomic,copy) SearchHotelsRequest *request;
 
@@ -28,6 +30,14 @@
 
 //当前展开的CELL
 @property NSIndexPath *selectIndex;
+@property (nonatomic,strong) RequestManager *requestManager;
+
+@property (nonatomic,strong) LoadMoreTableFooterView *loadMoreFooterView;
+
+@property BOOL reloading;
+
+- (void)reloadTableViewDataSource;
+- (void)doneLoadingTableViewData;
 
 @end
 

@@ -29,7 +29,10 @@
 - (id)init
 {
     if (self = [super init]) {
-        [self.contentView setHidden:NO];
+        [self.view setHidden:NO];
+        _requestManager = [[RequestManager alloc]init];
+        [_requestManager setDelegate:self];
+        
         [self setSubviewFrame];
     }
     return self;
@@ -42,14 +45,14 @@
     _pageIndex = 1;
     
     UIImageView *title = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"topbar.png"]];
-    [title setFrame:CGRectMake(0, 0, self.contentView.frame.size.width, 40)];
-    [self.contentView addSubview:title];
+    [title setFrame:CGRectMake(0, 0, self.view.frame.size.width, 40)];
+    [self.view addSubview:title];
     
     _progressView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     [_progressView setHidesWhenStopped:NO];
     [_progressView setCenter:CGPointMake(self.view.frame.size.width /2.0, self.view.frame.size.height/2.0)];
     [_progressView startAnimating];
-    [self.contentView addSubview:_progressView];
+    [self.view addSubview:_progressView];
     
     [self searchHotels];
     
@@ -67,17 +70,24 @@
 
 -(void)addHotelListViewWithData{
     
-    UITableView *tableview = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.contentView.frame.size.width, self.contentView.frame.size.height)];
+    UITableView *tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 40, self.view.frame.size.width, self.view.frame.size.height-10)];
     
-    [tableview setTag:1001];
-    [tableview setDataSource:self];
-    [tableview setDelegate:self];
-    tableview.allowsSelection = YES;
-    tableview.sectionFooterHeight = 0;
-    tableview.sectionHeaderHeight = 0;
+    [tableView setTag:1001];
+    [tableView setDataSource:self];
+    [tableView setDelegate:self];
+    tableView.allowsSelection = YES;
+    tableView.sectionFooterHeight = 0;
+    tableView.sectionHeaderHeight = 0;
     _pageIndex = 1;
     self.isOpen = NO;
-    [self.contentView addSubview:tableview];
+    [self.view addSubview:tableView];
+    
+    if (_loadMoreFooterView == nil) {
+		_loadMoreFooterView = [[LoadMoreTableFooterView alloc] initWithFrame:CGRectMake(0.0f, tableView.contentSize.height,tableView.frame.size.width, tableView.bounds.size.height)];
+		_loadMoreFooterView.delegate = self;
+		[tableView addSubview:_loadMoreFooterView];
+	}
+    
 }
 
 
@@ -119,7 +129,7 @@
             return;
         }
         
-        [self relaodData];
+//        [self relaodData];
        
     }
 }
@@ -209,8 +219,6 @@
     
     NSDictionary *dic = [_hotelListData objectAtIndex:indexPath.section];
     
-    NSLog(@"cellForRowAtIndexPath.row=%d,section=%d",indexPath.row,indexPath.section);
-    
     if(self.isOpen&&self.selectIndex.section == indexPath.section&&indexPath.row!=0){
         
         if(indexPath.row == 1){
@@ -226,7 +234,8 @@
             return cellView;
         }else{
             
-            UITableViewCell *cell = (UITableViewCell *)[tableView dequeueReusableCellWithIdentifier:hotelRoomsCell];        HotelListRoomCell *cellView = nil;
+            UITableViewCell *cell = (UITableViewCell *)[tableView dequeueReusableCellWithIdentifier:hotelRoomsCell];
+            HotelListRoomCell *cellView = nil;
             if(cell){
                 cellView = (HotelListRoomCell*)cell;
             }else{
@@ -291,7 +300,7 @@
 - (void)didSelectCellRowFirstDo:(BOOL)firstDoInsert nextDo:(BOOL)nextDoInsert
 {
     self.isOpen = firstDoInsert;
-    UITableView *tableView = (UITableView*)[self.contentView viewWithTag:1001];
+    UITableView *tableView = (UITableView*)[self.view viewWithTag:1001];
 //    UITableViewCell *cell = (UITableViewCell *)[tableView cellForRowAtIndexPath:self.selectIndex];
 //    [cell changeArrowWithUp:firstDoInsert];
     
@@ -325,57 +334,66 @@
     }
 }
 
--(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
-{
+
+#pragma mark -
+#pragma mark Data Source Loading / Reloading Methods
+
+- (void)reloadTableViewDataSource{
+	
+	_reloading = YES;
     
-    NSLog(@"section=%d",indexPath.section);
-    if(indexPath.section == _hotelListData.count - 1){
-        
-        [self loadMoreEvent:tableView indexPath:indexPath];
-    }
-    
-    
+    [self loadMore];
+	
 }
 
--(void)loadMoreEvent:(UITableView *)tableView indexPath:(NSIndexPath *)indexPath
+- (void)doneLoadingTableViewData{
+    UITableView *tableView = (UITableView*)[self.view viewWithTag:1001];
+	_reloading = NO;
+	[_loadMoreFooterView loadMoreScrollViewDataSourceDidFinishedLoading:tableView];
+    [tableView reloadData];
+}
+
+// 加载更多数据，此处可以换成从远程服务器获取最新的_size条数据
+-(void)loadMore
 {
     if (_pageIndex < _totalPage){
         _pageIndex ++;
-        UITableViewCell *loadMoreCell = [tableView cellForRowAtIndexPath:indexPath];
-        loadMoreCell.textLabel.text = @"正在加载中...";
-        loadMoreCell.detailTextLabel.text = @"";
-        [self loadMore];
-        [tableView deselectRowAtIndexPath:indexPath animated:YES];
+        _request.page = [NSNumber numberWithInt:_pageIndex];
+        [self.requestManager sendRequest:_request];
     }
 }
 
- // 加载更多数据，此处可以换成从远程服务器获取最新的_size条数据
--(void)loadMore
-{
-    _request.page = [NSNumber numberWithInt:_pageIndex];
-    [self.requestManager sendRequest:_request];
+#pragma mark -
+#pragma mark UIScrollViewDelegate Methods
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
+	
+	[_loadMoreFooterView loadMoreScrollViewDidScroll:scrollView];
+	
 }
 
- // 添加数据到当前TableView中去
--(void)relaodData
-{
-    UITableView *tableView = (UITableView*)[self.contentView viewWithTag:1001];
-    
-    [tableView reloadData];
-//         // 添加到当前的数据源中
-//        NSMutableArray *insertIndexPaths = [NSMutableArray arrayWithCapacity:[data count]];
-//         for(int ind =0;ind<[data count];ind++)
-//            {
-//                    NSIndexPath *newPath = [NSIndexPath indexPathForRow:[pagingCity indexOfObject:[data objectAtIndex:ind]] inSection:0];
-//                    [insertIndexPaths addObject:newPath];
-//              }
-//        [self.tableView insertRowsAtIndexPaths:insertIndexPaths withRowAnimation:UITableViewRowAnimationFade];
-//   
-//     // 选到当前的行数
-//       int begin = (_index-1)*_size;
-//      NSIndexPath *indexPath = [NSIndexPath indexPathForRow:begin inSection:0];
-//      [self.tableView selectRowAtIndexPath:indexPath  animated:YES scrollPosition:UITableViewScrollPositionTop];
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
+	
+	[_loadMoreFooterView loadMoreScrollViewDidEndDragging:scrollView];
+	
 }
+
+
+#pragma mark -
+#pragma mark LoadMoreTableFooterDelegate Methods
+
+- (void)loadMoreTableFooterDidTriggerRefresh:(LoadMoreTableFooterView *)view {
+    
+	[self reloadTableViewDataSource];
+	[self performSelector:@selector(doneLoadingTableViewData) withObject:nil afterDelay:3.0];
+    
+}
+
+- (BOOL)loadMoreTableFooterDataSourceIsLoading:(LoadMoreTableFooterView *)view {
+	return _reloading;
+}
+
+
 
 @end
 
