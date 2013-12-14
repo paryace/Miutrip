@@ -261,10 +261,14 @@
 		18B47368184731AB003FF7AD /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 18B47367184731AB003FF7AD /* libicucore.dylib */; };
 		18B4736C184731DC003FF7AD /* RegexKitLite.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B4736B184731DC003FF7AD /* RegexKitLite.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		B501CFA01852F5DC00802FD9 /* HotelListCellviewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B501CF9F1852F5DC00802FD9 /* HotelListCellviewCell.m */; };
-		B501CFA318531D9300802FD9 /* HotelListBtnCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = B501CFA218531D9300802FD9 /* HotelListBtnCellView.m */; };
 		B507B84618570A6C003541B2 /* LoadMoreTableFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = B507B84518570A6C003541B2 /* LoadMoreTableFooterView.m */; };
+		B5157F81185BF24A00AF3E0C /* PullRefreshTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B5157F80185BF24A00AF3E0C /* PullRefreshTableViewController.m */; };
+		B5157F83185BF58600AF3E0C /* pull_up_refresh_arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = B5157F82185BF58600AF3E0C /* pull_up_refresh_arrow.png */; };
+		B5157F86185BF84100AF3E0C /* HotelCommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B5157F85185BF84100AF3E0C /* HotelCommentViewController.m */; };
 		B523F73B18478B94005C45C5 /* BaseRequestModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B523F73A18478B94005C45C5 /* BaseRequestModel.m */; };
 		B53496B91846E3C6001BC8D1 /* BaseResponseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B53496B81846E3C6001BC8D1 /* BaseResponseModel.m */; };
+		B551435B185C23B800D5BDD4 /* comment_time.png in Resources */ = {isa = PBXBuildFile; fileRef = B551435A185C23B800D5BDD4 /* comment_time.png */; };
+		B551435E185C3C1300D5BDD4 /* HotelDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B551435D185C3C1300D5BDD4 /* HotelDetailViewController.m */; };
 		B5729B41184D74BB002497B3 /* LoginUserInfoRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = B5729B40184D74BB002497B3 /* LoginUserInfoRequest.m */; };
 		B5729B44184D75E5002497B3 /* LoginUserInfoResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = B5729B43184D75E5002497B3 /* LoginUserInfoResponse.m */; };
 		B57A0A9F184EC77A00A33831 /* BaseUIViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B57A0A8C184EC77A00A33831 /* BaseUIViewController.m */; };
@@ -703,15 +707,21 @@
 		18B4736B184731DC003FF7AD /* RegexKitLite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegexKitLite.m; sourceTree = "<group>"; };
 		B501CF9E1852F5DC00802FD9 /* HotelListCellviewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HotelListCellviewCell.h; sourceTree = "<group>"; };
 		B501CF9F1852F5DC00802FD9 /* HotelListCellviewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HotelListCellviewCell.m; sourceTree = "<group>"; };
-		B501CFA118531D9300802FD9 /* HotelListBtnCellView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HotelListBtnCellView.h; sourceTree = "<group>"; };
-		B501CFA218531D9300802FD9 /* HotelListBtnCellView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HotelListBtnCellView.m; sourceTree = "<group>"; };
 		B507B84418570A6C003541B2 /* LoadMoreTableFooterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoadMoreTableFooterView.h; sourceTree = "<group>"; };
 		B507B84518570A6C003541B2 /* LoadMoreTableFooterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoadMoreTableFooterView.m; sourceTree = "<group>"; };
+		B5157F7F185BF24A00AF3E0C /* PullRefreshTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PullRefreshTableViewController.h; path = ../../../../../../Downloads/PullUpToRefresh/PullUpToRefresh/PullRefreshTableViewController.h; sourceTree = "<group>"; };
+		B5157F80185BF24A00AF3E0C /* PullRefreshTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PullRefreshTableViewController.m; path = ../../../../../../Downloads/PullUpToRefresh/PullUpToRefresh/PullRefreshTableViewController.m; sourceTree = "<group>"; };
+		B5157F82185BF58600AF3E0C /* pull_up_refresh_arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = pull_up_refresh_arrow.png; path = ../../../../../Downloads/PullUpToRefresh/PullUpToRefresh/pull_up_refresh_arrow.png; sourceTree = "<group>"; };
+		B5157F84185BF84100AF3E0C /* HotelCommentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HotelCommentViewController.h; sourceTree = "<group>"; };
+		B5157F85185BF84100AF3E0C /* HotelCommentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HotelCommentViewController.m; sourceTree = "<group>"; };
 		B523F73918478B94005C45C5 /* BaseRequestModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseRequestModel.h; sourceTree = "<group>"; };
 		B523F73A18478B94005C45C5 /* BaseRequestModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseRequestModel.m; sourceTree = "<group>"; };
 		B53496B61846E310001BC8D1 /* ResponseDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ResponseDelegate.h; sourceTree = "<group>"; };
 		B53496B71846E3C6001BC8D1 /* BaseResponseModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseResponseModel.h; sourceTree = "<group>"; };
 		B53496B81846E3C6001BC8D1 /* BaseResponseModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseResponseModel.m; sourceTree = "<group>"; };
+		B551435A185C23B800D5BDD4 /* comment_time.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = comment_time.png; sourceTree = "<group>"; };
+		B551435C185C3C1300D5BDD4 /* HotelDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HotelDetailViewController.h; sourceTree = "<group>"; };
+		B551435D185C3C1300D5BDD4 /* HotelDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HotelDetailViewController.m; sourceTree = "<group>"; };
 		B5729B3F184D74BB002497B3 /* LoginUserInfoRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginUserInfoRequest.h; sourceTree = "<group>"; };
 		B5729B40184D74BB002497B3 /* LoginUserInfoRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginUserInfoRequest.m; sourceTree = "<group>"; };
 		B5729B42184D75E5002497B3 /* LoginUserInfoResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginUserInfoResponse.h; sourceTree = "<group>"; };
@@ -1328,6 +1338,7 @@
 		127915561833292700CF94F4 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				B5157F82185BF58600AF3E0C /* pull_up_refresh_arrow.png */,
 				B5F93B441855B8F000814467 /* Hotel */,
 				187CBD1918487E7900F25BD7 /* arrow.png */,
 				1253D5F01835D1E1004B595D /* bottombar.png */,
@@ -1409,6 +1420,8 @@
 		B57A0A8A184EC77A00A33831 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				B5157F7F185BF24A00AF3E0C /* PullRefreshTableViewController.h */,
+				B5157F80185BF24A00AF3E0C /* PullRefreshTableViewController.m */,
 				B57A0AA8184EC7C000A33831 /* Hotel */,
 				B57A0A8B184EC77A00A33831 /* BaseUIViewController.h */,
 				B57A0A8C184EC77A00A33831 /* BaseUIViewController.m */,
@@ -1453,6 +1466,10 @@
 			children = (
 				B57A0AA9184EC7E100A33831 /* HotelListViewController.h */,
 				B57A0AAA184EC7E100A33831 /* HotelListViewController.m */,
+				B5157F84185BF84100AF3E0C /* HotelCommentViewController.h */,
+				B5157F85185BF84100AF3E0C /* HotelCommentViewController.m */,
+				B551435C185C3C1300D5BDD4 /* HotelDetailViewController.h */,
+				B551435D185C3C1300D5BDD4 /* HotelDetailViewController.m */,
 			);
 			path = Hotel;
 			sourceTree = "<group>";
@@ -1468,8 +1485,6 @@
 				B57A0AAE184F13F200A33831 /* ImageAndTextTilteView.m */,
 				B501CF9E1852F5DC00802FD9 /* HotelListCellviewCell.h */,
 				B501CF9F1852F5DC00802FD9 /* HotelListCellviewCell.m */,
-				B501CFA118531D9300802FD9 /* HotelListBtnCellView.h */,
-				B501CFA218531D9300802FD9 /* HotelListBtnCellView.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1691,6 +1706,7 @@
 		B5F93B441855B8F000814467 /* Hotel */ = {
 			isa = PBXGroup;
 			children = (
+				B551435A185C23B800D5BDD4 /* comment_time.png */,
 				B5F93B4D1855C3C300814467 /* hotel_list_shadow.png */,
 				B5F93B471855BC7500814467 /* ic_hotel_comment.png */,
 				B5F93B481855BC7500814467 /* ic_hotel_detail.png */,
@@ -1827,6 +1843,7 @@
 				12350A74183CFC8D00F9E8A7 /* t_career_arrived.png in Resources */,
 				1253D6471835D1E2004B595D /* bg_home_title_btn.png in Resources */,
 				122BD73F18406D2E00BAA9A9 /* voice_btn_press.png in Resources */,
+				B551435B185C23B800D5BDD4 /* comment_time.png in Resources */,
 				127915581833292700CF94F4 /* DatePickerViewController.xib in Resources */,
 				1253D65E1835D1E2004B595D /* cname_add.png in Resources */,
 				123DA433183E0F260031F3F1 /* cell_arrow_up.png in Resources */,
@@ -1896,6 +1913,7 @@
 				1253D6561835D1E2004B595D /* log_uname.png in Resources */,
 				1253D6321835D1E2004B595D /* autolog_select.png in Resources */,
 				1253D6501835D1E2004B595D /* shadow.png in Resources */,
+				B5157F83185BF58600AF3E0C /* pull_up_refresh_arrow.png in Resources */,
 				1253D6641835D1E2004B595D /* cname_item_select.png in Resources */,
 				1253D6491835D1E2004B595D /* btn_title.png in Resources */,
 				18564748184C65F00031E5D6 /* logo_jd@2x.png in Resources */,
@@ -1962,6 +1980,7 @@
 				18A13710184EE59F00516ED3 /* GetCorpNameByMumberUIDResponse.m in Sources */,
 				18A136DD184EE37500516ED3 /* GetLoginUserInfoResponse.m in Sources */,
 				18A13704184EE55400516ED3 /* DeleteMemberDeliverResponse.m in Sources */,
+				B5157F81185BF24A00AF3E0C /* PullRefreshTableViewController.m in Sources */,
 				B5A508051852B80E00D6A788 /* GetCityByProvinceIDResponse.m in Sources */,
 				18A136E3184EE42100516ED3 /* GetTravelLifeInfoResponse.m in Sources */,
 				122BD71E184057B800BAA9A9 /* AirOrderDetailCell.m in Sources */,
@@ -1971,6 +1990,8 @@
 				18573C8A1849A94800A19D7E /* CityPickerViewController.m in Sources */,
 				B5D4C40C1852BDFA00F1B0FC /* CancelOrderResponse.m in Sources */,
 				B57B67531852BEEC0002C778 /* SearchHotelsRequest.m in Sources */,
+				B5157F86185BF84100AF3E0C /* HotelCommentViewController.m in Sources */,
+				B551435E185C3C1300D5BDD4 /* HotelDetailViewController.m in Sources */,
 				B57B67621852C3CE0002C778 /* GetCommentListResponse.m in Sources */,
 				B5D4C4201852BDFA00F1B0FC /* GetMailConfigResponse.m in Sources */,
 				B57A0AA0184EC77A00A33831 /* AirListViewController.m in Sources */,
@@ -2071,7 +2092,6 @@
 				B5729B44184D75E5002497B3 /* LoginUserInfoResponse.m in Sources */,
 				B5A249221845F63A005BB217 /* URLHelper.m in Sources */,
 				18A136EC184EE49C00516ED3 /* SearchPassengersResponse.m in Sources */,
-				B501CFA318531D9300802FD9 /* HotelListBtnCellView.m in Sources */,
 				124789E51836363100AA0083 /* ASIHTTPRequest.m in Sources */,
 				B57A0AAB184EC7E100A33831 /* HotelListViewController.m in Sources */,
 				B57B67661852C3CE0002C778 /* SubmitOrderResponse.m in Sources */,

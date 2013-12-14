@@ -6,8 +6,8 @@
 //  Copyright (c) 2013年 michael. All rights reserved.
 //
 
-#import "GethotelDetailResponse.h"
+#import "GetHotelDetailResponse.h"
 
-@implementation GethotelDetailResponse
+@implementation GetHotelDetailResponse
 
 @end

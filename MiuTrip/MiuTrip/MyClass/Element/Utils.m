@@ -44,22 +44,13 @@
 }
 
 + (float)heightForWidth:(CGFloat)textViewWidth text:(NSString *)strText font:(UIFont*)font{
-    float fPadding = 16.0; // 8.0px x 2
-    CGSize constraint = CGSizeMake(textViewWidth - fPadding, CGFLOAT_MAX);
     
+    NSAttributedString *attributedText = [[NSAttributedString alloc] initWithString:
+                                          strText attributes:@{NSFontAttributeName: font}];
     
-    NSAttributedString *attribute = [[NSAttributedString alloc]initWithString:strText];
-    NSRange range = NSMakeRange(0, attribute.length);
-//    NSDictionary *dic = [attribute attributesAtIndex:0 effectiveRange:&range];
+    CGRect rect = [attributedText boundingRectWithSize:CGSizeMake(textViewWidth, 9999) options:NSStringDrawingUsesLineFragmentOrigin context:nil];
     
-    CGRect size = [attribute boundingRectWithSize:constraint options:NSStringDrawingUsesLineFragmentOrigin |NSStringDrawingUsesFontLeading context:nil];
-    
-//    CGSize size = [strText
-//                   boundingRectWithSize:constraint options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading  attributes:dic context:nil].size;
-    
-    float fHeight = size.origin.y + 16.0;
-    
-    return fHeight;
+    return ceilf(rect.size.height);
 }
 
 +(BOOL)isValidatePhoneNum:(NSString *)phoneNum

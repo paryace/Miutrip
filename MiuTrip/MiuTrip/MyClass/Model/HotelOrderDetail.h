@@ -36,6 +36,9 @@
 
 @property (assign, nonatomic) BOOL                      unfold;
 
+@property (nonatomic)         int                       selectedHotelId;
+
 + (NSArray*)getCommonDataWithNum:(NSInteger)num;
++ (HotelOrderDetail*)sharedInstance;
 
 @end

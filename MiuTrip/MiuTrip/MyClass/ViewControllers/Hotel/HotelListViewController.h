@@ -10,8 +10,9 @@
 #import "SearchHotelsRequest.h"
 #import "LoadMoreTableFooterView.h"
 #import "RequestManager.h"
+#import "PullRefreshTableViewController.h"
 
-@interface HotelListViewController : UITableViewController<LoadMoreTableFooterDelegate,UITableViewDataSource,UITableViewDelegate>
+@interface HotelListViewController : PullRefreshTableViewController<BusinessDelegate>
 
 @property (nonatomic,copy) SearchHotelsRequest *request;
 
@@ -32,13 +33,6 @@
 @property NSIndexPath *selectIndex;
 @property (nonatomic,strong) RequestManager *requestManager;
 
-@property (nonatomic,strong) LoadMoreTableFooterView *loadMoreFooterView;
-
-@property BOOL reloading;
-
-- (void)reloadTableViewDataSource;
-- (void)doneLoadingTableViewData;
-
 @end
 
 @interface HotelListRoomCell : UITableViewCell
@@ -49,3 +43,11 @@
 @property (nonatomic,copy) UILabel *price;
 
 @end
+
+@interface HotelListBtnCellView : UITableViewCell
+
+@property (nonatomic) int hotelId;
+@property (nonatomic,assign) UIViewController *viewController;
+
+@end
+

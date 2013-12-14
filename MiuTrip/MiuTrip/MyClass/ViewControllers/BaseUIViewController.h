@@ -15,6 +15,8 @@
 #import "BaseRequestModel.h"
 #import "RequestManager.h"
 
+#define LOADING_VIEW_TAG  9999
+
 
 @class BaseContentView;
 
@@ -82,5 +84,24 @@ typedef NS_OPTIONS(NSInteger, RequestType){
 
 - (UIImageView *)createLineWithParam:(NSObject*)param frame:(CGRect)frame;
 
+/**
+ *  页面添加标题 （标题无按钮）
+ *
+ *  @param parentView
+ *  @param title
+ */
+-(void)addTitleWithTitle:(NSString*) title;
+
+/**
+ *  页面添加Loading界面
+ */
+-(void)addLoadingView;
+
+-(void)removeLoadingView;
+
+/**
+ *  添加请求服务错误结果界面
+ */
+-(void)addErrorViewWithErrorMsg:(NSString*) errorMsg;
 @end
 

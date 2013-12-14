@@ -414,7 +414,7 @@
         
         UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:frame];
         
-        UIView *hotelSearchView = [[HotelSearchView alloc] initWidthFrame:CGRectMake(0, 0, self.view.frame.size.width, 0) widthdata:[[HotelOrderDetail alloc] init] widthDelegate:self];
+        UIView *hotelSearchView = [[HotelSearchView alloc] initWidthFrame:CGRectMake(0, 0, self.view.frame.size.width, 0) widthdata:[HotelOrderDetail sharedInstance] widthDelegate:self];
         
         [hotelSearchView setBackgroundColor:color(clearColor)];
         

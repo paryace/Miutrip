@@ -10,8 +10,7 @@
 
 @interface GetCommentListResponse : BaseResponseModel
 
-@property(strong,nonatomic) NSNumber *overallRating;
-@property(strong,nonatomic) NSString *content;
-@property(strong,nonatomic) NSString *createDate;
+@property (nonatomic,strong) NSDictionary *Data;
+
 
 @end

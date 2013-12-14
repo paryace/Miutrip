@@ -31,11 +31,23 @@
     #define         controlXLength(control)         (control.frame.origin.x + control.frame.size.width)
     #define         controlYLength(control)         (control.frame.origin.y + control.frame.size.height)
 
+    #define         viewWidth(view)                 (view.frame.size.width)
+    #define         viewHeight(view)                (view.frame.size.height)
+    #define         bgColor                         UIColorFromRGB(0xfff3f3f3)
+
     #define         color(colorName)                [UIColor colorName]
     #define         UIColorFromRGB(rgbValue)        [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 \
                                                     green:((float)((rgbValue & 0xFF00) >> 8))/255.0\
                                                     blue:((float)(rgbValue & 0xFF))/255.0\
                                                     alpha:1.0]
+
+    #define                                         DEFINE_SHARED_INSTANCE_USING_BLOCK(block) \
+                                                     static dispatch_once_t onceToken = 0; \
+                                                     __strong static id sharedInstance = nil; \
+                                                     dispatch_once(&onceToken, ^{ \
+                                                     sharedInstance = block(); \
+                                                     }); \
+                                                    return sharedInstance; \
 
     #define         Dispatch_Get_Gloabal(gloabalHandle) dispatch_async(dispatch_get_global_queue(0, 0),gloabalHandle())
     #define         Dispatch_Get_Main(mainHandle)       dispatch_async(dispatch_get_main_queue(),mainHandle())

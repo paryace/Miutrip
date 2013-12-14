@@ -11,6 +11,12 @@
 
 @implementation HotelOrderDetail
 
++(HotelOrderDetail*)sharedInstance{
+    DEFINE_SHARED_INSTANCE_USING_BLOCK(^{
+        return [[self alloc] init];
+    });
+}
+
 - (id)init
 {
     if (self = [super init]) {

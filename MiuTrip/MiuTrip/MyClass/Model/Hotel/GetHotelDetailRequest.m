@@ -10,11 +10,6 @@
 
 @implementation GetHotelDetailRequest
 
--(NSString *)getRequestURLString{
-    
-    return [URLHelper getRequestURLByBusinessType:BUSINESS_HOTEL widthMethodName:@"GetHotelDetail"];
-    
-}
 
 
 @end

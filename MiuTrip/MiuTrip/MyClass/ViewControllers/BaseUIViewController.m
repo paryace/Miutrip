@@ -439,7 +439,7 @@
     //subview inherit this method to do success finished handle
 }
 
-- (void)pushViewController:(BaseUIViewController*)_viewController transitionType:(TransitionType)_transitionType completionHandler:(void (^) (void))_compleHandler
+- (void)pushViewController:(UIViewController*)_viewController transitionType:(TransitionType)_transitionType completionHandler:(void (^) (void))_compleHandler
 {
     if (self.navigationController) {
         [self.navigationController pushViewController:_viewController animated:NO];
@@ -536,6 +536,47 @@
     }
     return line;
 }
+
+-(void)addTitleWithTitle:(NSString*) title
+{
+    
+    UIView *titleView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 40)];
+    
+    UIImageView *titleBg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"topbar.png"]];
+    [titleBg setFrame:CGRectMake(0, 0, titleView.frame.size.width, 40)];
+    [titleView addSubview:titleBg];
+    
+    UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake((titleView.frame.size.width-100)/2, 10, 100, 20)];
+    [titleLabel setBackgroundColor:color(clearColor)];
+    [titleLabel setTextColor:color(whiteColor)];
+    [titleLabel setFont:[UIFont boldSystemFontOfSize:16]];
+    [titleLabel setText:title];
+    [titleView addSubview:titleLabel];
+    
+    [self.contentView addSubview:titleView];
+}
+
+-(void)addLoadingView
+{
+    UIView *loadingView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, viewWidth(_contentView), viewHeight(_contentView))];
+    loadingView.tag = LOADING_VIEW_TAG;
+    [loadingView setBackgroundColor:bgColor];
+    
+    UIActivityIndicatorView *progressView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    [progressView setHidesWhenStopped:NO];
+    [progressView setCenter:CGPointMake(self.contentView.frame.size.width /2.0, self.contentView.frame.size.height/2.0)];
+    [progressView startAnimating];
+    [loadingView addSubview:progressView];
+    
+    [_contentView addSubview:loadingView];
+}
+
+-(void)removeLoadingView
+{
+    UIView *view = [_contentView viewWithTag:LOADING_VIEW_TAG];
+    [view removeFromSuperview];
+}
+
 
 - (void)viewDidLoad
 {

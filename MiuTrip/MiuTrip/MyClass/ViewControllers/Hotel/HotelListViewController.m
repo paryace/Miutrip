@@ -9,7 +9,9 @@
 #import "HotelListViewController.h"
 #import "SearchHotelsResponse.h"
 #import "HotelListCellviewCell.h"
-#import "HotelListBtnCellView.h"
+#import "HotelCommentViewController.h"
+#import "HotelOrderDetail.h"
+#import "HotelDetailViewController.h"
 
 @interface HotelListViewController ()
 
@@ -46,7 +48,7 @@
     
     UIImageView *title = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"topbar.png"]];
     [title setFrame:CGRectMake(0, 0, self.view.frame.size.width, 40)];
-    [self.view addSubview:title];
+    [self.tableView addSubview:title];
     
     _progressView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     [_progressView setHidesWhenStopped:NO];
@@ -68,27 +70,6 @@
 }
 
 
--(void)addHotelListViewWithData{
-    
-    UITableView *tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 40, self.view.frame.size.width, self.view.frame.size.height-10)];
-    
-    [tableView setTag:1001];
-    [tableView setDataSource:self];
-    [tableView setDelegate:self];
-    tableView.allowsSelection = YES;
-    tableView.sectionFooterHeight = 0;
-    tableView.sectionHeaderHeight = 0;
-    _pageIndex = 1;
-    self.isOpen = NO;
-    [self.view addSubview:tableView];
-    
-    if (_loadMoreFooterView == nil) {
-		_loadMoreFooterView = [[LoadMoreTableFooterView alloc] initWithFrame:CGRectMake(0.0f, tableView.contentSize.height,tableView.frame.size.width, tableView.bounds.size.height)];
-		_loadMoreFooterView.delegate = self;
-		[tableView addSubview:_loadMoreFooterView];
-	}
-    
-}
 
 
 -(void) searchHotels{
@@ -115,6 +96,11 @@
     [self.requestManager sendRequest:_request];
 }
 
+/**
+ *  请求成功
+ *
+ *  @param response
+ */
 -(void)requestDone:(BaseResponseModel *) response{
     if(response){
         SearchHotelsResponse *hotelListResponse = (SearchHotelsResponse*)response;
@@ -125,15 +111,19 @@
         
         if(_pageIndex == 1){
             [self removeProgressVie];
-            [self addHotelListViewWithData];
-            return;
         }
-        
-//        [self relaodData];
-       
+        [self stopLoading];
+        [self.tableView reloadData];
+        self.hasMore = YES;
     }
 }
 
+/**
+ *  请求失败
+ *
+ *  @param errorCode 错误代码
+ *  @param errorMsg  错误消息
+ */
 -(void)requestFailedWithErrorCode:(NSNumber *)errorCode withErrorMsg:(NSString *)errorMsg
 {
     NSLog(@"error = %@",errorMsg);
@@ -230,6 +220,8 @@
             }else{
                 cellView = [[HotelListBtnCellView alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:hotelBtn];
             }
+            cellView.hotelId = [[dic objectForKey:@"hotelId"] integerValue];
+            cellView.viewController = self;
             [cellView setSelectionStyle:UITableViewCellSelectionStyleNone];
             return cellView;
         }else{
@@ -300,7 +292,6 @@
 - (void)didSelectCellRowFirstDo:(BOOL)firstDoInsert nextDo:(BOOL)nextDoInsert
 {
     self.isOpen = firstDoInsert;
-    UITableView *tableView = (UITableView*)[self.view viewWithTag:1001];
 //    UITableViewCell *cell = (UITableViewCell *)[tableView cellForRowAtIndexPath:self.selectIndex];
 //    [cell changeArrowWithUp:firstDoInsert];
     
@@ -317,82 +308,43 @@
 		[rowToInsert addObject:indexPathToInsert];
 	}
     
-    [tableView beginUpdates];
+    [self.tableView beginUpdates];
 	if (firstDoInsert)
-    {   [tableView insertRowsAtIndexPaths:rowToInsert withRowAnimation:UITableViewRowAnimationTop];
+    {   [self.tableView insertRowsAtIndexPaths:rowToInsert withRowAnimation:UITableViewRowAnimationTop];
     }
 	else
     {
-        [tableView deleteRowsAtIndexPaths:rowToInsert withRowAnimation:UITableViewRowAnimationTop];
+        [self.tableView deleteRowsAtIndexPaths:rowToInsert withRowAnimation:UITableViewRowAnimationTop];
     }
     
-	[tableView endUpdates];
+	[self.tableView endUpdates];
     if (nextDoInsert) {
         self.isOpen = YES;
-        self.selectIndex = [tableView indexPathForSelectedRow];
+        self.selectIndex = [self.tableView indexPathForSelectedRow];
         [self didSelectCellRowFirstDo:YES nextDo:NO];
     }
-}
-
-
-#pragma mark -
-#pragma mark Data Source Loading / Reloading Methods
-
-- (void)reloadTableViewDataSource{
-	
-	_reloading = YES;
-    
-    [self loadMore];
-	
-}
-
-- (void)doneLoadingTableViewData{
-    UITableView *tableView = (UITableView*)[self.view viewWithTag:1001];
-	_reloading = NO;
-	[_loadMoreFooterView loadMoreScrollViewDataSourceDidFinishedLoading:tableView];
-    [tableView reloadData];
 }
 
 // 加载更多数据，此处可以换成从远程服务器获取最新的_size条数据
 -(void)loadMore
 {
-    if (_pageIndex < _totalPage){
-        _pageIndex ++;
-        _request.page = [NSNumber numberWithInt:_pageIndex];
-        [self.requestManager sendRequest:_request];
+    if(_pageIndex == _totalPage){
+       
+        self.hasMore = NO;
+        [self stopLoading];
+        return;
     }
-}
-
-#pragma mark -
-#pragma mark UIScrollViewDelegate Methods
-
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
-	
-	[_loadMoreFooterView loadMoreScrollViewDidScroll:scrollView];
-	
-}
-
-- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
-	
-	[_loadMoreFooterView loadMoreScrollViewDidEndDragging:scrollView];
-	
-}
-
-
-#pragma mark -
-#pragma mark LoadMoreTableFooterDelegate Methods
-
-- (void)loadMoreTableFooterDidTriggerRefresh:(LoadMoreTableFooterView *)view {
     
-	[self reloadTableViewDataSource];
-	[self performSelector:@selector(doneLoadingTableViewData) withObject:nil afterDelay:3.0];
-    
+    _pageIndex ++;
+    _request.page = [NSNumber numberWithInt:_pageIndex];
+    [self.requestManager sendRequest:_request];
+
+
 }
 
-- (BOOL)loadMoreTableFooterDataSourceIsLoading:(LoadMoreTableFooterView *)view {
-	return _reloading;
+- (void)refresh {
+    [self performSelector:@selector(loadMore) withObject:nil afterDelay:2.0];
 }
-
 
 
 @end
@@ -450,4 +402,131 @@
 
 @end
 
+@implementation HotelListBtnCellView
 
+- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
+{
+    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
+    if (self) {
+        [self setUpView];
+    }
+    return self;
+}
+
+-(void)setUpView
+{
+    
+    float topMargin = 3;
+    
+    UIImageView *shadow = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"hotel_list_shadow.png"]];
+    shadow.frame = CGRectMake(0, 0, self.frame.size.width, 15);
+    [self addSubview:shadow];
+    
+    
+    //酒店详情
+    UIButton *hotelDetail  = [UIButton buttonWithType:UIButtonTypeCustom];
+    [hotelDetail setBackgroundImage:[UIImage imageNamed:@"hotel_list_btn_bg.png"] forState:UIControlStateNormal];
+    [hotelDetail setTag:1001];
+    [hotelDetail setTitle:@"酒店详情" forState:UIControlStateNormal];
+    [hotelDetail setTitleColor:BlueColor forState:UIControlStateNormal];
+     hotelDetail.titleLabel.font = [UIFont systemFontOfSize: 13];
+    [hotelDetail setFrame:CGRectMake(0, topMargin, self.frame.size.width/3, 27)];
+    [hotelDetail addTarget:self action:@selector(buttonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [self addSubview:hotelDetail];
+    
+    //icon
+    UIImageView *detailImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ic_hotel_detail"]];
+    detailImage.frame = CGRectMake(6, 4, 19, 18);
+    [hotelDetail addSubview:detailImage];
+    
+    //箭头
+    UIImageView *arrow1 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"arrow"]];
+    arrow1.frame = CGRectMake(hotelDetail.frame.size.width - 18, 7, 8, 12);
+    [hotelDetail addSubview:arrow1];
+    
+    
+    //酒店位置
+    UIButton *hotelLocal  = [UIButton buttonWithType:UIButtonTypeCustom];
+    [hotelLocal setTag:1002];
+    [hotelLocal setBackgroundImage:[UIImage imageNamed:@"hotel_list_btn_bg.png"] forState:UIControlStateNormal];
+    [hotelLocal setTitle:@"酒店位置" forState:UIControlStateNormal];
+    [hotelLocal setTitleColor:BlueColor forState:UIControlStateNormal];
+    hotelLocal.titleLabel.font = [UIFont systemFontOfSize: 13];
+    [hotelLocal setFrame:CGRectMake(self.frame.size.width/3, topMargin, self.frame.size.width/3, 27)];
+    [self addSubview:hotelLocal];
+    
+    
+    //icon
+    UIImageView *localImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ic_hotel_local"]];
+    localImage.frame = CGRectMake(6, 4, 19, 18);
+    [hotelLocal addSubview:localImage];
+    
+    //箭头
+    UIImageView *arrow2 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"arrow"]];
+    arrow2.frame = CGRectMake(hotelLocal.frame.size.width - 18, 7, 8, 12);
+    [hotelLocal addSubview:arrow2];
+    
+    //评论
+    UIButton *hotelcomments  = [UIButton buttonWithType:UIButtonTypeCustom];
+    [hotelcomments setTag:1003];
+    [hotelcomments setBackgroundImage:[UIImage imageNamed:@"hotel_list_btn_bg.png"] forState:UIControlStateNormal];
+    [hotelcomments setTitle:@"酒店评论" forState:UIControlStateNormal];
+    [hotelcomments setTitleColor:BlueColor forState:UIControlStateNormal];
+    hotelcomments.titleLabel.font = [UIFont systemFontOfSize: 13];
+    [hotelcomments setFrame:CGRectMake((self.frame.size.width/3)*2, topMargin, self.frame.size.width/3, 27)];
+    [hotelcomments addTarget:self action:@selector(buttonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [self addSubview:hotelcomments];
+    
+    //icon
+    UIImageView *commentImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ic_hotel_comment"]];
+    commentImage.frame = CGRectMake(6, 4, 19, 18);
+    [hotelcomments addSubview:commentImage];
+    
+    //箭头
+    UIImageView *arrow3 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"arrow"]];
+    arrow3.frame = CGRectMake(hotelcomments.frame.size.width - 18, 7, 8, 12);
+    [hotelcomments addSubview:arrow3];
+    
+    //竖线1
+    UIView *line1 = [[UIView alloc] initWithFrame:CGRectMake((self.frame.size.width)/3-0.6, 1, 0.6, 29)];
+    [line1 setBackgroundColor:color(lightGrayColor)];
+    [self addSubview:line1];
+    
+    //竖线2
+    UIView *line2 = [[UIView alloc] initWithFrame:CGRectMake((self.frame.size.width)/3*2-0.6, 1, 0.6, 29)];
+    [line2 setBackgroundColor:color(lightGrayColor)];
+    [self addSubview:line2];
+    
+}
+
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated
+{
+    [super setSelected:selected animated:animated];
+}
+
+-(void)buttonPressed:(UIButton *)sender{
+    switch(sender.tag){
+        case 1001:
+            [self goHotelDetail];
+            break;
+        case 1002:
+            break;
+        case 1003:
+            [self goHotelComments];
+            break;
+    }
+}
+
+-(void)goHotelDetail{
+    [HotelOrderDetail sharedInstance].selectedHotelId = _hotelId;
+    HotelDetailViewController *viewController = [[HotelDetailViewController alloc] init];
+    [_viewController.navigationController pushViewController:viewController animated:YES];
+}
+
+-(void)goHotelComments{
+    [HotelOrderDetail sharedInstance].selectedHotelId = _hotelId;
+    HotelCommentViewController *viewController = [[HotelCommentViewController alloc] init];
+    [_viewController.navigationController pushViewController:viewController animated:YES];
+}
+
+@end
