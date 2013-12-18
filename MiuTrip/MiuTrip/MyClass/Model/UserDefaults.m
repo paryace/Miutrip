@@ -248,10 +248,10 @@ static UserDefaults *shareUserDefault;
 
 - (void)setAuthTkn:(NSString *)_authTkn
 {
-    if (self.authTkn != _authTkn) {
+//    if (self.authTkn != _authTkn) {
         [[NSUserDefaults standardUserDefaults] setObject:_authTkn forKey:@"authTkn"];
         authTkn = _authTkn;
-    }
+//    }
 }
 
 - (NSString *)authTkn
