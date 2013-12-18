@@ -262,7 +262,6 @@
 		18B4736C184731DC003FF7AD /* RegexKitLite.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B4736B184731DC003FF7AD /* RegexKitLite.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		B501CFA01852F5DC00802FD9 /* HotelListCellviewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B501CF9F1852F5DC00802FD9 /* HotelListCellviewCell.m */; };
 		B507B84618570A6C003541B2 /* LoadMoreTableFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = B507B84518570A6C003541B2 /* LoadMoreTableFooterView.m */; };
-		B5157F81185BF24A00AF3E0C /* PullRefreshTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B5157F80185BF24A00AF3E0C /* PullRefreshTableViewController.m */; };
 		B5157F83185BF58600AF3E0C /* pull_up_refresh_arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = B5157F82185BF58600AF3E0C /* pull_up_refresh_arrow.png */; };
 		B5157F86185BF84100AF3E0C /* HotelCommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B5157F85185BF84100AF3E0C /* HotelCommentViewController.m */; };
 		B523F73B18478B94005C45C5 /* BaseRequestModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B523F73A18478B94005C45C5 /* BaseRequestModel.m */; };
@@ -300,6 +299,7 @@
 		B57B67641852C3CE0002C778 /* GetOrderResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = B57B675C1852C3CE0002C778 /* GetOrderResponse.m */; };
 		B57B67651852C3CE0002C778 /* SubmitOrderRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = B57B675E1852C3CE0002C778 /* SubmitOrderRequest.m */; };
 		B57B67661852C3CE0002C778 /* SubmitOrderResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = B57B67601852C3CE0002C778 /* SubmitOrderResponse.m */; };
+		B590F178186140C0002D6A6D /* PullRefreshTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B590F177186140C0002D6A6D /* PullRefreshTableViewController.m */; };
 		B591AF621849D320003BA7A3 /* LoginRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = B591AF611849D320003BA7A3 /* LoginRequest.m */; };
 		B591AF651849DD01003BA7A3 /* LoginResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = B591AF641849DD01003BA7A3 /* LoginResponse.m */; };
 		B5A249221845F63A005BB217 /* URLHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = B5A249211845F63A005BB217 /* URLHelper.m */; };
@@ -709,8 +709,6 @@
 		B501CF9F1852F5DC00802FD9 /* HotelListCellviewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HotelListCellviewCell.m; sourceTree = "<group>"; };
 		B507B84418570A6C003541B2 /* LoadMoreTableFooterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoadMoreTableFooterView.h; sourceTree = "<group>"; };
 		B507B84518570A6C003541B2 /* LoadMoreTableFooterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoadMoreTableFooterView.m; sourceTree = "<group>"; };
-		B5157F7F185BF24A00AF3E0C /* PullRefreshTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PullRefreshTableViewController.h; path = ../../../../../../Downloads/PullUpToRefresh/PullUpToRefresh/PullRefreshTableViewController.h; sourceTree = "<group>"; };
-		B5157F80185BF24A00AF3E0C /* PullRefreshTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PullRefreshTableViewController.m; path = ../../../../../../Downloads/PullUpToRefresh/PullUpToRefresh/PullRefreshTableViewController.m; sourceTree = "<group>"; };
 		B5157F82185BF58600AF3E0C /* pull_up_refresh_arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = pull_up_refresh_arrow.png; path = ../../../../../Downloads/PullUpToRefresh/PullUpToRefresh/pull_up_refresh_arrow.png; sourceTree = "<group>"; };
 		B5157F84185BF84100AF3E0C /* HotelCommentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HotelCommentViewController.h; sourceTree = "<group>"; };
 		B5157F85185BF84100AF3E0C /* HotelCommentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HotelCommentViewController.m; sourceTree = "<group>"; };
@@ -784,6 +782,8 @@
 		B57B675E1852C3CE0002C778 /* SubmitOrderRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubmitOrderRequest.m; sourceTree = "<group>"; };
 		B57B675F1852C3CE0002C778 /* SubmitOrderResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubmitOrderResponse.h; sourceTree = "<group>"; };
 		B57B67601852C3CE0002C778 /* SubmitOrderResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubmitOrderResponse.m; sourceTree = "<group>"; };
+		B590F176186140C0002D6A6D /* PullRefreshTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PullRefreshTableViewController.h; sourceTree = "<group>"; };
+		B590F177186140C0002D6A6D /* PullRefreshTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PullRefreshTableViewController.m; sourceTree = "<group>"; };
 		B591AF601849D320003BA7A3 /* LoginRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginRequest.h; sourceTree = "<group>"; };
 		B591AF611849D320003BA7A3 /* LoginRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginRequest.m; sourceTree = "<group>"; };
 		B591AF631849DD01003BA7A3 /* LoginResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginResponse.h; sourceTree = "<group>"; };
@@ -1420,8 +1420,8 @@
 		B57A0A8A184EC77A00A33831 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				B5157F7F185BF24A00AF3E0C /* PullRefreshTableViewController.h */,
-				B5157F80185BF24A00AF3E0C /* PullRefreshTableViewController.m */,
+				B590F176186140C0002D6A6D /* PullRefreshTableViewController.h */,
+				B590F177186140C0002D6A6D /* PullRefreshTableViewController.m */,
 				B57A0AA8184EC7C000A33831 /* Hotel */,
 				B57A0A8B184EC77A00A33831 /* BaseUIViewController.h */,
 				B57A0A8C184EC77A00A33831 /* BaseUIViewController.m */,
@@ -1980,7 +1980,6 @@
 				18A13710184EE59F00516ED3 /* GetCorpNameByMumberUIDResponse.m in Sources */,
 				18A136DD184EE37500516ED3 /* GetLoginUserInfoResponse.m in Sources */,
 				18A13704184EE55400516ED3 /* DeleteMemberDeliverResponse.m in Sources */,
-				B5157F81185BF24A00AF3E0C /* PullRefreshTableViewController.m in Sources */,
 				B5A508051852B80E00D6A788 /* GetCityByProvinceIDResponse.m in Sources */,
 				18A136E3184EE42100516ED3 /* GetTravelLifeInfoResponse.m in Sources */,
 				122BD71E184057B800BAA9A9 /* AirOrderDetailCell.m in Sources */,
@@ -2062,6 +2061,7 @@
 				122BD721184057F100BAA9A9 /* HotelOrderDetailCell.m in Sources */,
 				18B473661847062C003FF7AD /* MemberDeliverDTO.m in Sources */,
 				B5D4C4271852BDFA00F1B0FC /* SubmitFlightOrderRequest.m in Sources */,
+				B590F178186140C0002D6A6D /* PullRefreshTableViewController.m in Sources */,
 				124789FC1836363100AA0083 /* SBJsonTokeniser.m in Sources */,
 				124789F51836363100AA0083 /* SBJsonStreamParser.m in Sources */,
 				B5D4C40B1852BDFA00F1B0FC /* CancelOrderRequest.m in Sources */,
