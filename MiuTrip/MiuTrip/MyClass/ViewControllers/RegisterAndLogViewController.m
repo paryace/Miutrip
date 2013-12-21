@@ -44,11 +44,12 @@
         [request setUsername:@"18621001200"];
         [request setPassword:@"123456"];
         [self.requestManager sendRequestWithoutToken:request];
+        
     }else if (sender.tag == 104){
         
         LoginRequest *request = [[LoginRequest alloc]initWidthBusinessType:BUSINESS_ACCOUNT methodName:@"Login"];
     
-        request.username = @"18621001200";
+        request.username = @"10000017";
         request.password = @"123456";
         request.rememberMe = [NSNumber numberWithBool:YES];
         

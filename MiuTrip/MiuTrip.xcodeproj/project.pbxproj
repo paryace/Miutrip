@@ -271,14 +271,8 @@
 		B5729B41184D74BB002497B3 /* LoginUserInfoRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = B5729B40184D74BB002497B3 /* LoginUserInfoRequest.m */; };
 		B5729B44184D75E5002497B3 /* LoginUserInfoResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = B5729B43184D75E5002497B3 /* LoginUserInfoResponse.m */; };
 		B57A0A9F184EC77A00A33831 /* BaseUIViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B57A0A8C184EC77A00A33831 /* BaseUIViewController.m */; };
-		B57A0AA0184EC77A00A33831 /* AirListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B57A0A90184EC77A00A33831 /* AirListViewController.m */; };
-		B57A0AA1184EC77A00A33831 /* HotelAndAirOrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B57A0A92184EC77A00A33831 /* HotelAndAirOrderViewController.m */; };
-		B57A0AA2184EC77A00A33831 /* MyMiuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B57A0A94184EC77A00A33831 /* MyMiuViewController.m */; };
-		B57A0AA3184EC77A00A33831 /* TripCareerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B57A0A96184EC77A00A33831 /* TripCareerViewController.m */; };
-		B57A0AA4184EC77A00A33831 /* CommonlyNameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B57A0A98184EC77A00A33831 /* CommonlyNameViewController.m */; };
 		B57A0AA5184EC77A00A33831 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B57A0A9A184EC77A00A33831 /* HomeViewController.m */; };
 		B57A0AA6184EC77A00A33831 /* RegisterAndLogViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B57A0A9C184EC77A00A33831 /* RegisterAndLogViewController.m */; };
-		B57A0AA7184EC77A00A33831 /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B57A0A9E184EC77A00A33831 /* SettingViewController.m */; };
 		B57A0AAB184EC7E100A33831 /* HotelListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B57A0AAA184EC7E100A33831 /* HotelListViewController.m */; };
 		B57A0AAF184F13F200A33831 /* ImageAndTextTilteView.m in Sources */ = {isa = PBXBuildFile; fileRef = B57A0AAE184F13F200A33831 /* ImageAndTextTilteView.m */; };
 		B57B67491852BEEC0002C778 /* GethotelCitesRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = B57B67321852BEEC0002C778 /* GethotelCitesRequest.m */; };
@@ -320,6 +314,14 @@
 		B5A5080B1852B80E00D6A788 /* GetProvinceByNameRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = B5A507F81852B80E00D6A788 /* GetProvinceByNameRequest.m */; };
 		B5A5080C1852B80E00D6A788 /* GetSectionsByCityIdRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = B5A507FA1852B80E00D6A788 /* GetSectionsByCityIdRequest.m */; };
 		B5A5080D1852B80E00D6A788 /* SendSMSRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = B5A507FC1852B80E00D6A788 /* SendSMSRequest.m */; };
+		B5C7C853186577BB008914D0 /* CommonlyNameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B5C7C84A186577BB008914D0 /* CommonlyNameViewController.m */; };
+		B5C7C854186577BB008914D0 /* HotelAndAirOrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B5C7C84C186577BB008914D0 /* HotelAndAirOrderViewController.m */; };
+		B5C7C855186577BB008914D0 /* MyMiuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B5C7C84E186577BB008914D0 /* MyMiuViewController.m */; };
+		B5C7C856186577BB008914D0 /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B5C7C850186577BB008914D0 /* SettingViewController.m */; };
+		B5C7C857186577BB008914D0 /* TripCareerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B5C7C852186577BB008914D0 /* TripCareerViewController.m */; };
+		B5C7C85A186577D4008914D0 /* AirListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B5C7C859186577D4008914D0 /* AirListViewController.m */; };
+		B5C7C860186578B7008914D0 /* HotelOrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B5C7C85F186578B7008914D0 /* HotelOrderViewController.m */; };
+		B5C7C86218658F19008914D0 /* bg_hotel_cost.png in Resources */ = {isa = PBXBuildFile; fileRef = B5C7C86118658F19008914D0 /* bg_hotel_cost.png */; };
 		B5D4C4091852BDFA00F1B0FC /* CancelFlightOrderRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = B5D4C3C61852BDFA00F1B0FC /* CancelFlightOrderRequest.m */; };
 		B5D4C40A1852BDFA00F1B0FC /* CancelFlightOrderResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = B5D4C3C81852BDFA00F1B0FC /* CancelFlightOrderResponse.m */; };
 		B5D4C40B1852BDFA00F1B0FC /* CancelOrderRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = B5D4C3CA1852BDFA00F1B0FC /* CancelOrderRequest.m */; };
@@ -726,22 +728,10 @@
 		B5729B43184D75E5002497B3 /* LoginUserInfoResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginUserInfoResponse.m; sourceTree = "<group>"; };
 		B57A0A8B184EC77A00A33831 /* BaseUIViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseUIViewController.h; sourceTree = "<group>"; };
 		B57A0A8C184EC77A00A33831 /* BaseUIViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseUIViewController.m; sourceTree = "<group>"; };
-		B57A0A8F184EC77A00A33831 /* AirListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AirListViewController.h; sourceTree = "<group>"; };
-		B57A0A90184EC77A00A33831 /* AirListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AirListViewController.m; sourceTree = "<group>"; };
-		B57A0A91184EC77A00A33831 /* HotelAndAirOrderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HotelAndAirOrderViewController.h; sourceTree = "<group>"; };
-		B57A0A92184EC77A00A33831 /* HotelAndAirOrderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HotelAndAirOrderViewController.m; sourceTree = "<group>"; };
-		B57A0A93184EC77A00A33831 /* MyMiuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyMiuViewController.h; sourceTree = "<group>"; };
-		B57A0A94184EC77A00A33831 /* MyMiuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyMiuViewController.m; sourceTree = "<group>"; };
-		B57A0A95184EC77A00A33831 /* TripCareerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TripCareerViewController.h; sourceTree = "<group>"; };
-		B57A0A96184EC77A00A33831 /* TripCareerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TripCareerViewController.m; sourceTree = "<group>"; };
-		B57A0A97184EC77A00A33831 /* CommonlyNameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommonlyNameViewController.h; sourceTree = "<group>"; };
-		B57A0A98184EC77A00A33831 /* CommonlyNameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommonlyNameViewController.m; sourceTree = "<group>"; };
 		B57A0A99184EC77A00A33831 /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
 		B57A0A9A184EC77A00A33831 /* HomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; };
 		B57A0A9B184EC77A00A33831 /* RegisterAndLogViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegisterAndLogViewController.h; sourceTree = "<group>"; };
 		B57A0A9C184EC77A00A33831 /* RegisterAndLogViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegisterAndLogViewController.m; sourceTree = "<group>"; };
-		B57A0A9D184EC77A00A33831 /* SettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingViewController.h; sourceTree = "<group>"; };
-		B57A0A9E184EC77A00A33831 /* SettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingViewController.m; sourceTree = "<group>"; };
 		B57A0AA9184EC7E100A33831 /* HotelListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HotelListViewController.h; sourceTree = "<group>"; };
 		B57A0AAA184EC7E100A33831 /* HotelListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HotelListViewController.m; sourceTree = "<group>"; };
 		B57A0AAD184F13F200A33831 /* ImageAndTextTilteView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageAndTextTilteView.h; sourceTree = "<group>"; };
@@ -825,6 +815,21 @@
 		B5A507FA1852B80E00D6A788 /* GetSectionsByCityIdRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetSectionsByCityIdRequest.m; sourceTree = "<group>"; };
 		B5A507FB1852B80E00D6A788 /* SendSMSRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SendSMSRequest.h; sourceTree = "<group>"; };
 		B5A507FC1852B80E00D6A788 /* SendSMSRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SendSMSRequest.m; sourceTree = "<group>"; };
+		B5C7C849186577BB008914D0 /* CommonlyNameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommonlyNameViewController.h; sourceTree = "<group>"; };
+		B5C7C84A186577BB008914D0 /* CommonlyNameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommonlyNameViewController.m; sourceTree = "<group>"; };
+		B5C7C84B186577BB008914D0 /* HotelAndAirOrderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HotelAndAirOrderViewController.h; sourceTree = "<group>"; };
+		B5C7C84C186577BB008914D0 /* HotelAndAirOrderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HotelAndAirOrderViewController.m; sourceTree = "<group>"; };
+		B5C7C84D186577BB008914D0 /* MyMiuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyMiuViewController.h; sourceTree = "<group>"; };
+		B5C7C84E186577BB008914D0 /* MyMiuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyMiuViewController.m; sourceTree = "<group>"; };
+		B5C7C84F186577BB008914D0 /* SettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingViewController.h; sourceTree = "<group>"; };
+		B5C7C850186577BB008914D0 /* SettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingViewController.m; sourceTree = "<group>"; };
+		B5C7C851186577BB008914D0 /* TripCareerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TripCareerViewController.h; sourceTree = "<group>"; };
+		B5C7C852186577BB008914D0 /* TripCareerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TripCareerViewController.m; sourceTree = "<group>"; };
+		B5C7C858186577D4008914D0 /* AirListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AirListViewController.h; sourceTree = "<group>"; };
+		B5C7C859186577D4008914D0 /* AirListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AirListViewController.m; sourceTree = "<group>"; };
+		B5C7C85E186578B7008914D0 /* HotelOrderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HotelOrderViewController.h; sourceTree = "<group>"; };
+		B5C7C85F186578B7008914D0 /* HotelOrderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HotelOrderViewController.m; sourceTree = "<group>"; };
+		B5C7C86118658F19008914D0 /* bg_hotel_cost.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg_hotel_cost.png; sourceTree = "<group>"; };
 		B5D4C3C51852BDFA00F1B0FC /* CancelFlightOrderRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CancelFlightOrderRequest.h; sourceTree = "<group>"; };
 		B5D4C3C61852BDFA00F1B0FC /* CancelFlightOrderRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CancelFlightOrderRequest.m; sourceTree = "<group>"; };
 		B5D4C3C71852BDFA00F1B0FC /* CancelFlightOrderResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CancelFlightOrderResponse.h; sourceTree = "<group>"; };
@@ -1417,53 +1422,55 @@
 			path = RegexKitLite;
 			sourceTree = "<group>";
 		};
+		B5000ADB18657600006BF295 /* MyMiu */ = {
+			isa = PBXGroup;
+			children = (
+				B5C7C849186577BB008914D0 /* CommonlyNameViewController.h */,
+				B5C7C84A186577BB008914D0 /* CommonlyNameViewController.m */,
+				B5C7C84B186577BB008914D0 /* HotelAndAirOrderViewController.h */,
+				B5C7C84C186577BB008914D0 /* HotelAndAirOrderViewController.m */,
+				B5C7C84D186577BB008914D0 /* MyMiuViewController.h */,
+				B5C7C84E186577BB008914D0 /* MyMiuViewController.m */,
+				B5C7C84F186577BB008914D0 /* SettingViewController.h */,
+				B5C7C850186577BB008914D0 /* SettingViewController.m */,
+				B5C7C851186577BB008914D0 /* TripCareerViewController.h */,
+				B5C7C852186577BB008914D0 /* TripCareerViewController.m */,
+			);
+			path = MyMiu;
+			sourceTree = "<group>";
+		};
+		B5000ADC18657666006BF295 /* Flight */ = {
+			isa = PBXGroup;
+			children = (
+				B5C7C858186577D4008914D0 /* AirListViewController.h */,
+				B5C7C859186577D4008914D0 /* AirListViewController.m */,
+			);
+			path = Flight;
+			sourceTree = "<group>";
+		};
 		B57A0A8A184EC77A00A33831 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				B590F176186140C0002D6A6D /* PullRefreshTableViewController.h */,
-				B590F177186140C0002D6A6D /* PullRefreshTableViewController.m */,
-				B57A0AA8184EC7C000A33831 /* Hotel */,
-				B57A0A8B184EC77A00A33831 /* BaseUIViewController.h */,
-				B57A0A8C184EC77A00A33831 /* BaseUIViewController.m */,
-				B57A0A8D184EC77A00A33831 /* ClassifyView */,
-				B57A0A97184EC77A00A33831 /* CommonlyNameViewController.h */,
-				B57A0A98184EC77A00A33831 /* CommonlyNameViewController.m */,
 				B57A0A99184EC77A00A33831 /* HomeViewController.h */,
 				B57A0A9A184EC77A00A33831 /* HomeViewController.m */,
 				B57A0A9B184EC77A00A33831 /* RegisterAndLogViewController.h */,
 				B57A0A9C184EC77A00A33831 /* RegisterAndLogViewController.m */,
-				B57A0A9D184EC77A00A33831 /* SettingViewController.h */,
-				B57A0A9E184EC77A00A33831 /* SettingViewController.m */,
+				B57A0A8B184EC77A00A33831 /* BaseUIViewController.h */,
+				B57A0A8C184EC77A00A33831 /* BaseUIViewController.m */,
+				B590F176186140C0002D6A6D /* PullRefreshTableViewController.h */,
+				B590F177186140C0002D6A6D /* PullRefreshTableViewController.m */,
+				B5000ADC18657666006BF295 /* Flight */,
+				B5000ADB18657600006BF295 /* MyMiu */,
+				B57A0AA8184EC7C000A33831 /* Hotel */,
 			);
 			path = ViewControllers;
-			sourceTree = "<group>";
-		};
-		B57A0A8D184EC77A00A33831 /* ClassifyView */ = {
-			isa = PBXGroup;
-			children = (
-				B57A0A8E184EC77A00A33831 /* AirQuery */,
-				B57A0A91184EC77A00A33831 /* HotelAndAirOrderViewController.h */,
-				B57A0A92184EC77A00A33831 /* HotelAndAirOrderViewController.m */,
-				B57A0A93184EC77A00A33831 /* MyMiuViewController.h */,
-				B57A0A94184EC77A00A33831 /* MyMiuViewController.m */,
-				B57A0A95184EC77A00A33831 /* TripCareerViewController.h */,
-				B57A0A96184EC77A00A33831 /* TripCareerViewController.m */,
-			);
-			path = ClassifyView;
-			sourceTree = "<group>";
-		};
-		B57A0A8E184EC77A00A33831 /* AirQuery */ = {
-			isa = PBXGroup;
-			children = (
-				B57A0A8F184EC77A00A33831 /* AirListViewController.h */,
-				B57A0A90184EC77A00A33831 /* AirListViewController.m */,
-			);
-			path = AirQuery;
 			sourceTree = "<group>";
 		};
 		B57A0AA8184EC7C000A33831 /* Hotel */ = {
 			isa = PBXGroup;
 			children = (
+				B5C7C85E186578B7008914D0 /* HotelOrderViewController.h */,
+				B5C7C85F186578B7008914D0 /* HotelOrderViewController.m */,
 				B57A0AA9184EC7E100A33831 /* HotelListViewController.h */,
 				B57A0AAA184EC7E100A33831 /* HotelListViewController.m */,
 				B5157F84185BF84100AF3E0C /* HotelCommentViewController.h */,
@@ -1706,6 +1713,7 @@
 		B5F93B441855B8F000814467 /* Hotel */ = {
 			isa = PBXGroup;
 			children = (
+				B5C7C86118658F19008914D0 /* bg_hotel_cost.png */,
 				B551435A185C23B800D5BDD4 /* comment_time.png */,
 				B5F93B4D1855C3C300814467 /* hotel_list_shadow.png */,
 				B5F93B471855BC7500814467 /* ic_hotel_comment.png */,
@@ -1879,6 +1887,7 @@
 				187CBD1A18487E7900F25BD7 /* arrow.png in Resources */,
 				1253D6411835D1E2004B595D /* home_item5_top.png in Resources */,
 				12DDD838183B5C4E00E774AF /* set_sgitem_r_select.png in Resources */,
+				B5C7C86218658F19008914D0 /* bg_hotel_cost.png in Resources */,
 				1856471F184C5F0D0031E5D6 /* button_date-left.png in Resources */,
 				122CE5CB183A3AB5001771DC /* set_prefer.png in Resources */,
 				1253D6371835D1E2004B595D /* air_press.png in Resources */,
@@ -1971,7 +1980,6 @@
 				18A13701184EE53A00516ED3 /* GetMemberDeliverListResponse.m in Sources */,
 				18B473601846FC7A003FF7AD /* CorpPolicyDTO.m in Sources */,
 				124789E21836363100AA0083 /* ASIDataDecompressor.m in Sources */,
-				B57A0AA1184EC77A00A33831 /* HotelAndAirOrderViewController.m in Sources */,
 				18B4735D1846F9A5003FF7AD /* CorpUserBaseInfoDTO.m in Sources */,
 				B591AF651849DD01003BA7A3 /* LoginResponse.m in Sources */,
 				B5D4C4091852BDFA00F1B0FC /* CancelFlightOrderRequest.m in Sources */,
@@ -1986,6 +1994,7 @@
 				18A136FB184EE51100516ED3 /* GetCorpInfoResponse.m in Sources */,
 				B5D4C40F1852BDFA00F1B0FC /* GetFlightChangeRuleRequest.m in Sources */,
 				B5A508071852B80E00D6A788 /* GetCityRequest.m in Sources */,
+				B5C7C856186577BB008914D0 /* SettingViewController.m in Sources */,
 				18573C8A1849A94800A19D7E /* CityPickerViewController.m in Sources */,
 				B5D4C40C1852BDFA00F1B0FC /* CancelOrderResponse.m in Sources */,
 				B57B67531852BEEC0002C778 /* SearchHotelsRequest.m in Sources */,
@@ -1993,13 +2002,11 @@
 				B551435E185C3C1300D5BDD4 /* HotelDetailViewController.m in Sources */,
 				B57B67621852C3CE0002C778 /* GetCommentListResponse.m in Sources */,
 				B5D4C4201852BDFA00F1B0FC /* GetMailConfigResponse.m in Sources */,
-				B57A0AA0184EC77A00A33831 /* AirListViewController.m in Sources */,
 				B5A508081852B80E00D6A788 /* GetDistrictsRequest.m in Sources */,
 				B5D4C41E1852BDFA00F1B0FC /* GetInsuranceConfigResponse.m in Sources */,
 				12791529183326B700CF94F4 /* AppDelegate.m in Sources */,
 				18A1370A184EE57A00516ED3 /* SavePassengerListResponse.m in Sources */,
 				124789E11836363100AA0083 /* ASIDataCompressor.m in Sources */,
-				B57A0AA7184EC77A00A33831 /* SettingViewController.m in Sources */,
 				B5A5080D1852B80E00D6A788 /* SendSMSRequest.m in Sources */,
 				1279155A1833292700CF94F4 /* Utils.m in Sources */,
 				124789E41836363100AA0083 /* ASIFormDataRequest.m in Sources */,
@@ -2017,9 +2024,9 @@
 				B57A0AA6184EC77A00A33831 /* RegisterAndLogViewController.m in Sources */,
 				12C37DC2183DD5FF00EA6D26 /* CustomMethod.m in Sources */,
 				B5D4C4101852BDFA00F1B0FC /* GetFlightChangeRuleResponse.m in Sources */,
+				B5C7C855186577BB008914D0 /* MyMiuViewController.m in Sources */,
 				B5F762591852045000E7244B /* HotelSearchView.m in Sources */,
 				18B4735A1846F74D003FF7AD /* CorpStaffDTO.m in Sources */,
-				B57A0AA2184EC77A00A33831 /* MyMiuViewController.m in Sources */,
 				B5D4C4221852BDFA00F1B0FC /* GetNormalFlightsResponse.m in Sources */,
 				18A1370D184EE58B00516ED3 /* UpdateCropUserBaseByChinaUMSUIDResponse.m in Sources */,
 				18A13713184EE5B200516ED3 /* LogoutResponse.m in Sources */,
@@ -2032,6 +2039,7 @@
 				1279155B1833292700CF94F4 /* Model.m in Sources */,
 				B57B67641852C3CE0002C778 /* GetOrderResponse.m in Sources */,
 				B57B67611852C3CE0002C778 /* GetCommentListRequest.m in Sources */,
+				B5C7C857186577BB008914D0 /* TripCareerViewController.m in Sources */,
 				B57B674D1852BEEC0002C778 /* GetHotelImageListRequest.m in Sources */,
 				187CBD18184879DB00F25BD7 /* OnLineAllClass.m in Sources */,
 				B507B84618570A6C003541B2 /* LoadMoreTableFooterView.m in Sources */,
@@ -2051,12 +2059,14 @@
 				18B473541846EB84003FF7AD /* BookPassengersDTO.m in Sources */,
 				B5D4C4111852BDFA00F1B0FC /* GetFlightOrderListResponse.m in Sources */,
 				B5D4C4281852BDFA00F1B0FC /* SubmitFlightOrderResponse.m in Sources */,
+				B5C7C85A186577D4008914D0 /* AirListViewController.m in Sources */,
 				124789F81836363100AA0083 /* SBJsonStreamParserState.m in Sources */,
 				18A136FE184EE52700516ED3 /* DeleteMemberPassengerResponse.m in Sources */,
 				B5A5080C1852B80E00D6A788 /* GetSectionsByCityIdRequest.m in Sources */,
 				18B47363184700F3003FF7AD /* CorpCostCenterDTO.m in Sources */,
 				18A136EF184EE4B500516ED3 /* GetCorpUserBaseInfoResponse.m in Sources */,
 				18A136F5184EE4E200516ED3 /* GetCorpCostResponse.m in Sources */,
+				B5C7C854186577BB008914D0 /* HotelAndAirOrderViewController.m in Sources */,
 				B5A508031852B80E00D6A788 /* GetCityByNameRequest.m in Sources */,
 				122BD721184057F100BAA9A9 /* HotelOrderDetailCell.m in Sources */,
 				18B473661847062C003FF7AD /* MemberDeliverDTO.m in Sources */,
@@ -2078,12 +2088,10 @@
 				18573C931849B36100A19D7E /* MiuTripOrderDetail.m in Sources */,
 				12791525183326B700CF94F4 /* main.m in Sources */,
 				18564719184C5C8D0031E5D6 /* LoginInfoDTO.m in Sources */,
-				B57A0AA4184EC77A00A33831 /* CommonlyNameViewController.m in Sources */,
 				124789F31836363100AA0083 /* NSObject+SBJson.m in Sources */,
 				18A136F8184EE4FC00516ED3 /* GetCorpStaffResponse.m in Sources */,
 				18B4736C184731DC003FF7AD /* RegexKitLite.m in Sources */,
 				B5729B41184D74BB002497B3 /* LoginUserInfoRequest.m in Sources */,
-				B57A0AA3184EC77A00A33831 /* TripCareerViewController.m in Sources */,
 				124789FE1836363100AA0083 /* SBJsonWriter.m in Sources */,
 				124789E31836363100AA0083 /* ASIDownloadCache.m in Sources */,
 				B57B674B1852BEEC0002C778 /* GetHotelDetailRequest.m in Sources */,
@@ -2121,6 +2129,7 @@
 				18A905FA184C855300AE4835 /* DeleteMemberPassengerRequest.m in Sources */,
 				18A905FD184C878900AE4835 /* GetMemberDeliverListRequest.m in Sources */,
 				18A90600184C89C400AE4835 /* DeleteMemberDeliverRequest.m in Sources */,
+				B5C7C853186577BB008914D0 /* CommonlyNameViewController.m in Sources */,
 				18A13719184F13C100516ED3 /* GetCorpCostRequest.m in Sources */,
 				B5A508061852B80E00D6A788 /* GetCityCityCantonAndSectionsRequest.m in Sources */,
 				18A136E0184EE40700516ED3 /* ChangePasswordResponse.m in Sources */,
@@ -2130,6 +2139,7 @@
 				B5D4C41F1852BDFA00F1B0FC /* GetMailConfigRequest.m in Sources */,
 				B501CFA01852F5DC00802FD9 /* HotelListCellviewCell.m in Sources */,
 				18A90609184C8D7000AE4835 /* UpdateCropUserBaseByChinaUMSUIDRequest.m in Sources */,
+				B5C7C860186578B7008914D0 /* HotelOrderViewController.m in Sources */,
 				18A9060C184C8E0D00AE4835 /* GetCorpNameByMumberUIDRequest.m in Sources */,
 				B57B674F1852BEEC0002C778 /* GetHotelRoomMultiRequest.m in Sources */,
 				B5A508041852B80E00D6A788 /* GetCityByProvinceIDRequest.m in Sources */,

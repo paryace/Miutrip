@@ -112,7 +112,7 @@
 
 - (void)requestFinished:(ASIHTTPRequest *)request
 {
-    NSLog(@"responseString = %@",[request.responseString JSONValue]);
+    NSLog(@"responseString = %@",request.responseString);
     NSDictionary *reposneData = [request.responseString JSONValue];
     if ([[reposneData objectForKey:@"process_status"] isEqualToString:@"0"]) {
         

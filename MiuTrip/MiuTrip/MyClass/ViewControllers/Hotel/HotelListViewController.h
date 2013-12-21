@@ -41,6 +41,7 @@
 @property (nonatomic,copy) UILabel *bedAndBreakfast;
 @property (nonatomic,copy) UILabel *wifi;
 @property (nonatomic,copy) UILabel *price;
+@property (nonatomic,assign) UIViewController *viewController;
 
 @end
 

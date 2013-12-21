@@ -12,6 +12,7 @@
 #import "HotelCommentViewController.h"
 #import "HotelOrderDetail.h"
 #import "HotelDetailViewController.h"
+#import "HotelOrderViewController.h"
 
 @interface HotelListViewController ()
 
@@ -255,7 +256,7 @@
             }else{
                 cellView.wifi.text = @"";
             }
-            
+            cellView.viewController = self;
             cellView.price.text = [NSString stringWithFormat:@"￥%@",[roomPriceDic objectForKey:@"SalePrice"]];
             [cellView setSelectionStyle:UITableViewCellSelectionStyleNone];
             return cellView;
@@ -396,9 +397,15 @@
     [bookBtn.titleLabel setTextColor:color(blackColor)];
     [bookBtn setTitle:@"预定" forState:UIControlStateNormal];
     [bookBtn setFrame:CGRectMake(self.frame.size.width - 38, 8, 30, 24)];
+    [bookBtn addTarget:self action:@selector(bookBtnPressed:) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:bookBtn];
 }
 
+-(void)bookBtnPressed:(UIButton *)sender{
+    
+    HotelOrderViewController *orderViewController = [[HotelOrderViewController alloc] init];
+    [_viewController.navigationController pushViewController:orderViewController animated:YES];
+}
 
 @end
 
