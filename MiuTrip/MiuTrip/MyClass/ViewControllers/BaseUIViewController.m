@@ -449,7 +449,7 @@
     }
 }
 
-- (void)pushViewController:(BaseUIViewController*)_viewController transitionType:(TransitionType)_transitionType Direction:(Direction)_direction completionHandler:(void (^) (void))_compleHandler
+- (void)pushViewController:(UIViewController*)_viewController transitionType:(TransitionType)_transitionType Direction:(Direction)_direction completionHandler:(void (^) (void))_compleHandler
 {
     if (self.navigationController) {
         [self.navigationController pushViewController:_viewController animated:NO];
@@ -558,7 +558,7 @@
 
 -(void)addLoadingView
 {
-    UIView *loadingView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, viewWidth(_contentView), viewHeight(_contentView))];
+    UIView *loadingView = [[UIView alloc] initWithFrame:CGRectMake(0, 40, viewWidth(_contentView), viewHeight(_contentView))];
     loadingView.tag = LOADING_VIEW_TAG;
     [loadingView setBackgroundColor:bgColor];
     

@@ -12,7 +12,15 @@
 #import "RequestManager.h"
 #import "PullRefreshTableViewController.h"
 
-@interface HotelListViewController : PullRefreshTableViewController<BusinessDelegate>
+typedef NS_ENUM(NSInteger, ListSortType)
+{
+    SORT_BY_RECOMMEND = 0,
+    SORT_BY_PRICE_UP = 1,
+    SORT_BY_PRICE_DOWN = 2
+};
+
+
+@interface HotelListViewController : PullRefreshTableViewController
 
 @property (nonatomic,copy) SearchHotelsRequest *request;
 
@@ -23,15 +31,14 @@
 //酒店列表数据
 @property (nonatomic,copy) NSMutableArray *hotelListData;
 
-//等待画面
-@property (nonatomic,copy) UIActivityIndicatorView *progressView;
-
 //是否有CELL展开
 @property BOOL isOpen;
 
 //当前展开的CELL
 @property NSIndexPath *selectIndex;
-@property (nonatomic,strong) RequestManager *requestManager;
+
+@property (nonatomic) BOOL isFiltered;
+@property (nonatomic) ListSortType currentSortType;
 
 @end
 

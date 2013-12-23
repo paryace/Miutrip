@@ -20,12 +20,13 @@
 }
 
 - (id)initWithFrame:(CGRect)frame withImageName:(NSString*)imageName withLabelName:(NSString*)
-     labelName
+    labelName isValueEditabel:(BOOL) editable
 {
     self = [super initWithFrame:frame];
     if (self) {
         _imageName = imageName;
         _labelText = labelName;
+        _isValueEditeble = editable;
         [self setupView];
     }
     return self;
@@ -52,12 +53,24 @@
     [self addSubview:title];
     
     
-    //value
-    _valueView = [[UILabel alloc] initWithFrame:CGRectMake(controlXLength(title)+5, 0, self.frame.size.width-controlXLength(title)-13-10, self.frame.size.height)];
-    [_valueView setBackgroundColor:color(clearColor)];
-    [_valueView setFont:[UIFont boldSystemFontOfSize:15]];
-    [_valueView setTextColor:color(darkGrayColor)];
-    [self addSubview:_valueView];
+    if(_isValueEditeble){
+        //value
+        _editableValue = [[UITextField alloc] initWithFrame:CGRectMake(controlXLength(title)+5,5, self.frame.size.width-controlXLength(title)-13-10, self.frame.size.height-10)];
+        [_editableValue setBackgroundColor:color(clearColor)];
+        [_editableValue setBorderStyle:UITextBorderStyleRoundedRect];
+        [_editableValue setFont:[UIFont boldSystemFontOfSize:15]];
+        [_editableValue setTextColor:color(darkGrayColor)];
+        [self addSubview:_editableValue];
+    }else{
+        //value
+        _valueView = [[UILabel alloc] initWithFrame:CGRectMake(controlXLength(title)+5, 0, self.frame.size.width-controlXLength(title)-13-10, self.frame.size.height)];
+        [_valueView setBackgroundColor:color(clearColor)];
+        [_valueView setFont:[UIFont boldSystemFontOfSize:15]];
+        [_valueView setTextColor:color(darkGrayColor)];
+        [self addSubview:_valueView];
+    }
+    
+   
     
     //箭头
     UIImageView *arrow = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"arrow"]];

@@ -22,6 +22,7 @@
     if (self = [super init]) {
         _unfold = NO;
         NSInteger num = arc4random()%4 + 1;
+        _hotelLocation = @"不限";
         _passengers = [CommonlyName getCommonDataWithNum:num];
     }
     return self;

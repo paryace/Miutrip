@@ -7,6 +7,14 @@
 //
 
 #import "BaseUIViewController.h"
+#import "UIPopoverListView.h"
+#import "HotelSearchView.h"
+
+typedef NS_ENUM(NSInteger, popupListType)
+{
+    HOTEL_PRICE_RANGE = 0,
+    HOTEL_LOCATION = 1
+};
 
 @class HomeCustomBtn;
 @class BtnItem;
@@ -30,13 +38,16 @@
 
 @end
 
-@interface HomeViewController : BaseUIViewController<HomeCustomBtnDelegate>
+@interface HomeViewController : BaseUIViewController<HomeCustomBtnDelegate,UIPopoverListViewDataSource,UIPopoverListViewDelegate>
 
 @property (strong, nonatomic) UILabel                   *userName;
 @property (strong, nonatomic) UILabel                   *position;
 @property (strong, nonatomic) UILabel                   *company;
 
+@property (strong,nonatomic) NSArray *popupListData;
+@property (nonatomic) popupListType popListType;
 - (void)getUserLoginInfo;                                               //获取用户信息
+- (void)showPopupListWithTitle:(NSString*)title withType:(popupListType)type withData:(NSArray*)data;
 
 @end
 

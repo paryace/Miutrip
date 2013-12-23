@@ -33,9 +33,6 @@
 {
     if (self = [super init]) {
         [self.view setHidden:NO];
-        _requestManager = [[RequestManager alloc]init];
-        [_requestManager setDelegate:self];
-        
         [self setSubviewFrame];
     }
     return self;
@@ -46,41 +43,140 @@
     
     _hotelListData = [[NSMutableArray alloc] init];
     _pageIndex = 1;
+    _isFiltered = NO;
+    _currentSortType = SORT_BY_RECOMMEND;
     
-    UIImageView *title = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"topbar.png"]];
-    [title setFrame:CGRectMake(0, 0, self.view.frame.size.width, 40)];
-    [self.tableView addSubview:title];
+    [self addTitleWithTitle:@"上海"];
     
-    _progressView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-    [_progressView setHidesWhenStopped:NO];
-    [_progressView setCenter:CGPointMake(self.view.frame.size.width /2.0, self.view.frame.size.height/2.0)];
-    [_progressView startAnimating];
-    [self.view addSubview:_progressView];
+    [self addLoadingView];
     
     [self searchHotels];
+}
+
+-(void)addTableView{
     
+    int width = self.contentView.frame.size.width;
+    UIView *filterView = [[UIView alloc] initWithFrame:CGRectMake(0, 40, width, 35)];
+    [filterView setBackgroundColor:color(whiteColor)];
+    
+    width = width - 20;
+    UIButton *miuRecommend = [UIButton buttonWithType:UIButtonTypeCustom];
+    [miuRecommend setBackgroundImage:[UIImage imageNamed:@"button_style1.png"] forState:UIControlStateNormal];
+    [miuRecommend setBackgroundImage:[UIImage imageNamed:@"button_style2.png"] forState:UIControlStateHighlighted];
+    [miuRecommend setHighlighted:YES];
+    [miuRecommend setShowsTouchWhenHighlighted:NO];
+    [miuRecommend setTitle:@"觅优推荐" forState:UIControlStateNormal];
+    [miuRecommend setTitleColor:color(blackColor) forState:UIControlStateNormal];
+    [miuRecommend.titleLabel setFont:[UIFont systemFontOfSize:12]];
+    [miuRecommend setFrame:CGRectMake(5, 1, width/3, 33)];
+    [miuRecommend setTag:101];
+    [miuRecommend addTarget:self action:@selector(filteBtnPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [filterView addSubview:miuRecommend];
+    
+    UIButton *price = [UIButton buttonWithType:UIButtonTypeCustom];
+    [price setBackgroundImage:[UIImage imageNamed:@"button_style1.png"] forState:UIControlStateNormal];
+    [price setBackgroundImage:[UIImage imageNamed:@"button_style2.png"] forState:UIControlStateHighlighted];
+    [price setTitle:@"价格" forState:UIControlStateNormal];
+    [price setTitleColor:color(blackColor) forState:UIControlStateNormal];
+    [price.titleLabel setFont:[UIFont systemFontOfSize:12]];
+    [price setFrame:CGRectMake(10+width/3, 1, width/3, 33)];
+    [price setTag:102];
+    [price addTarget:self action:@selector(filteBtnPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [filterView addSubview:price];
+    
+    UIButton *filterBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [filterBtn setBackgroundImage:[UIImage imageNamed:@"button_style1.png"] forState:UIControlStateNormal];
+    [filterBtn setBackgroundImage:[UIImage imageNamed:@"button_style2.png"] forState:UIControlStateHighlighted];
+    [filterBtn setTitle:@"筛选" forState:UIControlStateNormal];
+    [filterBtn setTitleColor:color(blackColor) forState:UIControlStateNormal];
+    [filterBtn.titleLabel setFont:[UIFont systemFontOfSize:12]];
+    [filterBtn setFrame:CGRectMake(15+width/3*2, 1,width/3, 33)];
+    [filterBtn setTag:103];
+    [filterBtn addTarget:self action:@selector(filteBtnPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [filterView addSubview:filterBtn];
+
+    [self.contentView addSubview:filterView];
+    
+    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 75, self.contentView.frame.size.width, self.contentView.frame.size.height-80)];
+    [self.tableView setDataSource:self];
+    [self.tableView setDelegate:self];
+    [self.contentView addSubview:self.tableView];
+    
+    [self addPullToRefreshFooter];
+}
+
+-(void)reloading
+{
+    [self.tableView removeFromSuperview];
+    [self addLoadingView];
+}
+
+-(void)reAddTabaleView
+{
+    [self removeLoadingView];
+    [self.contentView addSubview:self.tableView];
+}
+
+-(void)filteBtnPressed:(UIButton*)sender
+{
+    switch (sender.tag) {
+        case 101:
+            [self sortByRecommend];
+            break;
+        case 102:
+            [self sortByPrice];
+            break;
+        case 103:
+            break;
+        default:
+            break;
+    }
+}
+
+-(void)sortByRecommend
+{
+    if(_currentSortType == SORT_BY_RECOMMEND){
+        return;
+    }
+    [self reloading];
+    [self searchHotelsBySort:6];
+}
+
+-(void)sortByPrice
+{
+    if(_currentSortType == SORT_BY_RECOMMEND){
+        _currentSortType = SORT_BY_PRICE_DOWN;
+    }else if(_currentSortType == SORT_BY_PRICE_DOWN){
+        _currentSortType = SORT_BY_PRICE_UP;
+    }else{
+         _currentSortType = SORT_BY_PRICE_DOWN;
+    }
+    [self reloading];
+    if(_currentSortType == SORT_BY_PRICE_UP){
+        [self searchHotelsBySort:1];
+    }else{
+        [self searchHotelsBySort:2];
+    }
     
 }
 
-/**
- *  去掉等待页面
- */
--(void)removeProgressVie{
-    [_progressView stopAnimating];
-    [_progressView removeFromSuperview];
+
+-(void)searchHotelsBySort:(int)sortType{
+    
+    _request.SortBy = [NSNumber numberWithInt:sortType];
+    _pageIndex = 1;
+    _request.page =[NSNumber numberWithInt:1];
+    [self.requestManager sendRequest:_request];
 }
 
-
-
-
--(void) searchHotels{
+-(void)searchHotels{
     _request = [[SearchHotelsRequest alloc] initWidthBusinessType:BUSINESS_HOTEL methodName:@"SearchHotels"];
     
     _request.FeeType = [NSNumber numberWithInt:1];
     _request.ReserveType = @"1";
     _request.CityId = [NSNumber numberWithInt:448];
-    _request.ComeDate = @"2013-12-22";
-    _request.LeaveDate = @"2013-12-24";
+    _request.ComeDate = @"2013-12-28";
+    _request.LeaveDate = @"2013-12-29";
     _request.PriceLow = @"0";
     _request.PriceHigh = @"10000";
     _request.HotelName = @"";
@@ -111,7 +207,12 @@
         _totalPage = [[hotelListResponse.Data objectForKey:@"TotalPage"] integerValue];
         
         if(_pageIndex == 1){
-            [self removeProgressVie];
+            [self removeLoadingView];
+            if(self.tableView){
+                [self reAddTabaleView];
+            }else{
+                [self addTableView];
+            }
         }
         [self stopLoading];
         [self.tableView reloadData];
@@ -139,6 +240,7 @@
 {
     [super didReceiveMemoryWarning];
 }
+
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {

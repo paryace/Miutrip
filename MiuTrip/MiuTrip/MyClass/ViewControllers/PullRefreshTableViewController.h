@@ -28,9 +28,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BaseUIViewController.h"
 
 
-@interface PullRefreshTableViewController : UITableViewController {
+@interface PullRefreshTableViewController : BaseUIViewController<UITableViewDataSource,UITableViewDelegate>{
     UIView *refreshFooterView;
     UILabel *refreshLabel;
     UIImageView *refreshArrow;
@@ -51,6 +52,8 @@
 @property (nonatomic, strong) NSString *textLoading;
 @property (nonatomic, strong) NSString *textNoMore;
 @property (nonatomic) BOOL hasMore;
+@property (nonatomic,strong) UITableView *tableView;
+
 
 - (void)setupStrings;
 - (void)addPullToRefreshFooter;

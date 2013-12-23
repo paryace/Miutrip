@@ -13,11 +13,13 @@
 @property (strong,nonatomic) NSString *imageName;
 @property (nonatomic,strong) NSString *labelText;
 @property (nonatomic,strong) NSString *valueText;
+@property (nonatomic) BOOL isValueEditeble;
 
 @property (nonatomic,strong) UILabel *valueView;
+@property (nonatomic,strong) UITextField *editableValue;
 
 -(id)initWithFrame:(CGRect)frame withImageName:(NSString*)imageName withLabelName:(NSString*)
-labelName;
+labelName isValueEditabel:(BOOL) editable;
 
 -(void)setValue:(NSString*)value;
 

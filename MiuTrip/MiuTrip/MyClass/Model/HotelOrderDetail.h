@@ -21,6 +21,7 @@
 @property (assign, nonatomic) NSInteger                 priceRange;             //价格区间
 
 @property (strong, nonatomic) NSString                  *hotelLocation;         //酒店位置
+@property (nonatomic)  int                        hotelCaontonId;        //酒店所在区ID
 @property (strong, nonatomic) NSString                  *hotelName;             //酒店名字
 
 @property (strong, nonatomic) NSArray                   *passengers;            //联系人

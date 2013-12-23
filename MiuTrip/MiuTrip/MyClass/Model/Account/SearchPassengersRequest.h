@@ -12,7 +12,7 @@
 
 @interface SearchPassengersRequest : BaseRequestModel
 
-@property (strong, nonatomic) NSString      *CorpID;
+@property (strong, nonatomic) NSNumber      *CorpID;
 @property (strong, nonatomic) NSString      *keys;
 
 @end

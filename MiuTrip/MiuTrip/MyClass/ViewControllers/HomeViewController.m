@@ -16,12 +16,10 @@
 #import "AirListViewController.h"
 #import "HotelListViewController.h"
 #import "ImageAndTextTilteView.h"
-#import "HotelSearchView.h"
-
 #import "LoginUserInfoRequest.h"
-
-
 #import "LoginInfoDTO.h"
+#import "HotelListViewController.h"
+#import "HotelCantonViewController.h"
 
 @interface HomeViewController ()
 
@@ -313,66 +311,7 @@
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    /**
-     if (1) {
-        [super touchesEnded:touches withEvent:event];
-        
-        UITouch *touch = [touches anyObject];
-        CGPoint point = [touch locationInView:self.contentView];
-        
-        UISegmentedControl *segmentedControl = (UISegmentedControl*)[self.view viewWithTag:10000];
-        UIView *bottomView = [_viewPageHotel viewWithTag:600];
-        CGRect rect;
-        if (segmentedControl.selectedSegmentIndex == 0) {
-            rect = CGRectMake(0, _viewPageHotel.frame.origin.y + bottomView.frame.origin.y, bottomView.frame.size.width, bottomView.frame.size.height);
-        }
-        NSLog(@"rect x = %f,y = %f,width = %f,height = %f",rect.origin.x,rect.origin.y,rect.size.width,rect.size.height);
-        NSInteger index = 100;
-        CGRect currentRect;
-        for (int i = 0; i<6; i++) {
-            index = i;
-            
-            if (i < 3 && i >= 0) {
-                currentRect = CGRectMake(rect.origin.x, rect.origin.y + i * 40 + 10, rect.size.width, 40);
-                if (CGRectContainsPoint(currentRect, point)) {
-                    break;
-                }
-            }else if (i < 6 && i >= 3) {
-                currentRect = CGRectMake(rect.origin.x, rect.origin.y + rect.size.height - 40 * (6 - i), rect.size.width, 40);
-                NSLog(@"rect.origin.y + rect.size.height = %f,40 * (6 - i) = %f",rect.origin.y + rect.size.height,40.0 * (6 - i));
-                if (CGRectContainsPoint(currentRect, point)) {
-                    break;
-                }
-            }
-        }
-        NSLog(@"rect x = %f,y = %f,width = %f,height = %f",currentRect.origin.x,currentRect.origin.y,currentRect.size.width,currentRect.size.height);
-        
-        NSLog(@"index = %d",index);
-        switch (index) {
-            case 0:{
-                
-                break;
-            }case 1:{
-                
-                break;
-            }case 2:{
-                
-                break;
-            }case 3:{
-                
-                break;
-            }case 4:{
-                
-                break;
-            }case 5:{
-                
-                break;
-            }
-            default:
-                break;
-        }
-    }//用touch除法button method
-     */
+
     [super touchesEnded:touches withEvent:event];
 }
 
@@ -414,10 +353,26 @@
         
         UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:frame];
         
-        UIView *hotelSearchView = [[HotelSearchView alloc] initWidthFrame:CGRectMake(0, 0, self.view.frame.size.width, 0) widthdata:[HotelOrderDetail sharedInstance] widthDelegate:self];
+        HotelOrderDetail *data = [HotelOrderDetail sharedInstance];
         
+        HotelSearchView *hotelSearchView = [[HotelSearchView alloc] initWidthFrame:CGRectMake(0, 0, self.view.frame.size.width, 0) widthdata:data];
         [hotelSearchView setBackgroundColor:color(clearColor)];
+        hotelSearchView.tag = 2001;
         
+        UIButton *searchBtn = (UIButton *)[hotelSearchView viewWithTag:550];
+        [searchBtn addTarget:self action:@selector(pressHotelItemBtn:) forControlEvents:UIControlEventTouchUpInside];
+        UIButton *priceRange = (UIButton *)[hotelSearchView viewWithTag:504];
+        [priceRange addTarget:self action:@selector(pressHotelItemBtn:) forControlEvents:UIControlEventTouchUpInside];
+        UIButton *hotelCantonBtn = (UIButton *)[hotelSearchView viewWithTag:505];
+        [hotelCantonBtn addTarget:self action:@selector(pressHotelItemBtn:) forControlEvents:UIControlEventTouchUpInside];
+        
+        HomeCustomBtn *customBtn = [[HomeCustomBtn alloc]initWithParams:data];
+        [customBtn setFrame:CGRectMake(0, 0, appFrame.size.width, 60)];
+        [customBtn setBackgroundColor:color(clearColor)];
+        [customBtn setTag:300];
+        [customBtn setDelegate:self];
+        [hotelSearchView addSubview:customBtn];
+
         [scrollView setContentSize:CGSizeMake(frame.size.width, frame.size.height)];
         scrollView.bounces = YES;
         scrollView.scrollsToTop = NO;
@@ -433,23 +388,42 @@
 
 - (void)pressHotelItemBtn:(UIButton*)sender
 {
-    NSLog(@"item tag = %d",sender.tag);
     switch (sender.tag) {
-        case 500:
+        case 550:
+            [self gotoHotelList];
+            break;
+        case 504:
+            [self showPriceRangeDialog];
+            break;
+        case 505:
+            [self gotoHotelCantonViewController];
             break;
         default:
             break;
     }
 }
 
-- (void)pressHotelItemDone:(UIButton*)sender
+-(void)gotoHotelCantonViewController
 {
-    NSLog(@"sender tag = %d",sender.tag);
-    NSLog(@"user authTkn = %@",[UserDefaults shareUserDefault].authTkn);
-    
-    HotelListViewController *hotelListView = [[HotelListViewController alloc] init];
-    [self pushViewController:hotelListView transitionType:TransitionPush completionHandler:nil];
+    HotelCantonViewController *viewController = [[HotelCantonViewController alloc] init];
+    [self presentViewController:viewController animated:YES completion:nil];
 }
+
+-(void)showPriceRangeDialog
+{
+    HotelSearchView *view = (HotelSearchView*)[self.contentView viewWithTag:2001];
+    [self showPopupListWithTitle:@"价格范围" withType:HOTEL_PRICE_RANGE withData:view.priceRangeArray];
+}
+
+
+-(void)gotoHotelList
+{
+    HotelListViewController * hotelListView  = [[HotelListViewController alloc] init];
+    [self.navigationController pushViewController:hotelListView animated:NO];
+    CATransition *transition = [Utils getAnimation:TransitionPush subType:DirectionRight];
+    [self.navigationController.view.layer addAnimation:transition forKey:@"viewtransition"];
+}
+
 
 - (UIImageView*)createLineWithFrame:(CGRect)frame
 {
@@ -991,6 +965,7 @@
     
 }
 
+
 - (BOOL)clearKeyBoard
 {
     BOOL canResignFirstResponder = NO;
@@ -1000,6 +975,69 @@
     }
     return canResignFirstResponder;
 }
+
+- (void)showPopupListWithTitle:(NSString*)title withType:(popupListType)type withData:(NSArray *)data{
+    
+    CGFloat xWidth = self.contentView.bounds.size.width - 20.0f;
+    CGFloat yHeight = 240;
+    CGFloat yOffset = (self.contentView.bounds.size.height - yHeight)/2.0f;
+    _popupListData = data;
+    _popListType = type;
+    UIPopoverListView *poplistview = [[UIPopoverListView alloc] initWithFrame:CGRectMake(10, yOffset, xWidth, yHeight)];
+    poplistview.delegate = self;
+    poplistview.datasource = self;
+    poplistview.listView.scrollEnabled = YES;
+    [poplistview setTitle:title];
+    [poplistview show];
+
+}
+
+#pragma mark - UIPopoverListViewDataSource
+- (UITableViewCell *)popoverListView:(UIPopoverListView *)popoverListView
+                    cellForIndexPath:(NSIndexPath *)indexPath
+{
+    static NSString *identifier = @"cell";
+    UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
+                                                    reuseIdentifier:identifier];
+    
+    int row = indexPath.row;
+    cell.textLabel.text = [_popupListData objectAtIndex:row];
+    return cell;
+}
+
+- (NSInteger)popoverListView:(UIPopoverListView *)popoverListView
+       numberOfRowsInSection:(NSInteger)section
+{
+    return _popupListData.count;
+}
+
+#pragma mark - UIPopoverListViewDelegate
+- (void)popoverListView:(UIPopoverListView *)popoverListView
+     didSelectIndexPath:(NSIndexPath *)indexPath
+{
+    if(_popListType == HOTEL_PRICE_RANGE){
+        
+        HotelSearchView *hotelSearchView = (HotelSearchView *)[self.contentView viewWithTag:2001];
+        [hotelSearchView setPriceRange:[_popupListData objectAtIndex:indexPath.row]];
+
+    }
+   
+}
+
+- (CGFloat)popoverListView:(UIPopoverListView *)popoverListView
+   heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 45.0f;
+}
+
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    HotelSearchView *hotelSearchView = (HotelSearchView*)[self.contentView viewWithTag:2001];
+    [hotelSearchView setHotelCanton:[HotelOrderDetail sharedInstance].hotelLocation];
+}
+
 
 - (void)viewDidLoad
 {

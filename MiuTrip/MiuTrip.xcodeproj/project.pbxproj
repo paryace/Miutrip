@@ -265,6 +265,7 @@
 		B5157F83185BF58600AF3E0C /* pull_up_refresh_arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = B5157F82185BF58600AF3E0C /* pull_up_refresh_arrow.png */; };
 		B5157F86185BF84100AF3E0C /* HotelCommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B5157F85185BF84100AF3E0C /* HotelCommentViewController.m */; };
 		B523F73B18478B94005C45C5 /* BaseRequestModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B523F73A18478B94005C45C5 /* BaseRequestModel.m */; };
+		B533C321186693AF0085E7BC /* UIPopoverListView.m in Sources */ = {isa = PBXBuildFile; fileRef = B533C320186693AF0085E7BC /* UIPopoverListView.m */; };
 		B53496B91846E3C6001BC8D1 /* BaseResponseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B53496B81846E3C6001BC8D1 /* BaseResponseModel.m */; };
 		B551435B185C23B800D5BDD4 /* comment_time.png in Resources */ = {isa = PBXBuildFile; fileRef = B551435A185C23B800D5BDD4 /* comment_time.png */; };
 		B551435E185C3C1300D5BDD4 /* HotelDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B551435D185C3C1300D5BDD4 /* HotelDetailViewController.m */; };
@@ -296,6 +297,9 @@
 		B590F178186140C0002D6A6D /* PullRefreshTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B590F177186140C0002D6A6D /* PullRefreshTableViewController.m */; };
 		B591AF621849D320003BA7A3 /* LoginRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = B591AF611849D320003BA7A3 /* LoginRequest.m */; };
 		B591AF651849DD01003BA7A3 /* LoginResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = B591AF641849DD01003BA7A3 /* LoginResponse.m */; };
+		B59555DB1866C6F000B2C673 /* HotelCantonViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B59555DA1866C6F000B2C673 /* HotelCantonViewController.m */; };
+		B59555DE1866CA3E00B2C673 /* GetHotelDistrictsRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = B59555DD1866CA3E00B2C673 /* GetHotelDistrictsRequest.m */; };
+		B59555E11866CB3F00B2C673 /* GetHotelDistrictsResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = B59555E01866CB3F00B2C673 /* GetHotelDistrictsResponse.m */; };
 		B5A249221845F63A005BB217 /* URLHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = B5A249211845F63A005BB217 /* URLHelper.m */; };
 		B5A507FD1852B80E00D6A788 /* GetAllcantonsRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = B5A507DC1852B80E00D6A788 /* GetAllcantonsRequest.m */; };
 		B5A507FE1852B80E00D6A788 /* GetAllCityRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = B5A507DE1852B80E00D6A788 /* GetAllCityRequest.m */; };
@@ -716,6 +720,8 @@
 		B5157F85185BF84100AF3E0C /* HotelCommentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HotelCommentViewController.m; sourceTree = "<group>"; };
 		B523F73918478B94005C45C5 /* BaseRequestModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseRequestModel.h; sourceTree = "<group>"; };
 		B523F73A18478B94005C45C5 /* BaseRequestModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseRequestModel.m; sourceTree = "<group>"; };
+		B533C31F186693AF0085E7BC /* UIPopoverListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIPopoverListView.h; sourceTree = "<group>"; };
+		B533C320186693AF0085E7BC /* UIPopoverListView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIPopoverListView.m; sourceTree = "<group>"; };
 		B53496B61846E310001BC8D1 /* ResponseDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ResponseDelegate.h; sourceTree = "<group>"; };
 		B53496B71846E3C6001BC8D1 /* BaseResponseModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseResponseModel.h; sourceTree = "<group>"; };
 		B53496B81846E3C6001BC8D1 /* BaseResponseModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseResponseModel.m; sourceTree = "<group>"; };
@@ -778,6 +784,12 @@
 		B591AF611849D320003BA7A3 /* LoginRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginRequest.m; sourceTree = "<group>"; };
 		B591AF631849DD01003BA7A3 /* LoginResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginResponse.h; sourceTree = "<group>"; };
 		B591AF641849DD01003BA7A3 /* LoginResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginResponse.m; sourceTree = "<group>"; };
+		B59555D91866C6F000B2C673 /* HotelCantonViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HotelCantonViewController.h; sourceTree = "<group>"; };
+		B59555DA1866C6F000B2C673 /* HotelCantonViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HotelCantonViewController.m; sourceTree = "<group>"; };
+		B59555DC1866CA3E00B2C673 /* GetHotelDistrictsRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetHotelDistrictsRequest.h; sourceTree = "<group>"; };
+		B59555DD1866CA3E00B2C673 /* GetHotelDistrictsRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetHotelDistrictsRequest.m; sourceTree = "<group>"; };
+		B59555DF1866CB3F00B2C673 /* GetHotelDistrictsResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetHotelDistrictsResponse.h; sourceTree = "<group>"; };
+		B59555E01866CB3F00B2C673 /* GetHotelDistrictsResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetHotelDistrictsResponse.m; sourceTree = "<group>"; };
 		B59849BA18477BB80037C5F0 /* RequestDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RequestDelegate.h; sourceTree = "<group>"; };
 		B5A249201845F63A005BB217 /* URLHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = URLHelper.h; sourceTree = "<group>"; };
 		B5A249211845F63A005BB217 /* URLHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = URLHelper.m; sourceTree = "<group>"; };
@@ -1477,6 +1489,8 @@
 				B5157F85185BF84100AF3E0C /* HotelCommentViewController.m */,
 				B551435C185C3C1300D5BDD4 /* HotelDetailViewController.h */,
 				B551435D185C3C1300D5BDD4 /* HotelDetailViewController.m */,
+				B59555D91866C6F000B2C673 /* HotelCantonViewController.h */,
+				B59555DA1866C6F000B2C673 /* HotelCantonViewController.m */,
 			);
 			path = Hotel;
 			sourceTree = "<group>";
@@ -1484,6 +1498,8 @@
 		B57A0AAC184F13A700A33831 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				B533C31F186693AF0085E7BC /* UIPopoverListView.h */,
+				B533C320186693AF0085E7BC /* UIPopoverListView.m */,
 				B507B84418570A6C003541B2 /* LoadMoreTableFooterView.h */,
 				B507B84518570A6C003541B2 /* LoadMoreTableFooterView.m */,
 				B5F762571852045000E7244B /* HotelSearchView.h */,
@@ -1706,6 +1722,10 @@
 				B57B67461852BEEC0002C778 /* SearchHotelsRequest.m */,
 				B57B67471852BEEC0002C778 /* SearchHotelsResponse.h */,
 				B57B67481852BEEC0002C778 /* SearchHotelsResponse.m */,
+				B59555DC1866CA3E00B2C673 /* GetHotelDistrictsRequest.h */,
+				B59555DD1866CA3E00B2C673 /* GetHotelDistrictsRequest.m */,
+				B59555DF1866CB3F00B2C673 /* GetHotelDistrictsResponse.h */,
+				B59555E01866CB3F00B2C673 /* GetHotelDistrictsResponse.m */,
 			);
 			path = Hotel;
 			sourceTree = "<group>";
@@ -2016,6 +2036,7 @@
 				B57A0AAF184F13F200A33831 /* ImageAndTextTilteView.m in Sources */,
 				124789F91836363100AA0083 /* SBJsonStreamWriter.m in Sources */,
 				183E48931845E2F9009F6C4E /* RequestManager.m in Sources */,
+				B59555DB1866C6F000B2C673 /* HotelCantonViewController.m in Sources */,
 				124789FA1836363100AA0083 /* SBJsonStreamWriterAccumulator.m in Sources */,
 				B57B67501852BEEC0002C778 /* GetHotelRoomsMultiResponse.m in Sources */,
 				B5D4C40A1852BDFA00F1B0FC /* CancelFlightOrderResponse.m in Sources */,
@@ -2030,6 +2051,7 @@
 				B5D4C4221852BDFA00F1B0FC /* GetNormalFlightsResponse.m in Sources */,
 				18A1370D184EE58B00516ED3 /* UpdateCropUserBaseByChinaUMSUIDResponse.m in Sources */,
 				18A13713184EE5B200516ED3 /* LogoutResponse.m in Sources */,
+				B533C321186693AF0085E7BC /* UIPopoverListView.m in Sources */,
 				124789E71836363100AA0083 /* ASINetworkQueue.m in Sources */,
 				B57B67521852BEEC0002C778 /* GetHotelTrafficlnfoRequest.m in Sources */,
 				124789FD1836363100AA0083 /* SBJsonUTF8Stream.m in Sources */,
@@ -2051,6 +2073,7 @@
 				B5A507FF1852B80E00D6A788 /* GetAllProvinceRequest.m in Sources */,
 				124789F71836363100AA0083 /* SBJsonStreamParserAdapter.m in Sources */,
 				B5D4C4291852BDFA00F1B0FC /* (null) in Sources */,
+				B59555DE1866CA3E00B2C673 /* GetHotelDistrictsRequest.m in Sources */,
 				124789F61836363100AA0083 /* SBJsonStreamParserAccumulator.m in Sources */,
 				B57A0A9F184EC77A00A33831 /* BaseUIViewController.m in Sources */,
 				B523F73B18478B94005C45C5 /* BaseRequestModel.m in Sources */,
@@ -2058,6 +2081,7 @@
 				B57B674E1852BEEC0002C778 /* GetHotelImageListResponse.m in Sources */,
 				18B473541846EB84003FF7AD /* BookPassengersDTO.m in Sources */,
 				B5D4C4111852BDFA00F1B0FC /* GetFlightOrderListResponse.m in Sources */,
+				B59555E11866CB3F00B2C673 /* GetHotelDistrictsResponse.m in Sources */,
 				B5D4C4281852BDFA00F1B0FC /* SubmitFlightOrderResponse.m in Sources */,
 				B5C7C85A186577D4008914D0 /* AirListViewController.m in Sources */,
 				124789F81836363100AA0083 /* SBJsonStreamParserState.m in Sources */,

@@ -37,35 +37,30 @@
 
 @synthesize textPull, textRelease, textLoading, refreshFooterView, refreshLabel, refreshArrow, refreshSpinner, hasMore, textNoMore;
 
-- (id)initWithStyle:(UITableViewStyle)style {
-  self = [super initWithStyle:style];
+- (id)init{
+  self = [super init];
   if (self != nil) {
     [self setupStrings];
   }
   return self;
 }
 
-- (id)initWithCoder:(NSCoder *)aDecoder {
-  self = [super initWithCoder:aDecoder];
-  if (self != nil) {
-    [self setupStrings];
-  }
-  return self;
-}
+//- (id)initWithCoder:(NSCoder *)aDecoder {
+//  self = [super initWithCoder:aDecoder];
+//  if (self != nil) {
+//    [self setupStrings];
+//  }
+//  return self;
+//}
+//
+//- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
+//  self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+//  if (self != nil) {
+//    [self setupStrings];
+//  }
+//  return self;
+//}
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
-  self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-  if (self != nil) {
-    [self setupStrings];
-  }
-  return self;
-}
-
-- (void)viewDidLoad {
-  [super viewDidLoad];
-  //[self addPullToRefreshHeader];
-  [self addPullToRefreshFooter];
-}
 
 - (void)setupStrings{
     textPull    = @"上拉刷新...";
@@ -74,6 +69,7 @@
     textNoMore  = @"没有更多内容了...";
     hasMore = YES;
 }
+
 
 -(void)addPullToRefreshFooter{
     refreshFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, self.tableView.frame.size.height+20, 320, REFRESH_HEADER_HEIGHT)];
@@ -130,17 +126,7 @@
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
     if (isLoading || !hasMore) return;
     isDragging = NO;
-    
-//    CGPoint offset = scrollView.contentOffset;
-//    CGRect bounds = scrollView.bounds;
-//    CGSize size = scrollView.contentSize;
-//    UIEdgeInsets inset = scrollView.contentInset;
-//    CGFloat currentOffset = offset.y + bounds.size.height - inset.bottom;
-//    
-//    CGFloat maximumOffset = size.height;
-//    
-//    (maximumOffset - currentOffset) <= -REFRESH_HEADER_HEIGHT)
-        
+            
     //上拉刷新
     if(scrollView.contentSize.height - (scrollView.contentOffset.y + scrollView.bounds.size.height - scrollView.contentInset.bottom) <= -REFRESH_HEADER_HEIGHT && scrollView.contentOffset.y > 0){
         [self startLoading];
@@ -180,9 +166,7 @@
 }
 
 - (void)stopLoadingComplete:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context {
-    // Reset the header
-    NSLog(@"%f",self.tableView.contentSize.height);
-    
+    // Reset the headers
     refreshLabel.text = self.textPull;
     refreshArrow.hidden = NO;
     

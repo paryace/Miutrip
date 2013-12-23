@@ -39,7 +39,7 @@
 @property (assign, nonatomic) NSInteger     HasPolicy;              //是否有政策
 @property (assign, nonatomic) NSInteger     PolicyID;               //政策ID
 @property (strong, nonatomic) NSString      *PolicyName;            //政策名称
-@property (strong, nonatomic) NSString      *IsNeedRC_FltN;         //是否国内机票需要 ReasonCode  T/F
+@property (strong, nonatomic) NSString      *IsNeedRC_FltN;         //是否国内机票需要 ReasonCode  T/F 
 @property (assign, nonatomic) NSInteger     PreMinute;              //ReasonCode检测时间段前分钟数
 @property (assign, nonatomic) NSInteger     LastMinute;             //ReasonCode检测时间段后分钟数
 @property (strong, nonatomic) NSString      *FltPreBookRC;          //是否需要国内机票提前预订Reason Code T/F
