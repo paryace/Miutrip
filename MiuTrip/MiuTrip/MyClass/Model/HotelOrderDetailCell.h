@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "HotelOrderDetail.h"
 
 #define             HotelOrderCellHeight                110.0
 #define             HotelOrderCellUnfoldHeight          (30 * 6 + 15 + AirOrderCellHeight - 10 + 50)
@@ -18,9 +17,6 @@
 @interface HotelOrderDetailCell : UITableViewCell
 
 @property (strong, nonatomic) UIImageView               *rightArrow;
-@property (strong, nonatomic) HotelOrderDetail          *hotelDetail;
-
-- (void)setViewContentWithParams:(HotelOrderDetail*)params;
 
 - (void)unfoldViewShow:(BOOL)show;
 @end

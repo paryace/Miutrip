@@ -9,6 +9,7 @@
 #import "BaseUIViewController.h"
 #import "UIPopoverListView.h"
 #import "HotelSearchView.h"
+#import "HotelDataCache.h"
 
 typedef NS_ENUM(NSInteger, popupListType)
 {
@@ -46,7 +47,6 @@ typedef NS_ENUM(NSInteger, popupListType)
 
 @property (strong,nonatomic) NSArray *popupListData;
 @property (nonatomic) popupListType popListType;
-- (void)getUserLoginInfo;                                               //获取用户信息
 - (void)showPopupListWithTitle:(NSString*)title withType:(popupListType)type withData:(NSArray*)data;
 
 @end

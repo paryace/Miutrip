@@ -9,7 +9,7 @@
 #import "HotelDetailViewController.h"
 #import "GetHotelDetailRequest.h"
 #import "GetHotelDetailResponse.h"
-#import "HotelOrderDetail.h"
+#import "HotelDataCache.h"
 #import "Utils.h"
 
 @interface HotelDetailViewController ()
@@ -143,7 +143,7 @@
     
     GetHotelDetailRequest *request = [[GetHotelDetailRequest alloc] initWidthBusinessType:BUSINESS_HOTEL methodName:@"GetHotelDetail"];
     
-    request.hotelId = [NSNumber numberWithInt:[HotelOrderDetail sharedInstance].selectedHotelId];
+    request.hotelId = [NSNumber numberWithInt:[HotelDataCache sharedInstance].selectedHotelId];
     
     [self.requestManager sendRequest:request];
 }

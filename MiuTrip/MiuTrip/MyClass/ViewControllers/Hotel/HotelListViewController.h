@@ -10,6 +10,7 @@
 #import "SearchHotelsRequest.h"
 #import "LoadMoreTableFooterView.h"
 #import "RequestManager.h"
+#import "HotelDataCache.h"
 #import "PullRefreshTableViewController.h"
 
 typedef NS_ENUM(NSInteger, ListSortType)
@@ -39,17 +40,21 @@ typedef NS_ENUM(NSInteger, ListSortType)
 
 @property (nonatomic) BOOL isFiltered;
 @property (nonatomic) ListSortType currentSortType;
+@property (nonatomic,strong) UIImageView *priceArrow;
 
 @end
 
 @interface HotelListRoomCell : UITableViewCell
 
-@property (nonatomic,copy) UILabel *roomName;
-@property (nonatomic,copy) UILabel *bedAndBreakfast;
-@property (nonatomic,copy) UILabel *wifi;
-@property (nonatomic,copy) UILabel *price;
-@property (nonatomic,assign) UIViewController *viewController;
+@property (nonatomic,strong) UILabel *roomName;
+@property (nonatomic,strong) UILabel *bedAndBreakfast;
+@property (nonatomic,strong) UILabel *wifi;
+@property (nonatomic,strong) UILabel *price;
+@property (nonatomic,strong) UIViewController *viewController;
 
+@property (nonatomic,assign) NSDictionary  *roomData;
+@property (nonatomic,assign) NSString      *hotelName;
+@property (nonatomic)       int            hotelId;
 @end
 
 @interface HotelListBtnCellView : UITableViewCell

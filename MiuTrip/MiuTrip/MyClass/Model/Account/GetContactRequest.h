@@ -13,7 +13,7 @@
 
 @interface GetContactRequest : BaseRequestModel
 
-@property (strong, nonatomic) NSString      *CorpID; 
+@property (nonatomic) NSNumber      *CorpID;
 
 @end
 

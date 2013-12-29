@@ -11,7 +11,7 @@
 
 @interface GetContactResponse : BaseResponseModel
 
-@property (strong , nonatomic) NSDictionary *result;
+@property (strong , nonatomic) NSArray *result;
 
 @end
 

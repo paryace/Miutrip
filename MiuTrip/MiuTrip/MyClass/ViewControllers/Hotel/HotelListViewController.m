@@ -10,9 +10,9 @@
 #import "SearchHotelsResponse.h"
 #import "HotelListCellviewCell.h"
 #import "HotelCommentViewController.h"
-#import "HotelOrderDetail.h"
 #import "HotelDetailViewController.h"
 #import "HotelOrderViewController.h"
+#import "Utils.h"
 
 @interface HotelListViewController ()
 
@@ -59,6 +59,7 @@
     UIView *filterView = [[UIView alloc] initWithFrame:CGRectMake(0, 40, width, 35)];
     [filterView setBackgroundColor:color(whiteColor)];
     
+    //推荐排序
     width = width - 20;
     UIButton *miuRecommend = [UIButton buttonWithType:UIButtonTypeCustom];
     [miuRecommend setBackgroundImage:[UIImage imageNamed:@"button_style1.png"] forState:UIControlStateNormal];
@@ -67,33 +68,56 @@
     [miuRecommend setShowsTouchWhenHighlighted:NO];
     [miuRecommend setTitle:@"觅优推荐" forState:UIControlStateNormal];
     [miuRecommend setTitleColor:color(blackColor) forState:UIControlStateNormal];
-    [miuRecommend.titleLabel setFont:[UIFont systemFontOfSize:12]];
+    [miuRecommend.titleLabel setFont:[UIFont systemFontOfSize:14]];
     [miuRecommend setFrame:CGRectMake(5, 1, width/3, 33)];
     [miuRecommend setTag:101];
     [miuRecommend addTarget:self action:@selector(filteBtnPressed:) forControlEvents:UIControlEventTouchUpInside];
     [filterView addSubview:miuRecommend];
     
+    
+    //价格排序
     UIButton *price = [UIButton buttonWithType:UIButtonTypeCustom];
     [price setBackgroundImage:[UIImage imageNamed:@"button_style1.png"] forState:UIControlStateNormal];
     [price setBackgroundImage:[UIImage imageNamed:@"button_style2.png"] forState:UIControlStateHighlighted];
-    [price setTitle:@"价格" forState:UIControlStateNormal];
     [price setTitleColor:color(blackColor) forState:UIControlStateNormal];
-    [price.titleLabel setFont:[UIFont systemFontOfSize:12]];
+    [price setContentHorizontalAlignment:UIControlContentHorizontalAlignmentCenter];
     [price setFrame:CGRectMake(10+width/3, 1, width/3, 33)];
     [price setTag:102];
+    
+    int btnWidth = width/3;
+    int left = (btnWidth - 50)/2;
+    UILabel *lable = [[UILabel alloc] initWithFrame:CGRectMake(left, 0, 28, 33)];
+    [lable setText:@"价格"];
+    [lable setFont:[UIFont systemFontOfSize:14]];
+    [lable setTextColor:color(blackColor)];
+    [price addSubview:lable];
+    
+    _priceArrow = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"arrow_down.png"]];
+    [_priceArrow setFrame:CGRectMake(left+30, 6, 20, 20)];
+    [price addSubview:_priceArrow];
     [price addTarget:self action:@selector(filteBtnPressed:) forControlEvents:UIControlEventTouchUpInside];
     [filterView addSubview:price];
     
     UIButton *filterBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [filterBtn setBackgroundImage:[UIImage imageNamed:@"button_style1.png"] forState:UIControlStateNormal];
     [filterBtn setBackgroundImage:[UIImage imageNamed:@"button_style2.png"] forState:UIControlStateHighlighted];
-    [filterBtn setTitle:@"筛选" forState:UIControlStateNormal];
     [filterBtn setTitleColor:color(blackColor) forState:UIControlStateNormal];
-    [filterBtn.titleLabel setFont:[UIFont systemFontOfSize:12]];
     [filterBtn setFrame:CGRectMake(15+width/3*2, 1,width/3, 33)];
     [filterBtn setTag:103];
     [filterBtn addTarget:self action:@selector(filteBtnPressed:) forControlEvents:UIControlEventTouchUpInside];
+    
+    left = (btnWidth - 58)/2;
+    lable = [[UILabel alloc] initWithFrame:CGRectMake(left, 0, 28, 33)];
+    [lable setText:@"筛选"];
+    [lable setFont:[UIFont systemFontOfSize:14]];
+    [lable setTextColor:color(blackColor)];
+    [filterBtn addSubview:lable];
+    
+    UIImageView *filterImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon_filter"]];
+    [filterImage setFrame:CGRectMake(left+28, 6, 30, 20)];
+    [filterBtn addSubview:filterImage];
     [filterView addSubview:filterBtn];
+    
 
     [self.contentView addSubview:filterView];
     
@@ -175,8 +199,8 @@
     _request.FeeType = [NSNumber numberWithInt:1];
     _request.ReserveType = @"1";
     _request.CityId = [NSNumber numberWithInt:448];
-    _request.ComeDate = @"2013-12-28";
-    _request.LeaveDate = @"2013-12-29";
+    _request.ComeDate = @"2013-12-30";
+    _request.LeaveDate = @"2013-12-31";
     _request.PriceLow = @"0";
     _request.PriceHigh = @"10000";
     _request.HotelName = @"";
@@ -344,6 +368,10 @@
             NSArray *priceInfos = [priceDic objectForKey:@"PriceInfos"];
             NSDictionary *roomPriceDic = [priceInfos objectAtIndex:0];
             
+            
+            cellView.roomData = roomDic;
+            cellView.hotelId = [[dic objectForKey:@"hotelId"] intValue];
+            cellView.hotelName = [dic objectForKey:@"hotelName"];
             cellView.roomName.text = [roomDic objectForKey:@"roomName"];
             
             NSString *bed = [roomDic objectForKey:@"bed"];
@@ -505,6 +533,9 @@
 
 -(void)bookBtnPressed:(UIButton *)sender{
     
+    [HotelDataCache sharedInstance].selectedHotelId = _hotelId;
+    [HotelDataCache sharedInstance].selectedHotelName = _hotelName;
+    [HotelDataCache sharedInstance].selectedRoomData = _roomData;
     HotelOrderViewController *orderViewController = [[HotelOrderViewController alloc] init];
     [_viewController.navigationController pushViewController:orderViewController animated:YES];
 }
@@ -627,13 +658,13 @@
 }
 
 -(void)goHotelDetail{
-    [HotelOrderDetail sharedInstance].selectedHotelId = _hotelId;
+    [HotelDataCache sharedInstance].selectedHotelId = _hotelId;
     HotelDetailViewController *viewController = [[HotelDetailViewController alloc] init];
     [_viewController.navigationController pushViewController:viewController animated:YES];
 }
 
 -(void)goHotelComments{
-    [HotelOrderDetail sharedInstance].selectedHotelId = _hotelId;
+    [HotelDataCache sharedInstance].selectedHotelId = _hotelId;
     HotelCommentViewController *viewController = [[HotelCommentViewController alloc] init];
     [_viewController.navigationController pushViewController:viewController animated:YES];
 }

@@ -7,7 +7,7 @@
 //
 
 #import "HotelCommentViewController.h"
-#import "HotelOrderDetail.h"
+#import "HotelDataCache.h"
 #import "GetCommentListResponse.h"
 
 @implementation HotelCommentViewController
@@ -46,8 +46,7 @@
 -(void)getHotelCommnets{
     
     GetCommentListRequest *request = [[GetCommentListRequest alloc] initWidthBusinessType:BUSINESS_HOTEL methodName:@"GetCommentList"];
-    request.hotelId = [NSNumber numberWithInt:[HotelOrderDetail sharedInstance].selectedHotelId];
-    
+    request.hotelId = [NSNumber numberWithInt:[HotelDataCache sharedInstance].selectedHotelId];
     [self.requestManager sendRequest:request];
     
 }

@@ -124,117 +124,117 @@
     [self.contentView addSubview:_rightArrow];
 }
 
-- (void)setSubjoinViewFrameWithPrarams:(HotelOrderDetail*)params
-{
-    UIView *prevView = [self.contentView viewWithTag:300];
-    
-    _unfoldView = [[UIView alloc]initWithFrame:CGRectMake(10, controlYLength(prevView), AirOrderCellWidth - 20, 0)];
-    [_unfoldView setBackgroundColor:color(clearColor)];
-    [self.contentView addSubview:_unfoldView];
-    
-    UIImageView *subjoinImageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, _unfoldView.frame.size.width, 15)];
-    [subjoinImageView setBackgroundColor:color(clearColor)];
-    [subjoinImageView setImage:imageNameAndType(@"shadow", nil)];
-    [_unfoldView addSubview:subjoinImageView];
-    
-    _orderNumLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, controlYLength(subjoinImageView), _unfoldView.frame.size.width/2, 30)];
-    [_orderNumLabel setBackgroundColor:color(clearColor)];
-    [_orderNumLabel setFont:[UIFont systemFontOfSize:12]];
-    [_orderNumLabel setText:[NSString stringWithFormat:@"订单号:%@",params.orderNum]];
-    [_unfoldView addSubview:_orderNumLabel];
-    
-    _orderStatusLabel = [[UILabel alloc]initWithFrame:CGRectMake(controlXLength(_orderNumLabel), _orderNumLabel.frame.origin.y, _orderNumLabel.frame.size.width, _orderNumLabel.frame.size.height)];
-    [_orderStatusLabel setBackgroundColor:color(clearColor)];
-    [_orderStatusLabel setFont:[UIFont systemFontOfSize:12]];
-    [_orderStatusLabel setText:[NSString stringWithFormat:@"订单状态:"]];
-    [_unfoldView addSubview:_orderStatusLabel];
-    
-    _payType = [[UILabel alloc]initWithFrame:CGRectMake(_orderNumLabel.frame.origin.x, controlYLength(_orderNumLabel), _unfoldView.frame.size.width - 20, _orderNumLabel.frame.size.height)];
-    [_payType setBackgroundColor:color(clearColor)];
-    [_payType setFont:[UIFont systemFontOfSize:12]];
-    [_payType setText:[NSString stringWithFormat:@"前台现付"]];
-    [_unfoldView addSubview:_payType];
-    
-    _orderType = [[UILabel alloc]initWithFrame:CGRectMake(_payType.frame.origin.x, controlYLength(_payType), _payType.frame.size.width, _payType.frame.size.height)];
-    [_orderType setBackgroundColor:color(clearColor)];
-    [_orderType setText:[NSString stringWithFormat:@"2间房 入住3晚 ￥1020"]];
-    [_orderType setFont:[UIFont systemFontOfSize:12]];
-    [_unfoldView addSubview:_orderType];
-    
-    [_unfoldView addSubview:[self createLineWithFrame:CGRectMake(_orderType.frame.origin.x, controlYLength(_orderType), _orderType.frame.size.width, 1.5)]];
-    
-    UILabel *unPassengersLabel = [[UILabel alloc]initWithFrame:CGRectMake(_orderNumLabel.frame.origin.x, controlYLength(_orderType), _orderNumLabel.frame.size.width, _orderNumLabel.frame.size.height)];
-    [unPassengersLabel setBackgroundColor:color(clearColor)];
-    [unPassengersLabel setText:@"入住人:"];
-    [unPassengersLabel setFont:[UIFont systemFontOfSize:12]];
-    [_unfoldView addSubview:unPassengersLabel];
-    
-    [_itemArray removeAllObjects];
-    NSArray *array = params.passengers;
-    for (int i = 0;i<[array count];i++) {
-        CommonlyName *detail = [array objectAtIndex:i];
-        //AirOrderDetailCellItem *item = [[AirOrderDetailCellItem alloc]initWithFrame:CGRectMake(_orderType.frame.origin.x, controlYLength(unPassengersLabel) + HotelItemHeight * i, _orderType.frame.size.width, HotelItemHeight)];
-        UIView *view = [self createCellItemWithParams:detail frame:CGRectMake(_orderType.frame.origin.x, controlYLength(unPassengersLabel) + HotelItemHeight * i, _orderType.frame.size.width, HotelItemHeight)];
-        //[item setContentWithParams:detail];
-        [_unfoldView addSubview:view];
-        [_itemArray addObject:view];
-    }
-    
-    [_unfoldView addSubview:[self createLineWithFrame:CGRectMake(_orderType.frame.origin.x, controlYLength(unPassengersLabel) + HotelItemHeight * [array count], _orderType.frame.size.width, 1.5)]];
-    
-    UILabel *contactsLabel = [[UILabel alloc]initWithFrame:CGRectMake(_payType.frame.origin.x, controlYLength(unPassengersLabel) + HotelItemHeight * [array count], _payType.frame.size.width, _payType.frame.size.height)];
-    [contactsLabel setBackgroundColor:color(clearColor)];
-    [contactsLabel setText:@"联系人:"];
-    [contactsLabel setFont:[UIFont systemFontOfSize:12]];
-    [_unfoldView addSubview:contactsLabel];
-    
-    _nameLabel = [[UILabel alloc]initWithFrame:CGRectMake(_payType.frame.origin.x, controlYLength(contactsLabel), _payType.frame.size.width/3, _payType.frame.size.height)];
-    [_nameLabel setBackgroundColor:color(clearColor)];
-    [_nameLabel setText:@"那谁谁"];
-    [_nameLabel setFont:[UIFont systemFontOfSize:12]];
-    [_unfoldView addSubview:_nameLabel];
-    
-    _phoneLabel = [[UILabel alloc]initWithFrame:CGRectMake(controlXLength(_nameLabel), _nameLabel.frame.origin.y, _payType.frame.size.width * 2/3, _payType.frame.size.height)];
-    [_phoneLabel setBackgroundColor:color(clearColor)];
-    [_phoneLabel setText:@"电话号码:"];
-    [_phoneLabel setFont:[UIFont systemFontOfSize:12]];
-    [_unfoldView addSubview:_phoneLabel];
-    
-    UIImageView *line = [[UIImageView alloc]initWithFrame:CGRectMake(0, controlYLength(_nameLabel), _unfoldView.frame.size.width, 0.5)];
-    [line setBackgroundColor:color(lightGrayColor)];
-    [line setAlpha:0.5];
-    [_unfoldView addSubview:line];
-    
-    _cancleBtn = [CustomBtn buttonWithType:UIButtonTypeCustom];
-    [_cancleBtn setBackgroundColor:color(clearColor)];
-    [_cancleBtn setFrame:CGRectMake(_unfoldView.frame.size.width/(5 * 3), 10 + controlYLength(line), _unfoldView.frame.size.width * 2/5 - 20, 30)];
-    [_cancleBtn setTitle:@"取消订单" forState:UIControlStateNormal];
-    [_cancleBtn setTitleColor:color(blackColor) forState:UIControlStateNormal];
-    [_cancleBtn.titleLabel setFont:[UIFont systemFontOfSize:13]];
-    [_cancleBtn setBackgroundImage:imageNameAndType(@"order_cancle", nil) forState:UIControlStateNormal];
-    [_unfoldView addSubview:_cancleBtn];
-    
-    _doneBtn = [CustomBtn buttonWithType:UIButtonTypeCustom];
-    [_doneBtn setBackgroundColor:color(clearColor)];
-    [_doneBtn setFrame:CGRectMake(_unfoldView.frame.size.width - controlXLength(_cancleBtn), _cancleBtn.frame.origin.y, _cancleBtn.frame.size.width, _cancleBtn.frame.size.height)];
-    [_doneBtn setTitle:@"重新支付" forState:UIControlStateNormal];
-    [_doneBtn setTitleColor:color(blackColor) forState:UIControlStateNormal];
-    [_doneBtn.titleLabel setFont:[UIFont systemFontOfSize:13]];
-    [_doneBtn setBackgroundImage:imageNameAndType(@"hotel_done_nromal", nil) forState:UIControlStateNormal];
-    [_doneBtn setBackgroundImage:imageNameAndType(@"hotel_done_press", nil) forState:UIControlStateHighlighted];
-    [_doneBtn setBackgroundImage:imageNameAndType(@"hotel_done_press", nil) forState:UIControlStateSelected];
-    [_unfoldView addSubview:_doneBtn];
-    
-    [_unfoldView setFrame:CGRectMake(_unfoldView.frame.origin.x, _unfoldView.frame.origin.y, _unfoldView.frame.size.width, controlYLength(_cancleBtn) + 10)];
-    [_unfoldView setHidden:YES];
-    
-    UIImageView *unfoldBackImage = [[UIImageView alloc]initWithFrame:_unfoldView.bounds];
-    [unfoldBackImage setBackgroundColor:color(colorWithRed:242.0/255.0 green:244.0/255.0 blue:247.0/255.0 alpha:1)];
-    [unfoldBackImage setBorderColor:color(lightGrayColor) width:1];
-    [unfoldBackImage setAlpha:0.5];
-    [_unfoldView insertSubview:unfoldBackImage belowSubview:subjoinImageView];
-    
-}
+//- (void)setSubjoinViewFrameWithPrarams:(HotelDataCache*)params
+//{
+//    UIView *prevView = [self.contentView viewWithTag:300];
+//    
+//    _unfoldView = [[UIView alloc]initWithFrame:CGRectMake(10, controlYLength(prevView), AirOrderCellWidth - 20, 0)];
+//    [_unfoldView setBackgroundColor:color(clearColor)];
+//    [self.contentView addSubview:_unfoldView];
+//    
+//    UIImageView *subjoinImageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, _unfoldView.frame.size.width, 15)];
+//    [subjoinImageView setBackgroundColor:color(clearColor)];
+//    [subjoinImageView setImage:imageNameAndType(@"shadow", nil)];
+//    [_unfoldView addSubview:subjoinImageView];
+//    
+//    _orderNumLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, controlYLength(subjoinImageView), _unfoldView.frame.size.width/2, 30)];
+//    [_orderNumLabel setBackgroundColor:color(clearColor)];
+//    [_orderNumLabel setFont:[UIFont systemFontOfSize:12]];
+//    [_orderNumLabel setText:[NSString stringWithFormat:@"订单号:%@",params.orderNum]];
+//    [_unfoldView addSubview:_orderNumLabel];
+//    
+//    _orderStatusLabel = [[UILabel alloc]initWithFrame:CGRectMake(controlXLength(_orderNumLabel), _orderNumLabel.frame.origin.y, _orderNumLabel.frame.size.width, _orderNumLabel.frame.size.height)];
+//    [_orderStatusLabel setBackgroundColor:color(clearColor)];
+//    [_orderStatusLabel setFont:[UIFont systemFontOfSize:12]];
+//    [_orderStatusLabel setText:[NSString stringWithFormat:@"订单状态:"]];
+//    [_unfoldView addSubview:_orderStatusLabel];
+//    
+//    _payType = [[UILabel alloc]initWithFrame:CGRectMake(_orderNumLabel.frame.origin.x, controlYLength(_orderNumLabel), _unfoldView.frame.size.width - 20, _orderNumLabel.frame.size.height)];
+//    [_payType setBackgroundColor:color(clearColor)];
+//    [_payType setFont:[UIFont systemFontOfSize:12]];
+//    [_payType setText:[NSString stringWithFormat:@"前台现付"]];
+//    [_unfoldView addSubview:_payType];
+//    
+//    _orderType = [[UILabel alloc]initWithFrame:CGRectMake(_payType.frame.origin.x, controlYLength(_payType), _payType.frame.size.width, _payType.frame.size.height)];
+//    [_orderType setBackgroundColor:color(clearColor)];
+//    [_orderType setText:[NSString stringWithFormat:@"2间房 入住3晚 ￥1020"]];
+//    [_orderType setFont:[UIFont systemFontOfSize:12]];
+//    [_unfoldView addSubview:_orderType];
+//    
+//    [_unfoldView addSubview:[self createLineWithFrame:CGRectMake(_orderType.frame.origin.x, controlYLength(_orderType), _orderType.frame.size.width, 1.5)]];
+//    
+//    UILabel *unPassengersLabel = [[UILabel alloc]initWithFrame:CGRectMake(_orderNumLabel.frame.origin.x, controlYLength(_orderType), _orderNumLabel.frame.size.width, _orderNumLabel.frame.size.height)];
+//    [unPassengersLabel setBackgroundColor:color(clearColor)];
+//    [unPassengersLabel setText:@"入住人:"];
+//    [unPassengersLabel setFont:[UIFont systemFontOfSize:12]];
+//    [_unfoldView addSubview:unPassengersLabel];
+//    
+//    [_itemArray removeAllObjects];
+//    NSArray *array = params.passengers;
+//    for (int i = 0;i<[array count];i++) {
+//        CommonlyName *detail = [array objectAtIndex:i];
+//        //AirOrderDetailCellItem *item = [[AirOrderDetailCellItem alloc]initWithFrame:CGRectMake(_orderType.frame.origin.x, controlYLength(unPassengersLabel) + HotelItemHeight * i, _orderType.frame.size.width, HotelItemHeight)];
+//        UIView *view = [self createCellItemWithParams:detail frame:CGRectMake(_orderType.frame.origin.x, controlYLength(unPassengersLabel) + HotelItemHeight * i, _orderType.frame.size.width, HotelItemHeight)];
+//        //[item setContentWithParams:detail];
+//        [_unfoldView addSubview:view];
+//        [_itemArray addObject:view];
+//    }
+//    
+//    [_unfoldView addSubview:[self createLineWithFrame:CGRectMake(_orderType.frame.origin.x, controlYLength(unPassengersLabel) + HotelItemHeight * [array count], _orderType.frame.size.width, 1.5)]];
+//    
+//    UILabel *contactsLabel = [[UILabel alloc]initWithFrame:CGRectMake(_payType.frame.origin.x, controlYLength(unPassengersLabel) + HotelItemHeight * [array count], _payType.frame.size.width, _payType.frame.size.height)];
+//    [contactsLabel setBackgroundColor:color(clearColor)];
+//    [contactsLabel setText:@"联系人:"];
+//    [contactsLabel setFont:[UIFont systemFontOfSize:12]];
+//    [_unfoldView addSubview:contactsLabel];
+//    
+//    _nameLabel = [[UILabel alloc]initWithFrame:CGRectMake(_payType.frame.origin.x, controlYLength(contactsLabel), _payType.frame.size.width/3, _payType.frame.size.height)];
+//    [_nameLabel setBackgroundColor:color(clearColor)];
+//    [_nameLabel setText:@"那谁谁"];
+//    [_nameLabel setFont:[UIFont systemFontOfSize:12]];
+//    [_unfoldView addSubview:_nameLabel];
+//    
+//    _phoneLabel = [[UILabel alloc]initWithFrame:CGRectMake(controlXLength(_nameLabel), _nameLabel.frame.origin.y, _payType.frame.size.width * 2/3, _payType.frame.size.height)];
+//    [_phoneLabel setBackgroundColor:color(clearColor)];
+//    [_phoneLabel setText:@"电话号码:"];
+//    [_phoneLabel setFont:[UIFont systemFontOfSize:12]];
+//    [_unfoldView addSubview:_phoneLabel];
+//    
+//    UIImageView *line = [[UIImageView alloc]initWithFrame:CGRectMake(0, controlYLength(_nameLabel), _unfoldView.frame.size.width, 0.5)];
+//    [line setBackgroundColor:color(lightGrayColor)];
+//    [line setAlpha:0.5];
+//    [_unfoldView addSubview:line];
+//    
+//    _cancleBtn = [CustomBtn buttonWithType:UIButtonTypeCustom];
+//    [_cancleBtn setBackgroundColor:color(clearColor)];
+//    [_cancleBtn setFrame:CGRectMake(_unfoldView.frame.size.width/(5 * 3), 10 + controlYLength(line), _unfoldView.frame.size.width * 2/5 - 20, 30)];
+//    [_cancleBtn setTitle:@"取消订单" forState:UIControlStateNormal];
+//    [_cancleBtn setTitleColor:color(blackColor) forState:UIControlStateNormal];
+//    [_cancleBtn.titleLabel setFont:[UIFont systemFontOfSize:13]];
+//    [_cancleBtn setBackgroundImage:imageNameAndType(@"order_cancle", nil) forState:UIControlStateNormal];
+//    [_unfoldView addSubview:_cancleBtn];
+//    
+//    _doneBtn = [CustomBtn buttonWithType:UIButtonTypeCustom];
+//    [_doneBtn setBackgroundColor:color(clearColor)];
+//    [_doneBtn setFrame:CGRectMake(_unfoldView.frame.size.width - controlXLength(_cancleBtn), _cancleBtn.frame.origin.y, _cancleBtn.frame.size.width, _cancleBtn.frame.size.height)];
+//    [_doneBtn setTitle:@"重新支付" forState:UIControlStateNormal];
+//    [_doneBtn setTitleColor:color(blackColor) forState:UIControlStateNormal];
+//    [_doneBtn.titleLabel setFont:[UIFont systemFontOfSize:13]];
+//    [_doneBtn setBackgroundImage:imageNameAndType(@"hotel_done_nromal", nil) forState:UIControlStateNormal];
+//    [_doneBtn setBackgroundImage:imageNameAndType(@"hotel_done_press", nil) forState:UIControlStateHighlighted];
+//    [_doneBtn setBackgroundImage:imageNameAndType(@"hotel_done_press", nil) forState:UIControlStateSelected];
+//    [_unfoldView addSubview:_doneBtn];
+//    
+//    [_unfoldView setFrame:CGRectMake(_unfoldView.frame.origin.x, _unfoldView.frame.origin.y, _unfoldView.frame.size.width, controlYLength(_cancleBtn) + 10)];
+//    [_unfoldView setHidden:YES];
+//    
+//    UIImageView *unfoldBackImage = [[UIImageView alloc]initWithFrame:_unfoldView.bounds];
+//    [unfoldBackImage setBackgroundColor:color(colorWithRed:242.0/255.0 green:244.0/255.0 blue:247.0/255.0 alpha:1)];
+//    [unfoldBackImage setBorderColor:color(lightGrayColor) width:1];
+//    [unfoldBackImage setAlpha:0.5];
+//    [_unfoldView insertSubview:unfoldBackImage belowSubview:subjoinImageView];
+
+//}
 
 - (UIView*)createCellItemWithParams:(CommonlyName*)detail frame:(CGRect)frame
 {
@@ -303,17 +303,17 @@
         if (_unfoldView) {
             [_unfoldView removeFromSuperview];
         }
-        [self setSubjoinViewFrameWithPrarams:_hotelDetail];
+//        [self setSubjoinViewFrameWithPrarams:_hotelDetail];
     }
     
     [_rightArrow setHighlighted:show];
     [_unfoldView setHidden:!show];
 }
 
-- (void)setViewContentWithParams:(HotelOrderDetail*)params
-{
-    [_rightArrow setHighlighted:params.unfold];
-}
+//- (void)setViewContentWithParams:(HotelOrderDetail*)params
+//{
+//    [_rightArrow setHighlighted:params.unfold];
+//}
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
 {

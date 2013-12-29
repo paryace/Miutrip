@@ -9,7 +9,7 @@
 #import "HotelCantonViewController.h"
 #import "GetHotelDistrictsRequest.h"
 #import "GetHotelDistrictsResponse.h"
-#import "HotelOrderDetail.h"
+#import "HotelDataCache.h"
 
 @interface HotelCantonViewController ()
 
@@ -108,9 +108,9 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSDictionary *data = [_cantonData objectAtIndex:indexPath.row];
-    HotelOrderDetail *hotelData = [HotelOrderDetail sharedInstance];
-    hotelData.hotelLocation = [data objectForKey:@"DistrictName"];
-    hotelData.hotelCaontonId = [[data objectForKey:@"ID"] intValue];
+    HotelDataCache *hotelData = [HotelDataCache sharedInstance];
+    hotelData.queryCantonName = [data objectForKey:@"DistrictName"];
+    hotelData.queryCantonId = [[data objectForKey:@"ID"] intValue];
     [self dismissViewControllerAnimated:NO completion:nil];
 }
 

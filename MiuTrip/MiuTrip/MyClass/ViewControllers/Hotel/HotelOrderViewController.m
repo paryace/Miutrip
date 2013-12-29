@@ -7,6 +7,11 @@
 //
 
 #import "HotelOrderViewController.h"
+#import "HotelDataCache.h"
+#import "HotelCustomerModel.h"
+#import "GetContactRequest.h"
+#import "GetContactResponse.h"
+
 
 @interface HotelOrderViewController ()
 
@@ -18,7 +23,8 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        [self setUpChildView];
+        [self initParams];
+        [self initView];
     }
     return self;
 }
@@ -26,30 +32,63 @@
 -(id)init{
     self = [super init];
     if (self) {
-        [self setUpChildView];
+        [self initParams];
+        [self initView];
     }
     return self;
 }
 
-- (void)setUpChildView{
+-(void)initParams{
+    NSMutableArray *array = [[NSMutableArray alloc] init];
+    for(int i=0;i<=23;i++){
+        [array addObject:[NSString stringWithFormat:@"%d:00",i]];
+    }
+    _arriveTimeArray = array;
     
+    HotelDataCache *data = [HotelDataCache sharedInstance];
+    
+    NSArray *pricePolicies = [data.selectedRoomData objectForKey:@"PricePolicies"];
+    NSDictionary *priceDic = [pricePolicies objectAtIndex:0];
+    NSArray *priceInfos = [priceDic objectForKey:@"PriceInfos"];
+    NSDictionary *roomPriceDic = [priceInfos objectAtIndex:0];
+    _roomPrice = [[roomPriceDic objectForKey:@"SalePrice"]intValue];
+    
+    NSMutableArray *customers = data.customers;
+    if(!customers){
+        data.customers = [[NSMutableArray alloc] init];
+    }
+    
+    if(data.isForSelf){
+        HotelCustomerModel *customer = [[HotelCustomerModel alloc] init];
+        customer.name = [UserDefaults shareUserDefault].loginInfo.UserName;
+        customer.apportionRate = 1;
+        [customers addObject:customer];
+    }
+}
+
+-(void) initView{
     [self.contentView setBackgroundColor:UIColorFromRGB(0xffe9e9e9)];
     [self addTitleWithTitle:@"填写订单"];
+    [self addLoadingView];
+    [self getContacts];
+}
+
+- (void)addChildView{
     
     float width = self.contentView.frame.size.width;
     
-    UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0,40,width,600)];
+    UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0,40,width,660)];
+    scrollView.tag = 1000;
+    scrollView.delaysContentTouches = NO;
     [self.contentView addSubview:scrollView];
-    
-    UIView *view  = [[UIView alloc] init];
-    [scrollView addSubview:view];
     
     
     UILabel *infoTitle = [[UILabel alloc] initWithFrame:CGRectMake(15, 5, 150, 20)];
+    [infoTitle setBackgroundColor:color(clearColor)];
     [infoTitle setTextColor:UIColorFromRGB(0xff606c97)];
     [infoTitle setFont:[UIFont systemFontOfSize:15]];
     [infoTitle setText:@"基本信息"];
-    [view addSubview:infoTitle];
+    [scrollView addSubview:infoTitle];
     
 
     UIImageView *introBgView = [[UIImageView alloc] init];
@@ -58,159 +97,204 @@
     [introBgView setBorderColor:color(lightGrayColor) width:1.0];
     [introBgView setCornerRadius:5.0];
     [introBgView setAlpha:1.0f];
-    [view addSubview:introBgView];
+    [scrollView addSubview:introBgView];
     
-    UIView *hotelInfoView = [[UIView alloc] initWithFrame:CGRectMake(10, 25, width-20, 0)];
-    [view addSubview:hotelInfoView];
     
-    UILabel *hotelInfoTitle = [[UILabel alloc] initWithFrame:CGRectMake(6, 5, 100, 15)];
+    UILabel *hotelInfoTitle = [[UILabel alloc] initWithFrame:CGRectMake(20,30, 100, 15)];
     [hotelInfoTitle setTextColor:color(grayColor)];
     [hotelInfoTitle setFont:[UIFont systemFontOfSize:10]];
     [hotelInfoTitle setText:@"酒店信息"];
-    [hotelInfoView addSubview:hotelInfoTitle];
+    [scrollView addSubview:hotelInfoTitle];
+    
+    HotelDataCache *data = [HotelDataCache sharedInstance];
     
     //日期
-    UILabel *date = [[UILabel alloc] initWithFrame:CGRectMake(10, 20, width - 30, 20)];
+    UILabel *date = [[UILabel alloc] initWithFrame:CGRectMake(20, 45, width - 30, 20)];
+    [date setBackgroundColor:color(clearColor)];
     [date setFont:[UIFont systemFontOfSize:15]];
     [date setTextColor:color(blackColor)];
-    [date setText:@"2013年12月23日-2013年12月25日"];
-    [hotelInfoView addSubview:date];
+    NSString *checkInDateString = [NSString stringWithFormat:@"%@",[Utils stringWithDate:data.checkInDate withFormat:@"YYYY年MM月dd日"]];
+    NSString *checkOutDateString = [NSString stringWithFormat:@"%@",[Utils stringWithDate:data.checkOutDate withFormat:@"YYYY年MM月dd日"]];
+    [date setText:[NSString stringWithFormat:@"%@ - %@",checkInDateString,checkOutDateString]];
+    [scrollView addSubview:date];
     
     //酒店名称
-    UILabel *hotelName = [[UILabel alloc] initWithFrame:CGRectMake(10, 40, width - 30, 18)];
+    UILabel *hotelName = [[UILabel alloc] initWithFrame:CGRectMake(20, 65, width - 30, 18)];
+    [hotelName setBackgroundColor:color(clearColor)];
     [hotelName setFont:[UIFont systemFontOfSize:14]];
     [hotelName setTextColor:color(grayColor)];
-    [hotelName setText:@"上海航空酒店（浦东机场店）"];
-    [hotelInfoView addSubview:hotelName];
+    [hotelName setText:data.selectedHotelName];
+    [scrollView addSubview:hotelName];
     
     //房型
-    UILabel *roomName = [[UILabel alloc] initWithFrame:CGRectMake(10, 58, width - 30, 18)];
+    UILabel *roomName = [[UILabel alloc] initWithFrame:CGRectMake(20, 83, width - 30, 18)];
+    [roomName setBackgroundColor:color(clearColor)];
     [roomName setFont:[UIFont systemFontOfSize:14]];
     [roomName setTextColor:color(grayColor)];
-    [roomName setText:@"豪华大床房"];
-    [hotelInfoView addSubview:roomName];
+    [roomName setText:[data.selectedRoomData objectForKey:@"roomName"]];
+    [scrollView addSubview:roomName];
     
-    UIView *line1 = [[UIView alloc] initWithFrame:CGRectMake(0, 78, width-20, 1)];
+    UIView *line1 = [[UIView alloc] initWithFrame:CGRectMake(10, 103, width-20, 1)];
     [line1  setBackgroundColor:color(lightGrayColor)];
-    [hotelInfoView addSubview:line1];
+    [scrollView addSubview:line1];
     
-    UILabel *executorTitle = [[UILabel alloc] initWithFrame:CGRectMake(6, 80, 100, 15)];
-    [executorTitle setTextColor:color(grayColor)];
-    [executorTitle setFont:[UIFont systemFontOfSize:10]];
-    [executorTitle setText:@"政策执行人"];
-    [hotelInfoView addSubview:executorTitle];
+    float y = 105;
+    int firstSectionHeight = 245;
     
-    //政策执行人
-    UILabel *executor = [[UILabel alloc] initWithFrame:CGRectMake(10, 96, width - 30, 18)];
-    [executor setTextColor:color(blackColor)];
-    [executor setFont:[UIFont systemFontOfSize:14]];
-    [executor setText:@"张三男"];
-    [hotelInfoView addSubview:executor];
+    if(data.isPrivte == NO){
+        
+        //政策执行人
+        UILabel *executorTitle = [[UILabel alloc] initWithFrame:CGRectMake(20, y, 100, 15)];
+        [executorTitle setBackgroundColor:color(clearColor)];
+        [executorTitle setTextColor:color(grayColor)];
+        [executorTitle setFont:[UIFont systemFontOfSize:10]];
+        [executorTitle setText:@"政策执行人"];
+        [scrollView addSubview:executorTitle];
+        
+        UILabel *executor = [[UILabel alloc] initWithFrame:CGRectMake(20, y+16, width - 30, 18)];
+        [executor setBackgroundColor:color(clearColor)];
+        [executor setTextColor:color(blackColor)];
+        [executor setFont:[UIFont systemFontOfSize:14]];
+        [executor setText:@"张三男"];
+        [scrollView addSubview:executor];
+        
+        UIView *line2 = [[UIView alloc] initWithFrame:CGRectMake(10, y+40, width-20, 1)];
+        [line2 setBackgroundColor:color(lightGrayColor)];
+        [scrollView addSubview:line2];
+        
+        y += 40;
+    }else{
+        firstSectionHeight -= 40;
+    }
     
-    UIView *line2 = [[UIView alloc] initWithFrame:CGRectMake(0, 120, width-20, 1)];
-    [line2 setBackgroundColor:color(lightGrayColor)];
-    [hotelInfoView addSubview:line2];
+    [introBgView setFrame:CGRectMake(10, 25, width-20, firstSectionHeight)];
+   
     
     //入住人手机
-    UILabel *mobileTitle = [[UILabel alloc] initWithFrame:CGRectMake(5, 123, 86, 40)];
+    UILabel *mobileTitle = [[UILabel alloc] initWithFrame:CGRectMake(16, y+3, 70, 40)];
+    [mobileTitle setBackgroundColor:color(clearColor)];
     [mobileTitle setTextColor:color(blackColor)];
     [mobileTitle setFont:[UIFont systemFontOfSize:13]];
     [mobileTitle setTextAlignment:NSTextAlignmentCenter];
     [mobileTitle setText:@"入住人手机"];
-    [hotelInfoView addSubview:mobileTitle];
+    [scrollView addSubview:mobileTitle];
     
-    UILabel *star1 = [[UILabel alloc] initWithFrame:CGRectMake(81, 123, 10, 40)];
+    UILabel *star1 = [[UILabel alloc] initWithFrame:CGRectMake(88, y+3, 10, 40)];
+    [star1 setBackgroundColor:color(clearColor)];
     [star1 setTextColor:color(redColor)];
     [star1 setFont:[UIFont systemFontOfSize:13]];
     [star1 setText:@"*"];
-    [hotelInfoView addSubview:star1];
+    [scrollView addSubview:star1];
     
-    UIView *line3 = [[UIView alloc] initWithFrame:CGRectMake(100, 121, 1, 42)];
+    UIView *line3 = [[UIView alloc] initWithFrame:CGRectMake(100, y+1, 1, 42)];
     [line3 setBackgroundColor:color(lightGrayColor)];
-    [hotelInfoView addSubview:line3];
+    [scrollView addSubview:line3];
     
-    UITextField *customerMobile = [[UITextField alloc] initWithFrame:CGRectMake(105, 124, width - 130, 34)];
+    UITextField *customerMobile = [[UITextField alloc] initWithFrame:CGRectMake(105, y+4, width - 130, 34)];
     [customerMobile setTextColor:color(blackColor)];
     [customerMobile setBorderStyle:UITextBorderStyleRoundedRect];
     [customerMobile setFont:[UIFont systemFontOfSize:14]];
-    [hotelInfoView addSubview:customerMobile];
+    [scrollView addSubview:customerMobile];
     
-    //到点时间
-    UIView *line4 = [[UIView alloc] initWithFrame:CGRectMake(0, 163, width - 20, 1)];
+    y += 40;
+    
+    //到店时间
+    UIView *line4 = [[UIView alloc] initWithFrame:CGRectMake(11, y+3, width - 22, 1)];
     [line4 setBackgroundColor:color(grayColor)];
-    [hotelInfoView addSubview:line4];
+    [scrollView addSubview:line4];
     
-    UILabel *arriveTimeTitle = [[UILabel alloc] initWithFrame:CGRectMake(5, 164, 86, 40)];
+    UILabel *arriveTimeTitle = [[UILabel alloc] initWithFrame:CGRectMake(15, y+4, 60, 40)];
+    [arriveTimeTitle setBackgroundColor:color(clearColor)];
     [arriveTimeTitle setTextColor:color(blackColor)];
     [arriveTimeTitle setFont:[UIFont systemFontOfSize:13]];
     [arriveTimeTitle setTextAlignment:NSTextAlignmentCenter];
     [arriveTimeTitle setText:@"到店时间"];
-    [hotelInfoView addSubview:arriveTimeTitle];
+    [scrollView addSubview:arriveTimeTitle];
     
-    UILabel *star2 = [[UILabel alloc] initWithFrame:CGRectMake(81, 164, 10, 40)];
+    UILabel *star2 = [[UILabel alloc] initWithFrame:CGRectMake(75, y+4, 10, 40)];
     [star2 setTextColor:color(redColor)];
     [star2 setFont:[UIFont systemFontOfSize:13]];
     [star2 setText:@"*"];
-    [hotelInfoView addSubview:star2];
+    [scrollView addSubview:star2];
     
-    UILabel *arriveTime = [[UILabel alloc] initWithFrame:CGRectMake(100, 164, width - 140, 40)];
+    UILabel *arriveTime = [[UILabel alloc] initWithFrame:CGRectMake(110, y+4, width - 140, 40)];
     [arriveTime setTextColor:color(blackColor)];
     [arriveTime setFont:[UIFont systemFontOfSize:14]];
-    [hotelInfoView addSubview:arriveTime];
+    [scrollView addSubview:arriveTime];
     
     UIImageView *arrow1 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"arrow.png"]];
-    [arrow1 setFrame:CGRectMake(width - 38, 171, 12, 18)];
-    [hotelInfoView addSubview:arrow1];
+    [arrow1 setFrame:CGRectMake(width - 28, y+15, 12, 18)];
+    [scrollView addSubview:arrow1];
     
-    UIView *line5 = [[UIView alloc] initWithFrame:CGRectMake(0, 203, width - 20, 1)];
+    UIButton *arriveTimebtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [arriveTimebtn setFrame:CGRectMake(0, y+3, width-20, 40)];
+    arriveTimebtn.tag = 1001;
+    [arriveTimebtn addTarget:self action:@selector(onBtnPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [scrollView addSubview:arriveTimebtn];
+    
+    y += 40;
+    
+    UIView *line5 = [[UIView alloc] initWithFrame:CGRectMake(11, y+3, width - 22, 1)];
     [line5 setBackgroundColor:color(lightGrayColor)];
-    [hotelInfoView addSubview:line5];
+    [scrollView addSubview:line5];
     
     //房间数量
-    UILabel *roomCountTitle = [[UILabel alloc] initWithFrame:CGRectMake(5, 204, 86, 40)];
+    UILabel *roomCountTitle = [[UILabel alloc] initWithFrame:CGRectMake(15, y+4, 60, 40)];
+    [roomCountTitle setBackgroundColor:color(clearColor)];
     [roomCountTitle setTextColor:color(blackColor)];
     [roomCountTitle setFont:[UIFont systemFontOfSize:13]];
     [roomCountTitle setTextAlignment:NSTextAlignmentCenter];
     [roomCountTitle setText:@"房间数量"];
-    [hotelInfoView addSubview:roomCountTitle];
+    [scrollView addSubview:roomCountTitle];
     
-    UILabel *star3 = [[UILabel alloc] initWithFrame:CGRectMake(81, 204, 10, 40)];
+    UILabel *star3 = [[UILabel alloc] initWithFrame:CGRectMake(75, y+4, 10, 40)];
     [star3 setTextColor:color(redColor)];
     [star3 setFont:[UIFont systemFontOfSize:13]];
     [star3 setText:@"*"];
-    [hotelInfoView addSubview:star3];
+    [scrollView addSubview:star3];
     
-    UILabel *roomCount = [[UILabel alloc] initWithFrame:CGRectMake(100, 204, width - 140, 34)];
+    UILabel *roomCount = [[UILabel alloc] initWithFrame:CGRectMake(100, y+4, width - 140, 34)];
     [roomCount setTextColor:color(blackColor)];
     [roomCount setFont:[UIFont systemFontOfSize:14]];
-    [hotelInfoView addSubview:roomCount];
+    [scrollView addSubview:roomCount];
     
     UIImageView *arrow2 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"arrow.png"]];
-    [arrow2 setFrame:CGRectMake(width - 38, 215, 12, 18)];
-    [hotelInfoView addSubview:arrow2];
+    [arrow2 setFrame:CGRectMake(width - 28, y+15, 12, 18)];
+    [scrollView addSubview:arrow2];
+    
+    UIButton *roomCountbtn = [[UIButton alloc] initWithFrame:CGRectMake(0, y+3, width - 20, 40)];
+    roomCountbtn.tag = 1002;
+    [roomCountbtn addTarget:self action:@selector(onBtnPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [scrollView addSubview:roomCountbtn];
+    
+    y += 60;
     
     //费用结算
-    UILabel *costTitle = [[UILabel alloc] initWithFrame:CGRectMake(15, 275, 150, 18)];
+    UILabel *costTitle = [[UILabel alloc] initWithFrame:CGRectMake(15, y+15, 150, 18)];
+    [costTitle setBackgroundColor:color(clearColor)];
     [costTitle setTextColor:UIColorFromRGB(0xff606c97)];
     [costTitle setFont:[UIFont systemFontOfSize:15]];
     [costTitle setText:@"费用结算"];
-    [view addSubview:costTitle];
+    [scrollView addSubview:costTitle];
     
     UIImageView *costBg = [[UIImageView alloc] init];
-    [costBg setFrame:CGRectMake(10, 298, width-20, 115)];
+    [costBg setFrame:CGRectMake(10, y+38, width-20, 125)];
     [costBg setBackgroundColor:color(whiteColor)];
     [costBg setBorderColor:color(lightGrayColor) width:1.0];
     [costBg setCornerRadius:5.0];
     [costBg setAlpha:1.0f];
-    [view addSubview:costBg];
+    [scrollView addSubview:costBg];
     
-    UIView *costView = [[UIView alloc] initWithFrame:CGRectMake(10, 298, width-20, 0)];
-    [view addSubview:costView];
+    UIView *costView = [[UIView alloc] initWithFrame:CGRectMake(10, y+40, width-20, 0)];
+    [scrollView addSubview:costView];
 
-    UILabel *orderAmount = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 100, 30)];
+    UILabel *orderAmount = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 200, 30)];
+    [orderAmount setBackgroundColor:color(clearColor)];
     [orderAmount setFont:[UIFont systemFontOfSize:13]];
     [orderAmount setTextColor:color(grayColor)];
-    [orderAmount setText:@"订单总额："];
+    
+    NSString *orderAmountText = [NSString stringWithFormat:@"订单总额：￥%d",_roomPrice];
+    [orderAmount setText:orderAmountText];
     [costView addSubview:orderAmount];
     
     UIColor *costBgColor = [UIColor colorWithPatternImage: [UIImage imageNamed:@"bg_hotel_cost.png"]];
@@ -218,21 +302,24 @@
     [consumerTitle setBackgroundColor:costBgColor];
     [costView addSubview:consumerTitle];
 
-    UILabel *consumerNameTitle = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, (width-20)/3, 35)];
+    UILabel *consumerNameTitle = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, (width-20)/4, 35)];
+    [consumerNameTitle setBackgroundColor:color(clearColor)];
     [consumerNameTitle setFont:[UIFont systemFontOfSize:12]];
     [consumerNameTitle setTextAlignment:NSTextAlignmentCenter];
     [consumerNameTitle setTextColor:color(whiteColor)];
     [consumerNameTitle setText:@"入住人"];
     [consumerTitle addSubview:consumerNameTitle];
     
-    UILabel *costCenterTitle = [[UILabel alloc] initWithFrame:CGRectMake((width-20)/3, 0, (width-20)/3, 35)];
+    UILabel *costCenterTitle = [[UILabel alloc] initWithFrame:CGRectMake((width-20)/4, 0, (width-20)/4, 35)];
+    [costCenterTitle setBackgroundColor:color(clearColor)];
     [costCenterTitle setFont:[UIFont systemFontOfSize:12]];
     [costCenterTitle setTextColor:color(whiteColor)];
     [costCenterTitle setTextAlignment:NSTextAlignmentCenter];
     [costCenterTitle setText:@"成本中心"];
     [consumerTitle addSubview:costCenterTitle];
     
-    UILabel *costApportionTitle = [[UILabel alloc] initWithFrame:CGRectMake((width-20)/3*2, 0, (width-20)/3, 35)];
+    UILabel *costApportionTitle = [[UILabel alloc] initWithFrame:CGRectMake((width-20)/4*2, 0, (width-20)-(width-20)/4*2, 35)];
+    [costApportionTitle setBackgroundColor:color(clearColor)];
     [costApportionTitle setFont:[UIFont systemFontOfSize:12]];
     [costApportionTitle setTextColor:color(whiteColor)];
     [costApportionTitle setTextAlignment:NSTextAlignmentCenter];
@@ -240,29 +327,35 @@
     [consumerTitle addSubview:costApportionTitle];
     
     UITableView *tableView = [[UITableView alloc] initWithFrame:CGRectMake(1, 75, width - 22, 40)];
+    tableView.dataSource = self;
+    tableView.delegate = self;
+    tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [costView addSubview:tableView];
     
+    y += 168;
     
     //填写联系人
-    UILabel *contactorTitle = [[UILabel alloc] initWithFrame:CGRectMake(15, 420, 150, 18)];
+    UILabel *contactorTitle = [[UILabel alloc] initWithFrame:CGRectMake(15, y+5, 150, 18)];
+    [contactorTitle setBackgroundColor:color(clearColor)];
     [contactorTitle setTextColor:UIColorFromRGB(0xff606c97)];
     [contactorTitle setFont:[UIFont systemFontOfSize:15]];
     [contactorTitle setText:@"填写联系人"];
-    [view addSubview:contactorTitle];
+    [scrollView addSubview:contactorTitle];
     
     UIImageView *contactorBg = [[UIImageView alloc] init];
-    [contactorBg setFrame:CGRectMake(10, 440, width-20, 81)];
+    [contactorBg setFrame:CGRectMake(10, y+30, width-20, 81)];
     [contactorBg setBackgroundColor:color(whiteColor)];
     [contactorBg setBorderColor:color(lightGrayColor) width:1.0];
     [contactorBg setCornerRadius:5.0];
     [contactorBg setAlpha:1.0f];
-    [view addSubview:contactorBg];
+    [scrollView addSubview:contactorBg];
     
     
-    UIView *contactorView = [[UIView alloc] initWithFrame:CGRectMake(10, 440, width-20, 81)];
-    [view addSubview:contactorView];
+    UIView *contactorView = [[UIView alloc] initWithFrame:CGRectMake(10, y+31, width-20, 81)];
+    [scrollView addSubview:contactorView];
     
     UILabel *nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 60, 40)];
+    [nameLabel setBackgroundColor:color(clearColor)];
     [nameLabel setTextColor:color(grayColor)];
     [nameLabel setFont:[UIFont systemFontOfSize:13]];
     [nameLabel setTextAlignment:NSTextAlignmentCenter];
@@ -270,31 +363,47 @@
     [contactorView addSubview:nameLabel];
     
     UILabel *mobileLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 41, 60, 40)];
+    [mobileLabel setBackgroundColor:color(clearColor)];
     [mobileLabel setTextColor:color(grayColor)];
     [mobileLabel setFont:[UIFont systemFontOfSize:13]];
     [mobileLabel setTextAlignment:NSTextAlignmentCenter];
     [mobileLabel setText:@"手机"];
     [contactorView addSubview:mobileLabel];
     
-    UIView *lin6 = [[UIView alloc] initWithFrame:CGRectMake(0, 40, width-20, 1)];
+    UIView *lin6 = [[UIView alloc] initWithFrame:CGRectMake(0, 40, width-60, 1)];
     [lin6 setBackgroundColor:color(lightGrayColor)];
     [contactorView addSubview:lin6];
     
-    UIView *lin7 = [[UIView alloc] initWithFrame:CGRectMake(60, 1, 1, 80)];
+    UIView *lin7 = [[UIView alloc] initWithFrame:CGRectMake(60, 0, 1, 80)];
     [lin7 setBackgroundColor:color(lightGrayColor)];
     [contactorView addSubview:lin7];
     
-    UIView *lin8 = [[UIView alloc] initWithFrame:CGRectMake(width - 60, 1, 1, 80)];
+    UIView *lin8 = [[UIView alloc] initWithFrame:CGRectMake(width - 60, 0, 1, 80)];
     [lin8 setBackgroundColor:color(lightGrayColor)];
     [contactorView addSubview:lin8];
     
     UITextField *nameText = [[UITextField alloc] initWithFrame:CGRectMake(65, 3, width - 130, 34)];
     [nameText setBorderStyle:UITextBorderStyleRoundedRect];
+    [nameText setTextColor:color(blackColor)];
+    [nameText setFont:[UIFont systemFontOfSize:13]];
+    [nameText setText:[UserDefaults shareUserDefault].loginInfo.UserName];
     [contactorView addSubview:nameText];
     
     UITextField *mobileText = [[UITextField alloc] initWithFrame:CGRectMake(65, 44, width - 130, 34)];
     [mobileText setBorderStyle:UITextBorderStyleRoundedRect];
+    [mobileText setTextColor:color(blackColor)];
+    [mobileText setFont:[UIFont systemFontOfSize:13]];
+    [mobileText setText:[UserDefaults shareUserDefault].loginInfo.Mobilephone];
     [contactorView addSubview:mobileText];
+    
+    UIImageView *arrow6 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"arrow.png"]];
+    [arrow6 setFrame:CGRectMake(width - 46, 32, 12, 18)];
+    [contactorView addSubview:arrow6];
+    
+    UIButton *contactBtn = [[UIButton alloc] initWithFrame:CGRectMake(width-60, y+31, 40, 81)];
+    contactBtn.tag = 1003;
+    [contactBtn addTarget:self action:@selector(onBtnPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [scrollView addSubview:contactBtn];
     
     
     UIButton *submitOrderBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -303,20 +412,198 @@
     [submitOrderBtn setTitleColor:color(whiteColor) forState:UIControlStateNormal];
     [submitOrderBtn.titleLabel setFont:[UIFont boldSystemFontOfSize:18]];
     [submitOrderBtn setTitle:@"提交订单" forState:UIControlStateNormal];
-    [submitOrderBtn setFrame:CGRectMake(80, 535, width-80*2, 40)];
-    [view addSubview:submitOrderBtn];
+    [submitOrderBtn setFrame:CGRectMake(80, y+130, width-80*2, 40)];
+    [scrollView addSubview:submitOrderBtn];
+}
+
+
+-(void)onBtnPressed:(UIButton*)sender{
+    int tag = sender.tag;
+    switch(tag){
+        case 1001:
+            [self showPopupListWithTitle:@"到店时间" withType:0 withData:_arriveTimeArray];
+            break;
+        case 1002:
+            [self showRoomCountPopView];
+        case 1003:
+            [self showPopupListWithTitle:@"选择联系人" withType:2 withData:_contactorArray];
+            break;
+    }
+}
+
+#pragma mark - request handle
+
+-(void) getContacts
+{
+    GetContactRequest *request = [[GetContactRequest alloc] initWidthBusinessType:BUSINESS_ACCOUNT methodName:@"GetContact"];
+    request.CorpID = [NSNumber numberWithInteger:[UserDefaults shareUserDefault].loginInfo.CorpID];
+    [self.requestManager sendRequest:request];
+}
+
+-(void)requestDone:(BaseResponseModel*)response
+{
+    GetContactResponse *contactResponse = (GetContactResponse*)response;
+    _contactorArray = contactResponse.result;
+    [self removeLoadingView];
+    [self addChildView];
+}
+
+
+-(void)showRoomCountPopView{
+     NSArray *array = [[NSArray alloc]initWithObjects:@"1", nil];
+    [self showPopupListWithTitle:@"房间数量" withType:0 withData:array];
+}
+
+- (void)showPopupListWithTitle:(NSString*)title withType:(int)type withData:(NSArray *)data{
+    
+    CGFloat xWidth = self.contentView.bounds.size.width - 20.0f;
+    CGFloat yHeight = 240;
+    CGFloat yOffset = (self.contentView.bounds.size.height - yHeight)/2.0f;
+    _popupListData = data;
+    _popupType = type;
+    UIPopoverListView *poplistview = [[UIPopoverListView alloc] initWithFrame:CGRectMake(10, yOffset, xWidth, yHeight)];
+    poplistview.delegate = self;
+    poplistview.datasource = self;
+    poplistview.listView.scrollEnabled = YES;
+    [poplistview setTitle:title];
+    [poplistview show];
+}
+
+#pragma mark - UIPopoverListViewDataSource
+- (UITableViewCell *)popoverListView:(UIPopoverListView *)popoverListView
+                    cellForIndexPath:(NSIndexPath *)indexPath
+{
+    static NSString *identifier = @"cell";
+    UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
+                                                   reuseIdentifier:identifier];
+    
+    int row = indexPath.row;
+    if(_popupType == 2){
+        NSDictionary *dic = [_popupListData objectAtIndex:row];
+        cell.textLabel.text = [NSString stringWithFormat:@"%@ %@",[dic objectForKey:@"UserName"],[dic objectForKey:@"Mobilephone"]];
+    }else{
+        cell.textLabel.text = [_popupListData objectAtIndex:row];
+    }
+    
+    return cell;
+}
+
+- (NSInteger)popoverListView:(UIPopoverListView *)popoverListView
+       numberOfRowsInSection:(NSInteger)section
+{
+    return _popupListData.count;
+}
+
+#pragma mark - UIPopoverListViewDelegate
+- (void)popoverListView:(UIPopoverListView *)popoverListView
+     didSelectIndexPath:(NSIndexPath *)indexPath
+{
+    
+}
+
+- (CGFloat)popoverListView:(UIPopoverListView *)popoverListView
+   heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 45.0f;
+}
+
+#pragma mark - Passenager tableView dataSource and delegate
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    return  1;
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return [HotelDataCache sharedInstance].customers.count;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 40;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    static NSString *cellName = @"passenagerCell";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellName];
+    customerTableViewCell *cellView = nil;
+    if(cell){
+        cellView = (customerTableViewCell *)cell;
+    }else{
+        cellView = [[customerTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellName];
+    }
+    
+    HotelCustomerModel *customer = [[HotelDataCache sharedInstance].customers objectAtIndex:indexPath.row];
+    cellView.name.text = customer.name;
+    cellView.costCenter.text = @"";
+    NSString *apportionString = nil;
+    if(customer.apportionRate == 1){
+        apportionString = [NSString stringWithFormat:@"￥%d承担全价",_roomPrice];
+    }else{
+        apportionString = [NSString stringWithFormat:@"￥%d承担半价",_roomPrice/2];
+    }
+    cellView.costApportion.text = apportionString;
+    
+    return cellView;
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 @end
+
+
+@implementation customerTableViewCell
+
+- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
+{
+    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
+    if (self) {
+        [self setUpView];
+    }
+    return self;
+}
+
+-(void)setUpView{
+    
+    int width = self.frame.size.width;
+    int height = self.frame.size.height;
+    
+    _name = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, width/4, height)];
+    [_name setBackgroundColor:color(clearColor)];
+    [_name setTextColor:color(blackColor)];
+    [_name setFont:[UIFont systemFontOfSize:13]];
+    [_name setTextAlignment:NSTextAlignmentCenter];
+    [self addSubview:_name];
+    
+    _costCenter = [[UILabel alloc] initWithFrame:CGRectMake(width/4, 0, width/4, height)];
+    [_costCenter setBackgroundColor:color(clearColor)];
+    [_costCenter setTextColor:color(blackColor)];
+    [_costCenter setFont:[UIFont systemFontOfSize:13]];
+    [_costCenter setTextAlignment:NSTextAlignmentCenter];
+    [self addSubview:_costCenter];
+    
+    int left = (width/4)*2;
+    _costApportion = [[UILabel alloc] initWithFrame:CGRectMake(left,0,width-left, height)];
+    [_costApportion setBackgroundColor:color(clearColor)];
+    [_costApportion setTextColor:color(blackColor)];
+    [_costApportion setFont:[UIFont systemFontOfSize:11]];
+    [_costApportion setTextAlignment:NSTextAlignmentCenter];
+    [self addSubview:_costApportion];
+    
+    UIImageView *arrow = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"arrow.png"]];
+    [arrow setFrame:CGRectMake(width - 40, 14, 12, 18)];
+    [self addSubview:arrow];
+    
+}
+
+@end
+

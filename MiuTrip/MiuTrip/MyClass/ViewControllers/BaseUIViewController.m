@@ -553,6 +553,11 @@
     [titleLabel setText:title];
     [titleView addSubview:titleLabel];
     
+    UIButton *backBtn = [[UIButton alloc] initWithFrame:CGRectMake(10, 3, 36, 34)];
+    [backBtn setImage:[UIImage imageNamed:@"return.png"] forState:UIControlStateNormal];
+    [backBtn setShowsTouchWhenHighlighted:YES];
+    [backBtn addTarget:self action:@selector(returnToPrevView:)forControlEvents:UIControlEventTouchUpInside];
+    [titleView addSubview:backBtn];
     [self.contentView addSubview:titleView];
 }
 

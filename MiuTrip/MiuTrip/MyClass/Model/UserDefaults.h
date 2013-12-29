@@ -7,14 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
-
-@class LoginInfoDTO;
+#import "LoginUserInfoResponse.h"
 
 @interface UserDefaults : NSObject
 
 +(UserDefaults*)shareUserDefault;
 
-@property (strong, nonatomic) LoginInfoDTO              *loginInfo;
+@property (strong, nonatomic) LoginUserInfoResponse     *loginInfo;
 
 @property (strong, nonatomic) NSString                  *userName;
 @property (strong, nonatomic) NSString                  *passWord;

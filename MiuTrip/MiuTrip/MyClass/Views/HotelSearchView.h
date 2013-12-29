@@ -7,19 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "HotelOrderDetail.h"
+#import "HotelDataCache.h"
 #import "ImageAndTextTilteView.h"
 
 @interface HotelSearchView : UIView
 
-@property (nonatomic,strong) HotelOrderDetail *data;
-@property (nonatomic,strong) NSArray *priceRangeArray;
+@property (nonatomic,strong) HotelDataCache *data;
 @property (nonatomic,strong) ImageAndTextTilteView *priceRangeView;
 @property (nonatomic,strong) ImageAndTextTilteView *hotelLoactionView;
 
--(id)initWidthFrame:(CGRect)frame widthdata:(HotelOrderDetail*)data;
-
--(void)pressHotelItemBtn:(UIButton*)sender;
+-(id)initWidthFrame:(CGRect)frame widthdata:(HotelDataCache*)data;
 
 -(void)setPriceRange:(NSString *) rangeText;
 /**

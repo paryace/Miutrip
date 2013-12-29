@@ -7,7 +7,23 @@
 //
 
 #import "BaseUIViewController.h"
+#import "UIPopoverListView.h"
 
-@interface HotelOrderViewController : BaseUIViewController
+@interface HotelOrderViewController : BaseUIViewController<UIPopoverListViewDataSource,UIPopoverListViewDelegate,
+                                     UITableViewDataSource,UITableViewDelegate>
+
+@property (strong,nonatomic) NSArray  *popupListData;
+@property (nonatomic)        int      popupType;
+@property (strong,nonatomic) NSArray  *arriveTimeArray;
+@property (nonatomic)        int      roomPrice;
+@property (nonatomic,strong) NSArray  *contactorArray;
+
+@end
+
+@interface customerTableViewCell : UITableViewCell
+
+@property (nonatomic,strong) UILabel   *name;
+@property (nonatomic,strong) UILabel   *costCenter;
+@property (nonatomic,strong) UILabel   *costApportion;
 
 @end

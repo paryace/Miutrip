@@ -7,7 +7,6 @@
 //
 
 #import "HomeViewController.h"
-#import "HotelOrderDetail.h"
 #import "AirOrderDetail.h"
 #import "HotelAndAirOrderViewController.h"
 #import "TripCareerViewController.h"
@@ -17,6 +16,7 @@
 #import "HotelListViewController.h"
 #import "ImageAndTextTilteView.h"
 #import "LoginUserInfoRequest.h"
+#import "LoginUserInfoResponse.h"
 #import "LoginInfoDTO.h"
 #import "HotelListViewController.h"
 #import "HotelCantonViewController.h"
@@ -71,7 +71,6 @@
     if (self = [super init]) {
         [self.contentView setHidden:NO];
         _moreViewUnfold = NO;
-        //[self.contentView setBackgroundColor:color(colorWithRed:236.0/255.0 green:236.0/255.0 blue:236.0/255.0 alpha:1)];
         [self.contentView setUserInteractionEnabled:YES];
         [self.contentView setBackgroundColor:color(colorWithRed:215.0/255.0 green:215.0/255.0 blue:215.0/255.0 alpha:1)];
         _btnArray = [NSMutableArray array];
@@ -80,20 +79,24 @@
     return self;
 }
 
-- (void)getUserLoginInfo
-{
-    NSString *urlString = [MiuTripURL stringByAppendingString:@"/account_1_0/GetUesrLoginInfo/api"];
-    NSDictionary *params = [[NSDictionary alloc] initWithObjectsAndKeys:[UserDefaults shareUserDefault].userName,@"uid", nil];
-    [self sendRequestWithURL:urlString params:params requestMethod:RequestPost userInfo:nil];
-//    [self.requestManager getUserLoginInfo];
-}
 
 - (void)logOff:(UIButton*)sender
 {
-//    [self.requestManager logOut];
+
 }
 
 #pragma mark - request handle
+-(void) getLoginUserInfo{
+    LoginUserInfoRequest *request = [[LoginUserInfoRequest alloc] initWidthBusinessType:BUSINESS_ACCOUNT methodName:@"GetUserLoginInfo"];
+    [self.requestManager sendRequest:request];
+}
+
+-(void)requestDone:(BaseResponseModel *)response
+{
+    LoginUserInfoResponse *userInfoResponse = (LoginUserInfoResponse *)response;
+    [UserDefaults shareUserDefault].loginInfo = userInfoResponse;
+}
+
 - (void)logOutDone
 {
     [[Model shareModel] showPromptText:@"注销成功" model:YES];
@@ -102,18 +105,9 @@
 
 - (void)requestError:(ASIHTTPRequest *)request
 {
-//    NSString *requestType = [request.userInfo objectForKey:@"requestType"];
-//    if ([requestType isEqualToString:Logout]) {
-        [self popToMainViewControllerTransitionType:TransitionPush completionHandler:nil];
-//    }
+    [self popToMainViewControllerTransitionType:TransitionPush completionHandler:nil];
 }
 
-- (void)getUserLoginInfoDone:(LoginInfoDTO*)loginInfo
-{
-//    [_userName setText:loginInfo.UserName];
-//    [_position setText:[Utils nilToEmpty:loginInfo.DeptName]];
-//    [_company setText:[Utils nilToEmpty:loginInfo.CorpName]];
-}
 
 - (void)pressSubitem:(UIButton*)sender
 {
@@ -297,11 +291,8 @@
     [segmentedControl setAlpha:0.1];
     [self.view addSubview:segmentedControl];
     
-//    [self getLoginUserInfo];
-    LoginUserInfoRequest *request = [[LoginUserInfoRequest alloc] initWidthBusinessType:BUSINESS_ACCOUNT methodName:@"GetUserLoginInfo"];
-    
-    [self.requestManager sendRequest:request];
-    
+    [self getLoginUserInfo];
+   
     [self setSubjoinViewFrame];
 
     if (![UserDefaults shareUserDefault].loginInfo) {
@@ -353,7 +344,7 @@
         
         UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:frame];
         
-        HotelOrderDetail *data = [HotelOrderDetail sharedInstance];
+        HotelDataCache *data = [HotelDataCache sharedInstance];
         
         HotelSearchView *hotelSearchView = [[HotelSearchView alloc] initWidthFrame:CGRectMake(0, 0, self.view.frame.size.width, 0) widthdata:data];
         [hotelSearchView setBackgroundColor:color(clearColor)];
@@ -411,8 +402,7 @@
 
 -(void)showPriceRangeDialog
 {
-    HotelSearchView *view = (HotelSearchView*)[self.contentView viewWithTag:2001];
-    [self showPopupListWithTitle:@"价格范围" withType:HOTEL_PRICE_RANGE withData:view.priceRangeArray];
+    [self showPopupListWithTitle:@"价格范围" withType:HOTEL_PRICE_RANGE withData:[HotelDataCache sharedInstance].priceRangeArray];
 }
 
 
@@ -1035,7 +1025,7 @@
     [super viewDidAppear:animated];
     
     HotelSearchView *hotelSearchView = (HotelSearchView*)[self.contentView viewWithTag:2001];
-    [hotelSearchView setHotelCanton:[HotelOrderDetail sharedInstance].hotelLocation];
+    [hotelSearchView setHotelCanton:[HotelDataCache sharedInstance].queryCantonName];
 }
 
 
@@ -1070,11 +1060,7 @@
 - (id)initWithParams:(NSObject*)params
 {
     if (self = [super init]) {
-        if ([params isKindOfClass:[HotelOrderDetail class]]) {
-            _hotelDetail = (HotelOrderDetail*)params;
-        }else if ([params isKindOfClass:[AirOrderDetail class]]){
-            _airDetail = (AirOrderDetail*)params;
-        }
+         _airDetail = (AirOrderDetail*)params;
         [self setSubviewFrame];
     }
     return self;

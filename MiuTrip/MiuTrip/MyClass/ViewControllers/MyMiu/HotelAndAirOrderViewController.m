@@ -7,7 +7,6 @@
 //
 
 #import "HotelAndAirOrderViewController.h"
-#import "HotelOrderDetail.h"
 #import "AirOrderDetail.h"
 #import "AirOrderDetailCell.h"
 #import "HotelOrderDetailCell.h"
@@ -40,11 +39,7 @@
 - (id)initWithOrderType:(OrderType)type
 {
     if (self = [super init]) {
-        if (type == OrderTypeAir) {
-            _dataSource = [NSMutableArray arrayWithArray:[AirOrderDetail getCommonDataWithNum:10]];
-        }else if (type == OrderTypeHotel){
-            _dataSource = [NSMutableArray arrayWithArray:[HotelOrderDetail getCommonDataWithNum:10]];
-        }
+
         _orderType = type;
         [self.contentView setHidden:NO];
         [self setSubviewFrame];
@@ -63,11 +58,8 @@
         }else
             rowHeight = AirOrderCellHeight;
     }else if (_orderType == OrderTypeHotel){
-        HotelOrderDetail *detail = [_dataSource objectAtIndex:indexPath.row];
-        if (detail.unfold) {
-            rowHeight = HotelOrderCellUnfoldHeight + HotelItemHeight * [detail.passengers count];
-        }else
-            rowHeight = HotelOrderCellHeight;
+         [_dataSource objectAtIndex:indexPath.row];
+        rowHeight = HotelOrderCellHeight;
     }else
         rowHeight = 0;
     
@@ -100,11 +92,11 @@
         [airCell unfoldViewShow:detail.unfold];
         [airCell setViewContentWithParams:detail];
     }else if (_orderType == OrderTypeHotel){
-        HotelOrderDetail *detail = [_dataSource objectAtIndex:indexPath.row];
-        HotelOrderDetailCell *hotelCell = (HotelOrderDetailCell*)cell;
-        [hotelCell setHotelDetail:detail];
-        [hotelCell unfoldViewShow:detail.unfold];
-        [hotelCell setViewContentWithParams:detail];
+//        HotelOrderDetail *detail = [_dataSource objectAtIndex:indexPath.row];
+//        HotelOrderDetailCell *hotelCell = (HotelOrderDetailCell*)cell;
+//        [hotelCell setHotelDetail:detail];
+//        [hotelCell unfoldViewShow:detail.unfold];
+//        [hotelCell setViewContentWithParams:detail];
     }
 
     
@@ -122,12 +114,12 @@
         [cell unfoldViewShow:detail.unfold];
         [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
     }else if (_orderType == OrderTypeHotel){
-        HotelOrderDetail *detail = [_dataSource objectAtIndex:indexPath.row];
-        detail.unfold = !detail.unfold;
-        
-        HotelOrderDetailCell *cell = (HotelOrderDetailCell*)[tableView cellForRowAtIndexPath:indexPath];
-        [cell.rightArrow setHighlighted:detail.unfold];
-        [cell unfoldViewShow:detail.unfold];
+//        HotelOrderDetail *detail = [_dataSource objectAtIndex:indexPath.row];
+//        detail.unfold = !detail.unfold;
+//        
+//        HotelOrderDetailCell *cell = (HotelOrderDetailCell*)[tableView cellForRowAtIndexPath:indexPath];
+//        [cell.rightArrow setHighlighted:detail.unfold];
+//        [cell unfoldViewShow:detail.unfold];
         [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
     }
 }

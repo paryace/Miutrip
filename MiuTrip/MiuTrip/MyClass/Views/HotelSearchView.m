@@ -21,12 +21,11 @@
     return self;
 }
 
--(id)initWidthFrame:(CGRect)frame widthdata:(HotelOrderDetail *)data
+-(id)initWidthFrame:(CGRect)frame widthdata:(HotelDataCache *)data
 {
     self = [super initWithFrame:frame];
     if (self) {
         _data = data;
-        _priceRangeArray = [[NSArray alloc] initWithObjects:@"不限",@"0-150元",@"151-300元",@"301-450元",@"451-600元",@"600元以上", nil];
         [self setUpView];
     }
     return self;
@@ -64,7 +63,6 @@
     UIButton *cityBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [cityBtn setFrame:cityView.frame];
     [cityBtn setTag:501];
-    [cityBtn addTarget:self action:@selector(pressHotelItemBtn:) forControlEvents:UIControlEventTouchUpInside];
     [pageHotelBottomView addSubview:cityBtn];
     
     [pageHotelBottomView addSubview:[self createLineWithFrame:CGRectMake(topItemBG.frame.origin.x, controlYLength(cityView), topItemBG.frame.size.width, 1)]];
@@ -89,14 +87,13 @@
     [title setText:dateTile];
     [checkInDateView addSubview:title];
     
-    
-    NSDate *date = [NSDate date];
+
     NSCalendar *calendar = [NSCalendar currentCalendar];
-    NSDateComponents *comps =[calendar components:(NSWeekCalendarUnit | NSWeekdayCalendarUnit |NSWeekdayOrdinalCalendarUnit) fromDate:date];
+    NSDateComponents *comps =[calendar components:(NSWeekCalendarUnit | NSWeekdayCalendarUnit |NSWeekdayOrdinalCalendarUnit) fromDate:_data.checkInDate];
     
     NSString *week = [[WeekDays componentsSeparatedByString:@","] objectAtIndex:[comps weekday] - 1];
-    NSString *year = [NSString stringWithFormat:@"%@",[Utils stringWithDate:date withFormat:@"yyyy"]];
-    NSString *mathAndDay = [NSString stringWithFormat:@"%@",[Utils stringWithDate:date withFormat:@"MM月dd日"]];
+    NSString *year = [NSString stringWithFormat:@"%@",[Utils stringWithDate:_data.checkInDate withFormat:@"yyyy"]];
+    NSString *mathAndDay = [NSString stringWithFormat:@"%@",[Utils stringWithDate:_data.checkInDate withFormat:@"MM月dd日"]];
     
     //日期
     UILabel *checkInDate = [[UILabel alloc] initWithFrame:CGRectMake(controlXLength(title)+5, 0, 70, checkInDateView.frame.size.height)];
@@ -135,7 +132,6 @@
     UIButton *checkInDateBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [checkInDateBtn setFrame:checkInDateView.frame];
     [checkInDateBtn setTag:502];
-    [checkInDateBtn addTarget:self action:@selector(pressHotelItemBtn:) forControlEvents:UIControlEventTouchUpInside];
     [pageHotelBottomView addSubview:checkInDateBtn];
     
     //line
@@ -162,13 +158,12 @@
     [checkOutDateView addSubview:coTitle];
     
     
-    NSDate *checkOutDate = [[NSDate alloc] initWithTimeIntervalSinceNow:60*60*24];
     NSCalendar *checkOutCalendar = [NSCalendar currentCalendar];
-    NSDateComponents *cocomps =[checkOutCalendar components:(NSWeekCalendarUnit | NSWeekdayCalendarUnit |NSWeekdayOrdinalCalendarUnit) fromDate:checkOutDate];
+    NSDateComponents *cocomps =[checkOutCalendar components:(NSWeekCalendarUnit | NSWeekdayCalendarUnit |NSWeekdayOrdinalCalendarUnit) fromDate:_data.checkOutDate];
     
     NSString *checkOutWeek = [[WeekDays componentsSeparatedByString:@","] objectAtIndex:[cocomps weekday] - 1];
-    NSString *checkOutYear = [NSString stringWithFormat:@"%@",[Utils stringWithDate:checkOutDate withFormat:@"yyyy"]];
-    NSString *checkOutMonthAndDay = [NSString stringWithFormat:@"%@",[Utils stringWithDate:checkOutDate withFormat:@"MM月dd日"]];
+    NSString *checkOutYear = [NSString stringWithFormat:@"%@",[Utils stringWithDate:_data.checkOutDate withFormat:@"yyyy"]];
+    NSString *checkOutMonthAndDay = [NSString stringWithFormat:@"%@",[Utils stringWithDate:_data.checkOutDate withFormat:@"MM月dd日"]];
     
     //日期
     UILabel *checkOutDateLabel = [[UILabel alloc] initWithFrame:CGRectMake(controlXLength(title)+5, 0, 70, checkInDateView.frame.size.height)];
@@ -209,7 +204,6 @@
     UIButton *checkOutDateBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [checkOutDateBtn setFrame:checkInDateView.frame];
     [checkOutDateBtn setTag:503];
-    [checkOutDateBtn addTarget:self action:@selector(pressHotelItemBtn:) forControlEvents:UIControlEventTouchUpInside];
     [pageHotelBottomView addSubview:checkOutDateBtn];
     
     //下半部背景
@@ -224,7 +218,7 @@
     //价格范围
      _priceRangeView = [[ImageAndTextTilteView alloc] initWithFrame:CGRectMake(bottomItemBG.frame.origin.x, bottomItemBG.frame.origin.y, bottomItemBG.frame.size.width, 40) withImageName:@"query_price" withLabelName:@"价格范围" isValueEditabel:NO];
     
-    [_priceRangeView setValue:@"不限"];
+    [_priceRangeView setValue:[_data.priceRangeArray objectAtIndex:_data.priceRangeIndex]];
     
     [pageHotelBottomView addSubview:_priceRangeView];
     
@@ -238,6 +232,7 @@
     
     //酒店位置
     _hotelLoactionView = [[ImageAndTextTilteView alloc] initWithFrame:CGRectMake(bottomItemBG.frame.origin.x, bottomItemBG.frame.origin.y+40, bottomItemBG.frame.size.width, 40) withImageName:@"query_location" withLabelName:@"酒店位置" isValueEditabel:NO];
+    [_hotelLoactionView setValue:_data.queryCantonName];
     [pageHotelBottomView addSubview:_hotelLoactionView];
     
     UIButton *hotelLocationBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -254,7 +249,7 @@
     
     //酒店名称
     ImageAndTextTilteView *hotelNameView = [[ImageAndTextTilteView alloc] initWithFrame:CGRectMake(bottomItemBG.frame.origin.x, bottomItemBG.frame.origin.y+80, bottomItemBG.frame.size.width, 40) withImageName:@"query_location" withLabelName:@"酒店名称" isValueEditabel:YES];
-    
+    [hotelNameView setValue:_data.keyWord];
     [pageHotelBottomView addSubview:hotelNameView];
     
     
