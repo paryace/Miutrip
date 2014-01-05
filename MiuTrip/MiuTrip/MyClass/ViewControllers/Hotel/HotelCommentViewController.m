@@ -21,7 +21,7 @@
 
 -(void)setSubviewFrame{
     
-    [self addTitleWithTitle:@"酒店评论"];
+    [self addTitleWithTitle:@"酒店评论" withRightView:nil];
     
     [self addLoadingView];
     

@@ -537,7 +537,7 @@
     return line;
 }
 
--(void)addTitleWithTitle:(NSString*) title
+-(void)addTitleWithTitle:(NSString*) title withRightView:(UIView*)rightView
 {
     
     UIView *titleView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 40)];
@@ -559,6 +559,10 @@
     [backBtn addTarget:self action:@selector(returnToPrevView:)forControlEvents:UIControlEventTouchUpInside];
     [titleView addSubview:backBtn];
     [self.contentView addSubview:titleView];
+    
+    if(rightView){
+        [self.contentView addSubview:rightView];
+    }
 }
 
 -(void)addLoadingView

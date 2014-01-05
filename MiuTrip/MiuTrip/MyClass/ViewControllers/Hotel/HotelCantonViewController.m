@@ -38,7 +38,7 @@
 
 -(void)setUpViews
 {
-    [self addTitleWithTitle:@"酒店位置"];
+    [self addTitleWithTitle:@"酒店位置" withRightView:nil];
     [self addLoadingView];
     [self getCityCantons];
     

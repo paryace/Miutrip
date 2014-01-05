@@ -26,4 +26,11 @@
  */
 -(void)setHotelCanton:(NSString *) hotelCanton;
 
+/**
+ *  设置酒店所在区
+ *
+ *  @param hotelCanton
+ */
+-(void)updateDate;
+
 @end

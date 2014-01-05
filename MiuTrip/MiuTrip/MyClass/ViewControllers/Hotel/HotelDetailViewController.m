@@ -39,7 +39,7 @@
 
 -(void)setSubView{
    
-    [self addTitleWithTitle:@"酒店详情"];
+    [self addTitleWithTitle:@"酒店详情" withRightView:nil];
     [self addLoadingView];
     [self getHotelDetail];
     

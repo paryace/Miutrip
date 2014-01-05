@@ -22,7 +22,7 @@
 
 +(BOOL)textIsEmpty:(NSString*)value
 {
-    if ([value isEqualToString:@""] || value == nil) {
+    if (value == nil || [value isEqualToString:@""] || [value isEqualToString:@"null"] ){
         return YES;
     }return NO;
 }

@@ -20,6 +20,7 @@
 #import "LoginInfoDTO.h"
 #import "HotelListViewController.h"
 #import "HotelCantonViewController.h"
+#import "DateSelectViewController.h"
 
 @interface HomeViewController ()
 
@@ -356,6 +357,10 @@
         [priceRange addTarget:self action:@selector(pressHotelItemBtn:) forControlEvents:UIControlEventTouchUpInside];
         UIButton *hotelCantonBtn = (UIButton *)[hotelSearchView viewWithTag:505];
         [hotelCantonBtn addTarget:self action:@selector(pressHotelItemBtn:) forControlEvents:UIControlEventTouchUpInside];
+        UIButton *checkIndate = (UIButton *)[hotelSearchView viewWithTag:502];
+        [checkIndate addTarget:self action:@selector(pressHotelItemBtn:) forControlEvents:UIControlEventTouchUpInside];
+        UIButton *checkOutdate = (UIButton *)[hotelSearchView viewWithTag:503];
+        [checkOutdate addTarget:self action:@selector(pressHotelItemBtn:) forControlEvents:UIControlEventTouchUpInside];
         
         HomeCustomBtn *customBtn = [[HomeCustomBtn alloc]initWithParams:data];
         [customBtn setFrame:CGRectMake(0, 0, appFrame.size.width, 60)];
@@ -365,12 +370,11 @@
         [hotelSearchView addSubview:customBtn];
 
         [scrollView setContentSize:CGSizeMake(frame.size.width, frame.size.height)];
-        scrollView.bounces = YES;
+        scrollView.bounces = NO;
         scrollView.scrollsToTop = NO;
         scrollView.directionalLockEnabled = YES;
         
         [scrollView addSubview:hotelSearchView];
-
         _viewPageHotel = scrollView;
     }
 }
@@ -389,6 +393,13 @@
         case 505:
             [self gotoHotelCantonViewController];
             break;
+        case 502:
+            [self selectDateWithType:CHECK_IN_DATE];
+            break;
+        case 503:
+            [self selectDateWithType:CHECK_OUT_DATE];
+            break;
+
         default:
             break;
     }
@@ -403,6 +414,18 @@
 -(void)showPriceRangeDialog
 {
     [self showPopupListWithTitle:@"价格范围" withType:HOTEL_PRICE_RANGE withData:[HotelDataCache sharedInstance].priceRangeArray];
+}
+
+-(void)selectDateWithType:(DateSelectType)type
+{
+    NSDate *date = [HotelDataCache sharedInstance].checkInDate;
+    if(type == CHECK_OUT_DATE){
+        date = [HotelDataCache sharedInstance].checkOutDate;
+    }
+    DateSelectViewController * hotelListView  = [[DateSelectViewController alloc] initWithSelectedDate:date type:type];
+    [self.navigationController pushViewController:hotelListView animated:NO];
+    CATransition *transition = [Utils getAnimation:TransitionPush subType:DirectionRight];
+    [self.navigationController.view.layer addAnimation:transition forKey:@"viewtransition"];
 }
 
 

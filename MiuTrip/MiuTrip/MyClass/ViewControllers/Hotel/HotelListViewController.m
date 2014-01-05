@@ -12,7 +12,10 @@
 #import "HotelCommentViewController.h"
 #import "HotelDetailViewController.h"
 #import "HotelOrderViewController.h"
+#import "HotelMapViewControler.h"
 #import "Utils.h"
+#import "HotelListBtnCellView.h"
+#import "HotelListRoomCell.h"
 
 @interface HotelListViewController ()
 
@@ -46,11 +49,24 @@
     _isFiltered = NO;
     _currentSortType = SORT_BY_RECOMMEND;
     
-    [self addTitleWithTitle:@"上海"];
+    UIButton *mapBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [mapBtn setTitleColor:color(whiteColor) forState:UIControlStateNormal];
+    [mapBtn setTitleColor:color(grayColor) forState:UIControlStateHighlighted];
+    [mapBtn setTitle:@"地图" forState:UIControlStateNormal];
+    mapBtn.showsTouchWhenHighlighted = YES;
+    mapBtn.frame = CGRectMake(self.contentView.frame.size.width - 40, 10, 30, 20);
+    [mapBtn addTarget:self action:@selector(mapBtnPressed:) forControlEvents:UIControlEventTouchUpInside];
+    
+    [self addTitleWithTitle:@"上海" withRightView:mapBtn];
     
     [self addLoadingView];
     
     [self searchHotels];
+}
+
+-(void)mapBtnPressed:(UIButton *) sender{
+    HotelMapViewControler *viewController = [[HotelMapViewControler alloc] initWithType:0 withData:_hotelListData];
+    [self pushViewController:viewController transitionType:TransitionPush completionHandler:nil];
 }
 
 -(void)addTableView{
@@ -87,6 +103,7 @@
     int btnWidth = width/3;
     int left = (btnWidth - 50)/2;
     UILabel *lable = [[UILabel alloc] initWithFrame:CGRectMake(left, 0, 28, 33)];
+    [lable setBackgroundColor:color(clearColor)];
     [lable setText:@"价格"];
     [lable setFont:[UIFont systemFontOfSize:14]];
     [lable setTextColor:color(blackColor)];
@@ -109,6 +126,7 @@
     left = (btnWidth - 58)/2;
     lable = [[UILabel alloc] initWithFrame:CGRectMake(left, 0, 28, 33)];
     [lable setText:@"筛选"];
+    [lable setBackgroundColor:color(clearColor)];
     [lable setFont:[UIFont systemFontOfSize:14]];
     [lable setTextColor:color(blackColor)];
     [filterBtn addSubview:lable];
@@ -199,8 +217,8 @@
     _request.FeeType = [NSNumber numberWithInt:1];
     _request.ReserveType = @"1";
     _request.CityId = [NSNumber numberWithInt:448];
-    _request.ComeDate = @"2013-12-30";
-    _request.LeaveDate = @"2013-12-31";
+    _request.ComeDate = @"2014-01-07";
+    _request.LeaveDate = @"2014-01-08";
     _request.PriceLow = @"0";
     _request.PriceHigh = @"10000";
     _request.HotelName = @"";
@@ -212,7 +230,7 @@
     _request.latitude = @"";
     _request.longitude = @"";
     _request.radius = [NSNumber numberWithInt:0];
-    _request.IsPrePay = [NSNumber numberWithBool:NO];
+    _request.IsPrePay = [NSNumber numberWithBool:YES];
     
     [self.requestManager sendRequest:_request];
 }
@@ -336,7 +354,7 @@
     
     NSDictionary *dic = [_hotelListData objectAtIndex:indexPath.section];
     
-    if(self.isOpen&&self.selectIndex.section == indexPath.section&&indexPath.row!=0){
+    if(self.isOpen && self.selectIndex.section == indexPath.section&&indexPath.row!=0){
         
         if(indexPath.row == 1){
             UITableViewCell *cell = (UITableViewCell *)[tableView dequeueReusableCellWithIdentifier:hotelBtn];
@@ -345,8 +363,9 @@
             if(cell){
                 cellView = (HotelListBtnCellView*)cell;
             }else{
-                cellView = [[HotelListBtnCellView alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:hotelBtn];
+                cellView = [[HotelListBtnCellView alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:hotelBtn hasMapBtn:YES];
             }
+            cellView.hotelData = dic;
             cellView.hotelId = [[dic objectForKey:@"hotelId"] integerValue];
             cellView.viewController = self;
             [cellView setSelectionStyle:UITableViewCellSelectionStyleNone];
@@ -367,8 +386,7 @@
             NSDictionary *priceDic = [pricePolicies objectAtIndex:0];
             NSArray *priceInfos = [priceDic objectForKey:@"PriceInfos"];
             NSDictionary *roomPriceDic = [priceInfos objectAtIndex:0];
-            
-            
+   
             cellView.roomData = roomDic;
             cellView.hotelId = [[dic objectForKey:@"hotelId"] intValue];
             cellView.hotelName = [dic objectForKey:@"hotelName"];
@@ -398,6 +416,7 @@
         HotelListCellviewCell *cellView = nil;
         if(cellView){
             cellView = (HotelListCellviewCell*)cell;
+            [[AsyncImageLoader sharedLoader] cancelLoadingImagesForTarget:cellView.hotelImage];
         }else{
             cellView = [[HotelListCellviewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:hotelCell];
         }
@@ -409,15 +428,13 @@
         [cellView.price setText:price];
         NSString *comment = [NSString stringWithFormat:@"%@好评率 点评%d条",[dic objectForKey:@"score"],[[dic objectForKey:@"commentTotal"]integerValue]];
         [cellView.comment setText:comment];
+        cellView.hotelImage.imageURL = [NSURL URLWithString:[dic objectForKey:@"img"]];
         
         [cellView setSelectionStyle:UITableViewCellSelectionStyleGray];
         
         return cellView;
 
     }
-
-    
-    
 }
 
 - (void)didSelectCellRowFirstDo:(BOOL)firstDoInsert nextDo:(BOOL)nextDoInsert
@@ -475,198 +492,6 @@
 
 - (void)refresh {
     [self performSelector:@selector(loadMore) withObject:nil afterDelay:2.0];
-}
-
-
-@end
-
-@implementation HotelListRoomCell
-
-
-- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
-{
-    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
-    if (self) {
-        [self setUpView];
-    }
-    return self;
-}
-
--(void)setUpView{
-    
-    //房型名称
-    _roomName = [[UILabel alloc] initWithFrame:CGRectMake(5, 5, 90, 30)];
-    [_roomName setFont:[UIFont systemFontOfSize:13]];
-    [_roomName setTextColor:color(blackColor)];
-    [_roomName setNumberOfLines:2];
-    [self addSubview:_roomName];
-    
-    //床型，早餐
-    _bedAndBreakfast = [[UILabel alloc] initWithFrame:CGRectMake(100, 5, 50, 30)];
-    [_bedAndBreakfast setFont:[UIFont systemFontOfSize:10]];
-    [_bedAndBreakfast setTextColor:color(blackColor)];
-    [_bedAndBreakfast setNumberOfLines:2];
-    [self addSubview:_bedAndBreakfast];
-    
-    //WIFI
-    _wifi = [[UILabel alloc] initWithFrame:CGRectMake(153, 13, 42, 14)];
-    [_wifi setFont:[UIFont systemFontOfSize:10]];
-    [_wifi setTextColor:color(blackColor)];
-    [self addSubview:_wifi];
-    
-    //price
-    _price = [[UILabel alloc] initWithFrame:CGRectMake(self.frame.size.width - 85, 13, 40, 14)];
-    [_price setFont:[UIFont systemFontOfSize:12]];
-    [_price setTextColor:PriceColor];
-    [self addSubview:_price];
-    
-    //预定按钮
-    UIButton *bookBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [bookBtn setBackgroundColor:color(brownColor)];
-    [bookBtn.titleLabel setFont:[UIFont systemFontOfSize:13]];
-    [bookBtn.titleLabel setTextColor:color(blackColor)];
-    [bookBtn setTitle:@"预定" forState:UIControlStateNormal];
-    [bookBtn setFrame:CGRectMake(self.frame.size.width - 38, 8, 30, 24)];
-    [bookBtn addTarget:self action:@selector(bookBtnPressed:) forControlEvents:UIControlEventTouchUpInside];
-    [self addSubview:bookBtn];
-}
-
--(void)bookBtnPressed:(UIButton *)sender{
-    
-    [HotelDataCache sharedInstance].selectedHotelId = _hotelId;
-    [HotelDataCache sharedInstance].selectedHotelName = _hotelName;
-    [HotelDataCache sharedInstance].selectedRoomData = _roomData;
-    HotelOrderViewController *orderViewController = [[HotelOrderViewController alloc] init];
-    [_viewController.navigationController pushViewController:orderViewController animated:YES];
-}
-
-@end
-
-@implementation HotelListBtnCellView
-
-- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
-{
-    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
-    if (self) {
-        [self setUpView];
-    }
-    return self;
-}
-
--(void)setUpView
-{
-    
-    float topMargin = 3;
-    
-    UIImageView *shadow = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"hotel_list_shadow.png"]];
-    shadow.frame = CGRectMake(0, 0, self.frame.size.width, 15);
-    [self addSubview:shadow];
-    
-    
-    //酒店详情
-    UIButton *hotelDetail  = [UIButton buttonWithType:UIButtonTypeCustom];
-    [hotelDetail setBackgroundImage:[UIImage imageNamed:@"hotel_list_btn_bg.png"] forState:UIControlStateNormal];
-    [hotelDetail setTag:1001];
-    [hotelDetail setTitle:@"酒店详情" forState:UIControlStateNormal];
-    [hotelDetail setTitleColor:BlueColor forState:UIControlStateNormal];
-     hotelDetail.titleLabel.font = [UIFont systemFontOfSize: 13];
-    [hotelDetail setFrame:CGRectMake(0, topMargin, self.frame.size.width/3, 27)];
-    [hotelDetail addTarget:self action:@selector(buttonPressed:) forControlEvents:UIControlEventTouchUpInside];
-    [self addSubview:hotelDetail];
-    
-    //icon
-    UIImageView *detailImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ic_hotel_detail"]];
-    detailImage.frame = CGRectMake(6, 4, 19, 18);
-    [hotelDetail addSubview:detailImage];
-    
-    //箭头
-    UIImageView *arrow1 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"arrow"]];
-    arrow1.frame = CGRectMake(hotelDetail.frame.size.width - 18, 7, 8, 12);
-    [hotelDetail addSubview:arrow1];
-    
-    
-    //酒店位置
-    UIButton *hotelLocal  = [UIButton buttonWithType:UIButtonTypeCustom];
-    [hotelLocal setTag:1002];
-    [hotelLocal setBackgroundImage:[UIImage imageNamed:@"hotel_list_btn_bg.png"] forState:UIControlStateNormal];
-    [hotelLocal setTitle:@"酒店位置" forState:UIControlStateNormal];
-    [hotelLocal setTitleColor:BlueColor forState:UIControlStateNormal];
-    hotelLocal.titleLabel.font = [UIFont systemFontOfSize: 13];
-    [hotelLocal setFrame:CGRectMake(self.frame.size.width/3, topMargin, self.frame.size.width/3, 27)];
-    [self addSubview:hotelLocal];
-    
-    
-    //icon
-    UIImageView *localImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ic_hotel_local"]];
-    localImage.frame = CGRectMake(6, 4, 19, 18);
-    [hotelLocal addSubview:localImage];
-    
-    //箭头
-    UIImageView *arrow2 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"arrow"]];
-    arrow2.frame = CGRectMake(hotelLocal.frame.size.width - 18, 7, 8, 12);
-    [hotelLocal addSubview:arrow2];
-    
-    //评论
-    UIButton *hotelcomments  = [UIButton buttonWithType:UIButtonTypeCustom];
-    [hotelcomments setTag:1003];
-    [hotelcomments setBackgroundImage:[UIImage imageNamed:@"hotel_list_btn_bg.png"] forState:UIControlStateNormal];
-    [hotelcomments setTitle:@"酒店评论" forState:UIControlStateNormal];
-    [hotelcomments setTitleColor:BlueColor forState:UIControlStateNormal];
-    hotelcomments.titleLabel.font = [UIFont systemFontOfSize: 13];
-    [hotelcomments setFrame:CGRectMake((self.frame.size.width/3)*2, topMargin, self.frame.size.width/3, 27)];
-    [hotelcomments addTarget:self action:@selector(buttonPressed:) forControlEvents:UIControlEventTouchUpInside];
-    [self addSubview:hotelcomments];
-    
-    //icon
-    UIImageView *commentImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ic_hotel_comment"]];
-    commentImage.frame = CGRectMake(6, 4, 19, 18);
-    [hotelcomments addSubview:commentImage];
-    
-    //箭头
-    UIImageView *arrow3 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"arrow"]];
-    arrow3.frame = CGRectMake(hotelcomments.frame.size.width - 18, 7, 8, 12);
-    [hotelcomments addSubview:arrow3];
-    
-    //竖线1
-    UIView *line1 = [[UIView alloc] initWithFrame:CGRectMake((self.frame.size.width)/3-0.6, 1, 0.6, 29)];
-    [line1 setBackgroundColor:color(lightGrayColor)];
-    [self addSubview:line1];
-    
-    //竖线2
-    UIView *line2 = [[UIView alloc] initWithFrame:CGRectMake((self.frame.size.width)/3*2-0.6, 1, 0.6, 29)];
-    [line2 setBackgroundColor:color(lightGrayColor)];
-    [self addSubview:line2];
-    
-}
-
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated
-{
-    [super setSelected:selected animated:animated];
-}
-
--(void)buttonPressed:(UIButton *)sender{
-    switch(sender.tag){
-        case 1001:
-            [self goHotelDetail];
-            break;
-        case 1002:
-            break;
-        case 1003:
-            [self goHotelComments];
-            break;
-    }
-}
-
--(void)goHotelDetail{
-    [HotelDataCache sharedInstance].selectedHotelId = _hotelId;
-    HotelDetailViewController *viewController = [[HotelDetailViewController alloc] init];
-    [_viewController.navigationController pushViewController:viewController animated:YES];
-}
-
--(void)goHotelComments{
-    [HotelDataCache sharedInstance].selectedHotelId = _hotelId;
-    HotelCommentViewController *viewController = [[HotelCommentViewController alloc] init];
-    [_viewController.navigationController pushViewController:viewController animated:YES];
 }
 
 @end

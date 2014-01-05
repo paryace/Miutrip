@@ -8,15 +8,23 @@
 
 #import "BaseUIViewController.h"
 #import "UIPopoverListView.h"
+#import "UPPayPluginDelegate.h"
+#import "UPPayPlugin.h"
 
 @interface HotelOrderViewController : BaseUIViewController<UIPopoverListViewDataSource,UIPopoverListViewDelegate,
-                                     UITableViewDataSource,UITableViewDelegate>
+                                     UITableViewDataSource,UITableViewDelegate,UPPayPluginDelegate>
 
-@property (strong,nonatomic) NSArray  *popupListData;
-@property (nonatomic)        int      popupType;
-@property (strong,nonatomic) NSArray  *arriveTimeArray;
-@property (nonatomic)        int      roomPrice;
-@property (nonatomic,strong) NSArray  *contactorArray;
+@property (strong,nonatomic) NSArray        *popupListData;
+@property (nonatomic)        int            popupType;
+@property (strong,nonatomic) NSArray        *arriveTimeArray;
+@property (nonatomic)        int            roomPrice;
+@property (nonatomic,strong) NSArray        *contactorArray;
+@property (nonatomic,strong) UIAlertView    *mAlert;
+@property (nonatomic,strong) NSMutableData  *mData;
+
+- (void)showAlertWait;
+- (void)showAlertMessage:(NSString*)msg;
+- (void)hideAlert;
 
 @end
 

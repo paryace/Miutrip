@@ -10,8 +10,12 @@
 
 @interface HotelCustomerModel : NSObject
 
+@property (nonatomic,strong) NSString    *passengerId;
 @property (nonatomic,strong) NSString    *name;
 @property (nonatomic,strong) NSString    *deptName;
+@property (nonatomic,strong) NSString    *costCenter;
 @property (nonatomic)        float       apportionRate;
+@property (nonatomic,strong) NSString    *corpUID;
+@property (nonatomic,strong) NSString    *UID;
 
 @end

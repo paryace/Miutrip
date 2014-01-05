@@ -85,12 +85,12 @@ typedef NS_OPTIONS(NSInteger, RequestType){
 - (UIImageView *)createLineWithParam:(NSObject*)param frame:(CGRect)frame;
 
 /**
- *  页面添加标题 （标题无按钮）
+ *  页面添加标题
  *
  *  @param parentView
  *  @param title
  */
--(void)addTitleWithTitle:(NSString*) title;
+-(void)addTitleWithTitle:(NSString*) title withRightView:(UIView*)rightView;
 
 /**
  *  页面添加Loading界面

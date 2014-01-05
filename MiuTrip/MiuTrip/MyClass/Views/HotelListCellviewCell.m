@@ -22,10 +22,10 @@
 -(void) setUpView{
 
     //图片
-    UIImageView *hotelImage = [[UIImageView alloc]init];
-    [hotelImage setFrame:CGRectMake(3, 0, 70, 70)];
-    
-    [self addSubview:hotelImage];
+    _hotelImage = [[AsyncImageView alloc]initWithFrame:CGRectMake(2, 4, 60, 66)];
+    _hotelImage.contentMode = UIViewContentModeScaleAspectFill;
+    _hotelImage.clipsToBounds = YES;
+    [self addSubview:_hotelImage];
     //酒店名称
     _hotelName = [[UILabel alloc] initWithFrame:CGRectMake(65, 1, self.frame.size.width - 65, 20)];
     [_hotelName setFont:[UIFont boldSystemFontOfSize:15]];
@@ -40,6 +40,7 @@
     
     //价格
     _price = [[UILabel alloc] initWithFrame:CGRectMake(self.frame.size.width - 69, (70 - 16)/2, 50,16)];
+    [_price setBackgroundColor:color(clearColor)];
     [_price setFont:[UIFont systemFontOfSize:13]];
     [_price setTextColor:UIColorFromRGB(0xee7600)];
     [self addSubview:_price];

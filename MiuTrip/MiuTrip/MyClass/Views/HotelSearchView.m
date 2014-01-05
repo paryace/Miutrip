@@ -202,7 +202,7 @@
     
     //checkout btn
     UIButton *checkOutDateBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [checkOutDateBtn setFrame:checkInDateView.frame];
+    [checkOutDateBtn setFrame:checkOutDateView.frame];
     [checkOutDateBtn setTag:503];
     [pageHotelBottomView addSubview:checkOutDateBtn];
     
@@ -303,6 +303,10 @@
     [_hotelLoactionView setValue:hotelCanton];
 }
 
+-(void)updateDate
+{
+    
+}
 
 /*
 // Only override drawRect: if you perform custom drawing.

@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "HotelCustomerModel.h"
 
 @interface HotelDataCache : NSObject
 
@@ -35,13 +36,22 @@
 @property (assign, nonatomic) NSInteger            returnOrderPayType;     //订单列表支付类型
 @property (assign, nonatomic) NSInteger            orderType;              //房间数&入住时间&价格
 
+@property (nonatomic)         int                  contactorId;
 @property (strong, nonatomic) NSString             *contactorName;
 @property (strong, nonatomic) NSString             *contactorMobile;
 
 
 @property (nonatomic)         int                  selectedHotelId;
 @property (strong, nonatomic) NSString             *selectedHotelName;
+@property (strong, nonatomic) NSString             *selectedReasonCode;
 @property (strong, nonatomic) NSDictionary         *selectedRoomData;
+
+@property (strong, nonatomic) HotelCustomerModel   *executor;
+
+@property (strong, nonatomic) NSString             *arriveTime;
+@property (strong, nonatomic) NSString             *guestMobile;
+@property (nonatomic)         int                  roomCount;
+
 
 + (HotelDataCache*)sharedInstance;
 @end

@@ -11,7 +11,7 @@
 @interface SubmitOrderRequest : BaseRequestModel
 
 @property(strong,nonatomic) NSNumber *FeeType;
-@property(strong,nonatomic) NSString *ReserceType;
+@property(strong,nonatomic) NSNumber *ReserveType;
 @property(strong,nonatomic) NSString *PolicyUid;
 @property(strong,nonatomic) NSNumber *CityId;
 @property(strong,nonatomic) NSNumber *HotelID;
@@ -33,10 +33,7 @@
 @property(strong,nonatomic) NSString *UserIP;
 @property(strong,nonatomic) NSNumber *CcIndex;
 @property(strong,nonatomic) NSString *CcValue;
-@property(strong,nonatomic) NSDictionary *Guests;
-@property(strong,nonatomic) NSNumber *PID;
-@property(strong,nonatomic) NSNumber *UID;
-@property(strong,nonatomic) NSString *UserName;
-@property(strong,nonatomic) NSString *ShareAmout;
+@property(strong,nonatomic) NSArray *Guests;
+
 
 @end
