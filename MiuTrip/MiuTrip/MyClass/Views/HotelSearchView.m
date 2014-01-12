@@ -87,29 +87,20 @@
     [title setText:dateTile];
     [checkInDateView addSubview:title];
     
-
-    NSCalendar *calendar = [NSCalendar currentCalendar];
-    NSDateComponents *comps =[calendar components:(NSWeekCalendarUnit | NSWeekdayCalendarUnit |NSWeekdayOrdinalCalendarUnit) fromDate:_data.checkInDate];
-    
-    NSString *week = [[WeekDays componentsSeparatedByString:@","] objectAtIndex:[comps weekday] - 1];
-    NSString *year = [NSString stringWithFormat:@"%@",[Utils stringWithDate:_data.checkInDate withFormat:@"yyyy"]];
-    NSString *mathAndDay = [NSString stringWithFormat:@"%@",[Utils stringWithDate:_data.checkInDate withFormat:@"MM月dd日"]];
     
     //日期
-    UILabel *checkInDate = [[UILabel alloc] initWithFrame:CGRectMake(controlXLength(title)+5, 0, 70, checkInDateView.frame.size.height)];
-    [checkInDate setBackgroundColor:color(clearColor)];
-    [checkInDate setFont:[UIFont boldSystemFontOfSize:15]];
-    [checkInDate setTextColor:color(darkGrayColor)];
-    [checkInDate setText:mathAndDay];
-    [checkInDateView addSubview:checkInDate];
+    _checkInDate = [[UILabel alloc] initWithFrame:CGRectMake(controlXLength(title)+5, 0, 70, checkInDateView.frame.size.height)];
+    [_checkInDate setBackgroundColor:color(clearColor)];
+    [_checkInDate setFont:[UIFont boldSystemFontOfSize:15]];
+    [_checkInDate setTextColor:color(darkGrayColor)];
+    [checkInDateView addSubview:_checkInDate];
     
     //星期
-    UILabel *checkInDateWeek = [[UILabel alloc] initWithFrame:CGRectMake(controlXLength(title)+checkInDate.frame.size.width+5, 0, 40, checkInDateView.frame.size.height)];
-    [checkInDateWeek setBackgroundColor:color(clearColor)];
-    [checkInDateWeek setFont:[UIFont boldSystemFontOfSize:10]];
-    [checkInDateWeek setTextColor:color(lightGrayColor)];
-    [checkInDateWeek setText:week];
-    [checkInDateView addSubview:checkInDateWeek];
+    _checkInDateWeek = [[UILabel alloc] initWithFrame:CGRectMake(controlXLength(title)+_checkInDate.frame.size.width+5, 0, 40, checkInDateView.frame.size.height)];
+    [_checkInDateWeek setBackgroundColor:color(clearColor)];
+    [_checkInDateWeek setFont:[UIFont boldSystemFontOfSize:10]];
+    [_checkInDateWeek setTextColor:color(lightGrayColor)];
+    [checkInDateView addSubview:_checkInDateWeek];
     
     
     //箭头
@@ -119,12 +110,11 @@
     [checkInDateView addSubview:arrow];
     
     
-    UILabel *checkInYear = [[UILabel alloc] initWithFrame:CGRectMake(checkInDateView.frame.size.width - 50, 13, 30, 14)];
-    [checkInYear setBackgroundColor:color(clearColor)];
-    [checkInYear setFont:[UIFont systemFontOfSize:10]];
-    [checkInYear setTextColor:color(lightGrayColor)];
-    [checkInYear setText:year];
-    [checkInDateView addSubview:checkInYear];
+    _checkInDateYear = [[UILabel alloc] initWithFrame:CGRectMake(checkInDateView.frame.size.width - 50, 13, 30, 14)];
+    [_checkInDateYear setBackgroundColor:color(clearColor)];
+    [_checkInDateYear setFont:[UIFont systemFontOfSize:10]];
+    [_checkInDateYear setTextColor:color(lightGrayColor)];
+    [checkInDateView addSubview:_checkInDateYear];
     
     [pageHotelBottomView addSubview:checkInDateView];
     
@@ -158,28 +148,21 @@
     [checkOutDateView addSubview:coTitle];
     
     
-    NSCalendar *checkOutCalendar = [NSCalendar currentCalendar];
-    NSDateComponents *cocomps =[checkOutCalendar components:(NSWeekCalendarUnit | NSWeekdayCalendarUnit |NSWeekdayOrdinalCalendarUnit) fromDate:_data.checkOutDate];
-    
-    NSString *checkOutWeek = [[WeekDays componentsSeparatedByString:@","] objectAtIndex:[cocomps weekday] - 1];
-    NSString *checkOutYear = [NSString stringWithFormat:@"%@",[Utils stringWithDate:_data.checkOutDate withFormat:@"yyyy"]];
-    NSString *checkOutMonthAndDay = [NSString stringWithFormat:@"%@",[Utils stringWithDate:_data.checkOutDate withFormat:@"MM月dd日"]];
+
     
     //日期
-    UILabel *checkOutDateLabel = [[UILabel alloc] initWithFrame:CGRectMake(controlXLength(title)+5, 0, 70, checkInDateView.frame.size.height)];
-    [checkOutDateLabel setBackgroundColor:color(clearColor)];
-    [checkOutDateLabel setFont:[UIFont boldSystemFontOfSize:15]];
-    [checkOutDateLabel setTextColor:color(darkGrayColor)];
-    [checkOutDateLabel setText:checkOutMonthAndDay];
-    [checkOutDateView addSubview:checkOutDateLabel];
+    _checkOutDate = [[UILabel alloc] initWithFrame:CGRectMake(controlXLength(title)+5, 0, 70, checkInDateView.frame.size.height)];
+    [_checkOutDate setBackgroundColor:color(clearColor)];
+    [_checkOutDate setFont:[UIFont boldSystemFontOfSize:15]];
+    [_checkOutDate setTextColor:color(darkGrayColor)];
+    [checkOutDateView addSubview:_checkOutDate];
     
     //星期
-    UILabel *checkOutDateWeek = [[UILabel alloc] initWithFrame:CGRectMake(controlXLength(title)+checkOutDateLabel.frame.size.width+5, 0, 40, checkOutDateView.frame.size.height)];
-    [checkOutDateWeek setBackgroundColor:color(clearColor)];
-    [checkOutDateWeek setFont:[UIFont boldSystemFontOfSize:10]];
-    [checkOutDateWeek setTextColor:color(lightGrayColor)];
-    [checkOutDateWeek setText:checkOutWeek];
-    [checkOutDateView addSubview:checkOutDateWeek];
+    _checkOutDateWeek = [[UILabel alloc] initWithFrame:CGRectMake(controlXLength(title)+_checkOutDate.frame.size.width+5, 0, 40, checkOutDateView.frame.size.height)];
+    [_checkOutDateWeek setBackgroundColor:color(clearColor)];
+    [_checkOutDateWeek setFont:[UIFont boldSystemFontOfSize:10]];
+    [_checkOutDateWeek setTextColor:color(lightGrayColor)];
+    [checkOutDateView addSubview:_checkOutDateWeek];
     
     
     //箭头
@@ -189,12 +172,11 @@
     [checkOutDateView addSubview:arrow2];
     
     
-    UILabel *checkOutYearLabel = [[UILabel alloc] initWithFrame:CGRectMake(checkOutDateView.frame.size.width - 50, 13, 30, 14)];
-    [checkOutYearLabel setBackgroundColor:color(clearColor)];
-    [checkOutYearLabel setFont:[UIFont systemFontOfSize:10]];
-    [checkOutYearLabel setTextColor:color(lightGrayColor)];
-    [checkOutYearLabel setText:checkOutYear];
-    [checkOutDateView addSubview:checkOutYearLabel];
+    _checkOutDateYear = [[UILabel alloc] initWithFrame:CGRectMake(checkOutDateView.frame.size.width - 50, 13, 30, 14)];
+    [_checkOutDateYear setBackgroundColor:color(clearColor)];
+    [_checkOutDateYear setFont:[UIFont systemFontOfSize:10]];
+    [_checkOutDateYear setTextColor:color(lightGrayColor)];
+    [checkOutDateView addSubview:_checkOutDateYear];
     
 
     [pageHotelBottomView addSubview:checkOutDateView];
@@ -283,7 +265,7 @@
                                         self.frame.origin.y,
                                         self.frame.size.width,
                                         controlYLength(pageHotelBottomView))];
-
+    [self updateDate];
 }
 
 -(void)setPriceRange:(NSString *) rangeText
@@ -305,7 +287,25 @@
 
 -(void)updateDate
 {
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    NSDateComponents *comps =[calendar components:(NSWeekCalendarUnit | NSWeekdayCalendarUnit |NSWeekdayOrdinalCalendarUnit) fromDate:_data.checkInDate];
+    NSString *week = [[WeekDays componentsSeparatedByString:@","] objectAtIndex:[comps weekday] - 1];
+    NSString *year = [NSString stringWithFormat:@"%@",[Utils stringWithDate:_data.checkInDate withFormat:@"yyyy"]];
+    NSString *mathAndDay = [NSString stringWithFormat:@"%@",[Utils stringWithDate:_data.checkInDate withFormat:@"MM月dd日"]];
     
+    [_checkInDate setText:mathAndDay];
+    [_checkInDateWeek setText:week];
+    [_checkInDateYear setText:year];
+    
+    NSCalendar *checkOutCalendar = [NSCalendar currentCalendar];
+    comps =[checkOutCalendar components:(NSWeekCalendarUnit | NSWeekdayCalendarUnit |NSWeekdayOrdinalCalendarUnit) fromDate:_data.checkOutDate];
+    NSString *checkOutWeek = [[WeekDays componentsSeparatedByString:@","] objectAtIndex:[comps weekday] - 1];
+    NSString *checkOutYear = [NSString stringWithFormat:@"%@",[Utils stringWithDate:_data.checkOutDate withFormat:@"yyyy"]];
+    NSString *checkOutMonthAndDay = [NSString stringWithFormat:@"%@",[Utils stringWithDate:_data.checkOutDate withFormat:@"MM月dd日"]];
+    
+    [_checkOutDate setText:checkOutMonthAndDay];
+    [_checkOutDateWeek setText:checkOutWeek];
+    [_checkOutDateYear setText:checkOutYear];
 }
 
 /*

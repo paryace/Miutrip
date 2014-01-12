@@ -38,10 +38,11 @@
 {
     [self.contentView setBackgroundColor:UIColorFromRGB(0xe9e9e9)];
     
-    UIButton *confirmBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    UIButton *confirmBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [confirmBtn setTitleColor:color(whiteColor) forState:UIControlStateNormal];
     [confirmBtn setTitle:@"确定" forState:UIControlStateNormal];
-    [confirmBtn setFrame:CGRectMake(self.contentView.frame.size.width - 40, 10, 30, 20)];
+    [confirmBtn.titleLabel setFont:[UIFont boldSystemFontOfSize:13]];
+    [confirmBtn setFrame:CGRectMake(self.contentView.frame.size.width - 50, 0, 50, 40)];
     confirmBtn.showsTouchWhenHighlighted = YES;
     [confirmBtn addTarget:self action:@selector(confirmBtnPressed) forControlEvents:UIControlEventTouchUpInside];
     

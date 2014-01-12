@@ -49,18 +49,17 @@
     _isFiltered = NO;
     _currentSortType = SORT_BY_RECOMMEND;
     
-    UIButton *mapBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    UIButton *mapBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [mapBtn setTitleColor:color(whiteColor) forState:UIControlStateNormal];
     [mapBtn setTitleColor:color(grayColor) forState:UIControlStateHighlighted];
     [mapBtn setTitle:@"地图" forState:UIControlStateNormal];
+    [mapBtn setTitle:@"地图" forState:UIControlStateHighlighted];
     mapBtn.showsTouchWhenHighlighted = YES;
     mapBtn.frame = CGRectMake(self.contentView.frame.size.width - 40, 10, 30, 20);
     [mapBtn addTarget:self action:@selector(mapBtnPressed:) forControlEvents:UIControlEventTouchUpInside];
     
     [self addTitleWithTitle:@"上海" withRightView:mapBtn];
-    
     [self addLoadingView];
-    
     [self searchHotels];
 }
 
@@ -217,8 +216,8 @@
     _request.FeeType = [NSNumber numberWithInt:1];
     _request.ReserveType = @"1";
     _request.CityId = [NSNumber numberWithInt:448];
-    _request.ComeDate = @"2014-01-07";
-    _request.LeaveDate = @"2014-01-08";
+    _request.ComeDate = @"2014-01-20";
+    _request.LeaveDate = @"2014-01-21";
     _request.PriceLow = @"0";
     _request.PriceHigh = @"10000";
     _request.HotelName = @"";
@@ -451,7 +450,6 @@
     int contentCount = [rooms count] + 1;
 	NSMutableArray* rowToInsert = [[NSMutableArray alloc] init];
 	for (NSUInteger i = 1; i < contentCount + 1; i++) {
-        NSLog(@"i=%d,section=%d",i,section);
 		NSIndexPath* indexPathToInsert = [NSIndexPath indexPathForRow:i inSection:section];
 		[rowToInsert addObject:indexPathToInsert];
 	}

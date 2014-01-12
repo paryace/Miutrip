@@ -1540,6 +1540,8 @@
 		B57A0A8A184EC77A00A33831 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				B50FC08218794E1900AF9BFD /* DateSelectViewController.h */,
+				B50FC08318794E1900AF9BFD /* DateSelectViewController.m */,
 				B57A0A99184EC77A00A33831 /* HomeViewController.h */,
 				B57A0A9A184EC77A00A33831 /* HomeViewController.m */,
 				B57A0A9B184EC77A00A33831 /* RegisterAndLogViewController.h */,
@@ -1551,8 +1553,6 @@
 				B5000ADC18657666006BF295 /* Flight */,
 				B5000ADB18657600006BF295 /* MyMiu */,
 				B57A0AA8184EC7C000A33831 /* Hotel */,
-				B50FC08218794E1900AF9BFD /* DateSelectViewController.h */,
-				B50FC08318794E1900AF9BFD /* DateSelectViewController.m */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";

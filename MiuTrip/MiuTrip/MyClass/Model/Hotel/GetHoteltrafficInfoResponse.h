@@ -8,11 +8,8 @@
 
 #import "BaseResponseModel.h"
 
-@interface GetHoteltrafficInfoResponse : BaseResponseModel
+@interface GetHotelTrafficlnfoResponse : BaseResponseModel
 
-@property(strong,nonatomic) NSString *startlocation;
-@property(strong,nonatomic) NSString *locationName;
-@property(strong,nonatomic) NSString *arrivalWay;
-@property(strong,nonatomic) NSNumber *distance;
+@property (strong,nonatomic) NSArray *Data;
 
 @end

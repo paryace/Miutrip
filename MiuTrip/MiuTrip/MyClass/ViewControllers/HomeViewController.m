@@ -1049,6 +1049,7 @@
     
     HotelSearchView *hotelSearchView = (HotelSearchView*)[self.contentView viewWithTag:2001];
     [hotelSearchView setHotelCanton:[HotelDataCache sharedInstance].queryCantonName];
+    [hotelSearchView updateDate];
 }
 
 

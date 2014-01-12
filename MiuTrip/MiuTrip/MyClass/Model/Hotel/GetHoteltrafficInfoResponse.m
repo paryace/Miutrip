@@ -6,8 +6,8 @@
 //  Copyright (c) 2013年 michael. All rights reserved.
 //
 
-#import "GetHoteltrafficInfoResponse.h"
+#import "GetHotelTrafficInfoResponse.h"
 
-@implementation GetHoteltrafficInfoResponse
+@implementation GetHotelTrafficlnfoResponse
 
 @end

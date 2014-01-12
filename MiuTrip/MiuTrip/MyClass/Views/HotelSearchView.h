@@ -16,6 +16,14 @@
 @property (nonatomic,strong) ImageAndTextTilteView *priceRangeView;
 @property (nonatomic,strong) ImageAndTextTilteView *hotelLoactionView;
 
+@property (nonatomic,strong) UILabel *checkInDate;
+@property (nonatomic,strong) UILabel *checkInDateWeek;
+@property (nonatomic,strong) UILabel *checkInDateYear;
+
+@property (nonatomic,strong) UILabel *checkOutDate;
+@property (nonatomic,strong) UILabel *checkOutDateWeek;
+@property (nonatomic,strong) UILabel *checkOutDateYear;
+
 -(id)initWidthFrame:(CGRect)frame widthdata:(HotelDataCache*)data;
 
 -(void)setPriceRange:(NSString *) rangeText;
