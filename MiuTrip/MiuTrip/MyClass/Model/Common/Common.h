@@ -13,7 +13,6 @@
 #import "GetCantonByNameRequest.h"
 #import "GetAllProvincesRequest.h"
 #import "GetCitysByProvinceIDRequest.h"
-#import "GetAllCantonsRequest.h"
 #import "GetCantonByIDRequest.h"
 #import "GetCantonsByCityIDRequest.h"
 #import "GetAllCityRequest.h"
