@@ -17,5 +17,6 @@
 @property (nonatomic)        float       apportionRate;
 @property (nonatomic,strong) NSString    *corpUID;
 @property (nonatomic,strong) NSString    *UID;
+@property (nonatomic)        int         policyId;
 
 @end

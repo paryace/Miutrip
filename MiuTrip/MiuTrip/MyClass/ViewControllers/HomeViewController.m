@@ -1236,7 +1236,6 @@
     [_titleBtn setFrame:CGRectMake(0, 0, (appFrame.size.width - 20)/3, 30)];
     [_titleBtn setBackgroundColor:color(darkGrayColor)];
     [_titleBtn.titleLabel setFont:[UIFont systemFontOfSize:12]];
-    //[_titleBtn addTarget:self action:@selector(pressTitleBtn:) forControlEvents:UIControlEventTouchUpInside];
     UIImage *titleImage = imageNameAndType(@"bg_home_title_btn", nil);
     [_titleBtn setBackgroundImage:[titleImage stretchableImageWithLeftCapWidth:titleImage.size.width/2 topCapHeight:titleImage.size.height/2] forState:UIControlStateNormal];
     [_titleBtn setTitle:[_params objectForKey:@"title"] forState:UIControlStateNormal];

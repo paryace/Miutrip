@@ -16,6 +16,8 @@
 #import "Utils.h"
 #import "HotelListBtnCellView.h"
 #import "HotelListRoomCell.h"
+#import "GetCorpPolicyRequest.h"
+#import "GetCorpPolicyResponse.h"
 
 @interface HotelListViewController ()
 
@@ -36,6 +38,7 @@
 {
     if (self = [super init]) {
         [self.view setHidden:NO];
+        _hasPriceRc = YES;
         [self setSubviewFrame];
     }
     return self;
@@ -67,6 +70,7 @@
     HotelMapViewControler *viewController = [[HotelMapViewControler alloc] initWithType:0 withData:_hotelListData];
     [self pushViewController:viewController transitionType:TransitionPush completionHandler:nil];
 }
+
 
 -(void)addTableView{
     
@@ -201,6 +205,33 @@
     
 }
 
+-(void)LoadDate{
+    HotelDataCache *data = [HotelDataCache sharedInstance];
+    if(data.isPrivte){
+        _hasPriceRc = NO;
+        [self searchHotels];
+        return;
+    }
+    
+    int policyID = 0;
+    if(data.isForSelf){
+        policyID = [UserDefaults shareUserDefault].loginInfo.PolicyID;
+    }else{
+        if(data.executor){
+            policyID = data.executor.policyId;
+        }
+    }
+    
+    if(policyID == 0){
+        _hasPriceRc = NO;
+        [self searchHotels];
+        return;
+    }
+    GetCorpPolicyRequest *request = [[GetCorpPolicyRequest alloc] initWidthBusinessType:BUSINESS_ACCOUNT methodName:@"GetCorpPolicy"];
+    request.policyid = [NSNumber numberWithInt:policyID];
+    [self.requestManager sendRequest:request];
+}
+
 
 -(void)searchHotelsBySort:(int)sortType{
     
@@ -284,23 +315,31 @@
  */
 -(void)requestDone:(BaseResponseModel *) response{
     if(response){
-        SearchHotelsResponse *hotelListResponse = (SearchHotelsResponse*)response;
         
-        NSArray *hotels = [hotelListResponse.Data objectForKey:@"Hotels"];
-        [_hotelListData addObjectsFromArray:hotels];
-        _totalPage = [[hotelListResponse.Data objectForKey:@"TotalPage"] integerValue];
-        
-        if(_pageIndex == 1){
-            [self removeLoadingView];
-            if(self.tableView){
-                [self reAddTabaleView];
-            }else{
-                [self addTableView];
+        if([response isKindOfClass:[GetCorpPolicyResponse class]]){
+            GetCorpPolicyResponse *policyResponse = (GetCorpPolicyResponse*)response;
+
+            
+        }else{
+            SearchHotelsResponse *hotelListResponse = (SearchHotelsResponse*)response;
+            
+            NSArray *hotels = [hotelListResponse.Data objectForKey:@"Hotels"];
+            [_hotelListData addObjectsFromArray:hotels];
+            _totalPage = [[hotelListResponse.Data objectForKey:@"TotalPage"] integerValue];
+            
+            if(_pageIndex == 1){
+                [self removeLoadingView];
+                if(self.tableView){
+                    [self reAddTabaleView];
+                }else{
+                    [self addTableView];
+                }
             }
+            [self stopLoading];
+            [self.tableView reloadData];
+            self.hasMore = YES;
+            
         }
-        [self stopLoading];
-        [self.tableView reloadData];
-        self.hasMore = YES;
     }
 }
 

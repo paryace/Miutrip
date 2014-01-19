@@ -25,10 +25,12 @@ typedef NS_ENUM(NSInteger, ListSortType)
 
 @property (nonatomic,copy) SearchHotelsRequest *request;
 
+@property (nonatomic) BOOL  hasPriceRc;
+
 //页数索引
-@property int pageIndex;
+@property (nonatomic)  int pageIndex;
 //总页数
-@property int totalPage;
+@property (nonatomic)  int totalPage;
 //酒店列表数据
 @property (nonatomic,copy) NSMutableArray *hotelListData;
 
