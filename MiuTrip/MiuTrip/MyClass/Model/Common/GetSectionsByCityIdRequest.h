@@ -2,25 +2,15 @@
 //  GetSectionsByCityIdRequest.h
 //  MiuTrip
 //
-//  Created by Y on 13-12-3.
+//  Created by apple on 13-12-4.
 //  Copyright (c) 2013年 michael. All rights reserved.
 //
 
 #import "BaseRequestModel.h"
-#import "BaseResponseModel.h"
+#import "GetSectionsByCityIdResponse.h"
 
 @interface GetSectionsByCityIdRequest : BaseRequestModel
 
-@property (nonatomic , strong) NSString  *cityId;
-
-@end
-
-
-@interface GetSectionsByCityIdResponse : BaseResponseModel
-
-@property (nonatomic , strong) NSString  *sections;
-@property (nonatomic , strong) NSString  *Id;
-@property (nonatomic , strong) NSString  *Name;
-@property (nonatomic , strong) NSString  *CityId;
+@property (strong, nonatomic) NSString      *cityId;            //城市ID	是	int
 
 @end

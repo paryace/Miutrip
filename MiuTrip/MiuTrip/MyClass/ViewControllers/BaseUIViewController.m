@@ -28,6 +28,11 @@
     return self;
 }
 
+- (void)addErrorViewWithErrorMsg:(NSString *)errorMsg
+{
+    
+}
+
 - (id)init
 {
     self = [super init];
@@ -310,133 +315,6 @@
         }
     }
     return nil;
-}
-
--(void)sendRequestWithRequest:(BaseRequestModel *)request{
-    
-    if(request == Nil){
-        return;
-    }
-
-    ASIFormDataRequest *asiRequest = [[ASIFormDataRequest alloc]initWithURL:[NSURL URLWithString:[request getRequestURLString]]];
-    
-    NSString *json = [request getRequestJsonString:YES];
-    NSLog(@"request json = '%@'",json);
-
-    [asiRequest setPostValue:json forKey:@"Json"];
-    [asiRequest setDelegate:self];
-    
-    [asiRequest setTimeOutSeconds:30];
-    [asiRequest setUseCookiePersistence:NO];
-    [asiRequest startAsynchronous];
-}
-
-- (void)sendRequestWithURL:(NSString*)URLString params:(NSDictionary*)_params requestMethod:(RequestType)requestType userInfo:(NSDictionary*)userInfo
-{
-
-    if(URLString == nil || URLString.length == 0){
-        return;
-    }
-    
-    NSLog(@"url = '%@'",URLString);
-    NSMutableDictionary *params = nil;
-    if (_params) {
-        params = [NSMutableDictionary dictionaryWithDictionary:_params];
-    }else{
-        params = [NSMutableDictionary dictionary];
-    }
-    
-
-    ASIFormDataRequest *request = [[ASIFormDataRequest alloc]initWithURL:[NSURL URLWithString:URLString]];
-    [request setUserInfo:userInfo];
-    
-    [params setObject:deviceId forKey:@"deviceId"];
-    [params setObject:@"0" forKey:@"appId"];
-    [params setObject:[Utils stringWithDate:[NSDate date] withFormat:@"yyyy-MM-dd HH:mm:ss"] forKey:@"processTime"];
-    
-    if(requestType != RequestLogIn){
-            [params setObject:[UserDefaults shareUserDefault].authTkn forKey:@"authTkn"];
-        ASIFormDataRequest *request = [[ASIFormDataRequest alloc]initWithURL:[NSURL URLWithString:URLString]];
-        [request setUserInfo:userInfo];
-        
-        [params setObject:deviceId forKey:@"deviceId"];
-        [params setObject:@"0" forKey:@"appId"];
-        [params setObject:[Utils stringWithDate:[NSDate date] withFormat:@"yyyy-MM-dd HH:mm:ss"] forKey:@"processTime"];
-        if (requestType != RequestLogIn) {
-            if ([UserDefaults shareUserDefault].authTkn) {
-                [params setObject:[UserDefaults shareUserDefault].authTkn forKey:@"authTkn"];
-            }
-        }
-        
-        [request setPostValue:[params JSONRepresentation] forKey:@"Json"];
-        NSLog(@"params json = %@",[params JSONRepresentation]);
-        [request setDelegate:self];
-        
-        [request setTimeOutSeconds:30];
-        [request setUseCookiePersistence:NO];
-        [request startAsynchronous];
-    }else if (requestType == RequestLogOut){
-        ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:[NSURL URLWithString:URLString]];
-        request.requestHeaders = [NSMutableDictionary dictionaryWithDictionary:params];
-        [request setUserInfo:userInfo];
-        
-        [params setObject:deviceId forKey:@"deviceId"];
-        [params setObject:@"0" forKey:@"appId"];
-        [params setObject:[Utils stringWithDate:[NSDate date] withFormat:@"yyyy-MM-dd HH:mm:ss"] forKey:@"processTime"];
-        [params setObject:[UserDefaults shareUserDefault].authTkn forKey:@"authTkn"];
-        NSLog(@"json = %@",[params JSONRepresentation]);
-        [request setPostValue:[params JSONRepresentation] forKey:@"Json"];
-        [request setUseCookiePersistence:NO];
-        [request setTimeOutSeconds:30];
-        request.delegate = self;
-        [request startAsynchronous];
-    }
-    
-    NSString *json = [params JSONRepresentation];
-    NSLog(@"request json = '%@'",json);
-           
-    [request setPostValue:json forKey:@"Json"];
-    [request setDelegate:self];
-    
-    [request setTimeOutSeconds:30];
-    [request setUseCookiePersistence:NO];
-    [request startAsynchronous];
-    
-    self.view.userInteractionEnabled = NO;
-}
-
-- (void)requestFinished:(ASIHTTPRequest *)request
-{
-    self.view.userInteractionEnabled = YES;
-    NSString *responseString = request.responseString;
-    NSLog(@"response string = '%@'",responseString);
-    NSDictionary *dic = [responseString JSONValue];
-    if ([[dic objectForKey:@"process_status"] isEqualToString:@"0"]) {
-        [self requestDone:dic];
-        [self requestSuccess:responseString];
-    }else{
-        [[Model shareModel] showPromptText:[NSString stringWithFormat:@"%@\n错误码%@",[dic objectForKey:@"errorMessage"],[dic objectForKey:@"errorCode"]] model:YES];
-    }
-    [self.view setUserInteractionEnabled:YES];
-}
-- (void)requestFailed:(ASIHTTPRequest *)request
-{
-    self.view.userInteractionEnabled = YES;
-    [self requestError:request];
-}
-
-- (void)requestDone:(NSDictionary*)responseData
-{
-    //subview inherit this method to do request finished handle
-}
-- (void)requestError:(ASIHTTPRequest*)request
-{
-    //subview inherit this method to do error finished handle
-}
-
-- (void)requestSuccess:(NSString *)responseData
-{
-    //subview inherit this method to do success finished handle
 }
 
 - (void)pushViewController:(UIViewController*)_viewController transitionType:(TransitionType)_transitionType completionHandler:(void (^) (void))_compleHandler

@@ -215,7 +215,7 @@
     
     int policyID = 0;
     if(data.isForSelf){
-        policyID = [UserDefaults shareUserDefault].loginInfo.PolicyID;
+        policyID = [[UserDefaults shareUserDefault].loginInfo.PolicyID intValue];
     }else{
         if(data.executor){
             policyID = data.executor.policyId;
@@ -317,7 +317,7 @@
     if(response){
         
         if([response isKindOfClass:[GetCorpPolicyResponse class]]){
-            GetCorpPolicyResponse *policyResponse = (GetCorpPolicyResponse*)response;
+//            GetCorpPolicyResponse *policyResponse = (GetCorpPolicyResponse*)response;
 
             
         }else{

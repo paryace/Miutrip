@@ -22,7 +22,7 @@
 
 +(BOOL)textIsEmpty:(NSString*)value
 {
-    if (value == nil ||[value isEqualToString:@""] || [value isEqualToString:@"null"] ){
+    if ([value isEqualToString:@""] || value == nil) {
         return YES;
     }return NO;
 }
@@ -35,22 +35,38 @@
     return dateString;
 }
 
-+(NSDate*)dateWithString:(NSString *)date withFormat:(NSString*)format
++(NSDate*)dateWithString:(NSString *)dateString withFormat:(NSString*)format
 {
     NSDateFormatter *dateFormate = [[NSDateFormatter alloc]init];
     [dateFormate setDateFormat:format];
-    NSDate *dateString = [dateFormate dateFromString:date];
-    return dateString;
+    NSDate *date = [dateFormate dateFromString:dateString];
+    return date;
+}
+
++(NSString *)formatDateWithString:(NSString *)dateString startFormat:(NSString *)startFormat endFormat:(NSString *)endFormat
+{
+    NSDateFormatter *dateFormate = [[NSDateFormatter alloc]init];
+    [dateFormate setDateFormat:startFormat];
+    NSDate *date = [dateFormate dateFromString:dateString];
+    
+    [dateFormate setDateFormat:endFormat];
+    NSString *result = [dateFormate stringFromDate:date];
+    return result;
 }
 
 + (float)heightForWidth:(CGFloat)textViewWidth text:(NSString *)strText font:(UIFont*)font{
+    float fPadding = 16.0; // 8.0px x 2
+    CGSize constraint = CGSizeMake(textViewWidth - fPadding, CGFLOAT_MAX);
     
-    NSAttributedString *attributedText = [[NSAttributedString alloc] initWithString:
-                                          strText attributes:@{NSFontAttributeName: font}];
+    NSAttributedString *attribute = [[NSAttributedString alloc]initWithString:strText];
+    NSRange range = NSMakeRange(0, attribute.length);
+    NSDictionary *dic = [attribute attributesAtIndex:0 effectiveRange:&range];
     
-    CGRect rect = [attributedText boundingRectWithSize:CGSizeMake(textViewWidth, 9999) options:NSStringDrawingUsesLineFragmentOrigin context:nil];
+    CGSize size = [strText boundingRectWithSize:constraint options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading  attributes:dic context:nil].size;
     
-    return ceilf(rect.size.height);
+    float fHeight = size.height + 16.0;
+    
+    return fHeight;
 }
 
 +(BOOL)isValidatePhoneNum:(NSString *)phoneNum

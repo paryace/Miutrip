@@ -87,7 +87,7 @@
         customer.name = [UserDefaults shareUserDefault].loginInfo.UserName;
         customer.UID = [UserDefaults shareUserDefault].loginInfo.UID;
         customer.passengerId = [UserDefaults shareUserDefault].loginInfo.UID;
-        customer.corpUID = [NSString stringWithFormat:@"%d",[UserDefaults shareUserDefault].loginInfo.CorpID];
+        customer.corpUID = [NSString stringWithFormat:@"%@",[UserDefaults shareUserDefault].loginInfo.CorpID];
         customer.apportionRate = 1;
         [customers addObject:customer];
         
@@ -478,7 +478,7 @@
         [self removeLoadingView];
         [self addChildView];
     }else if([response isKindOfClass:[SubmitOrderResponse class]]){
-        SubmitOrderResponse *orderResponse = (SubmitOrderResponse*)response;
+//        SubmitOrderResponse *orderResponse = (SubmitOrderResponse*)response;
     }
 }
 
@@ -490,7 +490,7 @@
 -(void) getContacts
 {
     GetContactRequest *request = [[GetContactRequest alloc] initWidthBusinessType:BUSINESS_ACCOUNT methodName:@"GetContact"];
-    request.CorpID = [NSNumber numberWithInteger:[UserDefaults shareUserDefault].loginInfo.CorpID];
+    request.CorpID = [UserDefaults shareUserDefault].loginInfo.CorpID;
     [self.requestManager sendRequest:request];
 }
 
@@ -714,7 +714,7 @@
 - (void)userPayAction:(id)sender
 {
     
-    [UPPayPlugin startPay:@"201401050307110027842" mode:kMode viewController:self delegate:self];
+//    [UPPayPlugin startPay:@"201401050307110027842" mode:kMode viewController:self delegate:self];
     
 //    NSString* urlString = [NSString stringWithFormat:kConfigTnUrl, @"201401050307110027842"];
 //    NSURL* url = [NSURL URLWithString:urlString];

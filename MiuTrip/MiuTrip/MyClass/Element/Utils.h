@@ -40,7 +40,8 @@ typedef NS_OPTIONS(NSInteger, Direction){
 +(NSString*)NULLToEmpty:(id)value;
 +(BOOL)textIsEmpty:(NSString*)value;
 +(NSString *)stringWithDate:(NSDate*)date withFormat:(NSString*)format;
-+(NSDate*)dateWithString:(NSString *)date withFormat:(NSString*)format;
++(NSDate*)dateWithString:(NSString *)dateString withFormat:(NSString*)format;
++(NSString *)formatDateWithString:(NSString *)dateString startFormat:(NSString *)startFormat endFormat:(NSString *)endFormat;
 +(float)heightForWidth:(CGFloat)textViewWidth text:(NSString *)strText font:(UIFont*)font;
 +(BOOL)isValidatePhoneNum:(NSString *)phoneNum;
 +(BOOL)isValidateIdNum:(NSString *)idNum;

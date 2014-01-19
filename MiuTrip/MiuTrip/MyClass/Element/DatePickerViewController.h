@@ -12,14 +12,18 @@
 
 @protocol DatePickerDelegate <NSObject>
 
-- (void)pickerFinished:(NSDate*)date;
-- (void)pickerCancel;
+- (void)datePickerFinished:(NSDate*)date;
+- (void)datePickerCancel;
 
 @end
 
 @interface DatePickerViewController : UIViewController
 
 @property (assign, nonatomic) id <DatePickerDelegate> delegate;
+
+- (id)initWithDelegate:(id)delegate;
+
+- (void)setDatePickerMode:(UIDatePickerMode)datePickerMode;
 
 - (void)fire;
 

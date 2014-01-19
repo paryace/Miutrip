@@ -17,10 +17,15 @@
 #import "ImageAndTextTilteView.h"
 #import "LoginUserInfoRequest.h"
 #import "LoginUserInfoResponse.h"
+#import "GetLoginUserInfoRequest.h"
 #import "LoginInfoDTO.h"
 #import "HotelListViewController.h"
 #import "HotelCantonViewController.h"
 #import "DateSelectViewController.h"
+#import "LogoutRequest.h"
+#import "GetNormalFlightsRequest.h"
+
+#import "SelectPassengerViewController.h"
 
 @interface HomeViewController ()
 
@@ -29,6 +34,10 @@
 @property (strong, nonatomic) UIView                *viewPageMiu;
 
 @property (strong, nonatomic) NSMutableArray        *btnArray;
+@property (strong, nonatomic) CityPickerViewController *cityPickerView;
+@property (strong, nonatomic) UIControl             *responseControl;
+
+@property (strong, nonatomic) DatePickerViewController *datePickerView;
 
 #pragma mark - hotel control
 @property (strong, nonatomic) UILabel              *cityNameTf;            //cover btn tag         500
@@ -45,10 +54,17 @@
 @property (strong, nonatomic) UIButton              *toCity;                //目的地   cover btn tag  701
 @property (strong, nonatomic) CustomDateTextField   *startDateTf;           //出发日期 cover btn tag  702
 @property (strong, nonatomic) UITextField           *startTime;             //出发时间 cover btn tag  703
+@property (strong, nonatomic) CustomDateTextField   *returnDateTf;          //返回日期 cover btn tag  802
+@property (strong, nonatomic) UITextField           *returnTime;            //返回时间 cover btn tag  803
 @property (strong, nonatomic) UITextField           *sendAddressTf;         //送票地点 cover btn tag  704
 @property (strong, nonatomic) UITextField           *airLineCompanyTf;      //航空公司 cover btn tag  705
 @property (strong, nonatomic) UITextField           *passengerNumTf;        //乘客数   cover btn tag  706
 @property (strong, nonatomic) UITextField           *seatLevelTf;           //舱位等级 cover btn tag  707
+
+
+@property (strong, nonatomic) CityDTO               *airOrderFromCity;           //出发城市
+@property (strong, nonatomic) CityDTO               *airOrderToCity;             //到达城市
+
 
 @property (assign, nonatomic) BOOL                  moreViewUnfold;
 
@@ -76,6 +92,12 @@
         [self.contentView setBackgroundColor:color(colorWithRed:215.0/255.0 green:215.0/255.0 blue:215.0/255.0 alpha:1)];
         _btnArray = [NSMutableArray array];
         [self setSubviewFrame];
+        _cityPickerView = [[CityPickerViewController alloc]init];
+        [_cityPickerView setDelegate:self];
+        [self.view addSubview:_cityPickerView.view];
+        _datePickerView = [[DatePickerViewController alloc]init];
+        [_datePickerView setDelegate:self];
+        [self.view addSubview:_datePickerView.view];
     }
     return self;
 }
@@ -107,20 +129,41 @@
 
 - (void)logOff:(UIButton*)sender
 {
-
+    LogoutRequest *request = [[LogoutRequest alloc]initWidthBusinessType:BUSINESS_ACCOUNT methodName:@"logout"];
+    [self.requestManager sendRequest:request];
 }
 
 #pragma mark - request handle
 -(void) getLoginUserInfo{
-    LoginUserInfoRequest *request = [[LoginUserInfoRequest alloc] initWidthBusinessType:BUSINESS_ACCOUNT methodName:@"GetUserLoginInfo"];
+    GetLoginUserInfoRequest *request = [[GetLoginUserInfoRequest alloc] initWidthBusinessType:BUSINESS_ACCOUNT methodName:@"GetUserLoginInfo"];
     [self.requestManager sendRequest:request];
 }
 
 -(void)requestDone:(BaseResponseModel *)response
 {
-    LoginUserInfoResponse *userInfoResponse = (LoginUserInfoResponse *)response;
-    [UserDefaults shareUserDefault].loginInfo = userInfoResponse;
+    if ([response isKindOfClass:[LogoutResponse class]]) {
+        [self logOutDone:(LogoutResponse*)response];
+    }else if ([response isKindOfClass:[GetLoginUserInfoResponse class]]){
+        [self getUserLoginInfoDone:(GetLoginUserInfoResponse*)response];
+    }
 }
+
+
+- (void)logOutDone:(LogoutResponse*)response
+{
+    [[Model shareModel] showPromptText:@"注销成功" model:YES];
+    [[UserDefaults shareUserDefault]clearDefaults];
+    [self popToMainViewControllerTransitionType:TransitionPush completionHandler:nil];
+}
+
+- (void)getUserLoginInfoDone:(GetLoginUserInfoResponse*)loginInfo
+{
+    [UserDefaults shareUserDefault].loginInfo = loginInfo;
+    [_userName setText:loginInfo.UserName];
+    [_position setText:[Utils nilToEmpty:loginInfo.DeptName]];
+    [_company setText:[Utils nilToEmpty:loginInfo.CorpName]];
+}
+
 
 - (void)logOutDone
 {
@@ -133,6 +176,47 @@
     [self popToMainViewControllerTransitionType:TransitionPush completionHandler:nil];
 }
 
+
+#pragma mark - city picker handle
+- (void)cityPickerFinished:(CityDTO *)city
+{
+    [self control:_responseControl setTitle:city.CityName];
+    if (_responseControl == _fromCity) {
+        _airOrderFromCity = city;
+    }else if (_responseControl == _toCity){
+        _airOrderToCity   = city;
+    }
+}
+
+- (void)cityPickerCancel
+{
+    
+}
+
+- (void)control:(UIControl*)control setTitle:(NSString*)title
+{
+    if ([control isKindOfClass:[UILabel class]] || [control isKindOfClass:[UITextField class]] || [control isKindOfClass:[UITextView class]]) {
+        [control performSelector:@selector(setText:) withObject:title];
+    }else if ([control isKindOfClass:[UIButton class]]){
+        UIButton *btnControl = (UIButton*)control;
+        [btnControl setTitle:title forState:UIControlStateNormal];
+    }
+}
+
+#pragma mark - date picker handle
+- (void)datePickerFinished:(NSDate*)date
+{
+    if ([_responseControl isMemberOfClass:[UITextField class]]) {
+        [self control:_responseControl setTitle:[Utils stringWithDate:date withFormat:@"HH:mm"]];
+    }else if ([_responseControl isMemberOfClass:[CustomDateTextField class]]){
+        [self control:_responseControl setTitle:[Utils stringWithDate:date withFormat:@"yyyy-MM-dd"]];
+    }
+}
+
+- (void)datePickerCancel
+{
+    
+}
 
 - (void)pressSubitem:(UIButton*)sender
 {
@@ -474,7 +558,7 @@
 {
     if (!_viewPageAir) {
         UIView *segmentedControl = [self.view viewWithTag:10000];
-
+        
         _viewPageAir = [[UIView alloc]initWithFrame:CGRectMake(0, controlYLength(segmentedControl), self.view.frame.size.width, 0)];
         [_viewPageAir setBackgroundColor:color(clearColor)];
         
@@ -519,10 +603,12 @@
         [_fromCity setBorderColor:color(lightGrayColor) width:1.0];
         [_fromCity setCornerRadius:5];
         [_fromCity setFrame:CGRectMake(10, controlYLength(startImage), (pageAirBottomView.frame.size.width - 20 - 10 - 40)/2, 40)];
-        [_fromCity setTitle:@"上海" forState:UIControlStateNormal];
+        [_fromCity setTag:700];
+        //[_fromCity setTitle:@"上海" forState:UIControlStateNormal];
         [_fromCity setTitleColor:color(blackColor) forState:UIControlStateNormal];
         [_fromCity setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
         [_fromCity setTitleEdgeInsets:UIEdgeInsetsMake(0, 10, 0, 0)];
+        [_fromCity addTarget:self action:@selector(pressAirItemBtn:) forControlEvents:UIControlEventTouchUpInside];
         [pageAirBottomView addSubview:_fromCity];
         
         UIButton *exchangeFromAndTo = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -536,23 +622,20 @@
         [_toCity setBorderColor:color(lightGrayColor) width:1.0];
         [_toCity setCornerRadius:5];
         [_toCity setFrame:CGRectMake(controlXLength(exchangeFromAndTo) + 5, _fromCity.frame.origin.y, _fromCity.frame.size.width, _fromCity.frame.size.height)];
-        [_toCity setTitle:@"北京" forState:UIControlStateNormal];
+        [_toCity setTag:701];
+        //[_toCity setTitle:@"北京" forState:UIControlStateNormal];
         [_toCity setTitleColor:color(blackColor) forState:UIControlStateNormal];
         [_toCity setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
         [_toCity setTitleEdgeInsets:UIEdgeInsetsMake(0, 10, 0, 0)];
+        [_toCity addTarget:self action:@selector(pressAirItemBtn:) forControlEvents:UIControlEventTouchUpInside];
         [pageAirBottomView addSubview:_toCity];
         
-        UIImageView *topItemBG = [[UIImageView alloc]initWithFrame:CGRectMake(_fromCity.frame.origin.x, controlYLength(_fromCity) + 10, pageAirBottomView.frame.size.width - _fromCity.frame.origin.x * 2, _fromCity.frame.size.height * 2)];
+        UIImageView *topItemBG = [[UIImageView alloc]initWithFrame:CGRectMake(_fromCity.frame.origin.x, controlYLength(_fromCity) + 10, pageAirBottomView.frame.size.width - _fromCity.frame.origin.x * 2, _fromCity.frame.size.height * 4)];
         [topItemBG setBackgroundColor:color(whiteColor)];
         [topItemBG setBorderColor:color(lightGrayColor) width:1.0];
         [topItemBG setCornerRadius:5.0];
         [topItemBG setAlpha:0.5];
         [pageAirBottomView addSubview:topItemBG];
-        
-        NSDate *date = [NSDate date];
-        NSCalendar *calendar = [NSCalendar currentCalendar];
-        //    [calendar setLocale:[NSLocale currentLocale]];
-        NSDateComponents *comps =[calendar components:(NSWeekCalendarUnit | NSWeekdayCalendarUnit |NSWeekdayOrdinalCalendarUnit) fromDate:date];
         
         UIImageView *startDateImage = [[UIImageView alloc]initWithFrame:CGRectMake(topItemBG.frame.origin.x, topItemBG.frame.origin.y, 40, 40)];
         [startDateImage setBackgroundColor:color(clearColor)];
@@ -560,18 +643,18 @@
         [pageAirBottomView addSubview:startDateImage];
         
         _startDateTf = [[CustomDateTextField alloc]initWithFrame:CGRectMake(controlXLength(startDateImage), startDateImage.frame.origin.y, controlXLength(topItemBG) - controlXLength(startDateImage), startDateImage.frame.size.height)];
-        [_startDateTf setWeek:[[WeekDays componentsSeparatedByString:@","] objectAtIndex:[comps weekday] - 1]];
-        [_startDateTf setLeftPlaceholder:@"入住时间"];
-        [_startDateTf setYear:[NSString stringWithFormat:@"%@年",[Utils stringWithDate:date withFormat:@"yyyy"]]];
-        [_startDateTf setMonthAndDay:[NSString stringWithFormat:@"%@",[Utils stringWithDate:date withFormat:@"MM月dd日"]]];
+        //        [_startDateTf setWeek:[[WeekDays componentsSeparatedByString:@","] objectAtIndex:[comps weekday] - 1]];
+        [_startDateTf setLeftPlaceholder:@"出发日期"];
+        //        [_startDateTf setYear:[NSString stringWithFormat:@"%@年",[Utils stringWithDate:date withFormat:@"yyyy"]]];
+        //        [_startDateTf setMonthAndDay:[NSString stringWithFormat:@"%@",[Utils stringWithDate:date withFormat:@"MM月dd日"]]];
         [pageAirBottomView addSubview:_startDateTf];
-        UIImageView *startDateRightImage = [[UIImageView alloc]initWithFrame:CGRectMake(controlXLength(_startDateTf) - _startDateTf.frame.size.height, _startDateTf.frame.origin.y, _startDateTf.frame.size.height, _startDateTf.frame.size.height)];
+        UIImageView *startDateRightImage = [[UIImageView alloc]initWithFrame:CGRectMake(_startDateTf.frame.size.width - _startDateTf.frame.size.height, 0, _startDateTf.frame.size.height, _startDateTf.frame.size.height)];
         [startDateRightImage setImage:imageNameAndType(@"arrow", nil)];
         [startDateRightImage setScaleX:0.2 scaleY:0.3];
-        [pageAirBottomView addSubview:startDateRightImage];
+        [_startDateTf addSubview:startDateRightImage];
         UIButton *startDateBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [startDateBtn setFrame:_startDateTf.frame];
-        [startDateBtn setTag:500];
+        [startDateBtn setTag:702];
         [startDateBtn addTarget:self action:@selector(pressAirItemBtn:) forControlEvents:UIControlEventTouchUpInside];
         [pageAirBottomView addSubview:startDateBtn];
         
@@ -579,7 +662,7 @@
         
         UIImageView *startTimeImage = [[UIImageView alloc]initWithFrame:CGRectMake(startDateImage.frame.origin.x, controlYLength(startDateImage), startDateImage.frame.size.width, startDateImage.frame.size.height)];
         [startTimeImage setBackgroundColor:color(clearColor)];
-        [startTimeImage setImage:imageNameAndType(@"query_checkIn", nil)];
+        [startTimeImage setImage:imageNameAndType(@"query_time", nil)];
         [pageAirBottomView addSubview:startTimeImage];
         
         UILabel *startTimeLeft = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, (topItemBG.frame.size.width - startTimeImage.frame.size.width)/3, startTimeImage.frame.size.height)];
@@ -593,11 +676,68 @@
         [_startTime setLeftViewMode:UITextFieldViewModeAlways];
         [_startTime setFont:[UIFont boldSystemFontOfSize:15]];
         [pageAirBottomView addSubview:_startTime];
-        UIImageView *startTimeRightImage = [[UIImageView alloc]initWithFrame:CGRectMake(controlXLength(_startTime) - _startTime.frame.size.height, _startTime.frame.origin.y, _startTime.frame.size.height, _startTime.frame.size.height)];
+        UIImageView *startTimeRightImage = [[UIImageView alloc]initWithFrame:startDateRightImage.frame];
         [startTimeRightImage setImage:imageNameAndType(@"arrow", nil)];
-        [startTimeRightImage setScaleX:0.2 scaleY:0.3];
-        [pageAirBottomView addSubview:startTimeRightImage];
-        UILabel *moreConditionLabel = [[UILabel alloc]initWithFrame:CGRectMake(startTimeImage.frame.origin.x, controlYLength(startTimeImage), 65, startTimeImage.frame.size.height)];
+        [_startTime addSubview:startTimeRightImage];
+        UIButton *startTimeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [startTimeBtn setFrame:_startTime.frame];
+        [startTimeBtn setTag:703];
+        [startTimeBtn addTarget:self action:@selector(pressAirItemBtn:) forControlEvents:UIControlEventTouchUpInside];
+        [pageAirBottomView addSubview:startTimeBtn];
+        
+        [pageAirBottomView addSubview:[self createLineWithParam:color(lightGrayColor) frame:CGRectMake(startDateImage.frame.origin.x, controlYLength(_startTime), topItemBG.frame.size.width, 1)]];
+        
+        UIImageView *returnDateImage = [[UIImageView alloc]initWithFrame:CGRectMake(startDateImage.frame.origin.x, controlYLength(startTimeImage), startDateImage.frame.size.width, startDateImage.frame.size.height)];
+        [returnDateImage setBackgroundColor:color(clearColor)];
+        [returnDateImage setImage:imageNameAndType(@"query_checkIn", nil)];
+        [pageAirBottomView addSubview:returnDateImage];
+        
+        _returnDateTf = [[CustomDateTextField alloc]initWithFrame:CGRectMake(controlXLength(returnDateImage), returnDateImage.frame.origin.y, _startDateTf.frame.size.width, _startDateTf.frame.size.height)];
+        //        [_startDateTf setWeek:[[WeekDays componentsSeparatedByString:@","] objectAtIndex:[comps weekday] - 1]];
+        [_returnDateTf setLeftPlaceholder:@"返回日期"];
+        //        [_startDateTf setYear:[NSString stringWithFormat:@"%@年",[Utils stringWithDate:date withFormat:@"yyyy"]]];
+        //        [_startDateTf setMonthAndDay:[NSString stringWithFormat:@"%@",[Utils stringWithDate:date withFormat:@"MM月dd日"]]];
+        [pageAirBottomView addSubview:_returnDateTf];
+        UIImageView *returnDateRightImage = [[UIImageView alloc]initWithFrame:startDateRightImage.frame];
+        [returnDateRightImage setImage:imageNameAndType(@"arrow", nil)];
+        [_returnDateTf addSubview:returnDateRightImage];
+        UIButton *returnDateBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [returnDateBtn setFrame:_returnDateTf.frame];
+        [returnDateBtn setTag:802];
+        [returnDateBtn addTarget:self action:@selector(pressAirItemBtn:) forControlEvents:UIControlEventTouchUpInside];
+        [pageAirBottomView addSubview:returnDateBtn];
+        
+        [pageAirBottomView addSubview:[self createLineWithParam:color(lightGrayColor) frame:CGRectMake(startDateImage.frame.origin.x, controlYLength(_returnDateTf), topItemBG.frame.size.width, 1)]];
+        
+        UIImageView *returnTimeImage = [[UIImageView alloc]initWithFrame:CGRectMake(startDateImage.frame.origin.x, controlYLength(returnDateBtn), startDateImage.frame.size.width, startDateImage.frame.size.height)];
+        [returnTimeImage setBackgroundColor:color(clearColor)];
+        [returnTimeImage setImage:imageNameAndType(@"query_time", nil)];
+        [pageAirBottomView addSubview:returnTimeImage];
+        
+        UILabel *returnTimeLeft = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, (topItemBG.frame.size.width - startTimeImage.frame.size.width)/3, startTimeImage.frame.size.height)];
+        [returnTimeLeft setBackgroundColor:color(clearColor)];
+        [returnTimeLeft setTextColor:color(darkGrayColor)];
+        [returnTimeLeft setText:@"返回时间"];
+        [returnTimeLeft setFont:[UIFont systemFontOfSize:13]];
+        _returnTime = [[UITextField alloc]initWithFrame:CGRectMake(_returnDateTf.frame.origin.x, controlYLength(_returnDateTf), _returnDateTf.frame.size.width, _returnDateTf.frame.size.height)];
+        [_returnTime setBackgroundColor:color(clearColor)];
+        [_returnTime setLeftView:returnTimeLeft];
+        [_returnTime setLeftViewMode:UITextFieldViewModeAlways];
+        [_returnTime setFont:[UIFont boldSystemFontOfSize:15]];
+        [pageAirBottomView addSubview:_returnTime];
+        UIImageView *returnTimeRightImage = [[UIImageView alloc]initWithFrame:startDateRightImage.frame];
+        [returnTimeRightImage setImage:imageNameAndType(@"arrow", nil)];
+        [_returnTime addSubview:returnTimeRightImage];
+        UIButton *returnTimeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [returnTimeBtn setFrame:_returnTime.frame];
+        [returnTimeBtn setTag:803];
+        [returnTimeBtn addTarget:self action:@selector(pressAirItemBtn:) forControlEvents:UIControlEventTouchUpInside];
+        [pageAirBottomView addSubview:returnTimeBtn];
+        
+        [startTimeImage setScaleX:0.5 scaleY:0.5];
+        [returnTimeImage setScaleX:0.5 scaleY:0.5];
+        
+        UILabel *moreConditionLabel = [[UILabel alloc]initWithFrame:CGRectMake(startTimeImage.frame.origin.x, controlYLength(topItemBG), 65, startTimeImage.frame.size.height)];
         [moreConditionLabel setFont:[UIFont systemFontOfSize:13]];
         [moreConditionLabel setTextAlignment:NSTextAlignmentRight];
         [moreConditionLabel setText:@"更多条件"];
@@ -660,7 +800,6 @@
         [passengerNumBtn addTarget:self action:@selector(pressAirItemBtn:) forControlEvents:UIControlEventTouchUpInside];
         [moreConditionView addSubview:passengerNumBtn];
         
-        NSLog(@"top x = %f,width = %f",topItemBG.frame.origin.x,topItemBG.frame.size.width);
         UIImageView *moreRightItem = [[UIImageView alloc]initWithFrame:CGRectMake(topItemBG.frame.origin.x * 2 + controlXLength(moreLeftItem), moreLeftItem.frame.origin.y, moreLeftItem.frame.size.width, moreLeftItem.frame.size.height)];
         [moreRightItem setCornerRadius:5];
         [moreRightItem setBorderColor:color(lightGrayColor) width:1];
@@ -705,7 +844,7 @@
         [moreConditionView addSubview:seatLevelBtn];
         
         [moreConditionView.layer setAnchorPoint:CGPointMake(0.5, 0.0)];
-
+        
         [moreConditionView setFrame:CGRectMake(moreConditionView.frame.origin.x, moreConditionView.frame.origin.y, moreConditionView.frame.size.width, controlYLength(_seatLevelTf))];
         [moreConditionView setScaleX:1 scaleY:0.1];
         [moreConditionView setHidden:YES];
@@ -734,14 +873,14 @@
         [pageAirBottomView addSubview:voiceBtn];
         
         [pageAirBottomView setFrame:CGRectMake(pageAirBottomView.frame.origin.x,
-                                                 pageAirBottomView.frame.origin.y,
-                                                 pageAirBottomView.frame.size.width,
-                                                 controlYLength(queryBtn))];
+                                               pageAirBottomView.frame.origin.y,
+                                               pageAirBottomView.frame.size.width,
+                                               controlYLength(queryBtn))];
         
         [_viewPageAir setFrame:CGRectMake(_viewPageAir.frame.origin.x,
-                                            _viewPageAir.frame.origin.y,
-                                            _viewPageAir.frame.size.width,
-                                            controlYLength(pageAirBottomView))];
+                                          _viewPageAir.frame.origin.y,
+                                          _viewPageAir.frame.size.width,
+                                          controlYLength(pageAirBottomView))];
         
     }
 }
@@ -752,6 +891,12 @@
     UIButton *toCity   = _toCity;
     CGRect fromFrame = _fromCity.frame;
     CGRect toFrame   = _toCity.frame;
+    NSInteger fromTag = _fromCity.tag;
+    NSInteger toTag = _toCity.tag;
+    CityDTO *elemCiy = nil;
+    elemCiy = _airOrderFromCity;
+    _airOrderFromCity = _airOrderToCity;
+    _airOrderToCity = elemCiy;
     [UIView animateWithDuration:0.25
                      animations:^{
                          [_fromCity setFrame:toFrame];
@@ -759,21 +904,69 @@
                      }completion:^(BOOL finished){
                          _fromCity = toCity;
                          _toCity   = fromCity;
+                         _fromCity.tag = toTag;
+                         _toCity.tag = fromTag;
                      }];
 }
 
 - (void)pressAirItemBtn:(UIButton*)sender
 {
     NSLog(@"air tag = %d",sender.tag);
+    switch (sender.tag) {
+        case 700:{
+            _responseControl = (UIButton*)[_viewPageAir viewWithTag:700];
+            [_cityPickerView fire];
+            break;
+        }case 701:{
+            _responseControl = (UIButton*)[_viewPageAir viewWithTag:701];
+            [_cityPickerView fire];
+            break;
+        }case 702:{
+            _responseControl = _startDateTf;
+            [_datePickerView setDatePickerMode:UIDatePickerModeDate];
+            [_datePickerView fire];
+            break;
+        }case 703:{
+            _responseControl = _startTime;
+            [_datePickerView setDatePickerMode:UIDatePickerModeTime];
+            [_datePickerView fire];
+            break;
+        }case 704:{
+            
+            break;
+        }case 705:{
+            
+            break;
+        }case 706:{
+            
+            break;
+        }case 707:{
+            
+            break;
+        }
+        default:
+            break;
+    }
 }
 
 - (void)pressAirItemDone:(UIButton*)sender
 {
     NSLog(@"btn tag = %d",sender.tag);
-    AirListViewController *airListView = [[AirListViewController alloc]init];
-    [self pushViewController:airListView transitionType:TransitionPush completionHandler:Nil];
+    HomeCustomBtn *customBtn = (HomeCustomBtn*)[_viewPageAir viewWithTag:300];
+    NSLog(@"goal title = %@,query title = %@,pay title = %@",customBtn.goalTitle,customBtn.queryTypeTitle,customBtn.payTypeTitle);
     switch (sender.tag) {
         case 750:{
+            if ([customBtn.queryTypeTitle isEqualToString:@"为他人/多人"]) {
+                SelectPassengerViewController *passengerSelectView = [[SelectPassengerViewController alloc]init];
+                [self pushViewController:passengerSelectView transitionType:TransitionPush completionHandler:nil];
+            }else{
+                GetNormalFlightsRequest *request = [self getNormalFlightsRequest];
+                AirListViewController *airListView = [[AirListViewController alloc]init];
+                [self pushViewController:airListView transitionType:TransitionPush completionHandler:^{
+                    [airListView getAirListWithRequest:request];
+                }];
+            }
+            
             
             break;
         }case 751:{
@@ -783,6 +976,20 @@
         default:
             break;
     }
+}
+
+
+- (GetNormalFlightsRequest*)getNormalFlightsRequest
+{
+    GetNormalFlightsRequest *request = [[GetNormalFlightsRequest alloc]initWidthBusinessType:BUSINESS_FLIGHT methodName:@"GetNormalFlights"];
+    [request setDepartCity:_airOrderFromCity.CityRequestParams];
+    [request setArriveCity:_airOrderToCity.CityRequestParams];
+    NSString *departDate = [Utils stringWithDate:[Utils dateWithString:_startDateTf.year withFormat:@"yyyy年"] withFormat:@"yyyy"];
+    departDate = [departDate stringByAppendingFormat:@"-%@",[Utils stringWithDate:[Utils dateWithString:_startDateTf.text withFormat:@"MM月dd日"] withFormat:@"MM-dd"]];
+    NSLog(@"date = %@",departDate);
+    [request setDepartDate:departDate];
+    
+    return request;
 }
 
 - (void)pressMoreConditionBtn:(UIButton*)sender
@@ -1136,12 +1343,40 @@
 - (void)BtnItemUnfold
 {
     _unfold = _goalBtn.unfold | _queryTypeBtn.unfold | _payTypeBtn.unfold;
+    
+    [self reloadBtnStatus];
+    
     [self.delegate HomeCustomBtnUnfold:_unfold];
+}
+
+- (void)reloadBtnStatus
+{
+    if ([_goalBtn.selectBtn.titleLabel.text isEqualToString:@"因私"]) {
+        [_queryTypeBtn.selectBtn.titleLabel setText:@"为自己"];
+        [_queryTypeBtn.titleBtn setEnabled:NO];
+    }else{
+        [_queryTypeBtn.titleBtn setEnabled:YES];
+    }
 }
 
 - (void)pressSelectBtn:(UIButton*)sender
 {
     NSLog(@"------------->");
+}
+
+- (NSString *)goalTitle
+{
+    return _goalBtn.selectBtn.titleLabel.text;
+}
+
+- (NSString *)queryTypeTitle
+{
+    return _queryTypeBtn.selectBtn.titleLabel.text;
+}
+
+- (NSString *)payTypeTitle
+{
+    return _payTypeBtn.selectBtn.titleLabel.text;
 }
 
 - (void)setSubviewFrame
@@ -1196,6 +1431,8 @@
     [_payTypeBtn.selectBtn addTarget:self action:@selector(pressSelectBtn:) forControlEvents:UIControlEventTouchUpInside];
     [_payTypeBtn setFrame:CGRectMake(controlXLength(_queryTypeBtn) + 5, 0, _goalBtn.frame.size.width, _goalBtn.frame.size.height)];
     [self addSubview:_payTypeBtn];
+    
+    [self reloadBtnStatus];
 }
 
 @end
@@ -1254,6 +1491,7 @@
     [_selectBtn setTitle:[items objectAtIndex:1] forState:UIControlStateNormal];
     [_selectBtn setTitleColor:color(blackColor) forState:UIControlStateNormal];
     _selectBtn.layer.cornerRadius = 5;
+    [_selectBtn.titleLabel setTextAlignment:NSTextAlignmentCenter];
     _selectBtn.layer.masksToBounds = YES;
     [self addSubview:_selectBtn];
 }
@@ -1299,7 +1537,7 @@
 
 - (void)pressSubitem:(UIButton*)sender
 {
-    [_selectBtn setTitle:sender.titleLabel.text forState:UIControlStateNormal];
+    [_selectBtn.titleLabel setText:sender.titleLabel.text];
     [self unfoldViewShow];
 }
 
@@ -1326,6 +1564,17 @@
         [self setSubviewFrame];
     }
     return self;
+}
+
+- (void)setText:(NSString *)text
+{
+    NSDate *date = [Utils dateWithString:text withFormat:@"yyyy-MM-dd"];
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    //    [calendar setLocale:[NSLocale currentLocale]];
+    NSDateComponents *comps =[calendar components:(NSWeekCalendarUnit | NSWeekdayCalendarUnit |NSWeekdayOrdinalCalendarUnit) fromDate:date];
+    [self setWeek:[[WeekDays componentsSeparatedByString:@","] objectAtIndex:[comps weekday] - 1]];
+    [self setYear:[NSString stringWithFormat:@"%@年",[Utils stringWithDate:date withFormat:@"yyyy"]]];
+    [self setMonthAndDay:[NSString stringWithFormat:@"%@",[Utils stringWithDate:date withFormat:@"MM月dd日"]]];
 }
 
 - (void)setSubviewFrame
@@ -1377,7 +1626,7 @@
 
 - (void)setMonthAndDay:(NSString *)_monthAndDay
 {
-    [self setText:_monthAndDay];
+    [super setText:_monthAndDay];
 }
 
 @end

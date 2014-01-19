@@ -41,7 +41,7 @@ typedef NS_ENUM(NSInteger, popupListType)
 @end
 
 @interface HomeViewController : BaseUIViewController<HomeCustomBtnDelegate,UIPopoverListViewDataSource,
-                             UIPopoverListViewDelegate,CLLocationManagerDelegate>
+                             UIPopoverListViewDelegate,CLLocationManagerDelegate,CityPickerDelegate,DatePickerDelegate>
 
 @property (strong, nonatomic) UILabel                   *userName;
 @property (strong, nonatomic) UILabel                   *position;
@@ -59,6 +59,10 @@ typedef NS_ENUM(NSInteger, popupListType)
 @property (assign, nonatomic) BOOL                      unfold;
 
 - (id)initWithParams:(NSObject*)params;
+
+- (NSString *)goalTitle;
+- (NSString *)queryTypeTitle;
+- (NSString *)payTypeTitle;
 
 @end
 
@@ -81,6 +85,8 @@ typedef NS_ENUM(NSInteger, popupListType)
 @property (strong, nonatomic) NSString      *year;
 @property (strong, nonatomic) NSString      *monthAndDay;
 @property (strong, nonatomic) NSString      *leftPlaceholder;
+
+//setText       text need format @"yyyy-MM-dd"
 
 @end
 

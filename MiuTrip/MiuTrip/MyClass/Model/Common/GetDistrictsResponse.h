@@ -2,8 +2,7 @@
 //  GetDistrictsResponse.h
 //  MiuTrip
 //
-//  Created by pingguo on 13-12-2.
-//  Created by Y on 13-12-5.
+//  Created by apple on 13-12-4.
 //  Copyright (c) 2013年 michael. All rights reserved.
 //
 
@@ -11,15 +10,13 @@
 
 @interface GetDistrictsResponse : BaseResponseModel
 
-@property(strong,nonatomic) NSNumber *ID;
-@property(strong,nonatomic) NSString *DistrictName;
-@property (nonatomic , strong) NSDictionary  *Data;
+@property (strong, nonatomic) NSArray       *Data;          //行政区列表	List<DistrictMobile>
 
 @end
 
+@interface DistrictMobile : NSObject
 
-@interface DistrictMibileResponse : BaseResponseModel
+@property (strong, nonatomic) NSNumber      *ID;            //行政区ID	int
+@property (strong, nonatomic) NSString      *DistrictName;  //行政区名称
 
-@property (nonatomic , strong) NSNumber  *ID;
-@property (nonatomic , strong) NSString  *DistrictName;
 @end

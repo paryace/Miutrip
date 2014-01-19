@@ -14,6 +14,9 @@
 #import "CustomMethod.h"
 #import "BaseRequestModel.h"
 #import "RequestManager.h"
+#import "Common.h"
+#import "DatePickerViewController.h"
+#import "CityPickerViewController.h"
 
 #define LOADING_VIEW_TAG  9999
 
@@ -64,12 +67,6 @@ typedef NS_OPTIONS(NSInteger, RequestType){
 
 - (UIView *)findKeyboard;
 
--(void)sendRequestWithRequest:(BaseRequestModel *)request;
-- (void)sendRequestWithURL:(NSString*)URLString params:(NSDictionary*)params requestMethod:(RequestType)requestType userInfo:(NSDictionary*)userInfo;
-- (void)requestDone:(NSDictionary*)responseData;
-- (void)requestError:(ASIHTTPRequest*)request;
-- (void)requestSuccess:(NSString*)responseData;
-
 - (void)pushViewController:(BaseUIViewController*)_viewController transitionType:(TransitionType)_transitionType completionHandler:(void (^) (void))_compleHandler;
 - (void)popViewControllerTransitionType:(TransitionType)_transitionType completionHandler:(void (^) (void))_compleHandler;
 - (void)popToMainViewControllerTransitionType:(TransitionType)_transitionType completionHandler:(void (^) (void))_compleHandler;
@@ -103,5 +100,6 @@ typedef NS_OPTIONS(NSInteger, RequestType){
  *  添加请求服务错误结果界面
  */
 -(void)addErrorViewWithErrorMsg:(NSString*) errorMsg;
+
 @end
 
