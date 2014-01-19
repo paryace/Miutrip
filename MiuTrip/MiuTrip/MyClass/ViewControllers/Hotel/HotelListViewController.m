@@ -215,7 +215,7 @@
     
     int policyID = 0;
     if(data.isForSelf){
-        policyID = [UserDefaults shareUserDefault].loginInfo.PolicyID;
+        policyID = [[UserDefaults shareUserDefault].loginInfo.PolicyID intValue];
     }else{
         if(data.executor){
             policyID = data.executor.policyId;
@@ -317,6 +317,7 @@
     if(response){
         
         if([response isKindOfClass:[GetCorpPolicyResponse class]]){
+<<<<<<< HEAD
             GetCorpPolicyResponse *policyResponse = (GetCorpPolicyResponse*)response;
             NSString *hotelRc = policyResponse.HotelRC;
             if([hotelRc isEqualToString:@"T"]){
@@ -331,6 +332,10 @@
                 _hasPriceRc = NO;
             }
             [self searchHotels];
+=======
+//            GetCorpPolicyResponse *policyResponse = (GetCorpPolicyResponse*)response;
+
+>>>>>>> 97d22a74209c42d44ae790b1a0aa8daaae6fac48
             
         }else{
             SearchHotelsResponse *hotelListResponse = (SearchHotelsResponse*)response;

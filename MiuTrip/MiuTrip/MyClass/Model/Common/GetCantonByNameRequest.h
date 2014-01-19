@@ -2,26 +2,15 @@
 //  GetCantonByNameRequest.h
 //  MiuTrip
 //
-//  Created by Y on 13-12-3.
+//  Created by apple on 13-12-4.
 //  Copyright (c) 2013年 michael. All rights reserved.
 //
 
 #import "BaseRequestModel.h"
-#import "BaseResponseModel.h"
+#import "GetCantonByNameResponse.h"
 
 @interface GetCantonByNameRequest : BaseRequestModel
 
-@property (nonatomic , strong) NSString  *name;
-
-@end
-
-
-
-@interface GetCantonByNameResponse : BaseResponseModel
-
-@property (nonatomic , strong) NSNumber  *CID;
-@property (nonatomic , strong) NSString  *Canton_Name;
-@property (nonatomic , strong) NSNumber  *CityID;
-@property (nonatomic , strong) NSString  *Canton_EnName;
+@property (strong, nonatomic) NSString      *name;      //区域名称
 
 @end

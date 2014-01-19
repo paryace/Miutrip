@@ -12,6 +12,6 @@
 
 @required
 //解析响应并赋值给当前response
--(void) parshJsonToResponse:(NSDictionary *)jsonData;
+-(void) parshJsonToResponse:(NSObject *)jsonData;
 
 @end

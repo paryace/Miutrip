@@ -7,13 +7,15 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "LoginUserInfoResponse.h"
+#import "GetLoginUserInfoResponse.h"
+
+@class LoginInfoDTO;
 
 @interface UserDefaults : NSObject
 
 +(UserDefaults*)shareUserDefault;
 
-@property (strong, nonatomic) LoginUserInfoResponse     *loginInfo;
+@property (strong, nonatomic) GetLoginUserInfoResponse  *loginInfo;
 
 @property (strong, nonatomic) NSString                  *userName;
 @property (strong, nonatomic) NSString                  *passWord;
@@ -42,6 +44,11 @@
 
 @property (strong, nonatomic) NSString                  *authTkn;                   //token
 
+@property (strong, nonatomic) NSArray                   *allCity;                   //城市列表
+
 - (void)clearDefaults;
+
+- (NSString *)getPriceRange;
+- (NSString *)getPostType;
 
 @end

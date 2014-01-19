@@ -7,7 +7,7 @@
 //
 
 #import "BaseRequestModel.h"
-#import "BaseResponseModel.h"
+#import "LogoutResponse.h"
 ///////////////////////////////////////////////////////////////////////////
 
 @interface LogoutRequest : BaseRequestModel

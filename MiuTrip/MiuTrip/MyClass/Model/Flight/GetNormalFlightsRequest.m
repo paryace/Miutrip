@@ -2,7 +2,7 @@
 //  GetNormalFlightsRequest.m
 //  MiuTrip
 //
-//  Created by pingguo on 13-12-4.
+//  Created by apple on 13-12-4.
 //  Copyright (c) 2013年 michael. All rights reserved.
 //
 
@@ -10,11 +10,25 @@
 
 @implementation GetNormalFlightsRequest
 
+- (id)init
+{
+    self = [super init];
+    if (self) {
+        _FlightSource = @"Mango";
+    }
+    return self;
+}
 
--(NSString *)getRequestURLString{
-    
-    return [URLHelper getRequestURLByBusinessType:BUSINESS_FLIGHT widthMethodName:@"GetNormalFlights"];
-    
+- (BaseRequestModel *)initWidthBusinessType:(BusinessType)bussinessType methodName:(NSString *)methodName
+{
+    self = [super initWidthBusinessType:bussinessType methodName:methodName];
+    if (self) {
+        _FlightSource = @"TongCheng";
+        _FlightWay    = @"S";
+        _PassengerType = @"ADU";
+        _SendTicketCity = @"";
+    }
+    return self;
 }
 
 @end

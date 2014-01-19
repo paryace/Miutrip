@@ -203,7 +203,6 @@
 		18564759184C66A20031E5D6 /* icon_arrow1.png in Resources */ = {isa = PBXBuildFile; fileRef = 18564756184C66A20031E5D6 /* icon_arrow1.png */; };
 		1856475A184C66A20031E5D6 /* icon_arrow2.png in Resources */ = {isa = PBXBuildFile; fileRef = 18564757184C66A20031E5D6 /* icon_arrow2.png */; };
 		1856475B184C66A20031E5D6 /* icon_screening.png in Resources */ = {isa = PBXBuildFile; fileRef = 18564758184C66A20031E5D6 /* icon_screening.png */; };
-		18573C8A1849A94800A19D7E /* CityPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18573C891849A94800A19D7E /* CityPickerViewController.m */; };
 		18573C931849B36100A19D7E /* MiuTripOrderDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = 18573C921849B36100A19D7E /* MiuTripOrderDetail.m */; };
 		187CBD1218485D2D00F25BD7 /* air_arr_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 187CBD0E18485D2D00F25BD7 /* air_arr_icon.png */; };
 		187CBD1318485D2D00F25BD7 /* air_arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 187CBD0F18485D2D00F25BD7 /* air_arrow.png */; };
@@ -259,9 +258,76 @@
 		18B473661847062C003FF7AD /* MemberDeliverDTO.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B473651847062C003FF7AD /* MemberDeliverDTO.m */; };
 		18B47368184731AB003FF7AD /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 18B47367184731AB003FF7AD /* libicucore.dylib */; };
 		18B4736C184731DC003FF7AD /* RegexKitLite.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B4736B184731DC003FF7AD /* RegexKitLite.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		4673B350188B989D00CABE33 /* FMDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 4673B342188B989D00CABE33 /* FMDatabase.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		4673B351188B989E00CABE33 /* FMDatabaseAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 4673B344188B989D00CABE33 /* FMDatabaseAdditions.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		4673B352188B989E00CABE33 /* FMDatabasePool.m in Sources */ = {isa = PBXBuildFile; fileRef = 4673B346188B989D00CABE33 /* FMDatabasePool.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		4673B353188B989E00CABE33 /* FMDatabaseQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 4673B348188B989D00CABE33 /* FMDatabaseQueue.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		4673B354188B989E00CABE33 /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 4673B34A188B989D00CABE33 /* FMResultSet.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		4673B355188B989E00CABE33 /* LKDaoBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 4673B34C188B989D00CABE33 /* LKDaoBase.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		4673B356188B989E00CABE33 /* SandboxFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 4673B34F188B989D00CABE33 /* SandboxFile.m */; };
+		46D0F5DB188B9B0E0063CEE6 /* libUPPayPlugin.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 46D0F5D8188B9B0E0063CEE6 /* libUPPayPlugin.a */; };
+		46D0F5DD188B9B370063CEE6 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 46D0F5DC188B9B370063CEE6 /* libsqlite3.dylib */; };
+		46D0F5E7188B9B620063CEE6 /* DBAirLine.m in Sources */ = {isa = PBXBuildFile; fileRef = 46D0F5E0188B9B620063CEE6 /* DBAirLine.m */; };
+		46D0F5E8188B9B620063CEE6 /* DBFlightCitys.m in Sources */ = {isa = PBXBuildFile; fileRef = 46D0F5E2188B9B620063CEE6 /* DBFlightCitys.m */; };
+		46D0F5E9188B9B620063CEE6 /* DBHotCitys.m in Sources */ = {isa = PBXBuildFile; fileRef = 46D0F5E4188B9B620063CEE6 /* DBHotCitys.m */; };
+		46D0F677188B9E240063CEE6 /* CancelFlightOrderRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 46D0F650188B9E240063CEE6 /* CancelFlightOrderRequest.m */; };
+		46D0F678188B9E240063CEE6 /* CancelFlightOrderResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 46D0F652188B9E240063CEE6 /* CancelFlightOrderResponse.m */; };
+		46D0F679188B9E240063CEE6 /* CancelOrderRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 46D0F654188B9E240063CEE6 /* CancelOrderRequest.m */; };
+		46D0F67A188B9E240063CEE6 /* CancelOrderResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 46D0F656188B9E240063CEE6 /* CancelOrderResponse.m */; };
+		46D0F67C188B9E240063CEE6 /* GetFlightChangeRuleRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 46D0F65A188B9E240063CEE6 /* GetFlightChangeRuleRequest.m */; };
+		46D0F67D188B9E240063CEE6 /* GetFlightChangeRuleResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 46D0F65C188B9E240063CEE6 /* GetFlightChangeRuleResponse.m */; };
+		46D0F67E188B9E240063CEE6 /* GetFlightOrderListResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 46D0F65E188B9E240063CEE6 /* GetFlightOrderListResponse.m */; };
+		46D0F67F188B9E240063CEE6 /* GetFlightOrderRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 46D0F660188B9E240063CEE6 /* GetFlightOrderRequest.m */; };
+		46D0F680188B9E240063CEE6 /* GetInsuranceConfigRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 46D0F662188B9E240063CEE6 /* GetInsuranceConfigRequest.m */; };
+		46D0F681188B9E240063CEE6 /* GetInsuranceConfigResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 46D0F664188B9E240063CEE6 /* GetInsuranceConfigResponse.m */; };
+		46D0F682188B9E240063CEE6 /* GetMailConfigRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 46D0F666188B9E240063CEE6 /* GetMailConfigRequest.m */; };
+		46D0F683188B9E240063CEE6 /* GetMailConfigResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 46D0F668188B9E240063CEE6 /* GetMailConfigResponse.m */; };
+		46D0F684188B9E240063CEE6 /* GetNormalFlightsRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 46D0F66A188B9E240063CEE6 /* GetNormalFlightsRequest.m */; };
+		46D0F685188B9E240063CEE6 /* GetNormalFlightsResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 46D0F66C188B9E240063CEE6 /* GetNormalFlightsResponse.m */; };
+		46D0F688188B9E240063CEE6 /* SubmitFlightOrderRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 46D0F672188B9E240063CEE6 /* SubmitFlightOrderRequest.m */; };
+		46D0F689188B9E240063CEE6 /* SubmitFlightOrderResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 46D0F674188B9E240063CEE6 /* SubmitFlightOrderResponse.m */; };
+		46D0F68D188B9E3C0063CEE6 /* OnLineAllClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 46D0F68C188B9E3C0063CEE6 /* OnLineAllClass.m */; };
+		46D9D25D188BBBC500E8A1EF /* FlightSiftViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46D9D25C188BBBC500E8A1EF /* FlightSiftViewController.m */; };
+		46D9D260188BBC1000E8A1EF /* SqliteManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 46D9D25F188BBC1000E8A1EF /* SqliteManager.m */; };
+		46D9D2A3188BBC5500E8A1EF /* GetAllCantonsRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 46D9D264188BBC5500E8A1EF /* GetAllCantonsRequest.m */; };
+		46D9D2A4188BBC5500E8A1EF /* GetAllCantonsResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 46D9D266188BBC5500E8A1EF /* GetAllCantonsResponse.m */; };
+		46D9D2A5188BBC5500E8A1EF /* GetAllCityRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 46D9D268188BBC5500E8A1EF /* GetAllCityRequest.m */; };
+		46D9D2A6188BBC5500E8A1EF /* GetAllCityResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 46D9D26A188BBC5500E8A1EF /* GetAllCityResponse.m */; };
+		46D9D2A7188BBC5500E8A1EF /* GetAllProvincesRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 46D9D26C188BBC5500E8A1EF /* GetAllProvincesRequest.m */; };
+		46D9D2A8188BBC5500E8A1EF /* GetAllProvincesResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 46D9D26E188BBC5500E8A1EF /* GetAllProvincesResponse.m */; };
+		46D9D2A9188BBC5500E8A1EF /* GetCantonByIDRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 46D9D270188BBC5500E8A1EF /* GetCantonByIDRequest.m */; };
+		46D9D2AA188BBC5500E8A1EF /* GetCantonByIDResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 46D9D272188BBC5500E8A1EF /* GetCantonByIDResponse.m */; };
+		46D9D2AB188BBC5500E8A1EF /* GetCantonByNameRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 46D9D274188BBC5500E8A1EF /* GetCantonByNameRequest.m */; };
+		46D9D2AC188BBC5500E8A1EF /* GetCantonByNameResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 46D9D276188BBC5500E8A1EF /* GetCantonByNameResponse.m */; };
+		46D9D2AD188BBC5500E8A1EF /* GetCantonsByCityIDRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 46D9D278188BBC5500E8A1EF /* GetCantonsByCityIDRequest.m */; };
+		46D9D2AE188BBC5500E8A1EF /* GetCantonsByCityIDResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 46D9D27A188BBC5500E8A1EF /* GetCantonsByCityIDResponse.m */; };
+		46D9D2AF188BBC5500E8A1EF /* GetCityByNameRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 46D9D27C188BBC5500E8A1EF /* GetCityByNameRequest.m */; };
+		46D9D2B0188BBC5500E8A1EF /* GetCityByNameResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 46D9D27E188BBC5500E8A1EF /* GetCityByNameResponse.m */; };
+		46D9D2B1188BBC5500E8A1EF /* GetCityCityCantonAndSectionsRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 46D9D280188BBC5500E8A1EF /* GetCityCityCantonAndSectionsRequest.m */; };
+		46D9D2B2188BBC5500E8A1EF /* GetCityCityCantonAndSectionsResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 46D9D282188BBC5500E8A1EF /* GetCityCityCantonAndSectionsResponse.m */; };
+		46D9D2B3188BBC5500E8A1EF /* GetCityRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 46D9D284188BBC5500E8A1EF /* GetCityRequest.m */; };
+		46D9D2B4188BBC5500E8A1EF /* GetCityResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 46D9D286188BBC5500E8A1EF /* GetCityResponse.m */; };
+		46D9D2B5188BBC5500E8A1EF /* GetCitysByProvinceIDRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 46D9D288188BBC5500E8A1EF /* GetCitysByProvinceIDRequest.m */; };
+		46D9D2B6188BBC5500E8A1EF /* GetCitysByProvinceIDResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 46D9D28A188BBC5500E8A1EF /* GetCitysByProvinceIDResponse.m */; };
+		46D9D2B7188BBC5500E8A1EF /* GetDistrictsRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 46D9D28C188BBC5500E8A1EF /* GetDistrictsRequest.m */; };
+		46D9D2B8188BBC5500E8A1EF /* GetDistrictsResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 46D9D28E188BBC5500E8A1EF /* GetDistrictsResponse.m */; };
+		46D9D2B9188BBC5500E8A1EF /* GetProvinceByIDRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 46D9D290188BBC5500E8A1EF /* GetProvinceByIDRequest.m */; };
+		46D9D2BA188BBC5500E8A1EF /* GetProvinceByIDResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 46D9D292188BBC5500E8A1EF /* GetProvinceByIDResponse.m */; };
+		46D9D2BB188BBC5500E8A1EF /* GetProvinceByNameRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 46D9D294188BBC5500E8A1EF /* GetProvinceByNameRequest.m */; };
+		46D9D2BC188BBC5500E8A1EF /* GetProvinceByNameResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 46D9D296188BBC5500E8A1EF /* GetProvinceByNameResponse.m */; };
+		46D9D2BD188BBC5500E8A1EF /* GetSectionsByCityIdRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 46D9D298188BBC5500E8A1EF /* GetSectionsByCityIdRequest.m */; };
+		46D9D2BE188BBC5500E8A1EF /* GetSectionsByCityIdResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 46D9D29A188BBC5500E8A1EF /* GetSectionsByCityIdResponse.m */; };
+		46D9D2BF188BBC5500E8A1EF /* SaveSMSRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 46D9D29C188BBC5500E8A1EF /* SaveSMSRequest.m */; };
+		46D9D2C0188BBC5500E8A1EF /* SaveSMSResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 46D9D29E188BBC5500E8A1EF /* SaveSMSResponse.m */; };
+		46D9D2C1188BBC5500E8A1EF /* SendSMSRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 46D9D2A0188BBC5500E8A1EF /* SendSMSRequest.m */; };
+		46D9D2C2188BBC5500E8A1EF /* SendSMSResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 46D9D2A2188BBC5500E8A1EF /* SendSMSResponse.m */; };
+		46D9D2CB188BBC7600E8A1EF /* OrderFillInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46D9D2C4188BBC7600E8A1EF /* OrderFillInViewController.m */; };
+		46D9D2CC188BBC7600E8A1EF /* OrderResultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46D9D2C6188BBC7600E8A1EF /* OrderResultViewController.m */; };
+		46D9D2CD188BBC7600E8A1EF /* PassengerListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46D9D2C8188BBC7600E8A1EF /* PassengerListViewController.m */; };
+		46D9D2CE188BBC7600E8A1EF /* SelectPassengerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46D9D2CA188BBC7600E8A1EF /* SelectPassengerViewController.m */; };
+		46D9D2DA188BBF3000E8A1EF /* CityPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46D9D2D9188BBF3000E8A1EF /* CityPickerViewController.m */; };
 		B501CFA01852F5DC00802FD9 /* HotelListCellviewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B501CF9F1852F5DC00802FD9 /* HotelListCellviewCell.m */; };
 		B507B84618570A6C003541B2 /* LoadMoreTableFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = B507B84518570A6C003541B2 /* LoadMoreTableFooterView.m */; };
-		B50FC06D1879318600AF9BFD /* libUPPayPlugin.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B50FC06A1879318600AF9BFD /* libUPPayPlugin.a */; };
 		B50FC06F187935E000AF9BFD /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B50FC06E187935E000AF9BFD /* QuartzCore.framework */; };
 		B50FC071187935EA00AF9BFD /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B50FC070187935EA00AF9BFD /* AdSupport.framework */; };
 		B50FC073187935F400AF9BFD /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B50FC072187935F400AF9BFD /* Security.framework */; };
@@ -325,23 +391,6 @@
 		B59555DE1866CA3E00B2C673 /* GetHotelDistrictsRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = B59555DD1866CA3E00B2C673 /* GetHotelDistrictsRequest.m */; };
 		B59555E11866CB3F00B2C673 /* GetHotelDistrictsResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = B59555E01866CB3F00B2C673 /* GetHotelDistrictsResponse.m */; };
 		B5A249221845F63A005BB217 /* URLHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = B5A249211845F63A005BB217 /* URLHelper.m */; };
-		B5A507FD1852B80E00D6A788 /* GetAllcantonsRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = B5A507DC1852B80E00D6A788 /* GetAllcantonsRequest.m */; };
-		B5A507FE1852B80E00D6A788 /* GetAllCityRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = B5A507DE1852B80E00D6A788 /* GetAllCityRequest.m */; };
-		B5A507FF1852B80E00D6A788 /* GetAllProvinceRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = B5A507E01852B80E00D6A788 /* GetAllProvinceRequest.m */; };
-		B5A508001852B80E00D6A788 /* GetCantonByIDRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = B5A507E21852B80E00D6A788 /* GetCantonByIDRequest.m */; };
-		B5A508011852B80E00D6A788 /* GetCantonByNameRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = B5A507E41852B80E00D6A788 /* GetCantonByNameRequest.m */; };
-		B5A508021852B80E00D6A788 /* GetCantonsByCityIDRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = B5A507E61852B80E00D6A788 /* GetCantonsByCityIDRequest.m */; };
-		B5A508031852B80E00D6A788 /* GetCityByNameRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = B5A507E81852B80E00D6A788 /* GetCityByNameRequest.m */; };
-		B5A508041852B80E00D6A788 /* GetCityByProvinceIDRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = B5A507EA1852B80E00D6A788 /* GetCityByProvinceIDRequest.m */; };
-		B5A508051852B80E00D6A788 /* GetCityByProvinceIDResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = B5A507EC1852B80E00D6A788 /* GetCityByProvinceIDResponse.m */; };
-		B5A508061852B80E00D6A788 /* GetCityCityCantonAndSectionsRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = B5A507EE1852B80E00D6A788 /* GetCityCityCantonAndSectionsRequest.m */; };
-		B5A508071852B80E00D6A788 /* GetCityRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = B5A507F01852B80E00D6A788 /* GetCityRequest.m */; };
-		B5A508081852B80E00D6A788 /* GetDistrictsRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = B5A507F21852B80E00D6A788 /* GetDistrictsRequest.m */; };
-		B5A508091852B80E00D6A788 /* GetDistrictsResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = B5A507F41852B80E00D6A788 /* GetDistrictsResponse.m */; };
-		B5A5080A1852B80E00D6A788 /* GetProvinceByIDRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = B5A507F61852B80E00D6A788 /* GetProvinceByIDRequest.m */; };
-		B5A5080B1852B80E00D6A788 /* GetProvinceByNameRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = B5A507F81852B80E00D6A788 /* GetProvinceByNameRequest.m */; };
-		B5A5080C1852B80E00D6A788 /* GetSectionsByCityIdRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = B5A507FA1852B80E00D6A788 /* GetSectionsByCityIdRequest.m */; };
-		B5A5080D1852B80E00D6A788 /* SendSMSRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = B5A507FC1852B80E00D6A788 /* SendSMSRequest.m */; };
 		B5C7C853186577BB008914D0 /* CommonlyNameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B5C7C84A186577BB008914D0 /* CommonlyNameViewController.m */; };
 		B5C7C854186577BB008914D0 /* HotelAndAirOrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B5C7C84C186577BB008914D0 /* HotelAndAirOrderViewController.m */; };
 		B5C7C855186577BB008914D0 /* MyMiuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B5C7C84E186577BB008914D0 /* MyMiuViewController.m */; };
@@ -350,22 +399,6 @@
 		B5C7C85A186577D4008914D0 /* AirListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B5C7C859186577D4008914D0 /* AirListViewController.m */; };
 		B5C7C860186578B7008914D0 /* HotelOrderViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = B5C7C85F186578B7008914D0 /* HotelOrderViewController.mm */; };
 		B5C7C86218658F19008914D0 /* bg_hotel_cost.png in Resources */ = {isa = PBXBuildFile; fileRef = B5C7C86118658F19008914D0 /* bg_hotel_cost.png */; };
-		B5D4C4091852BDFA00F1B0FC /* CancelFlightOrderRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = B5D4C3C61852BDFA00F1B0FC /* CancelFlightOrderRequest.m */; };
-		B5D4C40A1852BDFA00F1B0FC /* CancelFlightOrderResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = B5D4C3C81852BDFA00F1B0FC /* CancelFlightOrderResponse.m */; };
-		B5D4C40B1852BDFA00F1B0FC /* CancelOrderRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = B5D4C3CA1852BDFA00F1B0FC /* CancelOrderRequest.m */; };
-		B5D4C40C1852BDFA00F1B0FC /* CancelOrderResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = B5D4C3CC1852BDFA00F1B0FC /* CancelOrderResponse.m */; };
-		B5D4C40F1852BDFA00F1B0FC /* GetFlightChangeRuleRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = B5D4C3D21852BDFA00F1B0FC /* GetFlightChangeRuleRequest.m */; };
-		B5D4C4101852BDFA00F1B0FC /* GetFlightChangeRuleResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = B5D4C3D41852BDFA00F1B0FC /* GetFlightChangeRuleResponse.m */; };
-		B5D4C4111852BDFA00F1B0FC /* GetFlightOrderListResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = B5D4C3D61852BDFA00F1B0FC /* GetFlightOrderListResponse.m */; };
-		B5D4C4121852BDFA00F1B0FC /* GetFlightOrderRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = B5D4C3D81852BDFA00F1B0FC /* GetFlightOrderRequest.m */; };
-		B5D4C41D1852BDFA00F1B0FC /* GetInsuranceConfigRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = B5D4C3EE1852BDFA00F1B0FC /* GetInsuranceConfigRequest.m */; };
-		B5D4C41E1852BDFA00F1B0FC /* GetInsuranceConfigResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = B5D4C3F01852BDFA00F1B0FC /* GetInsuranceConfigResponse.m */; };
-		B5D4C41F1852BDFA00F1B0FC /* GetMailConfigRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = B5D4C3F21852BDFA00F1B0FC /* GetMailConfigRequest.m */; };
-		B5D4C4201852BDFA00F1B0FC /* GetMailConfigResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = B5D4C3F41852BDFA00F1B0FC /* GetMailConfigResponse.m */; };
-		B5D4C4211852BDFA00F1B0FC /* GetNormalFlightsRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = B5D4C3F61852BDFA00F1B0FC /* GetNormalFlightsRequest.m */; };
-		B5D4C4221852BDFA00F1B0FC /* GetNormalFlightsResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = B5D4C3F81852BDFA00F1B0FC /* GetNormalFlightsResponse.m */; };
-		B5D4C4271852BDFA00F1B0FC /* SubmitFlightOrderRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = B5D4C4021852BDFA00F1B0FC /* SubmitFlightOrderRequest.m */; };
-		B5D4C4281852BDFA00F1B0FC /* SubmitFlightOrderResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = B5D4C4041852BDFA00F1B0FC /* SubmitFlightOrderResponse.m */; };
 		B5D4C4291852BDFA00F1B0FC /* (null) in Sources */ = {isa = PBXBuildFile; };
 		B5F762591852045000E7244B /* HotelSearchView.m in Sources */ = {isa = PBXBuildFile; fileRef = B5F762581852045000E7244B /* HotelSearchView.m */; };
 		B5F93B461855B90900814467 /* hotel_list_btn_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = B5F93B451855B90900814467 /* hotel_list_btn_bg.png */; };
@@ -627,8 +660,6 @@
 		18564756184C66A20031E5D6 /* icon_arrow1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_arrow1.png; sourceTree = "<group>"; };
 		18564757184C66A20031E5D6 /* icon_arrow2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_arrow2.png; sourceTree = "<group>"; };
 		18564758184C66A20031E5D6 /* icon_screening.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_screening.png; sourceTree = "<group>"; };
-		18573C881849A94800A19D7E /* CityPickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CityPickerViewController.h; sourceTree = "<group>"; };
-		18573C891849A94800A19D7E /* CityPickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CityPickerViewController.m; sourceTree = "<group>"; };
 		18573C911849B36100A19D7E /* MiuTripOrderDetail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MiuTripOrderDetail.h; sourceTree = "<group>"; };
 		18573C921849B36100A19D7E /* MiuTripOrderDetail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MiuTripOrderDetail.m; sourceTree = "<group>"; };
 		187CBD0E18485D2D00F25BD7 /* air_arr_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = air_arr_icon.png; sourceTree = "<group>"; };
@@ -733,13 +764,148 @@
 		18B47367184731AB003FF7AD /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
 		18B4736A184731DC003FF7AD /* RegexKitLite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegexKitLite.h; sourceTree = "<group>"; };
 		18B4736B184731DC003FF7AD /* RegexKitLite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegexKitLite.m; sourceTree = "<group>"; };
+		4673B341188B989D00CABE33 /* FMDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabase.h; sourceTree = "<group>"; };
+		4673B342188B989D00CABE33 /* FMDatabase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabase.m; sourceTree = "<group>"; };
+		4673B343188B989D00CABE33 /* FMDatabaseAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabaseAdditions.h; sourceTree = "<group>"; };
+		4673B344188B989D00CABE33 /* FMDatabaseAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabaseAdditions.m; sourceTree = "<group>"; };
+		4673B345188B989D00CABE33 /* FMDatabasePool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabasePool.h; sourceTree = "<group>"; };
+		4673B346188B989D00CABE33 /* FMDatabasePool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabasePool.m; sourceTree = "<group>"; };
+		4673B347188B989D00CABE33 /* FMDatabaseQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabaseQueue.h; sourceTree = "<group>"; };
+		4673B348188B989D00CABE33 /* FMDatabaseQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabaseQueue.m; sourceTree = "<group>"; };
+		4673B349188B989D00CABE33 /* FMResultSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMResultSet.h; sourceTree = "<group>"; };
+		4673B34A188B989D00CABE33 /* FMResultSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMResultSet.m; sourceTree = "<group>"; };
+		4673B34B188B989D00CABE33 /* LKDaoBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LKDaoBase.h; sourceTree = "<group>"; };
+		4673B34C188B989D00CABE33 /* LKDaoBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LKDaoBase.m; sourceTree = "<group>"; };
+		4673B34E188B989D00CABE33 /* SandboxFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SandboxFile.h; sourceTree = "<group>"; };
+		4673B34F188B989D00CABE33 /* SandboxFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SandboxFile.m; sourceTree = "<group>"; };
+		46D0F5D8188B9B0E0063CEE6 /* libUPPayPlugin.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libUPPayPlugin.a; sourceTree = "<group>"; };
+		46D0F5D9188B9B0E0063CEE6 /* UPPayPlugin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UPPayPlugin.h; sourceTree = "<group>"; };
+		46D0F5DA188B9B0E0063CEE6 /* UPPayPluginDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UPPayPluginDelegate.h; sourceTree = "<group>"; };
+		46D0F5DC188B9B370063CEE6 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
+		46D0F5DF188B9B620063CEE6 /* DBAirLine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBAirLine.h; sourceTree = "<group>"; };
+		46D0F5E0188B9B620063CEE6 /* DBAirLine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBAirLine.m; sourceTree = "<group>"; };
+		46D0F5E1188B9B620063CEE6 /* DBFlightCitys.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBFlightCitys.h; sourceTree = "<group>"; };
+		46D0F5E2188B9B620063CEE6 /* DBFlightCitys.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBFlightCitys.m; sourceTree = "<group>"; };
+		46D0F5E3188B9B620063CEE6 /* DBHotCitys.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBHotCitys.h; sourceTree = "<group>"; };
+		46D0F5E4188B9B620063CEE6 /* DBHotCitys.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBHotCitys.m; sourceTree = "<group>"; };
+		46D0F64F188B9E240063CEE6 /* CancelFlightOrderRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CancelFlightOrderRequest.h; sourceTree = "<group>"; };
+		46D0F650188B9E240063CEE6 /* CancelFlightOrderRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CancelFlightOrderRequest.m; sourceTree = "<group>"; };
+		46D0F651188B9E240063CEE6 /* CancelFlightOrderResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CancelFlightOrderResponse.h; sourceTree = "<group>"; };
+		46D0F652188B9E240063CEE6 /* CancelFlightOrderResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CancelFlightOrderResponse.m; sourceTree = "<group>"; };
+		46D0F653188B9E240063CEE6 /* CancelOrderRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CancelOrderRequest.h; sourceTree = "<group>"; };
+		46D0F654188B9E240063CEE6 /* CancelOrderRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CancelOrderRequest.m; sourceTree = "<group>"; };
+		46D0F655188B9E240063CEE6 /* CancelOrderResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CancelOrderResponse.h; sourceTree = "<group>"; };
+		46D0F656188B9E240063CEE6 /* CancelOrderResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CancelOrderResponse.m; sourceTree = "<group>"; };
+		46D0F659188B9E240063CEE6 /* GetFlightChangeRuleRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetFlightChangeRuleRequest.h; sourceTree = "<group>"; };
+		46D0F65A188B9E240063CEE6 /* GetFlightChangeRuleRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetFlightChangeRuleRequest.m; sourceTree = "<group>"; };
+		46D0F65B188B9E240063CEE6 /* GetFlightChangeRuleResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetFlightChangeRuleResponse.h; sourceTree = "<group>"; };
+		46D0F65C188B9E240063CEE6 /* GetFlightChangeRuleResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetFlightChangeRuleResponse.m; sourceTree = "<group>"; };
+		46D0F65D188B9E240063CEE6 /* GetFlightOrderListResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetFlightOrderListResponse.h; sourceTree = "<group>"; };
+		46D0F65E188B9E240063CEE6 /* GetFlightOrderListResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetFlightOrderListResponse.m; sourceTree = "<group>"; };
+		46D0F65F188B9E240063CEE6 /* GetFlightOrderRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetFlightOrderRequest.h; sourceTree = "<group>"; };
+		46D0F660188B9E240063CEE6 /* GetFlightOrderRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetFlightOrderRequest.m; sourceTree = "<group>"; };
+		46D0F661188B9E240063CEE6 /* GetInsuranceConfigRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetInsuranceConfigRequest.h; sourceTree = "<group>"; };
+		46D0F662188B9E240063CEE6 /* GetInsuranceConfigRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetInsuranceConfigRequest.m; sourceTree = "<group>"; };
+		46D0F663188B9E240063CEE6 /* GetInsuranceConfigResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetInsuranceConfigResponse.h; sourceTree = "<group>"; };
+		46D0F664188B9E240063CEE6 /* GetInsuranceConfigResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetInsuranceConfigResponse.m; sourceTree = "<group>"; };
+		46D0F665188B9E240063CEE6 /* GetMailConfigRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetMailConfigRequest.h; sourceTree = "<group>"; };
+		46D0F666188B9E240063CEE6 /* GetMailConfigRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetMailConfigRequest.m; sourceTree = "<group>"; };
+		46D0F667188B9E240063CEE6 /* GetMailConfigResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetMailConfigResponse.h; sourceTree = "<group>"; };
+		46D0F668188B9E240063CEE6 /* GetMailConfigResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetMailConfigResponse.m; sourceTree = "<group>"; };
+		46D0F669188B9E240063CEE6 /* GetNormalFlightsRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetNormalFlightsRequest.h; sourceTree = "<group>"; };
+		46D0F66A188B9E240063CEE6 /* GetNormalFlightsRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetNormalFlightsRequest.m; sourceTree = "<group>"; };
+		46D0F66B188B9E240063CEE6 /* GetNormalFlightsResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetNormalFlightsResponse.h; sourceTree = "<group>"; };
+		46D0F66C188B9E240063CEE6 /* GetNormalFlightsResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetNormalFlightsResponse.m; sourceTree = "<group>"; };
+		46D0F671188B9E240063CEE6 /* SubmitFlightOrderRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubmitFlightOrderRequest.h; sourceTree = "<group>"; };
+		46D0F672188B9E240063CEE6 /* SubmitFlightOrderRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubmitFlightOrderRequest.m; sourceTree = "<group>"; };
+		46D0F673188B9E240063CEE6 /* SubmitFlightOrderResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubmitFlightOrderResponse.h; sourceTree = "<group>"; };
+		46D0F674188B9E240063CEE6 /* SubmitFlightOrderResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubmitFlightOrderResponse.m; sourceTree = "<group>"; };
+		46D0F68B188B9E3C0063CEE6 /* OnLineAllClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OnLineAllClass.h; sourceTree = "<group>"; };
+		46D0F68C188B9E3C0063CEE6 /* OnLineAllClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OnLineAllClass.m; sourceTree = "<group>"; };
+		46D9D25B188BBBC500E8A1EF /* FlightSiftViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlightSiftViewController.h; sourceTree = "<group>"; };
+		46D9D25C188BBBC500E8A1EF /* FlightSiftViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlightSiftViewController.m; sourceTree = "<group>"; };
+		46D9D25E188BBC1000E8A1EF /* SqliteManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SqliteManager.h; sourceTree = "<group>"; };
+		46D9D25F188BBC1000E8A1EF /* SqliteManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SqliteManager.m; sourceTree = "<group>"; };
+		46D9D262188BBC5500E8A1EF /* Common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Common.h; sourceTree = "<group>"; };
+		46D9D263188BBC5500E8A1EF /* GetAllCantonsRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetAllCantonsRequest.h; sourceTree = "<group>"; };
+		46D9D264188BBC5500E8A1EF /* GetAllCantonsRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetAllCantonsRequest.m; sourceTree = "<group>"; };
+		46D9D265188BBC5500E8A1EF /* GetAllCantonsResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetAllCantonsResponse.h; sourceTree = "<group>"; };
+		46D9D266188BBC5500E8A1EF /* GetAllCantonsResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetAllCantonsResponse.m; sourceTree = "<group>"; };
+		46D9D267188BBC5500E8A1EF /* GetAllCityRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetAllCityRequest.h; sourceTree = "<group>"; };
+		46D9D268188BBC5500E8A1EF /* GetAllCityRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetAllCityRequest.m; sourceTree = "<group>"; };
+		46D9D269188BBC5500E8A1EF /* GetAllCityResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetAllCityResponse.h; sourceTree = "<group>"; };
+		46D9D26A188BBC5500E8A1EF /* GetAllCityResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetAllCityResponse.m; sourceTree = "<group>"; };
+		46D9D26B188BBC5500E8A1EF /* GetAllProvincesRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetAllProvincesRequest.h; sourceTree = "<group>"; };
+		46D9D26C188BBC5500E8A1EF /* GetAllProvincesRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetAllProvincesRequest.m; sourceTree = "<group>"; };
+		46D9D26D188BBC5500E8A1EF /* GetAllProvincesResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetAllProvincesResponse.h; sourceTree = "<group>"; };
+		46D9D26E188BBC5500E8A1EF /* GetAllProvincesResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetAllProvincesResponse.m; sourceTree = "<group>"; };
+		46D9D26F188BBC5500E8A1EF /* GetCantonByIDRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetCantonByIDRequest.h; sourceTree = "<group>"; };
+		46D9D270188BBC5500E8A1EF /* GetCantonByIDRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetCantonByIDRequest.m; sourceTree = "<group>"; };
+		46D9D271188BBC5500E8A1EF /* GetCantonByIDResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetCantonByIDResponse.h; sourceTree = "<group>"; };
+		46D9D272188BBC5500E8A1EF /* GetCantonByIDResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetCantonByIDResponse.m; sourceTree = "<group>"; };
+		46D9D273188BBC5500E8A1EF /* GetCantonByNameRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetCantonByNameRequest.h; sourceTree = "<group>"; };
+		46D9D274188BBC5500E8A1EF /* GetCantonByNameRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetCantonByNameRequest.m; sourceTree = "<group>"; };
+		46D9D275188BBC5500E8A1EF /* GetCantonByNameResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetCantonByNameResponse.h; sourceTree = "<group>"; };
+		46D9D276188BBC5500E8A1EF /* GetCantonByNameResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetCantonByNameResponse.m; sourceTree = "<group>"; };
+		46D9D277188BBC5500E8A1EF /* GetCantonsByCityIDRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetCantonsByCityIDRequest.h; sourceTree = "<group>"; };
+		46D9D278188BBC5500E8A1EF /* GetCantonsByCityIDRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetCantonsByCityIDRequest.m; sourceTree = "<group>"; };
+		46D9D279188BBC5500E8A1EF /* GetCantonsByCityIDResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetCantonsByCityIDResponse.h; sourceTree = "<group>"; };
+		46D9D27A188BBC5500E8A1EF /* GetCantonsByCityIDResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetCantonsByCityIDResponse.m; sourceTree = "<group>"; };
+		46D9D27B188BBC5500E8A1EF /* GetCityByNameRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetCityByNameRequest.h; sourceTree = "<group>"; };
+		46D9D27C188BBC5500E8A1EF /* GetCityByNameRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetCityByNameRequest.m; sourceTree = "<group>"; };
+		46D9D27D188BBC5500E8A1EF /* GetCityByNameResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetCityByNameResponse.h; sourceTree = "<group>"; };
+		46D9D27E188BBC5500E8A1EF /* GetCityByNameResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetCityByNameResponse.m; sourceTree = "<group>"; };
+		46D9D27F188BBC5500E8A1EF /* GetCityCityCantonAndSectionsRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetCityCityCantonAndSectionsRequest.h; sourceTree = "<group>"; };
+		46D9D280188BBC5500E8A1EF /* GetCityCityCantonAndSectionsRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetCityCityCantonAndSectionsRequest.m; sourceTree = "<group>"; };
+		46D9D281188BBC5500E8A1EF /* GetCityCityCantonAndSectionsResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetCityCityCantonAndSectionsResponse.h; sourceTree = "<group>"; };
+		46D9D282188BBC5500E8A1EF /* GetCityCityCantonAndSectionsResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetCityCityCantonAndSectionsResponse.m; sourceTree = "<group>"; };
+		46D9D283188BBC5500E8A1EF /* GetCityRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetCityRequest.h; sourceTree = "<group>"; };
+		46D9D284188BBC5500E8A1EF /* GetCityRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetCityRequest.m; sourceTree = "<group>"; };
+		46D9D285188BBC5500E8A1EF /* GetCityResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetCityResponse.h; sourceTree = "<group>"; };
+		46D9D286188BBC5500E8A1EF /* GetCityResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetCityResponse.m; sourceTree = "<group>"; };
+		46D9D287188BBC5500E8A1EF /* GetCitysByProvinceIDRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetCitysByProvinceIDRequest.h; sourceTree = "<group>"; };
+		46D9D288188BBC5500E8A1EF /* GetCitysByProvinceIDRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetCitysByProvinceIDRequest.m; sourceTree = "<group>"; };
+		46D9D289188BBC5500E8A1EF /* GetCitysByProvinceIDResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetCitysByProvinceIDResponse.h; sourceTree = "<group>"; };
+		46D9D28A188BBC5500E8A1EF /* GetCitysByProvinceIDResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetCitysByProvinceIDResponse.m; sourceTree = "<group>"; };
+		46D9D28B188BBC5500E8A1EF /* GetDistrictsRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetDistrictsRequest.h; sourceTree = "<group>"; };
+		46D9D28C188BBC5500E8A1EF /* GetDistrictsRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetDistrictsRequest.m; sourceTree = "<group>"; };
+		46D9D28D188BBC5500E8A1EF /* GetDistrictsResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetDistrictsResponse.h; sourceTree = "<group>"; };
+		46D9D28E188BBC5500E8A1EF /* GetDistrictsResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetDistrictsResponse.m; sourceTree = "<group>"; };
+		46D9D28F188BBC5500E8A1EF /* GetProvinceByIDRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetProvinceByIDRequest.h; sourceTree = "<group>"; };
+		46D9D290188BBC5500E8A1EF /* GetProvinceByIDRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetProvinceByIDRequest.m; sourceTree = "<group>"; };
+		46D9D291188BBC5500E8A1EF /* GetProvinceByIDResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetProvinceByIDResponse.h; sourceTree = "<group>"; };
+		46D9D292188BBC5500E8A1EF /* GetProvinceByIDResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetProvinceByIDResponse.m; sourceTree = "<group>"; };
+		46D9D293188BBC5500E8A1EF /* GetProvinceByNameRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetProvinceByNameRequest.h; sourceTree = "<group>"; };
+		46D9D294188BBC5500E8A1EF /* GetProvinceByNameRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetProvinceByNameRequest.m; sourceTree = "<group>"; };
+		46D9D295188BBC5500E8A1EF /* GetProvinceByNameResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetProvinceByNameResponse.h; sourceTree = "<group>"; };
+		46D9D296188BBC5500E8A1EF /* GetProvinceByNameResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetProvinceByNameResponse.m; sourceTree = "<group>"; };
+		46D9D297188BBC5500E8A1EF /* GetSectionsByCityIdRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetSectionsByCityIdRequest.h; sourceTree = "<group>"; };
+		46D9D298188BBC5500E8A1EF /* GetSectionsByCityIdRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetSectionsByCityIdRequest.m; sourceTree = "<group>"; };
+		46D9D299188BBC5500E8A1EF /* GetSectionsByCityIdResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetSectionsByCityIdResponse.h; sourceTree = "<group>"; };
+		46D9D29A188BBC5500E8A1EF /* GetSectionsByCityIdResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetSectionsByCityIdResponse.m; sourceTree = "<group>"; };
+		46D9D29B188BBC5500E8A1EF /* SaveSMSRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SaveSMSRequest.h; sourceTree = "<group>"; };
+		46D9D29C188BBC5500E8A1EF /* SaveSMSRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SaveSMSRequest.m; sourceTree = "<group>"; };
+		46D9D29D188BBC5500E8A1EF /* SaveSMSResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SaveSMSResponse.h; sourceTree = "<group>"; };
+		46D9D29E188BBC5500E8A1EF /* SaveSMSResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SaveSMSResponse.m; sourceTree = "<group>"; };
+		46D9D29F188BBC5500E8A1EF /* SendSMSRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SendSMSRequest.h; sourceTree = "<group>"; };
+		46D9D2A0188BBC5500E8A1EF /* SendSMSRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SendSMSRequest.m; sourceTree = "<group>"; };
+		46D9D2A1188BBC5500E8A1EF /* SendSMSResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SendSMSResponse.h; sourceTree = "<group>"; };
+		46D9D2A2188BBC5500E8A1EF /* SendSMSResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SendSMSResponse.m; sourceTree = "<group>"; };
+		46D9D2C3188BBC7600E8A1EF /* OrderFillInViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderFillInViewController.h; sourceTree = "<group>"; };
+		46D9D2C4188BBC7600E8A1EF /* OrderFillInViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderFillInViewController.m; sourceTree = "<group>"; };
+		46D9D2C5188BBC7600E8A1EF /* OrderResultViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderResultViewController.h; sourceTree = "<group>"; };
+		46D9D2C6188BBC7600E8A1EF /* OrderResultViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderResultViewController.m; sourceTree = "<group>"; };
+		46D9D2C7188BBC7600E8A1EF /* PassengerListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PassengerListViewController.h; sourceTree = "<group>"; };
+		46D9D2C8188BBC7600E8A1EF /* PassengerListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PassengerListViewController.m; sourceTree = "<group>"; };
+		46D9D2C9188BBC7600E8A1EF /* SelectPassengerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectPassengerViewController.h; sourceTree = "<group>"; };
+		46D9D2CA188BBC7600E8A1EF /* SelectPassengerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectPassengerViewController.m; sourceTree = "<group>"; };
+		46D9D2D0188BBD8A00E8A1EF /* flight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = flight.h; path = ../../../../flight.h; sourceTree = "<group>"; };
+		46D9D2D8188BBF3000E8A1EF /* CityPickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CityPickerViewController.h; sourceTree = "<group>"; };
+		46D9D2D9188BBF3000E8A1EF /* CityPickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CityPickerViewController.m; sourceTree = "<group>"; };
 		B501CF9E1852F5DC00802FD9 /* HotelListCellviewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HotelListCellviewCell.h; sourceTree = "<group>"; };
 		B501CF9F1852F5DC00802FD9 /* HotelListCellviewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HotelListCellviewCell.m; sourceTree = "<group>"; };
 		B507B84418570A6C003541B2 /* LoadMoreTableFooterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoadMoreTableFooterView.h; sourceTree = "<group>"; };
 		B507B84518570A6C003541B2 /* LoadMoreTableFooterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoadMoreTableFooterView.m; sourceTree = "<group>"; };
-		B50FC06A1879318600AF9BFD /* libUPPayPlugin.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libUPPayPlugin.a; sourceTree = "<group>"; };
-		B50FC06B1879318600AF9BFD /* UPPayPlugin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UPPayPlugin.h; sourceTree = "<group>"; };
-		B50FC06C1879318600AF9BFD /* UPPayPluginDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UPPayPluginDelegate.h; sourceTree = "<group>"; };
 		B50FC06E187935E000AF9BFD /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		B50FC070187935EA00AF9BFD /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		B50FC072187935F400AF9BFD /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
@@ -851,40 +1017,6 @@
 		B59849BA18477BB80037C5F0 /* RequestDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RequestDelegate.h; sourceTree = "<group>"; };
 		B5A249201845F63A005BB217 /* URLHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = URLHelper.h; sourceTree = "<group>"; };
 		B5A249211845F63A005BB217 /* URLHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = URLHelper.m; sourceTree = "<group>"; };
-		B5A507DB1852B80E00D6A788 /* GetAllcantonsRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetAllcantonsRequest.h; sourceTree = "<group>"; };
-		B5A507DC1852B80E00D6A788 /* GetAllcantonsRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetAllcantonsRequest.m; sourceTree = "<group>"; };
-		B5A507DD1852B80E00D6A788 /* GetAllCityRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetAllCityRequest.h; sourceTree = "<group>"; };
-		B5A507DE1852B80E00D6A788 /* GetAllCityRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetAllCityRequest.m; sourceTree = "<group>"; };
-		B5A507DF1852B80E00D6A788 /* GetAllProvinceRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetAllProvinceRequest.h; sourceTree = "<group>"; };
-		B5A507E01852B80E00D6A788 /* GetAllProvinceRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetAllProvinceRequest.m; sourceTree = "<group>"; };
-		B5A507E11852B80E00D6A788 /* GetCantonByIDRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetCantonByIDRequest.h; sourceTree = "<group>"; };
-		B5A507E21852B80E00D6A788 /* GetCantonByIDRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetCantonByIDRequest.m; sourceTree = "<group>"; };
-		B5A507E31852B80E00D6A788 /* GetCantonByNameRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetCantonByNameRequest.h; sourceTree = "<group>"; };
-		B5A507E41852B80E00D6A788 /* GetCantonByNameRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetCantonByNameRequest.m; sourceTree = "<group>"; };
-		B5A507E51852B80E00D6A788 /* GetCantonsByCityIDRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetCantonsByCityIDRequest.h; sourceTree = "<group>"; };
-		B5A507E61852B80E00D6A788 /* GetCantonsByCityIDRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetCantonsByCityIDRequest.m; sourceTree = "<group>"; };
-		B5A507E71852B80E00D6A788 /* GetCityByNameRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetCityByNameRequest.h; sourceTree = "<group>"; };
-		B5A507E81852B80E00D6A788 /* GetCityByNameRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetCityByNameRequest.m; sourceTree = "<group>"; };
-		B5A507E91852B80E00D6A788 /* GetCityByProvinceIDRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetCityByProvinceIDRequest.h; sourceTree = "<group>"; };
-		B5A507EA1852B80E00D6A788 /* GetCityByProvinceIDRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetCityByProvinceIDRequest.m; sourceTree = "<group>"; };
-		B5A507EB1852B80E00D6A788 /* GetCityByProvinceIDResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetCityByProvinceIDResponse.h; sourceTree = "<group>"; };
-		B5A507EC1852B80E00D6A788 /* GetCityByProvinceIDResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetCityByProvinceIDResponse.m; sourceTree = "<group>"; };
-		B5A507ED1852B80E00D6A788 /* GetCityCityCantonAndSectionsRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetCityCityCantonAndSectionsRequest.h; sourceTree = "<group>"; };
-		B5A507EE1852B80E00D6A788 /* GetCityCityCantonAndSectionsRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetCityCityCantonAndSectionsRequest.m; sourceTree = "<group>"; };
-		B5A507EF1852B80E00D6A788 /* GetCityRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetCityRequest.h; sourceTree = "<group>"; };
-		B5A507F01852B80E00D6A788 /* GetCityRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetCityRequest.m; sourceTree = "<group>"; };
-		B5A507F11852B80E00D6A788 /* GetDistrictsRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetDistrictsRequest.h; sourceTree = "<group>"; };
-		B5A507F21852B80E00D6A788 /* GetDistrictsRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetDistrictsRequest.m; sourceTree = "<group>"; };
-		B5A507F31852B80E00D6A788 /* GetDistrictsResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetDistrictsResponse.h; sourceTree = "<group>"; };
-		B5A507F41852B80E00D6A788 /* GetDistrictsResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetDistrictsResponse.m; sourceTree = "<group>"; };
-		B5A507F51852B80E00D6A788 /* GetProvinceByIDRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetProvinceByIDRequest.h; sourceTree = "<group>"; };
-		B5A507F61852B80E00D6A788 /* GetProvinceByIDRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetProvinceByIDRequest.m; sourceTree = "<group>"; };
-		B5A507F71852B80E00D6A788 /* GetProvinceByNameRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetProvinceByNameRequest.h; sourceTree = "<group>"; };
-		B5A507F81852B80E00D6A788 /* GetProvinceByNameRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetProvinceByNameRequest.m; sourceTree = "<group>"; };
-		B5A507F91852B80E00D6A788 /* GetSectionsByCityIdRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetSectionsByCityIdRequest.h; sourceTree = "<group>"; };
-		B5A507FA1852B80E00D6A788 /* GetSectionsByCityIdRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetSectionsByCityIdRequest.m; sourceTree = "<group>"; };
-		B5A507FB1852B80E00D6A788 /* SendSMSRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SendSMSRequest.h; sourceTree = "<group>"; };
-		B5A507FC1852B80E00D6A788 /* SendSMSRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SendSMSRequest.m; sourceTree = "<group>"; };
 		B5C7C849186577BB008914D0 /* CommonlyNameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommonlyNameViewController.h; sourceTree = "<group>"; };
 		B5C7C84A186577BB008914D0 /* CommonlyNameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommonlyNameViewController.m; sourceTree = "<group>"; };
 		B5C7C84B186577BB008914D0 /* HotelAndAirOrderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HotelAndAirOrderViewController.h; sourceTree = "<group>"; };
@@ -900,38 +1032,6 @@
 		B5C7C85E186578B7008914D0 /* HotelOrderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HotelOrderViewController.h; sourceTree = "<group>"; };
 		B5C7C85F186578B7008914D0 /* HotelOrderViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = HotelOrderViewController.mm; sourceTree = "<group>"; };
 		B5C7C86118658F19008914D0 /* bg_hotel_cost.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg_hotel_cost.png; sourceTree = "<group>"; };
-		B5D4C3C51852BDFA00F1B0FC /* CancelFlightOrderRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CancelFlightOrderRequest.h; sourceTree = "<group>"; };
-		B5D4C3C61852BDFA00F1B0FC /* CancelFlightOrderRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CancelFlightOrderRequest.m; sourceTree = "<group>"; };
-		B5D4C3C71852BDFA00F1B0FC /* CancelFlightOrderResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CancelFlightOrderResponse.h; sourceTree = "<group>"; };
-		B5D4C3C81852BDFA00F1B0FC /* CancelFlightOrderResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CancelFlightOrderResponse.m; sourceTree = "<group>"; };
-		B5D4C3C91852BDFA00F1B0FC /* CancelOrderRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CancelOrderRequest.h; sourceTree = "<group>"; };
-		B5D4C3CA1852BDFA00F1B0FC /* CancelOrderRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CancelOrderRequest.m; sourceTree = "<group>"; };
-		B5D4C3CB1852BDFA00F1B0FC /* CancelOrderResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CancelOrderResponse.h; sourceTree = "<group>"; };
-		B5D4C3CC1852BDFA00F1B0FC /* CancelOrderResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CancelOrderResponse.m; sourceTree = "<group>"; };
-		B5D4C3D11852BDFA00F1B0FC /* GetFlightChangeRuleRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetFlightChangeRuleRequest.h; sourceTree = "<group>"; };
-		B5D4C3D21852BDFA00F1B0FC /* GetFlightChangeRuleRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetFlightChangeRuleRequest.m; sourceTree = "<group>"; };
-		B5D4C3D31852BDFA00F1B0FC /* GetFlightChangeRuleResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetFlightChangeRuleResponse.h; sourceTree = "<group>"; };
-		B5D4C3D41852BDFA00F1B0FC /* GetFlightChangeRuleResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetFlightChangeRuleResponse.m; sourceTree = "<group>"; };
-		B5D4C3D51852BDFA00F1B0FC /* GetFlightOrderListResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetFlightOrderListResponse.h; sourceTree = "<group>"; };
-		B5D4C3D61852BDFA00F1B0FC /* GetFlightOrderListResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetFlightOrderListResponse.m; sourceTree = "<group>"; };
-		B5D4C3D71852BDFA00F1B0FC /* GetFlightOrderRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetFlightOrderRequest.h; sourceTree = "<group>"; };
-		B5D4C3D81852BDFA00F1B0FC /* GetFlightOrderRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetFlightOrderRequest.m; sourceTree = "<group>"; };
-		B5D4C3ED1852BDFA00F1B0FC /* GetInsuranceConfigRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetInsuranceConfigRequest.h; sourceTree = "<group>"; };
-		B5D4C3EE1852BDFA00F1B0FC /* GetInsuranceConfigRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetInsuranceConfigRequest.m; sourceTree = "<group>"; };
-		B5D4C3EF1852BDFA00F1B0FC /* GetInsuranceConfigResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetInsuranceConfigResponse.h; sourceTree = "<group>"; };
-		B5D4C3F01852BDFA00F1B0FC /* GetInsuranceConfigResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetInsuranceConfigResponse.m; sourceTree = "<group>"; };
-		B5D4C3F11852BDFA00F1B0FC /* GetMailConfigRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetMailConfigRequest.h; sourceTree = "<group>"; };
-		B5D4C3F21852BDFA00F1B0FC /* GetMailConfigRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetMailConfigRequest.m; sourceTree = "<group>"; };
-		B5D4C3F31852BDFA00F1B0FC /* GetMailConfigResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetMailConfigResponse.h; sourceTree = "<group>"; };
-		B5D4C3F41852BDFA00F1B0FC /* GetMailConfigResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetMailConfigResponse.m; sourceTree = "<group>"; };
-		B5D4C3F51852BDFA00F1B0FC /* GetNormalFlightsRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetNormalFlightsRequest.h; sourceTree = "<group>"; };
-		B5D4C3F61852BDFA00F1B0FC /* GetNormalFlightsRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetNormalFlightsRequest.m; sourceTree = "<group>"; };
-		B5D4C3F71852BDFA00F1B0FC /* GetNormalFlightsResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetNormalFlightsResponse.h; sourceTree = "<group>"; };
-		B5D4C3F81852BDFA00F1B0FC /* GetNormalFlightsResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetNormalFlightsResponse.m; sourceTree = "<group>"; };
-		B5D4C4011852BDFA00F1B0FC /* SubmitFlightOrderRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubmitFlightOrderRequest.h; sourceTree = "<group>"; };
-		B5D4C4021852BDFA00F1B0FC /* SubmitFlightOrderRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubmitFlightOrderRequest.m; sourceTree = "<group>"; };
-		B5D4C4031852BDFA00F1B0FC /* SubmitFlightOrderResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubmitFlightOrderResponse.h; sourceTree = "<group>"; };
-		B5D4C4041852BDFA00F1B0FC /* SubmitFlightOrderResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubmitFlightOrderResponse.m; sourceTree = "<group>"; };
 		B5F762571852045000E7244B /* HotelSearchView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HotelSearchView.h; path = MiuTrip/MyClass/Views/HotelSearchView.h; sourceTree = SOURCE_ROOT; };
 		B5F762581852045000E7244B /* HotelSearchView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HotelSearchView.m; path = MiuTrip/MyClass/Views/HotelSearchView.m; sourceTree = SOURCE_ROOT; };
 		B5F93B451855B90900814467 /* hotel_list_btn_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hotel_list_btn_bg.png; sourceTree = "<group>"; };
@@ -946,6 +1046,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				46D0F5DD188B9B370063CEE6 /* libsqlite3.dylib in Frameworks */,
 				B520CF70188A771700CBA018 /* CoreLocation.framework in Frameworks */,
 				B520CF6E188A770A00CBA018 /* MapKit.framework in Frameworks */,
 				B50FC073187935F400AF9BFD /* Security.framework in Frameworks */,
@@ -956,9 +1057,9 @@
 				1279151B183326B700CF94F4 /* CoreGraphics.framework in Frameworks */,
 				12478A0418363B2F00AA0083 /* MobileCoreServices.framework in Frameworks */,
 				12478A0218363B2800AA0083 /* SystemConfiguration.framework in Frameworks */,
+				46D0F5DB188B9B0E0063CEE6 /* libUPPayPlugin.a in Frameworks */,
 				12478A0018363B2000AA0083 /* CFNetwork.framework in Frameworks */,
 				1279151D183326B700CF94F4 /* UIKit.framework in Frameworks */,
-				B50FC06D1879318600AF9BFD /* libUPPayPlugin.a in Frameworks */,
 				12791519183326B700CF94F4 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1263,6 +1364,7 @@
 		12791517183326B700CF94F4 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				46D0F5DC188B9B370063CEE6 /* libsqlite3.dylib */,
 				B520CF6F188A771700CBA018 /* CoreLocation.framework */,
 				B520CF6D188A770A00CBA018 /* MapKit.framework */,
 				B50FC072187935F400AF9BFD /* Security.framework */,
@@ -1324,6 +1426,8 @@
 		1279154A1833292700CF94F4 /* Library */ = {
 			isa = PBXGroup;
 			children = (
+				4673B340188B989D00CABE33 /* FMDatabase */,
+				4673B34D188B989D00CABE33 /* Sandbox */,
 				B50FC0691879318600AF9BFD /* UPPayPlugin */,
 				18B47369184731DC003FF7AD /* RegexKitLite */,
 				124789A01836363000AA0083 /* ASIHttpRequest */,
@@ -1351,13 +1455,14 @@
 		1279154C1833292700CF94F4 /* Element */ = {
 			isa = PBXGroup;
 			children = (
+				46D0F5DE188B9B620063CEE6 /* SqliteManager */,
 				1279155C18332A3100CF94F4 /* DatePickerViewController.h */,
 				1279154D1833292700CF94F4 /* DatePickerViewController.m */,
 				1279154E1833292700CF94F4 /* DatePickerViewController.xib */,
 				1279154F1833292700CF94F4 /* ImagePickerViewController.h */,
 				127915501833292700CF94F4 /* ImagePickerViewController.m */,
-				18573C881849A94800A19D7E /* CityPickerViewController.h */,
-				18573C891849A94800A19D7E /* CityPickerViewController.m */,
+				46D9D2D8188BBF3000E8A1EF /* CityPickerViewController.h */,
+				46D9D2D9188BBF3000E8A1EF /* CityPickerViewController.m */,
 				127915511833292700CF94F4 /* Utils.h */,
 				127915521833292700CF94F4 /* Utils.m */,
 				127C6842183A0AB20055784D /* CustomBtn.h */,
@@ -1373,9 +1478,9 @@
 		127915531833292700CF94F4 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				46D9D261188BBC5500E8A1EF /* Common */,
+				46D0F64E188B9E240063CEE6 /* Flight */,
 				B591AF691849F44D003BA7A3 /* Hotel */,
-				B591AF681849F42C003BA7A3 /* Flight */,
-				B591AF671849F40C003BA7A3 /* Common */,
 				B591AF5F1849D2FD003BA7A3 /* Account */,
 				18564717184C5C8D0031E5D6 /* LoginInfoDTO.h */,
 				18564718184C5C8D0031E5D6 /* LoginInfoDTO.m */,
@@ -1510,6 +1615,163 @@
 			path = RegexKitLite;
 			sourceTree = "<group>";
 		};
+		4673B340188B989D00CABE33 /* FMDatabase */ = {
+			isa = PBXGroup;
+			children = (
+				4673B341188B989D00CABE33 /* FMDatabase.h */,
+				4673B342188B989D00CABE33 /* FMDatabase.m */,
+				4673B343188B989D00CABE33 /* FMDatabaseAdditions.h */,
+				4673B344188B989D00CABE33 /* FMDatabaseAdditions.m */,
+				4673B345188B989D00CABE33 /* FMDatabasePool.h */,
+				4673B346188B989D00CABE33 /* FMDatabasePool.m */,
+				4673B347188B989D00CABE33 /* FMDatabaseQueue.h */,
+				4673B348188B989D00CABE33 /* FMDatabaseQueue.m */,
+				4673B349188B989D00CABE33 /* FMResultSet.h */,
+				4673B34A188B989D00CABE33 /* FMResultSet.m */,
+				4673B34B188B989D00CABE33 /* LKDaoBase.h */,
+				4673B34C188B989D00CABE33 /* LKDaoBase.m */,
+			);
+			path = FMDatabase;
+			sourceTree = "<group>";
+		};
+		4673B34D188B989D00CABE33 /* Sandbox */ = {
+			isa = PBXGroup;
+			children = (
+				4673B34E188B989D00CABE33 /* SandboxFile.h */,
+				4673B34F188B989D00CABE33 /* SandboxFile.m */,
+			);
+			path = Sandbox;
+			sourceTree = "<group>";
+		};
+		46D0F5DE188B9B620063CEE6 /* SqliteManager */ = {
+			isa = PBXGroup;
+			children = (
+				46D9D25E188BBC1000E8A1EF /* SqliteManager.h */,
+				46D9D25F188BBC1000E8A1EF /* SqliteManager.m */,
+				46D0F5DF188B9B620063CEE6 /* DBAirLine.h */,
+				46D0F5E0188B9B620063CEE6 /* DBAirLine.m */,
+				46D0F5E1188B9B620063CEE6 /* DBFlightCitys.h */,
+				46D0F5E2188B9B620063CEE6 /* DBFlightCitys.m */,
+				46D0F5E3188B9B620063CEE6 /* DBHotCitys.h */,
+				46D0F5E4188B9B620063CEE6 /* DBHotCitys.m */,
+			);
+			path = SqliteManager;
+			sourceTree = "<group>";
+		};
+		46D0F64E188B9E240063CEE6 /* Flight */ = {
+			isa = PBXGroup;
+			children = (
+				46D9D2D0188BBD8A00E8A1EF /* flight.h */,
+				46D0F68B188B9E3C0063CEE6 /* OnLineAllClass.h */,
+				46D0F68C188B9E3C0063CEE6 /* OnLineAllClass.m */,
+				46D0F64F188B9E240063CEE6 /* CancelFlightOrderRequest.h */,
+				46D0F650188B9E240063CEE6 /* CancelFlightOrderRequest.m */,
+				46D0F651188B9E240063CEE6 /* CancelFlightOrderResponse.h */,
+				46D0F652188B9E240063CEE6 /* CancelFlightOrderResponse.m */,
+				46D0F653188B9E240063CEE6 /* CancelOrderRequest.h */,
+				46D0F654188B9E240063CEE6 /* CancelOrderRequest.m */,
+				46D0F655188B9E240063CEE6 /* CancelOrderResponse.h */,
+				46D0F656188B9E240063CEE6 /* CancelOrderResponse.m */,
+				46D0F659188B9E240063CEE6 /* GetFlightChangeRuleRequest.h */,
+				46D0F65A188B9E240063CEE6 /* GetFlightChangeRuleRequest.m */,
+				46D0F65B188B9E240063CEE6 /* GetFlightChangeRuleResponse.h */,
+				46D0F65C188B9E240063CEE6 /* GetFlightChangeRuleResponse.m */,
+				46D0F65D188B9E240063CEE6 /* GetFlightOrderListResponse.h */,
+				46D0F65E188B9E240063CEE6 /* GetFlightOrderListResponse.m */,
+				46D0F65F188B9E240063CEE6 /* GetFlightOrderRequest.h */,
+				46D0F660188B9E240063CEE6 /* GetFlightOrderRequest.m */,
+				46D0F661188B9E240063CEE6 /* GetInsuranceConfigRequest.h */,
+				46D0F662188B9E240063CEE6 /* GetInsuranceConfigRequest.m */,
+				46D0F663188B9E240063CEE6 /* GetInsuranceConfigResponse.h */,
+				46D0F664188B9E240063CEE6 /* GetInsuranceConfigResponse.m */,
+				46D0F665188B9E240063CEE6 /* GetMailConfigRequest.h */,
+				46D0F666188B9E240063CEE6 /* GetMailConfigRequest.m */,
+				46D0F667188B9E240063CEE6 /* GetMailConfigResponse.h */,
+				46D0F668188B9E240063CEE6 /* GetMailConfigResponse.m */,
+				46D0F669188B9E240063CEE6 /* GetNormalFlightsRequest.h */,
+				46D0F66A188B9E240063CEE6 /* GetNormalFlightsRequest.m */,
+				46D0F66B188B9E240063CEE6 /* GetNormalFlightsResponse.h */,
+				46D0F66C188B9E240063CEE6 /* GetNormalFlightsResponse.m */,
+				46D0F671188B9E240063CEE6 /* SubmitFlightOrderRequest.h */,
+				46D0F672188B9E240063CEE6 /* SubmitFlightOrderRequest.m */,
+				46D0F673188B9E240063CEE6 /* SubmitFlightOrderResponse.h */,
+				46D0F674188B9E240063CEE6 /* SubmitFlightOrderResponse.m */,
+			);
+			path = Flight;
+			sourceTree = "<group>";
+		};
+		46D9D261188BBC5500E8A1EF /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				46D9D262188BBC5500E8A1EF /* Common.h */,
+				46D9D263188BBC5500E8A1EF /* GetAllCantonsRequest.h */,
+				46D9D264188BBC5500E8A1EF /* GetAllCantonsRequest.m */,
+				46D9D265188BBC5500E8A1EF /* GetAllCantonsResponse.h */,
+				46D9D266188BBC5500E8A1EF /* GetAllCantonsResponse.m */,
+				46D9D267188BBC5500E8A1EF /* GetAllCityRequest.h */,
+				46D9D268188BBC5500E8A1EF /* GetAllCityRequest.m */,
+				46D9D269188BBC5500E8A1EF /* GetAllCityResponse.h */,
+				46D9D26A188BBC5500E8A1EF /* GetAllCityResponse.m */,
+				46D9D26B188BBC5500E8A1EF /* GetAllProvincesRequest.h */,
+				46D9D26C188BBC5500E8A1EF /* GetAllProvincesRequest.m */,
+				46D9D26D188BBC5500E8A1EF /* GetAllProvincesResponse.h */,
+				46D9D26E188BBC5500E8A1EF /* GetAllProvincesResponse.m */,
+				46D9D26F188BBC5500E8A1EF /* GetCantonByIDRequest.h */,
+				46D9D270188BBC5500E8A1EF /* GetCantonByIDRequest.m */,
+				46D9D271188BBC5500E8A1EF /* GetCantonByIDResponse.h */,
+				46D9D272188BBC5500E8A1EF /* GetCantonByIDResponse.m */,
+				46D9D273188BBC5500E8A1EF /* GetCantonByNameRequest.h */,
+				46D9D274188BBC5500E8A1EF /* GetCantonByNameRequest.m */,
+				46D9D275188BBC5500E8A1EF /* GetCantonByNameResponse.h */,
+				46D9D276188BBC5500E8A1EF /* GetCantonByNameResponse.m */,
+				46D9D277188BBC5500E8A1EF /* GetCantonsByCityIDRequest.h */,
+				46D9D278188BBC5500E8A1EF /* GetCantonsByCityIDRequest.m */,
+				46D9D279188BBC5500E8A1EF /* GetCantonsByCityIDResponse.h */,
+				46D9D27A188BBC5500E8A1EF /* GetCantonsByCityIDResponse.m */,
+				46D9D27B188BBC5500E8A1EF /* GetCityByNameRequest.h */,
+				46D9D27C188BBC5500E8A1EF /* GetCityByNameRequest.m */,
+				46D9D27D188BBC5500E8A1EF /* GetCityByNameResponse.h */,
+				46D9D27E188BBC5500E8A1EF /* GetCityByNameResponse.m */,
+				46D9D27F188BBC5500E8A1EF /* GetCityCityCantonAndSectionsRequest.h */,
+				46D9D280188BBC5500E8A1EF /* GetCityCityCantonAndSectionsRequest.m */,
+				46D9D281188BBC5500E8A1EF /* GetCityCityCantonAndSectionsResponse.h */,
+				46D9D282188BBC5500E8A1EF /* GetCityCityCantonAndSectionsResponse.m */,
+				46D9D283188BBC5500E8A1EF /* GetCityRequest.h */,
+				46D9D284188BBC5500E8A1EF /* GetCityRequest.m */,
+				46D9D285188BBC5500E8A1EF /* GetCityResponse.h */,
+				46D9D286188BBC5500E8A1EF /* GetCityResponse.m */,
+				46D9D287188BBC5500E8A1EF /* GetCitysByProvinceIDRequest.h */,
+				46D9D288188BBC5500E8A1EF /* GetCitysByProvinceIDRequest.m */,
+				46D9D289188BBC5500E8A1EF /* GetCitysByProvinceIDResponse.h */,
+				46D9D28A188BBC5500E8A1EF /* GetCitysByProvinceIDResponse.m */,
+				46D9D28B188BBC5500E8A1EF /* GetDistrictsRequest.h */,
+				46D9D28C188BBC5500E8A1EF /* GetDistrictsRequest.m */,
+				46D9D28D188BBC5500E8A1EF /* GetDistrictsResponse.h */,
+				46D9D28E188BBC5500E8A1EF /* GetDistrictsResponse.m */,
+				46D9D28F188BBC5500E8A1EF /* GetProvinceByIDRequest.h */,
+				46D9D290188BBC5500E8A1EF /* GetProvinceByIDRequest.m */,
+				46D9D291188BBC5500E8A1EF /* GetProvinceByIDResponse.h */,
+				46D9D292188BBC5500E8A1EF /* GetProvinceByIDResponse.m */,
+				46D9D293188BBC5500E8A1EF /* GetProvinceByNameRequest.h */,
+				46D9D294188BBC5500E8A1EF /* GetProvinceByNameRequest.m */,
+				46D9D295188BBC5500E8A1EF /* GetProvinceByNameResponse.h */,
+				46D9D296188BBC5500E8A1EF /* GetProvinceByNameResponse.m */,
+				46D9D297188BBC5500E8A1EF /* GetSectionsByCityIdRequest.h */,
+				46D9D298188BBC5500E8A1EF /* GetSectionsByCityIdRequest.m */,
+				46D9D299188BBC5500E8A1EF /* GetSectionsByCityIdResponse.h */,
+				46D9D29A188BBC5500E8A1EF /* GetSectionsByCityIdResponse.m */,
+				46D9D29B188BBC5500E8A1EF /* SaveSMSRequest.h */,
+				46D9D29C188BBC5500E8A1EF /* SaveSMSRequest.m */,
+				46D9D29D188BBC5500E8A1EF /* SaveSMSResponse.h */,
+				46D9D29E188BBC5500E8A1EF /* SaveSMSResponse.m */,
+				46D9D29F188BBC5500E8A1EF /* SendSMSRequest.h */,
+				46D9D2A0188BBC5500E8A1EF /* SendSMSRequest.m */,
+				46D9D2A1188BBC5500E8A1EF /* SendSMSResponse.h */,
+				46D9D2A2188BBC5500E8A1EF /* SendSMSResponse.m */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
 		B5000ADB18657600006BF295 /* MyMiu */ = {
 			isa = PBXGroup;
 			children = (
@@ -1530,6 +1792,16 @@
 		B5000ADC18657666006BF295 /* Flight */ = {
 			isa = PBXGroup;
 			children = (
+				46D9D2C3188BBC7600E8A1EF /* OrderFillInViewController.h */,
+				46D9D2C4188BBC7600E8A1EF /* OrderFillInViewController.m */,
+				46D9D2C5188BBC7600E8A1EF /* OrderResultViewController.h */,
+				46D9D2C6188BBC7600E8A1EF /* OrderResultViewController.m */,
+				46D9D2C7188BBC7600E8A1EF /* PassengerListViewController.h */,
+				46D9D2C8188BBC7600E8A1EF /* PassengerListViewController.m */,
+				46D9D2C9188BBC7600E8A1EF /* SelectPassengerViewController.h */,
+				46D9D2CA188BBC7600E8A1EF /* SelectPassengerViewController.m */,
+				46D9D25B188BBBC500E8A1EF /* FlightSiftViewController.h */,
+				46D9D25C188BBBC500E8A1EF /* FlightSiftViewController.m */,
 				B5C7C858186577D4008914D0 /* AirListViewController.h */,
 				B5C7C859186577D4008914D0 /* AirListViewController.m */,
 			);
@@ -1539,9 +1811,9 @@
 		B50FC0691879318600AF9BFD /* UPPayPlugin */ = {
 			isa = PBXGroup;
 			children = (
-				B50FC06A1879318600AF9BFD /* libUPPayPlugin.a */,
-				B50FC06B1879318600AF9BFD /* UPPayPlugin.h */,
-				B50FC06C1879318600AF9BFD /* UPPayPluginDelegate.h */,
+				46D0F5D8188B9B0E0063CEE6 /* libUPPayPlugin.a */,
+				46D0F5D9188B9B0E0063CEE6 /* UPPayPlugin.h */,
+				46D0F5DA188B9B0E0063CEE6 /* UPPayPluginDelegate.h */,
 			);
 			path = UPPayPlugin;
 			sourceTree = "<group>";
@@ -1712,86 +1984,6 @@
 				B5729B43184D75E5002497B3 /* LoginUserInfoResponse.m */,
 			);
 			path = Account;
-			sourceTree = "<group>";
-		};
-		B591AF671849F40C003BA7A3 /* Common */ = {
-			isa = PBXGroup;
-			children = (
-				B5A507DB1852B80E00D6A788 /* GetAllcantonsRequest.h */,
-				B5A507DC1852B80E00D6A788 /* GetAllcantonsRequest.m */,
-				B5A507DD1852B80E00D6A788 /* GetAllCityRequest.h */,
-				B5A507DE1852B80E00D6A788 /* GetAllCityRequest.m */,
-				B5A507DF1852B80E00D6A788 /* GetAllProvinceRequest.h */,
-				B5A507E01852B80E00D6A788 /* GetAllProvinceRequest.m */,
-				B5A507E11852B80E00D6A788 /* GetCantonByIDRequest.h */,
-				B5A507E21852B80E00D6A788 /* GetCantonByIDRequest.m */,
-				B5A507E31852B80E00D6A788 /* GetCantonByNameRequest.h */,
-				B5A507E41852B80E00D6A788 /* GetCantonByNameRequest.m */,
-				B5A507E51852B80E00D6A788 /* GetCantonsByCityIDRequest.h */,
-				B5A507E61852B80E00D6A788 /* GetCantonsByCityIDRequest.m */,
-				B5A507E71852B80E00D6A788 /* GetCityByNameRequest.h */,
-				B5A507E81852B80E00D6A788 /* GetCityByNameRequest.m */,
-				B5A507E91852B80E00D6A788 /* GetCityByProvinceIDRequest.h */,
-				B5A507EA1852B80E00D6A788 /* GetCityByProvinceIDRequest.m */,
-				B5A507EB1852B80E00D6A788 /* GetCityByProvinceIDResponse.h */,
-				B5A507EC1852B80E00D6A788 /* GetCityByProvinceIDResponse.m */,
-				B5A507ED1852B80E00D6A788 /* GetCityCityCantonAndSectionsRequest.h */,
-				B5A507EE1852B80E00D6A788 /* GetCityCityCantonAndSectionsRequest.m */,
-				B5A507EF1852B80E00D6A788 /* GetCityRequest.h */,
-				B5A507F01852B80E00D6A788 /* GetCityRequest.m */,
-				B5A507F11852B80E00D6A788 /* GetDistrictsRequest.h */,
-				B5A507F21852B80E00D6A788 /* GetDistrictsRequest.m */,
-				B5A507F31852B80E00D6A788 /* GetDistrictsResponse.h */,
-				B5A507F41852B80E00D6A788 /* GetDistrictsResponse.m */,
-				B5A507F51852B80E00D6A788 /* GetProvinceByIDRequest.h */,
-				B5A507F61852B80E00D6A788 /* GetProvinceByIDRequest.m */,
-				B5A507F71852B80E00D6A788 /* GetProvinceByNameRequest.h */,
-				B5A507F81852B80E00D6A788 /* GetProvinceByNameRequest.m */,
-				B5A507F91852B80E00D6A788 /* GetSectionsByCityIdRequest.h */,
-				B5A507FA1852B80E00D6A788 /* GetSectionsByCityIdRequest.m */,
-				B5A507FB1852B80E00D6A788 /* SendSMSRequest.h */,
-				B5A507FC1852B80E00D6A788 /* SendSMSRequest.m */,
-			);
-			path = Common;
-			sourceTree = "<group>";
-		};
-		B591AF681849F42C003BA7A3 /* Flight */ = {
-			isa = PBXGroup;
-			children = (
-				B5D4C3C51852BDFA00F1B0FC /* CancelFlightOrderRequest.h */,
-				B5D4C3C61852BDFA00F1B0FC /* CancelFlightOrderRequest.m */,
-				B5D4C3C71852BDFA00F1B0FC /* CancelFlightOrderResponse.h */,
-				B5D4C3C81852BDFA00F1B0FC /* CancelFlightOrderResponse.m */,
-				B5D4C3C91852BDFA00F1B0FC /* CancelOrderRequest.h */,
-				B5D4C3CA1852BDFA00F1B0FC /* CancelOrderRequest.m */,
-				B5D4C3CB1852BDFA00F1B0FC /* CancelOrderResponse.h */,
-				B5D4C3CC1852BDFA00F1B0FC /* CancelOrderResponse.m */,
-				B5D4C3D11852BDFA00F1B0FC /* GetFlightChangeRuleRequest.h */,
-				B5D4C3D21852BDFA00F1B0FC /* GetFlightChangeRuleRequest.m */,
-				B5D4C3D31852BDFA00F1B0FC /* GetFlightChangeRuleResponse.h */,
-				B5D4C3D41852BDFA00F1B0FC /* GetFlightChangeRuleResponse.m */,
-				B5D4C3D51852BDFA00F1B0FC /* GetFlightOrderListResponse.h */,
-				B5D4C3D61852BDFA00F1B0FC /* GetFlightOrderListResponse.m */,
-				B5D4C3D71852BDFA00F1B0FC /* GetFlightOrderRequest.h */,
-				B5D4C3D81852BDFA00F1B0FC /* GetFlightOrderRequest.m */,
-				B5D4C3ED1852BDFA00F1B0FC /* GetInsuranceConfigRequest.h */,
-				B5D4C3EE1852BDFA00F1B0FC /* GetInsuranceConfigRequest.m */,
-				B5D4C3EF1852BDFA00F1B0FC /* GetInsuranceConfigResponse.h */,
-				B5D4C3F01852BDFA00F1B0FC /* GetInsuranceConfigResponse.m */,
-				B5D4C3F11852BDFA00F1B0FC /* GetMailConfigRequest.h */,
-				B5D4C3F21852BDFA00F1B0FC /* GetMailConfigRequest.m */,
-				B5D4C3F31852BDFA00F1B0FC /* GetMailConfigResponse.h */,
-				B5D4C3F41852BDFA00F1B0FC /* GetMailConfigResponse.m */,
-				B5D4C3F51852BDFA00F1B0FC /* GetNormalFlightsRequest.h */,
-				B5D4C3F61852BDFA00F1B0FC /* GetNormalFlightsRequest.m */,
-				B5D4C3F71852BDFA00F1B0FC /* GetNormalFlightsResponse.h */,
-				B5D4C3F81852BDFA00F1B0FC /* GetNormalFlightsResponse.m */,
-				B5D4C4011852BDFA00F1B0FC /* SubmitFlightOrderRequest.h */,
-				B5D4C4021852BDFA00F1B0FC /* SubmitFlightOrderRequest.m */,
-				B5D4C4031852BDFA00F1B0FC /* SubmitFlightOrderResponse.h */,
-				B5D4C4041852BDFA00F1B0FC /* SubmitFlightOrderResponse.m */,
-			);
-			path = Flight;
 			sourceTree = "<group>";
 		};
 		B591AF691849F44D003BA7A3 /* Hotel */ = {
@@ -2120,185 +2312,221 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				46D9D2BB188BBC5500E8A1EF /* GetProvinceByNameRequest.m in Sources */,
 				127915571833292700CF94F4 /* DatePickerViewController.m in Sources */,
+				46D0F67A188B9E240063CEE6 /* CancelOrderResponse.m in Sources */,
+				46D9D2A7188BBC5500E8A1EF /* GetAllProvincesRequest.m in Sources */,
 				18A13701184EE53A00516ED3 /* GetMemberDeliverListResponse.m in Sources */,
 				18B473601846FC7A003FF7AD /* CorpPolicyDTO.m in Sources */,
 				124789E21836363100AA0083 /* ASIDataDecompressor.m in Sources */,
 				18B4735D1846F9A5003FF7AD /* CorpUserBaseInfoDTO.m in Sources */,
 				B591AF651849DD01003BA7A3 /* LoginResponse.m in Sources */,
+				46D9D2B0188BBC5500E8A1EF /* GetCityByNameResponse.m in Sources */,
 				B50FC08418794E1900AF9BFD /* DateSelectViewController.m in Sources */,
-				B5D4C4091852BDFA00F1B0FC /* CancelFlightOrderRequest.m in Sources */,
 				B57A0AA5184EC77A00A33831 /* HomeViewController.m in Sources */,
 				18B473511846E977003FF7AD /* TravelLifeInfo.m in Sources */,
 				18A13710184EE59F00516ED3 /* GetCorpNameByMumberUIDResponse.m in Sources */,
 				18A136DD184EE37500516ED3 /* GetLoginUserInfoResponse.m in Sources */,
+				46D9D2A6188BBC5500E8A1EF /* GetAllCityResponse.m in Sources */,
 				18A13704184EE55400516ED3 /* DeleteMemberDeliverResponse.m in Sources */,
-				B5A508051852B80E00D6A788 /* GetCityByProvinceIDResponse.m in Sources */,
 				18A136E3184EE42100516ED3 /* GetTravelLifeInfoResponse.m in Sources */,
+				46D0F67F188B9E240063CEE6 /* GetFlightOrderRequest.m in Sources */,
 				122BD71E184057B800BAA9A9 /* AirOrderDetailCell.m in Sources */,
 				18A136FB184EE51100516ED3 /* GetCorpInfoResponse.m in Sources */,
-				B5D4C40F1852BDFA00F1B0FC /* GetFlightChangeRuleRequest.m in Sources */,
-				B5A508071852B80E00D6A788 /* GetCityRequest.m in Sources */,
+				4673B353188B989E00CABE33 /* FMDatabaseQueue.m in Sources */,
 				B5C7C856186577BB008914D0 /* SettingViewController.m in Sources */,
-				18573C8A1849A94800A19D7E /* CityPickerViewController.m in Sources */,
-				B5D4C40C1852BDFA00F1B0FC /* CancelOrderResponse.m in Sources */,
+				46D0F680188B9E240063CEE6 /* GetInsuranceConfigRequest.m in Sources */,
 				B53DA07F18779B8200868278 /* AsyncImageView.m in Sources */,
+				46D9D2B4188BBC5500E8A1EF /* GetCityResponse.m in Sources */,
 				B57B67531852BEEC0002C778 /* SearchHotelsRequest.m in Sources */,
 				B5157F86185BF84100AF3E0C /* HotelCommentViewController.m in Sources */,
+				46D9D2C2188BBC5500E8A1EF /* SendSMSResponse.m in Sources */,
+				46D9D2BE188BBC5500E8A1EF /* GetSectionsByCityIdResponse.m in Sources */,
 				B551435E185C3C1300D5BDD4 /* HotelDetailViewController.m in Sources */,
 				B57B67621852C3CE0002C778 /* GetCommentListResponse.m in Sources */,
-				B5D4C4201852BDFA00F1B0FC /* GetMailConfigResponse.m in Sources */,
-				B5A508081852B80E00D6A788 /* GetDistrictsRequest.m in Sources */,
-				B5D4C41E1852BDFA00F1B0FC /* GetInsuranceConfigResponse.m in Sources */,
 				12791529183326B700CF94F4 /* AppDelegate.m in Sources */,
 				18A1370A184EE57A00516ED3 /* SavePassengerListResponse.m in Sources */,
 				124789E11836363100AA0083 /* ASIDataCompressor.m in Sources */,
-				B5A5080D1852B80E00D6A788 /* SendSMSRequest.m in Sources */,
 				1279155A1833292700CF94F4 /* Utils.m in Sources */,
+				4673B355188B989E00CABE33 /* LKDaoBase.m in Sources */,
 				124789E41836363100AA0083 /* ASIFormDataRequest.m in Sources */,
+				46D0F67E188B9E240063CEE6 /* GetFlightOrderListResponse.m in Sources */,
 				B591AF621849D320003BA7A3 /* LoginRequest.m in Sources */,
-				B5A507FD1852B80E00D6A788 /* GetAllcantonsRequest.m in Sources */,
-				B5A507FE1852B80E00D6A788 /* GetAllCityRequest.m in Sources */,
 				B57A0AAF184F13F200A33831 /* ImageAndTextTilteView.m in Sources */,
 				124789F91836363100AA0083 /* SBJsonStreamWriter.m in Sources */,
 				183E48931845E2F9009F6C4E /* RequestManager.m in Sources */,
+				46D9D2BD188BBC5500E8A1EF /* GetSectionsByCityIdRequest.m in Sources */,
 				B59555DB1866C6F000B2C673 /* HotelCantonViewController.m in Sources */,
 				124789FA1836363100AA0083 /* SBJsonStreamWriterAccumulator.m in Sources */,
 				B57B67501852BEEC0002C778 /* GetHotelRoomsMultiResponse.m in Sources */,
-				B5D4C40A1852BDFA00F1B0FC /* CancelFlightOrderResponse.m in Sources */,
 				B57B67631852C3CE0002C778 /* GetOrderRequest.m in Sources */,
 				18B473571846F5A2003FF7AD /* CorpServerCardDTO.m in Sources */,
+				46D9D2CC188BBC7600E8A1EF /* OrderResultViewController.m in Sources */,
 				B57A0AA6184EC77A00A33831 /* RegisterAndLogViewController.m in Sources */,
 				12C37DC2183DD5FF00EA6D26 /* CustomMethod.m in Sources */,
-				B5D4C4101852BDFA00F1B0FC /* GetFlightChangeRuleResponse.m in Sources */,
 				B5C7C855186577BB008914D0 /* MyMiuViewController.m in Sources */,
 				B5F762591852045000E7244B /* HotelSearchView.m in Sources */,
 				18B4735A1846F74D003FF7AD /* CorpStaffDTO.m in Sources */,
-				B5D4C4221852BDFA00F1B0FC /* GetNormalFlightsResponse.m in Sources */,
 				18A1370D184EE58B00516ED3 /* UpdateCropUserBaseByChinaUMSUIDResponse.m in Sources */,
+				46D9D2A9188BBC5500E8A1EF /* GetCantonByIDRequest.m in Sources */,
+				46D0F67D188B9E240063CEE6 /* GetFlightChangeRuleResponse.m in Sources */,
 				18A13713184EE5B200516ED3 /* LogoutResponse.m in Sources */,
 				B533C321186693AF0085E7BC /* UIPopoverListView.m in Sources */,
 				124789E71836363100AA0083 /* ASINetworkQueue.m in Sources */,
+				4673B351188B989E00CABE33 /* FMDatabaseAdditions.m in Sources */,
 				B57B67521852BEEC0002C778 /* GetHotelTrafficlnfoRequest.m in Sources */,
 				124789FD1836363100AA0083 /* SBJsonUTF8Stream.m in Sources */,
 				B57B67511852BEEC0002C778 /* GetHoteltrafficInfoResponse.m in Sources */,
 				B57B674C1852BEEC0002C778 /* GethotelDetailResponse.m in Sources */,
-				B5D4C4121852BDFA00F1B0FC /* GetFlightOrderRequest.m in Sources */,
 				1279155B1833292700CF94F4 /* Model.m in Sources */,
 				B57B67641852C3CE0002C778 /* GetOrderResponse.m in Sources */,
 				B57B67611852C3CE0002C778 /* GetCommentListRequest.m in Sources */,
+				46D0F678188B9E240063CEE6 /* CancelFlightOrderResponse.m in Sources */,
 				B5C7C857186577BB008914D0 /* TripCareerViewController.m in Sources */,
 				B57B674D1852BEEC0002C778 /* GetHotelImageListRequest.m in Sources */,
 				B53DA0891878328E00868278 /* HotelListRoomCell.m in Sources */,
 				187CBD18184879DB00F25BD7 /* OnLineAllClass.m in Sources */,
 				B507B84618570A6C003541B2 /* LoadMoreTableFooterView.m in Sources */,
+				46D9D2B1188BBC5500E8A1EF /* GetCityCityCantonAndSectionsRequest.m in Sources */,
+				46D9D25D188BBBC500E8A1EF /* FlightSiftViewController.m in Sources */,
 				18A136F2184EE4CC00516ED3 /* GetCorpPolicyResponse.m in Sources */,
 				187CBD18184879DB00F25BD7 /* OnLineAllClass.m in Sources */,
-				B5A5080B1852B80E00D6A788 /* GetProvinceByNameRequest.m in Sources */,
 				18A13707184EE56900516ED3 /* DeleteDeliverResponse.m in Sources */,
 				1247899F183633E700AA0083 /* UserDefaults.m in Sources */,
-				B5A507FF1852B80E00D6A788 /* GetAllProvinceRequest.m in Sources */,
+				46D9D2B3188BBC5500E8A1EF /* GetCityRequest.m in Sources */,
 				124789F71836363100AA0083 /* SBJsonStreamParserAdapter.m in Sources */,
+				46D9D2B8188BBC5500E8A1EF /* GetDistrictsResponse.m in Sources */,
 				B5D4C4291852BDFA00F1B0FC /* (null) in Sources */,
 				B59555DE1866CA3E00B2C673 /* GetHotelDistrictsRequest.m in Sources */,
+				46D9D2A5188BBC5500E8A1EF /* GetAllCityRequest.m in Sources */,
+				46D0F67C188B9E240063CEE6 /* GetFlightChangeRuleRequest.m in Sources */,
+				46D9D2CB188BBC7600E8A1EF /* OrderFillInViewController.m in Sources */,
 				124789F61836363100AA0083 /* SBJsonStreamParserAccumulator.m in Sources */,
 				B57E1779188B831200E6BF16 /* CKCalendarView.m in Sources */,
 				B57A0A9F184EC77A00A33831 /* BaseUIViewController.m in Sources */,
 				B523F73B18478B94005C45C5 /* BaseRequestModel.m in Sources */,
+				46D9D260188BBC1000E8A1EF /* SqliteManager.m in Sources */,
+				46D0F5E9188B9B620063CEE6 /* DBHotCitys.m in Sources */,
 				18A136E6184EE46A00516ED3 /* GetContactResponse.m in Sources */,
+				46D9D2B9188BBC5500E8A1EF /* GetProvinceByIDRequest.m in Sources */,
+				46D9D2AF188BBC5500E8A1EF /* GetCityByNameRequest.m in Sources */,
 				B57B674E1852BEEC0002C778 /* GetHotelImageListResponse.m in Sources */,
 				18B473541846EB84003FF7AD /* BookPassengersDTO.m in Sources */,
-				B5D4C4111852BDFA00F1B0FC /* GetFlightOrderListResponse.m in Sources */,
 				B59555E11866CB3F00B2C673 /* GetHotelDistrictsResponse.m in Sources */,
-				B5D4C4281852BDFA00F1B0FC /* SubmitFlightOrderResponse.m in Sources */,
+				46D9D2DA188BBF3000E8A1EF /* CityPickerViewController.m in Sources */,
 				B5C7C85A186577D4008914D0 /* AirListViewController.m in Sources */,
 				124789F81836363100AA0083 /* SBJsonStreamParserState.m in Sources */,
 				18A136FE184EE52700516ED3 /* DeleteMemberPassengerResponse.m in Sources */,
-				B5A5080C1852B80E00D6A788 /* GetSectionsByCityIdRequest.m in Sources */,
+				46D9D2A8188BBC5500E8A1EF /* GetAllProvincesResponse.m in Sources */,
+				46D9D2AC188BBC5500E8A1EF /* GetCantonByNameResponse.m in Sources */,
+				46D9D2A3188BBC5500E8A1EF /* GetAllCantonsRequest.m in Sources */,
 				18B47363184700F3003FF7AD /* CorpCostCenterDTO.m in Sources */,
 				18A136EF184EE4B500516ED3 /* GetCorpUserBaseInfoResponse.m in Sources */,
 				18A136F5184EE4E200516ED3 /* GetCorpCostResponse.m in Sources */,
 				B5C7C854186577BB008914D0 /* HotelAndAirOrderViewController.m in Sources */,
 				B529E856186FC97D0024E901 /* HotelDataCache.m in Sources */,
-				B5A508031852B80E00D6A788 /* GetCityByNameRequest.m in Sources */,
 				122BD721184057F100BAA9A9 /* HotelOrderDetailCell.m in Sources */,
 				18B473661847062C003FF7AD /* MemberDeliverDTO.m in Sources */,
-				B5D4C4271852BDFA00F1B0FC /* SubmitFlightOrderRequest.m in Sources */,
 				B590F178186140C0002D6A6D /* PullRefreshTableViewController.m in Sources */,
 				124789FC1836363100AA0083 /* SBJsonTokeniser.m in Sources */,
 				B53DA08C1878332100868278 /* HotelListBtnCellView.m in Sources */,
 				124789F51836363100AA0083 /* SBJsonStreamParser.m in Sources */,
-				B5D4C40B1852BDFA00F1B0FC /* CancelOrderRequest.m in Sources */,
 				124789FB1836363100AA0083 /* SBJsonStreamWriterState.m in Sources */,
+<<<<<<< HEAD
 				B5D4C41D1852BDFA00F1B0FC /* GetInsuranceConfigRequest.m in Sources */,
 				B57E177E188BB48900E6BF16 /* CustomIOS7AlertView.m in Sources */,
+=======
+>>>>>>> 97d22a74209c42d44ae790b1a0aa8daaae6fac48
 				124789F21836363100AA0083 /* LoadingMoreTableFooterView.m in Sources */,
-				B5A508021852B80E00D6A788 /* GetCantonsByCityIDRequest.m in Sources */,
+				46D9D2B7188BBC5500E8A1EF /* GetDistrictsRequest.m in Sources */,
+				46D9D2BF188BBC5500E8A1EF /* SaveSMSRequest.m in Sources */,
 				127C6844183A0AB20055784D /* CustomBtn.m in Sources */,
 				B53496B91846E3C6001BC8D1 /* BaseResponseModel.m in Sources */,
+				46D9D2C1188BBC5500E8A1EF /* SendSMSRequest.m in Sources */,
 				124789E01836363100AA0083 /* ASIAuthenticationDialog.m in Sources */,
 				124789E91836363100AA0083 /* EGORefreshTableHeaderView.m in Sources */,
 				127915591833292700CF94F4 /* ImagePickerViewController.m in Sources */,
 				18A136E9184EE48B00516ED3 /* GetCorpServerCardListResponse.m in Sources */,
+				46D0F5E7188B9B620063CEE6 /* DBAirLine.m in Sources */,
 				18573C931849B36100A19D7E /* MiuTripOrderDetail.m in Sources */,
+				46D9D2A4188BBC5500E8A1EF /* GetAllCantonsResponse.m in Sources */,
 				12791525183326B700CF94F4 /* main.m in Sources */,
 				18564719184C5C8D0031E5D6 /* LoginInfoDTO.m in Sources */,
+				46D0F685188B9E240063CEE6 /* GetNormalFlightsResponse.m in Sources */,
 				124789F31836363100AA0083 /* NSObject+SBJson.m in Sources */,
 				18A136F8184EE4FC00516ED3 /* GetCorpStaffResponse.m in Sources */,
+				46D0F683188B9E240063CEE6 /* GetMailConfigResponse.m in Sources */,
+				46D0F68D188B9E3C0063CEE6 /* OnLineAllClass.m in Sources */,
+				46D9D2CD188BBC7600E8A1EF /* PassengerListViewController.m in Sources */,
+				46D0F677188B9E240063CEE6 /* CancelFlightOrderRequest.m in Sources */,
 				18B4736C184731DC003FF7AD /* RegexKitLite.m in Sources */,
+				46D9D2BA188BBC5500E8A1EF /* GetProvinceByIDResponse.m in Sources */,
 				B5729B41184D74BB002497B3 /* LoginUserInfoRequest.m in Sources */,
 				124789FE1836363100AA0083 /* SBJsonWriter.m in Sources */,
+				46D0F684188B9E240063CEE6 /* GetNormalFlightsRequest.m in Sources */,
+				4673B352188B989E00CABE33 /* FMDatabasePool.m in Sources */,
 				124789E31836363100AA0083 /* ASIDownloadCache.m in Sources */,
 				B57B674B1852BEEC0002C778 /* GetHotelDetailRequest.m in Sources */,
 				124789E81836363100AA0083 /* Reachability.m in Sources */,
+				46D0F689188B9E240063CEE6 /* SubmitFlightOrderResponse.m in Sources */,
 				1247639F18362F0F008900F8 /* AirOrderDetail.m in Sources */,
 				B5729B44184D75E5002497B3 /* LoginUserInfoResponse.m in Sources */,
 				B5A249221845F63A005BB217 /* URLHelper.m in Sources */,
+				4673B356188B989E00CABE33 /* SandboxFile.m in Sources */,
 				18A136EC184EE49C00516ED3 /* SearchPassengersResponse.m in Sources */,
 				124789E51836363100AA0083 /* ASIHTTPRequest.m in Sources */,
 				B57A0AAB184EC7E100A33831 /* HotelListViewController.m in Sources */,
+				46D0F688188B9E240063CEE6 /* SubmitFlightOrderRequest.m in Sources */,
 				B53DA0841877F67800868278 /* HotelMapViewControler.m in Sources */,
 				B57B67661852C3CE0002C778 /* SubmitOrderResponse.m in Sources */,
 				B57B674A1852BEEC0002C778 /* GetHotelCitesResponse.m in Sources */,
+				46D0F679188B9E240063CEE6 /* CancelOrderRequest.m in Sources */,
 				124789F41836363100AA0083 /* SBJsonParser.m in Sources */,
 				1247899C18362F8700AA0083 /* CommonlyName.m in Sources */,
 				124789E61836363100AA0083 /* ASIInputStream.m in Sources */,
 				18A905D9184C59DC00AE4835 /* ChangePasswordRequest.m in Sources */,
-				B5A508091852B80E00D6A788 /* GetDistrictsResponse.m in Sources */,
+				46D9D2B2188BBC5500E8A1EF /* GetCityCityCantonAndSectionsResponse.m in Sources */,
+				46D9D2B5188BBC5500E8A1EF /* GetCitysByProvinceIDRequest.m in Sources */,
+				46D9D2AE188BBC5500E8A1EF /* GetCantonsByCityIDResponse.m in Sources */,
+				46D0F681188B9E240063CEE6 /* GetInsuranceConfigResponse.m in Sources */,
 				B529E8591870184B0024E901 /* HotelCustomerModel.m in Sources */,
 				18A905DC184C5A9200AE4835 /* GetTravelLifeInfoRequest.m in Sources */,
 				18A905DF184C61DD00AE4835 /* GetContactRequest.m in Sources */,
 				18A905E2184C699200AE4835 /* GetCorpServerCardListRequest.m in Sources */,
 				18A905E5184C6B9000AE4835 /* SearchPassengersRequest.m in Sources */,
-				B5A5080A1852B80E00D6A788 /* GetProvinceByIDRequest.m in Sources */,
 				18A905E8184C6D8700AE4835 /* GetCorpUserBaseInfoRequest.m in Sources */,
+				46D9D2AA188BBC5500E8A1EF /* GetCantonByIDResponse.m in Sources */,
 				18A905EB184C762E00AE4835 /* GetCorpPolicyRequest.m in Sources */,
+				46D0F5E8188B9B620063CEE6 /* DBFlightCitys.m in Sources */,
 				18A905F1184C7C7100AE4835 /* GetCorpStaffRequest.m in Sources */,
 				18A136DA184EC64200516ED3 /* LogoutRequest.m in Sources */,
 				18A905F4184C7DF200AE4835 /* GetCorpInfoRequest.m in Sources */,
-				B5A508011852B80E00D6A788 /* GetCantonByNameRequest.m in Sources */,
-				B5A508001852B80E00D6A788 /* GetCantonByIDRequest.m in Sources */,
+				46D9D2AB188BBC5500E8A1EF /* GetCantonByNameRequest.m in Sources */,
+				46D9D2C0188BBC5500E8A1EF /* SaveSMSResponse.m in Sources */,
+				46D9D2B6188BBC5500E8A1EF /* GetCitysByProvinceIDResponse.m in Sources */,
 				B57B67541852BEEC0002C778 /* SearchHotelsResponse.m in Sources */,
 				18A905F7184C803B00AE4835 /* GetLoginUserInfoRequest.m in Sources */,
 				B57B67491852BEEC0002C778 /* GethotelCitesRequest.m in Sources */,
-				B5D4C4211852BDFA00F1B0FC /* GetNormalFlightsRequest.m in Sources */,
 				18A905FA184C855300AE4835 /* DeleteMemberPassengerRequest.m in Sources */,
 				18A905FD184C878900AE4835 /* GetMemberDeliverListRequest.m in Sources */,
 				18A90600184C89C400AE4835 /* DeleteMemberDeliverRequest.m in Sources */,
 				B5C7C853186577BB008914D0 /* CommonlyNameViewController.m in Sources */,
 				18A13719184F13C100516ED3 /* GetCorpCostRequest.m in Sources */,
-				B5A508061852B80E00D6A788 /* GetCityCityCantonAndSectionsRequest.m in Sources */,
+				46D9D2CE188BBC7600E8A1EF /* SelectPassengerViewController.m in Sources */,
+				4673B350188B989D00CABE33 /* FMDatabase.m in Sources */,
+				46D0F682188B9E240063CEE6 /* GetMailConfigRequest.m in Sources */,
+				4673B354188B989E00CABE33 /* FMResultSet.m in Sources */,
 				18A136E0184EE40700516ED3 /* ChangePasswordResponse.m in Sources */,
 				B57B67651852C3CE0002C778 /* SubmitOrderRequest.m in Sources */,
 				18A90603184C8A1500AE4835 /* DeleteDeliverRequest.m in Sources */,
 				18A90606184C8A7000AE4835 /* SavePassengerListRequest.m in Sources */,
-				B5D4C41F1852BDFA00F1B0FC /* GetMailConfigRequest.m in Sources */,
 				B501CFA01852F5DC00802FD9 /* HotelListCellviewCell.m in Sources */,
+				46D9D2BC188BBC5500E8A1EF /* GetProvinceByNameResponse.m in Sources */,
 				18A90609184C8D7000AE4835 /* UpdateCropUserBaseByChinaUMSUIDRequest.m in Sources */,
 				B5C7C860186578B7008914D0 /* HotelOrderViewController.mm in Sources */,
 				18A9060C184C8E0D00AE4835 /* GetCorpNameByMumberUIDRequest.m in Sources */,
+				46D9D2AD188BBC5500E8A1EF /* GetCantonsByCityIDRequest.m in Sources */,
 				B57B674F1852BEEC0002C778 /* GetHotelRoomMultiRequest.m in Sources */,
-				B5A508041852B80E00D6A788 /* GetCityByProvinceIDRequest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2429,8 +2657,8 @@
 				INFOPLIST_FILE = "MiuTrip/MiuTrip-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				LIBRARY_SEARCH_PATHS = (
-					"\\\"$(SRCROOT)/MiuTrip/LIbrary/ASIHttpRequest",
-					/Users/stevencheng/Desktop/Miutrip/MiuTrip/MiuTrip/Library/UPPayPlugin,
+					/Users/Smart_boat/Desktop/Miutrip/MiuTrip/MiuTrip/Library/UPPayPlugin,
+					"\\\"$(SRCROOT)/MiuTrip/LIbrary/FMDatabase",
 				);
 				OTHER_LDFLAGS = "-lxml2";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2457,8 +2685,8 @@
 				INFOPLIST_FILE = "MiuTrip/MiuTrip-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				LIBRARY_SEARCH_PATHS = (
-					"\\\"$(SRCROOT)/MiuTrip/LIbrary/ASIHttpRequest",
-					/Users/stevencheng/Desktop/Miutrip/MiuTrip/MiuTrip/Library/UPPayPlugin,
+					/Users/Smart_boat/Desktop/Miutrip/MiuTrip/MiuTrip/Library/UPPayPlugin,
+					"\\\"$(SRCROOT)/MiuTrip/LIbrary/FMDatabase",
 				);
 				OTHER_LDFLAGS = "-lxml2";
 				PRODUCT_NAME = "$(TARGET_NAME)";

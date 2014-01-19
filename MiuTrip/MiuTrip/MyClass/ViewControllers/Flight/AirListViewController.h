@@ -7,16 +7,22 @@
 //
 
 #import "BaseUIViewController.h"
+#import "FlightSiftViewController.h"
 
 #define             AirListViewCellHeight               70.0
 #define             AirListViewSubjoinCellHeight        50.0
 
+@class    DomesticFlightDataDTO;
+@class    CustomBtn;
+
 @protocol AirListHeadViewDelegate;
 
-@interface AirListViewController : BaseUIViewController<UITableViewDataSource,UITableViewDelegate>
+@interface AirListViewController : BaseUIViewController<UITableViewDataSource,UITableViewDelegate,FlightSiftViewDelegate>
 
 @property (strong, nonatomic) NSMutableArray            *dataSource;
 @property (strong, nonatomic) UITableView               *theTableView;
+
+- (void)getAirListWithRequest:(BaseRequestModel*)request;
 
 @end
 
@@ -32,9 +38,22 @@
 @property (strong, nonatomic) UILabel                   *ticketPriceLb;         //票价
 @property (strong, nonatomic) UILabel                   *discountLb;            //折扣
 
+- (void)unfoldViewShow:(DomesticFlightDataDTO*)params;
+- (void)setViewContentWithParams:(DomesticFlightDataDTO *)params;
+
+- (void)mainBtnAddTarget:(id)target action:(SEL)action forControlEvents:(UIControlEvents)controlEvents;
+- (void)mainBtnRemoveTarget:(id)target action:(SEL)action forControlEvents:(UIControlEvents)controlEvents;
+
+- (void)subjoinBtnAddTarget:(id)target action:(SEL)action forControlEvents:(UIControlEvents)controlEvents;
+- (void)subjoinBtnRemoveTarget:(id)target action:(SEL)action forControlEvents:(UIControlEvents)controlEvents;
+
 @end
 
 @interface AirListViewSubjoinCell : UIView
+
+@property (strong, nonatomic) CustomBtn         *doneBtn;
+
+- (void)setViewContentWithParams:(DomesticFlightDataDTO*)flight;
 
 @end
 

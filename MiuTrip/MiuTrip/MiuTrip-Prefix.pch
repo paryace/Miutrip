@@ -14,6 +14,8 @@
     #import <UIKit/UIKit.h>
     #import <Foundation/Foundation.h>
     #import "RegexKitLite.h"
+    #import "Utils.h"
+    #import "Model.h"
 
     #define         MiuTripTestURL                  @"http://test.miutrip.com/api"
     #define         MiuTripURL                      @"http://www.miutrip.com/api"

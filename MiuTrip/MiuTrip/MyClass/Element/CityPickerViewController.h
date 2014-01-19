@@ -7,7 +7,23 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Common.h"
+#import "RequestManager.h"
 
-@interface CityPickerViewController : UIViewController
+@protocol CityPickerDelegate;
+
+
+@interface CityPickerViewController : UIViewController<UITableViewDelegate,UITableViewDataSource,BusinessDelegate>
+
+@property (assign, nonatomic) id <CityPickerDelegate> delegate;
+
+- (void)fire;
+
+@end
+
+@protocol CityPickerDelegate <NSObject>
+
+- (void)cityPickerFinished:(CityDTO*)city;
+- (void)cityPickerCancel;
 
 @end
