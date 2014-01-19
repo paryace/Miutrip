@@ -7,14 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "HotelListViewController.h"
 
 @interface HotelListRoomCell : UITableViewCell
 
-@property (nonatomic,strong) UILabel *roomName;
-@property (nonatomic,strong) UILabel *bedAndBreakfast;
-@property (nonatomic,strong) UILabel *wifi;
-@property (nonatomic,strong) UILabel *price;
-@property (nonatomic,strong) UIViewController *viewController;
+@property (nonatomic,strong) UILabel                   *roomName;
+@property (nonatomic,strong) UILabel                   *bedAndBreakfast;
+@property (nonatomic,strong) UILabel                   *wifi;
+@property (nonatomic,strong) UILabel                   *price;
+@property (nonatomic,strong) HotelListViewController   *viewController;
 
 @property (nonatomic,assign) NSDictionary  *roomData;
 @property (nonatomic,assign) NSString      *hotelName;

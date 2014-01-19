@@ -52,6 +52,8 @@
 @property (strong, nonatomic) NSString             *guestMobile;
 @property (nonatomic)         int                  roomCount;
 
+@property (strong, nonatomic) NSDictionary         *selcetedReason;
+
 
 + (HotelDataCache*)sharedInstance;
 @end

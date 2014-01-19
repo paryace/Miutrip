@@ -61,9 +61,9 @@
     mapBtn.frame = CGRectMake(self.contentView.frame.size.width - 40, 10, 30, 20);
     [mapBtn addTarget:self action:@selector(mapBtnPressed:) forControlEvents:UIControlEventTouchUpInside];
     
-    [self addTitleWithTitle:@"上海" withRightView:mapBtn];
+    _titleView = [self addTitleWithTitle:@"上海" withRightView:mapBtn];
     [self addLoadingView];
-    [self searchHotels];
+    [self loadData];
 }
 
 -(void)mapBtnPressed:(UIButton *) sender{
@@ -205,7 +205,7 @@
     
 }
 
--(void)LoadDate{
+-(void)loadData{
     HotelDataCache *data = [HotelDataCache sharedInstance];
     if(data.isPrivte){
         _hasPriceRc = NO;
@@ -318,7 +318,19 @@
         
         if([response isKindOfClass:[GetCorpPolicyResponse class]]){
             GetCorpPolicyResponse *policyResponse = (GetCorpPolicyResponse*)response;
-
+            NSString *hotelRc = policyResponse.HotelRC;
+            if([hotelRc isEqualToString:@"T"]){
+                _hasPriceRc = YES;
+                _policyMaxPrice = [policyResponse.HtlAmountLimtMax intValue];
+                _popupListData = policyResponse.HotelReasonCodeN;
+                NSString *policyTitle = [NSString stringWithFormat:@"%@ 价格上限:%@元",
+                                         policyResponse.PolicyName,policyResponse.HtlAmountLimtMax];
+                UILabel *titleLabel = (UILabel*)[_titleView viewWithTag:10000];
+                titleLabel.text = policyTitle;
+            }else{
+                _hasPriceRc = NO;
+            }
+            [self searchHotels];
             
         }else{
             SearchHotelsResponse *hotelListResponse = (SearchHotelsResponse*)response;
@@ -574,4 +586,152 @@
     [self performSelector:@selector(loadMore) withObject:nil afterDelay:2.0];
 }
 
+-(void)showRuleView
+{
+    CustomIOS7AlertView *ruleAlert = [[CustomIOS7AlertView alloc] init];
+    [ruleAlert setDelegate:self];
+    [ruleAlert setContainerView:[self makeRuleAlertView]];
+    [ruleAlert setButtonTitles:[NSMutableArray arrayWithObjects:@"确定", @"取消",nil]];
+    [ruleAlert setUseMotionEffects:true];
+    [ruleAlert show];
+    
+}
+
+
+-(void)customIOS7dialogButtonTouchUpInside:(id)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if(buttonIndex  == 0){
+        if(![HotelDataCache sharedInstance].selcetedReason){
+            return;
+        }else{
+            [alertView close];
+            HotelOrderViewController *orderViewController = [[HotelOrderViewController alloc] init];
+            [self.navigationController pushViewController:orderViewController animated:YES];
+        }
+    }else{
+        [alertView close];
+    }
+}
+
+
+-(UIView*)makeRuleAlertView
+{
+    
+    int width = 300;
+    UIView *contentView =[[UIView alloc] initWithFrame:CGRectMake(0, 0, width, 120)];
+    [contentView setBackgroundColor:color(clearColor)];
+    UIImageView *tipImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon_tip"]];
+    tipImage.frame = CGRectMake(10, 5, 20, 20);
+    [contentView addSubview:tipImage];
+    
+    UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(32, 0, 100, 30)];
+    [title setBackgroundColor:color(clearColor)];
+    title.text = @"选择违规原因";
+    title.font = [UIFont systemFontOfSize:13];
+    title.textColor = color(darkGrayColor);
+    [contentView addSubview:title];
+    
+    UILabel *text = [[UILabel alloc] initWithFrame:CGRectMake(15,35, width-30, 30)];
+    [text setBackgroundColor:color(clearColor)];
+    text.text = @"因您的预订与贵公司差旅政策不符，故请您选择原因：";
+    text.font = [UIFont systemFontOfSize:12];
+    text.numberOfLines = 2;
+    text.textColor = color(darkGrayColor);
+    [contentView addSubview:text];
+    
+    UIImageView *bgView = [[UIImageView alloc]initWithFrame:CGRectMake(15, 70, width-30, 40)];
+    [bgView setBackgroundColor:color(whiteColor)];
+    [bgView setBorderColor:color(lightGrayColor) width:.6];
+    [bgView setCornerRadius:5.0];
+    [bgView setAlpha:0.5];
+    [contentView addSubview:bgView];
+    
+    UILabel *selectLabel = [[UILabel alloc] initWithFrame:CGRectMake(18, 70, 40, 40)];
+    [selectLabel setBackgroundColor:color(clearColor)];
+    selectLabel.text = @"请选择";
+    selectLabel.font = [UIFont systemFontOfSize:11];
+    selectLabel.textColor = color(lightGrayColor);
+    [contentView addSubview:selectLabel];
+    
+    _selectedReason = [[UILabel alloc] initWithFrame:CGRectMake(60,70, width-100, 38)];
+    [_selectedReason setBackgroundColor:color(clearColor)];
+    NSDictionary *reason = [HotelDataCache sharedInstance].selcetedReason;
+    if(reason){
+        _selectedReason.text = [reason objectForKey:@"ReasonCode"];
+    }
+    _selectedReason.font = [UIFont systemFontOfSize:12];
+    _selectedReason.textColor = color(darkGrayColor);
+    [contentView addSubview:_selectedReason];
+    
+    UIImageView *arrow = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"arrow"]];
+    arrow.frame = CGRectMake(width-30, 82, 12, 16);
+    [contentView addSubview:arrow];
+    
+    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+    btn.frame = bgView.frame;
+    [btn addTarget:self action:@selector(alertBtnPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [contentView addSubview:btn];
+    
+    return contentView;
+    
+}
+
+-(void)alertBtnPressed:(UIButton*)button
+{
+    [self showPopupListWithTitle:@"选择原因"];
+}
+
+
+- (void)showPopupListWithTitle:(NSString*)title
+{
+    
+    CGFloat xWidth = self.contentView.bounds.size.width - 20.0f;
+    CGFloat yHeight = 240;
+    CGFloat yOffset = (self.contentView.bounds.size.height - yHeight)/2.0f;
+    UIPopoverListView *poplistview = [[UIPopoverListView alloc] initWithFrame:CGRectMake(10, yOffset, xWidth, yHeight)];
+    poplistview.delegate = self;
+    poplistview.datasource = self;
+    poplistview.listView.scrollEnabled = YES;
+    [poplistview setTitle:title];
+    [poplistview show];
+    
+}
+
+#pragma mark - UIPopoverListViewDataSource
+- (UITableViewCell *)popoverListView:(UIPopoverListView *)popoverListView
+                    cellForIndexPath:(NSIndexPath *)indexPath
+{
+    static NSString *identifier = @"cell";
+    UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+    
+    int row = indexPath.row;
+    NSDictionary *dic = [_popupListData objectAtIndex:row];
+    cell.textLabel.text = [dic objectForKey:@"ReasonCode"];
+    return cell;
+}
+
+- (NSInteger)popoverListView:(UIPopoverListView *)popoverListView
+       numberOfRowsInSection:(NSInteger)section
+{
+    return _popupListData.count;
+}
+
+#pragma mark - UIPopoverListViewDelegate
+- (void)popoverListView:(UIPopoverListView *)popoverListView
+     didSelectIndexPath:(NSIndexPath *)indexPath
+{
+    NSDictionary *dic = [_popupListData objectAtIndex:indexPath.row];
+    [HotelDataCache sharedInstance].selcetedReason = dic;
+    _selectedReason.text = [dic objectForKey:@"ReasonCode"];
+}
+
+- (CGFloat)popoverListView:(UIPopoverListView *)popoverListView
+   heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 45.0f;
+}
+
+
+
 @end
+

@@ -537,7 +537,7 @@
     return line;
 }
 
--(void)addTitleWithTitle:(NSString*) title withRightView:(UIView*)rightView
+-(UIView*)addTitleWithTitle:(NSString*) title withRightView:(UIView*)rightView
 {
     
     UIView *titleView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 40)];
@@ -546,11 +546,14 @@
     [titleBg setFrame:CGRectMake(0, 0, titleView.frame.size.width, 40)];
     [titleView addSubview:titleBg];
     
-    UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake((titleView.frame.size.width-100)/2, 10, 100, 20)];
+    UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(58, 0, 204, 40)];
+    titleLabel.tag = 10000;
     [titleLabel setBackgroundColor:color(clearColor)];
     [titleLabel setTextColor:color(whiteColor)];
-    [titleLabel setFont:[UIFont boldSystemFontOfSize:16]];
+    [titleLabel setTextAlignment:NSTextAlignmentCenter];
+    [titleLabel setFont:[UIFont boldSystemFontOfSize:14]];
     [titleLabel setText:title];
+    [titleLabel setNumberOfLines:2];
     [titleView addSubview:titleLabel];
     
     UIButton *backBtn = [[UIButton alloc] initWithFrame:CGRectMake(10, 3, 36, 34)];
@@ -563,6 +566,8 @@
     if(rightView){
         [self.contentView addSubview:rightView];
     }
+    
+    return titleView;
 }
 
 -(void)addLoadingView

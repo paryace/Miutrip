@@ -90,7 +90,7 @@ typedef NS_OPTIONS(NSInteger, RequestType){
  *  @param parentView
  *  @param title
  */
--(void)addTitleWithTitle:(NSString*) title withRightView:(UIView*)rightView;
+-(UIView*)addTitleWithTitle:(NSString*) title withRightView:(UIView*)rightView;
 
 /**
  *  页面添加Loading界面
