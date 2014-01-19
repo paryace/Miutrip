@@ -213,14 +213,57 @@
 -(void)searchHotels{
     _request = [[SearchHotelsRequest alloc] initWidthBusinessType:BUSINESS_HOTEL methodName:@"SearchHotels"];
     
-    _request.FeeType = [NSNumber numberWithInt:1];
-    _request.ReserveType = @"1";
-    _request.CityId = [NSNumber numberWithInt:448];
-    _request.ComeDate = @"2014-01-20";
-    _request.LeaveDate = @"2014-01-21";
-    _request.PriceLow = @"0";
-    _request.PriceHigh = @"10000";
-    _request.HotelName = @"";
+    HotelDataCache *data = [HotelDataCache sharedInstance];
+    
+    if(data.isPrivte){
+        _request.FeeType = [NSNumber numberWithInt:2];
+    }else{
+        _request.FeeType = [NSNumber numberWithInt:1];
+    }
+    
+    if(data.isForSelf){
+        _request.ReserveType = @"1";
+    }else{
+        _request.ReserveType = @"2";
+    }
+    
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"yyyy-MM-dd"];
+    
+    _request.CityId = [NSNumber numberWithInt:data.checkInCityId];
+    _request.ComeDate = [formatter stringFromDate:data.checkInDate];
+    _request.LeaveDate = [formatter stringFromDate:data.checkOutDate];
+    int index = data.priceRangeIndex;
+    switch (index) {
+        case 0:
+            _request.PriceLow = @"0";
+            _request.PriceHigh = @"10000";
+            break;
+        case 1:
+            _request.PriceLow = @"0";
+            _request.PriceHigh = @"150";
+            break;
+        case 2:
+            _request.PriceLow = @"151";
+            _request.PriceHigh = @"300";
+            break;
+        case 3:
+            _request.PriceLow = @"301";
+            _request.PriceHigh = @"450";
+            break;
+        case 4:
+            _request.PriceLow = @"451";
+            _request.PriceHigh = @"600";
+            break;
+        case 5:
+            _request.PriceLow = @"601";
+            _request.PriceHigh = @"10000";
+            break;
+        default:
+            break;
+    }
+  
+    _request.HotelName = data.keyWord;
     _request.page = [NSNumber numberWithInt:_pageIndex];
     _request.pageSize = [NSNumber numberWithInt:10];
     _request.SortBy = [NSNumber numberWithInt:6];

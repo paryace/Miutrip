@@ -22,8 +22,8 @@
 @property (strong, nonatomic) NSDate               *checkOutDate;          //离店时间
 @property (strong, nonatomic) NSArray              *priceRangeArray;
 @property (nonatomic) int                          priceRangeIndex;        //价格区间
-@property (strong,nonatomic)  NSString             *lat;
-@property (strong,nonatomic)  NSString             *lng;
+@property (nonatomic)         double               lat;
+@property (nonatomic)         double               lng;
 @property (strong, nonatomic) NSString             *queryCantonName;         //酒店位置
 @property (nonatomic) int                          queryCantonId;         //酒店所在区ID
 @property (strong, nonatomic) NSString             *keyWord;              //酒店名字

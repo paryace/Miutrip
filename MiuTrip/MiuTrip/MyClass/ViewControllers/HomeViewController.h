@@ -10,6 +10,7 @@
 #import "UIPopoverListView.h"
 #import "HotelSearchView.h"
 #import "HotelDataCache.h"
+#import <CoreLocation/CoreLocation.h>
 
 typedef NS_ENUM(NSInteger, popupListType)
 {
@@ -39,7 +40,8 @@ typedef NS_ENUM(NSInteger, popupListType)
 
 @end
 
-@interface HomeViewController : BaseUIViewController<HomeCustomBtnDelegate,UIPopoverListViewDataSource,UIPopoverListViewDelegate>
+@interface HomeViewController : BaseUIViewController<HomeCustomBtnDelegate,UIPopoverListViewDataSource,
+                             UIPopoverListViewDelegate,CLLocationManagerDelegate>
 
 @property (strong, nonatomic) UILabel                   *userName;
 @property (strong, nonatomic) UILabel                   *position;

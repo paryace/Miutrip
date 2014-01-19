@@ -40,7 +40,7 @@
     [self addSubview:titleImage];
 
     
-    UIView *pageHotelBottomView = [[UIView alloc]initWithFrame:CGRectMake(0,70,self.frame.size.width, 0)];
+    UIView *pageHotelBottomView = [[UIView alloc]initWithFrame:CGRectMake(0,60,self.frame.size.width, 0)];
     [pageHotelBottomView setBackgroundColor:color(clearColor)];
     [pageHotelBottomView setUserInteractionEnabled:YES];
     [pageHotelBottomView setTag:600];
@@ -241,7 +241,7 @@
               forState:ButtonImageStateBottom];
     [queryBtn setTitle:@"查询" forState:UIControlStateNormal];
     [queryBtn setContentEdgeInsets:UIEdgeInsetsMake(0, 35, 0, 0)];
-    [queryBtn setFrame:CGRectMake(pageHotelBottomView.frame.size.width/6, controlYLength(bottomItemBG)+20, pageHotelBottomView.frame.size.width * 2/3 - 50, 45)];
+    [queryBtn setFrame:CGRectMake(pageHotelBottomView.frame.size.width/6, controlYLength(bottomItemBG)+20, pageHotelBottomView.frame.size.width * 2/3, 45)];
     [queryBtn setTag:550];
     [pageHotelBottomView addSubview:queryBtn];
     
@@ -249,12 +249,6 @@
     [shakeImage setImage:imageNameAndType(@"shake", nil)];
     [queryBtn addSubview:shakeImage];
     [shakeImage setBounds:CGRectMake(0, 0, shakeImage.frame.size.width * 0.7, shakeImage.frame.size.height * 0.7)];
-    
-    UIButton *voiceBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [voiceBtn setFrame:CGRectMake(controlXLength(queryBtn) + 5, queryBtn.frame.origin.y, queryBtn.frame.size.height, queryBtn.frame.size.height)];
-    [voiceBtn setTag:551];
-    [voiceBtn setImage:imageNameAndType(@"voice_btn_normal", nil) highlightImage:imageNameAndType(@"voice_btn_press", nil) forState:ButtonImageStateBottom];
-    [pageHotelBottomView addSubview:voiceBtn];
     
     [pageHotelBottomView setFrame:CGRectMake(pageHotelBottomView.frame.origin.x,
                                              pageHotelBottomView.frame.origin.y,

@@ -80,6 +80,30 @@
     return self;
 }
 
+#pragma mark - location handle
+-(void)startLocation{
+    CLLocationManager *locationManager = [[CLLocationManager alloc] init];//创建位置管理器
+    locationManager.desiredAccuracy=kCLLocationAccuracyBest;
+    locationManager.delegate = self;
+    locationManager.distanceFilter=1000.0f;
+    //启动位置更新
+    [locationManager startUpdatingLocation];
+}
+
+- (void)locationManager:(CLLocationManager *)manager
+    didUpdateToLocation:(CLLocation *)newLocation
+           fromLocation:(CLLocation *)oldLocation
+{
+    if(newLocation){
+        [HotelDataCache sharedInstance].lat = newLocation.coordinate.latitude;
+        [HotelDataCache sharedInstance].lng = newLocation.coordinate.longitude;
+    }else{
+        if(oldLocation){
+            [HotelDataCache sharedInstance].lat = oldLocation.coordinate.latitude;
+            [HotelDataCache sharedInstance].lng = oldLocation.coordinate.longitude;
+        }
+    }
+}
 
 - (void)logOff:(UIButton*)sender
 {
@@ -112,7 +136,7 @@
 
 - (void)pressSubitem:(UIButton*)sender
 {
-    
+    NSLog(@"------viewController pressSubitem--------->");
 }
 
 - (void)pressSegment:(UISegmentedControl*)segmentedControl
@@ -180,7 +204,6 @@
     }else if (selectIndex == 1){
         responderView = _viewPageAir;
     }
-    UIView *view = [responderView viewWithTag:600];
     HomeCustomBtn *customBtn = (HomeCustomBtn*)[responderView viewWithTag:300];
 
     if (unfold) {
@@ -188,15 +211,16 @@
     }else{
         [customBtn setFrame:CGRectMake(customBtn.frame.origin.x, customBtn.frame.origin.y, customBtn.frame.size.width, 60)];
     }
-    
+    UIView *view = [responderView viewWithTag:600];
     [UIView animateWithDuration:0.25
                      animations:^{
-                         [view setFrame:CGRectMake(view.frame.origin.x, controlYLength(customBtn) + 10, view.frame.size.width, view.frame.size.height)];
+                         [view setFrame:CGRectMake(view.frame.origin.x, controlYLength(customBtn)+2, view.frame.size.width, view.frame.size.height)];
                      }completion:^(BOOL finished){
-                        [responderView setFrame:CGRectMake(responderView.frame.origin.x, responderView.frame.origin.y, responderView.frame.size.width, controlYLength(view))];
+                         [responderView setFrame:CGRectMake(responderView.frame.origin.x, responderView.frame.origin.y, responderView.frame.size.width, controlYLength(view))];
                          [self.contentView resetContentSize];
                      }];
-}
+   }
+
 
 - (void)setSubviewFrame
 {
@@ -1069,7 +1093,7 @@
 
 @interface HomeCustomBtn ()
 
-@property (strong, nonatomic) HotelOrderDetail      *hotelDetail;
+@property (strong, nonatomic) HotelDataCache        *hotelDetail;
 @property (strong, nonatomic) AirOrderDetail        *airDetail;
 
 @property (strong, nonatomic) BtnItem               *goalBtn;
@@ -1117,7 +1141,7 @@
 
 - (void)pressSelectBtn:(UIButton*)sender
 {
-    
+    NSLog(@"------------->");
 }
 
 - (void)setSubviewFrame
@@ -1135,7 +1159,7 @@
         paySubitems = @[@"单程",@"往返"];
     }
     NSDictionary *goalParams = [NSDictionary dictionaryWithObjectsAndKeys:
-                                @"出差目的",                        @"title",
+                                @"出行目的",                        @"title",
                                 goalSubitems,                      @"params",
                                 nil];
     _goalBtn = [[BtnItem alloc]initWithParams:goalParams];
@@ -1207,6 +1231,7 @@
 - (void)setSubviewFrame
 {
     NSArray *items = [_params objectForKey:@"params"];
+    
     _titleBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [_titleBtn setFrame:CGRectMake(0, 0, (appFrame.size.width - 20)/3, 30)];
     [_titleBtn setBackgroundColor:color(darkGrayColor)];
@@ -1217,15 +1242,20 @@
     [_titleBtn setTitle:[_params objectForKey:@"title"] forState:UIControlStateNormal];
     [self addSubview:_titleBtn];
     
+    CGRect frame = CGRectMake(_titleBtn.frame.origin.x, controlYLength(_titleBtn), _titleBtn.frame.size.width, _titleBtn.frame.size.height-10);
+    UIView *bgView = [[UIView alloc] initWithFrame:frame];
+    [bgView setBackgroundColor:color(whiteColor)];
+    [self addSubview:bgView];
+    
+    frame = CGRectMake(_titleBtn.frame.origin.x, controlYLength(_titleBtn), _titleBtn.frame.size.width, _titleBtn.frame.size.height);
     _selectBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [_selectBtn setFrame:CGRectMake(_titleBtn.frame.origin.x, controlYLength(_titleBtn), _titleBtn.frame.size.width, _titleBtn.frame.size.height)];
+    [_selectBtn setFrame:frame];
     [_selectBtn setBackgroundColor:color(whiteColor)];
     [_selectBtn.titleLabel setFont:[UIFont systemFontOfSize:12]];
-    //[_selectBtn addTarget:self action:@selector(pressSelectBtn:) forControlEvents:UIControlEventTouchUpInside];
-    //UIImage *selectImage = imageNameAndType(@"bg_home_select_btn", nil);
-    //[_selectBtn setBackgroundImage:[selectImage stretchableImageWithLeftCapWidth:selectImage.size.width/2 topCapHeight:selectImage.size.height/2] forState:UIControlStateNormal];
     [_selectBtn setTitle:[items objectAtIndex:1] forState:UIControlStateNormal];
     [_selectBtn setTitleColor:color(blackColor) forState:UIControlStateNormal];
+    _selectBtn.layer.cornerRadius = 5;
+    _selectBtn.layer.masksToBounds = YES;
     [self addSubview:_selectBtn];
 }
 
@@ -1246,16 +1276,15 @@
                 [btn setFrame:CGRectMake(0, 30 * i, _unfoldView.frame.size.width, 30)];
                 [btn setTitleColor:color(blackColor) forState:UIControlStateNormal];
                 [btn setBackgroundColor:color(whiteColor)];
-                //UIImage *itemImage = imageNameAndType(@"bg_home_select_btn", nil);
-                //[btn setBackgroundImage:[itemImage stretchableImageWithLeftCapWidth:itemImage.size.width/2 topCapHeight:itemImage.size.height/2] forState:UIControlStateNormal];
                 [btn addTarget:self action:@selector(pressSubitem:) forControlEvents:UIControlEventTouchUpInside];
                 [_unfoldView addSubview:btn];
                 if (title != [items lastObject]) {
                     [_unfoldView createLineWithParam:color(lightGrayColor) frame:CGRectMake(0, controlYLength(btn), _unfoldView.frame.size.width, 1)];
                 }
+                _unfoldView.layer.cornerRadius = 5;
+                _unfoldView.layer.masksToBounds = YES;
             }
         }
-        //[_unfoldView setAlpha:0];
         [self addSubview:_unfoldView];
         [self setFrame:CGRectMake(self.frame.origin.x, self.frame.origin.y, self.frame.size.width, controlYLength(_unfoldView) + 30 * [items count])];
         [self.delegate BtnItemUnfold];

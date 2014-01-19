@@ -272,6 +272,8 @@
 		B50FC08118794DD700AF9BFD /* right_arrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B50FC07D18794DD700AF9BFD /* right_arrow@2x.png */; };
 		B50FC08418794E1900AF9BFD /* DateSelectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B50FC08318794E1900AF9BFD /* DateSelectViewController.m */; };
 		B5157F86185BF84100AF3E0C /* HotelCommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B5157F85185BF84100AF3E0C /* HotelCommentViewController.m */; };
+		B520CF6E188A770A00CBA018 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B520CF6D188A770A00CBA018 /* MapKit.framework */; };
+		B520CF70188A771700CBA018 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B520CF6F188A771700CBA018 /* CoreLocation.framework */; };
 		B523F73B18478B94005C45C5 /* BaseRequestModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B523F73A18478B94005C45C5 /* BaseRequestModel.m */; };
 		B529E850186FC0870024E901 /* arrow_down.png in Resources */ = {isa = PBXBuildFile; fileRef = B529E84F186FC0870024E901 /* arrow_down.png */; };
 		B529E852186FC17A0024E901 /* icon_filter.png in Resources */ = {isa = PBXBuildFile; fileRef = B529E851186FC17A0024E901 /* icon_filter.png */; };
@@ -747,6 +749,8 @@
 		B50FC08318794E1900AF9BFD /* DateSelectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DateSelectViewController.m; sourceTree = "<group>"; };
 		B5157F84185BF84100AF3E0C /* HotelCommentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HotelCommentViewController.h; sourceTree = "<group>"; };
 		B5157F85185BF84100AF3E0C /* HotelCommentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HotelCommentViewController.m; sourceTree = "<group>"; };
+		B520CF6D188A770A00CBA018 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		B520CF6F188A771700CBA018 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		B523F73918478B94005C45C5 /* BaseRequestModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseRequestModel.h; sourceTree = "<group>"; };
 		B523F73A18478B94005C45C5 /* BaseRequestModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseRequestModel.m; sourceTree = "<group>"; };
 		B529E84F186FC0870024E901 /* arrow_down.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrow_down.png; sourceTree = "<group>"; };
@@ -933,6 +937,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B520CF70188A771700CBA018 /* CoreLocation.framework in Frameworks */,
+				B520CF6E188A770A00CBA018 /* MapKit.framework in Frameworks */,
 				B50FC073187935F400AF9BFD /* Security.framework in Frameworks */,
 				B50FC071187935EA00AF9BFD /* AdSupport.framework in Frameworks */,
 				B50FC06F187935E000AF9BFD /* QuartzCore.framework in Frameworks */,
@@ -1248,6 +1254,8 @@
 		12791517183326B700CF94F4 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				B520CF6F188A771700CBA018 /* CoreLocation.framework */,
+				B520CF6D188A770A00CBA018 /* MapKit.framework */,
 				B50FC072187935F400AF9BFD /* Security.framework */,
 				B50FC070187935EA00AF9BFD /* AdSupport.framework */,
 				B50FC06E187935E000AF9BFD /* QuartzCore.framework */,
