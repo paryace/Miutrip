@@ -38,33 +38,33 @@
 @end
 
 
-@interface BookPassengersResponse : BaseResponseModel
-
-@property (strong, nonatomic) NSMutableArray *IDCardList;               //身份卡列表	List<MemberIDCardDTO>
-@property (strong, nonatomic) NSMutableArray *AirlineCardList;          //旅卡列表	List<AirlineCardDTO>
-
-@end
-
-
-@interface MemberIDcardResponse : BaseResponseModel
-
-@property (strong, nonatomic) NSString     *UID;
-@property (strong, nonatomic) NSNumber     *CardType;
-@property (strong, nonatomic) NSString     *CardNumber;
-@property (strong, nonatomic) NSString     *IsDefault;
-
-@end
-
-
-
-@interface  AirlineCardReaponse  : BaseResponseModel
-
-@property (strong, nonatomic) NSString      *UID;
-@property (strong, nonatomic) NSString      *Airline;
-@property (strong, nonatomic) NSString      *CardNumber;
-
-//@property (assign, nonatomic) BOOL          unfold;                     //cell展开
-
-
-@end
+//@interface BookPassengersResponse : BaseResponseModel
+//
+//@property (strong, nonatomic) NSMutableArray *IDCardList;               //身份卡列表	List<MemberIDCardDTO>
+//@property (strong, nonatomic) NSMutableArray *AirlineCardList;          //旅卡列表	List<AirlineCardDTO>
+//
+//@end
+//
+//
+//@interface MemberIDcardResponse : BaseResponseModel
+//
+//@property (strong, nonatomic) NSString     *UID;
+//@property (strong, nonatomic) NSNumber     *CardType;
+//@property (strong, nonatomic) NSString     *CardNumber;
+//@property (strong, nonatomic) NSString     *IsDefault;
+//
+//@end
+//
+//
+//
+//@interface  AirlineCardReaponse  : BaseResponseModel
+//
+//@property (strong, nonatomic) NSString      *UID;
+//@property (strong, nonatomic) NSString      *Airline;
+//@property (strong, nonatomic) NSString      *CardNumber;
+//
+////@property (assign, nonatomic) BOOL          unfold;                     //cell展开
+//
+//
+//@end
 

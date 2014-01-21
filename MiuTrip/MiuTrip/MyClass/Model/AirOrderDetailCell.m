@@ -11,31 +11,7 @@
 #import "CommonlyName.h"
 #import "CustomBtn.h"
 
-@interface AirOrderDetailCell ()
 
-@property (strong, nonatomic) UILabel               *mainDateLabel;                 //月/日
-@property (strong, nonatomic) UILabel               *subDateLabel;                  //年份&week
-@property (strong, nonatomic) UILabel               *timeLabel;                     //时间
-
-@property (strong, nonatomic) UILabel               *routeLineLabel;                //始发地-目的地(省)
-@property (strong, nonatomic) UILabel               *flightNumLabel;                //飞机班次
-
-@property (strong, nonatomic) UILabel               *orderNumLabel;                 //订单号
-@property (strong, nonatomic) UILabel               *orderStatusLabel;              //订单状态
-@property (strong, nonatomic) UILabel               *startAndEndStation;            //起始站-终点站
-
-@property (strong, nonatomic) UILabel               *ticketType;                    //作位类别&价格
-
-@property (strong, nonatomic) UIView                *unfoldView;                    //展开页面
-@property (strong, nonatomic) UILabel               *nameLabel;                     //联系人姓名
-@property (strong, nonatomic) UILabel               *phoneLabel;                    //联系人电话
-
-@property (strong, nonatomic) NSMutableArray        *itemArray;                     //item集合
-
-@property (strong, nonatomic) CustomBtn             *cancleBtn;
-@property (strong, nonatomic) CustomBtn             *doneBtn;
-
-@end
 
 @implementation AirOrderDetailCell
 
@@ -73,7 +49,7 @@
     
     NSDate *date = [NSDate date];
     NSCalendar *calendar = [NSCalendar currentCalendar];
-//    [calendar setLocale:[NSLocale currentLocale]];
+    //    [calendar setLocale:[NSLocale currentLocale]];
     NSDateComponents *comps =[calendar components:(NSWeekCalendarUnit | NSWeekdayCalendarUnit |NSWeekdayOrdinalCalendarUnit) fromDate:date];
     
     _mainDateLabel = [[UILabel alloc]initWithFrame:CGRectMake(titleBGImage.frame.origin.x + 10, titleBGImage.frame.origin.y, titleBGImage.frame.size.width/4 - 10, titleBGImage.frame.size.height)];
@@ -114,16 +90,17 @@
     [_flightNumLabel setFont:[UIFont systemFontOfSize:12]];
     [self.contentView addSubview:_flightNumLabel];
     
-    _rightArrow = [[UIImageView alloc]initWithFrame:CGRectMake(AirOrderCellWidth - _routeLineLabel.frame.size.height * 2, _routeLineLabel.frame.origin.y, _routeLineLabel.frame.size.height * 2, _routeLineLabel.frame.size.height * 2)];
+    _rightArrow = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_rightArrow setFrame:CGRectMake(AirOrderCellWidth - _routeLineLabel.frame.size.height * 2, _routeLineLabel.frame.origin.y, _routeLineLabel.frame.size.height * 2, _routeLineLabel.frame.size.height * 2)];
     [_rightArrow setBackgroundColor:color(clearColor)];
     [_rightArrow setTag:100];
     [_rightArrow setScaleX:0.25 scaleY:0.25];
-    [_rightArrow setImage:imageNameAndType(@"cell_arrow_up", nil)];
-    [_rightArrow setHighlightedImage:imageNameAndType(@"cell_arrow_down", nil)];
+    [_rightArrow setImage:imageNameAndType(@"cell_arrow_up", nil) forState:UIControlStateNormal];
+    [_rightArrow setImage:imageNameAndType(@"cell_arrow_down", nil) forState:UIControlStateHighlighted];
+    //    [_rightArrow setUserInteractionEnabled:YES];
     [self.contentView addSubview:_rightArrow];
 }
-
-- (void)setSubjoinViewFrameWithPrarams:(AirOrderDetail*)params
+- (void)setSubjoinViewFrameWithPrarams:(NSDictionary*)params
 {
     UIView *prevView = [self.contentView viewWithTag:300];
     
@@ -139,41 +116,49 @@
     _orderNumLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, controlYLength(subjoinImageView), _unfoldView.frame.size.width/2, 30)];
     [_orderNumLabel setBackgroundColor:color(clearColor)];
     [_orderNumLabel setFont:[UIFont systemFontOfSize:12]];
-    [_orderNumLabel setText:[NSString stringWithFormat:@"订单号:%@",params.orderNum]];
+    NSDictionary *passengers =  [(NSArray*)[params objectForKey:@"FltPassengers"]objectAtIndex:0 ];
+    NSString *order = [passengers objectForKey:@"OrderID"];
+    [_orderNumLabel setText:[NSString stringWithFormat:@"订单号:%@",order]];
     [_unfoldView addSubview:_orderNumLabel];
     
     _orderStatusLabel = [[UILabel alloc]initWithFrame:CGRectMake(controlXLength(_orderNumLabel), _orderNumLabel.frame.origin.y, _orderNumLabel.frame.size.width, _orderNumLabel.frame.size.height)];
     [_orderStatusLabel setBackgroundColor:color(clearColor)];
+    NSNumber *status = [passengers objectForKey:@"Status"];
+    [_orderStatusLabel setText:[NSString stringWithFormat:@"订单状态:%@",status]];
     [_orderStatusLabel setFont:[UIFont systemFontOfSize:12]];
-    [_orderStatusLabel setText:[NSString stringWithFormat:@"订单状态:"]];
     [_unfoldView addSubview:_orderStatusLabel];
     
     _startAndEndStation = [[UILabel alloc]initWithFrame:CGRectMake(_orderNumLabel.frame.origin.x, controlYLength(_orderNumLabel), _unfoldView.frame.size.width - 20, _orderNumLabel.frame.size.height)];
     [_startAndEndStation setBackgroundColor:color(clearColor)];
     [_startAndEndStation setFont:[UIFont systemFontOfSize:12]];
-    [_startAndEndStation setText:[NSString stringWithFormat:@"起始地 - 目的地"]];
+    NSDictionary *flts = [(NSArray*)[params objectForKey:@"Flts"]objectAtIndex:0];
+    NSString *acity = [flts objectForKey:@"ACityName"];
+    NSString *dcity = [flts objectForKey:@"DCityName"];
+    [_startAndEndStation setText:[NSString stringWithFormat:@"起始站－终点站 : %@ - %@",acity,dcity]];
     [_unfoldView addSubview:_startAndEndStation];
     
     _ticketType = [[UILabel alloc]initWithFrame:CGRectMake(_startAndEndStation.frame.origin.x, controlYLength(_startAndEndStation), _startAndEndStation.frame.size.width, _startAndEndStation.frame.size.height)];
     [_ticketType setBackgroundColor:color(clearColor)];
-    [_ticketType setText:[NSString stringWithFormat:@"舱位类型 价格"]];
     [_ticketType setFont:[UIFont systemFontOfSize:12]];
     [_unfoldView addSubview:_ticketType];
-    
+    NSString *class = [flts objectForKey:@"Class"];
+    NSNumber *price = [flts objectForKey:@"Price"];
+    [_ticketType setText:[NSString stringWithFormat:@"舱位类型:%@     价格:%@" ,class,price]];
     [_unfoldView addSubview:[self createLineWithFrame:CGRectMake(_ticketType.frame.origin.x, controlYLength(_ticketType), _ticketType.frame.size.width, 1.5)]];
     
     UILabel *unPassengersLabel = [[UILabel alloc]initWithFrame:CGRectMake(_orderNumLabel.frame.origin.x, controlYLength(_ticketType), _orderNumLabel.frame.size.width, _orderNumLabel.frame.size.height)];
     [unPassengersLabel setBackgroundColor:color(clearColor)];
+    //    NSString *passenger = [passengers objectForKey:@"PassengerName"];
     [unPassengersLabel setText:@"乘机人:"];
     [unPassengersLabel setFont:[UIFont systemFontOfSize:12]];
     [_unfoldView addSubview:unPassengersLabel];
     
     [_itemArray removeAllObjects];
-    NSArray *array = params.passengers;
+    NSArray *array = [params objectForKey:@"FltPassengers"];
     for (int i = 0;i<[array count];i++) {
-        CommonlyName *detail = [array objectAtIndex:i];
+        //        CommonlyName *detail = [array objectAtIndex:i];
         //AirOrderDetailCellItem *item = [[AirOrderDetailCellItem alloc]initWithFrame:CGRectMake(_ticketType.frame.origin.x, controlYLength(unPassengersLabel) + AirItemHeight * i, _ticketType.frame.size.width, AirItemHeight)];
-        UIView *view = [self createCellItemWithParams:detail frame:CGRectMake(_ticketType.frame.origin.x, controlYLength(unPassengersLabel) + AirItemHeight * i, _ticketType.frame.size.width, AirItemHeight)];
+        UIView *view = [self createCellItemWithParams:passengers frame:CGRectMake(_ticketType.frame.origin.x, controlYLength(unPassengersLabel) + AirItemHeight * i, _ticketType.frame.size.width, AirItemHeight)];
         //[item setContentWithParams:detail];
         [_unfoldView addSubview:view];
         [_itemArray addObject:view];
@@ -189,13 +174,16 @@
     
     _nameLabel = [[UILabel alloc]initWithFrame:CGRectMake(_startAndEndStation.frame.origin.x, controlYLength(contactsLabel), _startAndEndStation.frame.size.width/3, _startAndEndStation.frame.size.height)];
     [_nameLabel setBackgroundColor:color(clearColor)];
-    [_nameLabel setText:@"那谁谁"];
+    NSDictionary *fltdeliver=[params objectForKey:@"FltDeliver"];
+    NSString *name = [fltdeliver objectForKey:@"ContactName"];
+    [_nameLabel setText:[NSString stringWithFormat:@"%@",name]];
     [_nameLabel setFont:[UIFont systemFontOfSize:12]];
     [_unfoldView addSubview:_nameLabel];
     
     _phoneLabel = [[UILabel alloc]initWithFrame:CGRectMake(controlXLength(_nameLabel), _nameLabel.frame.origin.y, _startAndEndStation.frame.size.width * 2/3, _startAndEndStation.frame.size.height)];
     [_phoneLabel setBackgroundColor:color(clearColor)];
-    [_phoneLabel setText:@"电话号码:"];
+    NSString *mobile = [fltdeliver objectForKey:@"ContactMobile"];
+    [_phoneLabel setText:[NSString stringWithFormat:@"电话号码:%@",mobile]];
     [_phoneLabel setFont:[UIFont systemFontOfSize:12]];
     [_unfoldView addSubview:_phoneLabel];
     
@@ -233,58 +221,55 @@
     
 }
 
-- (UIView*)createCellItemWithParams:(CommonlyName*)detail frame:(CGRect)frame
+- (UIView*)createCellItemWithParams:(NSDictionary*)detail frame:(CGRect)frame
 {
     UIView *view = [[UIView alloc]initWithFrame:frame];
     [view setBackgroundColor:color(clearColor)];
+    UILabel *passenger = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, frame.size.width/4, (frame.size.height - 10)/3)];
+    [passenger setBackgroundColor:color(clearColor)];
+    NSString *pasName =  [detail objectForKey:@"PassengerName"];
+    [passenger setText:[NSString stringWithFormat:@"%@",pasName ]];
+    [passenger setFont:[UIFont systemFontOfSize:12]];
+    [view addSubview:passenger];
     
-    UILabel *nameLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, frame.size.width/4, (frame.size.height - 10)/3)];
-    [nameLabel setBackgroundColor:color(clearColor)];
-    [nameLabel setText:@"毛小豆"];
-    [nameLabel setFont:[UIFont systemFontOfSize:12]];
-    [view addSubview:nameLabel];
-    
-    UITextField *cardNumTextField = [[UITextField alloc]initWithFrame:CGRectMake(controlXLength(nameLabel), nameLabel.frame.origin.y, frame.size.width * 3/4, nameLabel.frame.size.height)];
-    [cardNumTextField setBackgroundColor:color(clearColor)];
-    [cardNumTextField setFont:[UIFont systemFontOfSize:12]];
-    UILabel *cardNumLeft = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, cardNumTextField.frame.size.width/3, cardNumTextField.frame.size.height)];
+    UILabel *cardNumLeft = [[UILabel alloc]initWithFrame:CGRectMake(0, 0,frame.size.width/3, passenger.frame.size.height)];
     [cardNumLeft setBackgroundColor:color(clearColor)];
-    [cardNumLeft setText:@"身份证:"];
+    NSString *type = [detail objectForKey:@"CardTypeName"];
+    UILabel *cardNumRight = [[UILabel alloc]initWithFrame:CGRectMake(controlXLength(cardNumLeft), cardNumLeft.frame.origin.y, frame.size.width, passenger.frame.size.height)];
+    NSString *number = [detail objectForKey:@"CardTypeNumber"];
+    [cardNumLeft setText:[NSString stringWithFormat:@"%@:",type]];
+    [cardNumRight setText:[NSString stringWithFormat:@"%@",number]];
     [cardNumLeft setTextAlignment:NSTextAlignmentRight];
     [cardNumLeft setFont:[UIFont systemFontOfSize:12]];
-    //UIWebView *cardLeft = [[UIWebView alloc]initWithFrame:cardNumLeft.bounds];
-    //[cardLeft loadHTMLString:@"<div style=\"text-align:justify; font-size:12px;\">身份证:</div>" baseURL:nil];
-    //[cardLeft setBackgroundColor:color(clearColor)];
-    [cardNumTextField setLeftView:cardNumLeft];
-    [cardNumTextField setLeftViewMode:UITextFieldViewModeAlways];
-    [view addSubview:cardNumTextField];
+    [cardNumRight setFont:[UIFont systemFontOfSize:12]];
+    //    UIWebView *cardLeft = [[UIWebView alloc]initWithFrame:cardNumLeft.bounds];
+    //    [cardLeft loadHTMLString:@"<div style=\"text-align:justify; font-size:12px;\">身份证:</div>" baseURL:nil];
+    //    [cardLeft setBackgroundColor:color(clearColor)];
+    [view addSubview:cardNumLeft];
+    [view addSubview:cardNumRight];
     
-    UITextField *phoneNumTextField = [[UITextField alloc]initWithFrame:CGRectMake(cardNumTextField.frame.origin.x, controlYLength(cardNumTextField), cardNumTextField.frame.size.width, cardNumTextField.frame.size.height)];
-    [phoneNumTextField setBackgroundColor:color(clearColor)];
-    [phoneNumTextField setFont:[UIFont systemFontOfSize:12]];
-    UILabel *phoneNumLeft = [[UILabel alloc]initWithFrame:cardNumLeft.bounds];
+    UILabel *phoneNumLeft = [[UILabel alloc]initWithFrame:CGRectMake(0, controlYLength(cardNumLeft), frame.size.width/3, passenger.frame.size.height)];
+    //    UILabel *phoneNumRight = [[UILabel alloc]initWithFrame:CGRectMake(controlXLength(cardNumRight), controlYLength(cardNumLeft), frame.size.width, frame.size.height)];
     [phoneNumLeft setBackgroundColor:color(clearColor)];
     [phoneNumLeft setText:@"手机:"];
     [phoneNumLeft setTextAlignment:NSTextAlignmentRight];
     [phoneNumLeft setFont:[UIFont systemFontOfSize:12]];
-    [phoneNumTextField setLeftView:phoneNumLeft];
-    [phoneNumTextField setLeftViewMode:UITextFieldViewModeAlways];
-    [view addSubview:phoneNumTextField];
+    [view addSubview:phoneNumLeft];
     
-    UITextField *costCenterTextField = [[UITextField alloc]initWithFrame:CGRectMake(cardNumTextField.frame.origin.x, controlYLength(phoneNumTextField), cardNumTextField.frame.size.width, cardNumTextField.frame.size.height)];
-    [costCenterTextField setBackgroundColor:color(clearColor)];
-    [costCenterTextField setFont:[UIFont systemFontOfSize:12]];
-    UILabel *costCenterLeft = [[UILabel alloc]initWithFrame:cardNumLeft.bounds];
+    UILabel *costCenterLeft = [[UILabel alloc]initWithFrame:CGRectMake(0, controlYLength(phoneNumLeft), frame.size.width/3, passenger.frame.size.height)];
     [costCenterLeft setBackgroundColor:color(clearColor)];
+    UILabel *costCenterRight = [[UILabel alloc]initWithFrame:CGRectMake(controlXLength(phoneNumLeft),controlYLength(phoneNumLeft), frame.size.width, passenger.frame.size.height)];
+    NSString *custom = [detail objectForKey:@"CustomizeItem1"];
     [costCenterLeft setText:@"成本中心:"];
+    [costCenterRight setText:[NSString stringWithFormat:@"%@",custom]];
+    [costCenterRight setFont:[UIFont systemFontOfSize:12]];
     [costCenterLeft setTextAlignment:NSTextAlignmentRight];
     [costCenterLeft setFont:[UIFont systemFontOfSize:12]];
-    [costCenterTextField setLeftView:costCenterLeft];
-    [costCenterTextField setLeftViewMode:UITextFieldViewModeAlways];
-    [view addSubview:costCenterTextField];
-    
+    [view addSubview:costCenterLeft];
+    [view addSubview:costCenterRight];
     return view;
 }
+
 
 - (UIImageView *)createLineWithFrame:(CGRect)rect
 {
@@ -294,22 +279,31 @@
     return line;
 }
 
-- (void)unfoldViewShow:(BOOL)show
+
+- (void)unfoldViewShow:(NSDictionary*)data
 {
-    if (show) {
+    
+    BOOL unfold = [[data objectForKey:@"unfold"] boolValue];
+    if (unfold) {
         if (_unfoldView) {
             [_unfoldView removeFromSuperview];
+            _unfoldView = nil;
         }
-        [self setSubjoinViewFrameWithPrarams:_airDetail];
+        [self setSubjoinViewFrameWithPrarams:data];
     }
-
-    [_rightArrow setHighlighted:show];
-    [_unfoldView setHidden:!show];
+    
+    [_rightArrow setHighlighted:unfold];
+    [_unfoldView setHidden:!unfold];
 }
 
-- (void)setViewContentWithParams:(AirOrderDetail*)params
+- (void)setViewContentWithParams:(NSDictionary*)params
 {
-    [_rightArrow setHighlighted:params.unfold];
+    [self unfoldViewShow:params];
 }
+
+//- (void)setViewContentWithParams
+//{
+//    [_rightArrow setHighlighted:_unfold];
+//}
 
 @end

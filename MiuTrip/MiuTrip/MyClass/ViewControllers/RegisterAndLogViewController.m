@@ -49,7 +49,7 @@
         
         LoginRequest *request = [[LoginRequest alloc]initWidthBusinessType:BUSINESS_ACCOUNT methodName:@"Login"];
     
-        request.username = @"10000017";
+        request.username = @"18621001200";
         request.password = @"123456";
         request.rememberMe = [NSNumber numberWithBool:YES];
         

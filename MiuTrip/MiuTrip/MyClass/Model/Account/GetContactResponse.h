@@ -61,7 +61,7 @@
 
 @property (strong, nonatomic) NSString      *Fax;                       //传真
 @property (strong, nonatomic) NSString      *ContactConfirmType;        //联系确认方式    可为空
-@property (strong, nonatomic) NSNumber     *CorpID;                     //企业ID
+@property (strong, nonatomic) NSString     *CorpID;                     //企业ID
 @property (strong, nonatomic) NSNumber     *AccessLevel;                //权限级别：0出行者、1管理员
 @property (strong, nonatomic) NSNumber     *AccessType;                 //角色：0演示账号、1正式账号、2测试账号
 @property (strong, nonatomic) NSNumber     *MileageRule;                //积分累计规则

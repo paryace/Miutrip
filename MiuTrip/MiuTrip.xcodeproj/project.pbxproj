@@ -210,6 +210,13 @@
 		187CBD1518485D2D00F25BD7 /* air_from_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 187CBD1118485D2D00F25BD7 /* air_from_icon.png */; };
 		187CBD18184879DB00F25BD7 /* OnLineAllClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 187CBD17184879DB00F25BD7 /* OnLineAllClass.m */; };
 		187CBD1A18487E7900F25BD7 /* arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 187CBD1918487E7900F25BD7 /* arrow.png */; };
+		18864C6C188E524300F6D048 /* HotelOrderDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = 18864C6B188E524300F6D048 /* HotelOrderDetail.m */; };
+		18864C6F188E530900F6D048 /* GetFlightOrderListRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 18864C6E188E530900F6D048 /* GetFlightOrderListRequest.m */; };
+		18864C72188E537A00F6D048 /* CancelHotelOrderRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 18864C71188E537A00F6D048 /* CancelHotelOrderRequest.m */; };
+		18864C75188E53B200F6D048 /* CancelHotelResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 18864C74188E53B200F6D048 /* CancelHotelResponse.m */; };
+		18864C78188E5FA700F6D048 /* LittleMiuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18864C77188E5FA700F6D048 /* LittleMiuViewController.m */; };
+		18864C7B188E601500F6D048 /* LittleMiuDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = 18864C7A188E601500F6D048 /* LittleMiuDetail.m */; };
+		18864C7D188E77F600F6D048 /* miutrip.db in Resources */ = {isa = PBXBuildFile; fileRef = 18864C7C188E77F600F6D048 /* miutrip.db */; };
 		18A136DA184EC64200516ED3 /* LogoutRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A136D9184EC64200516ED3 /* LogoutRequest.m */; };
 		18A136DD184EE37500516ED3 /* GetLoginUserInfoResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A136DC184EE37500516ED3 /* GetLoginUserInfoResponse.m */; };
 		18A136E0184EE40700516ED3 /* ChangePasswordResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A136DF184EE40700516ED3 /* ChangePasswordResponse.m */; };
@@ -667,6 +674,19 @@
 		187CBD16184879DB00F25BD7 /* OnLineAllClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OnLineAllClass.h; sourceTree = "<group>"; };
 		187CBD17184879DB00F25BD7 /* OnLineAllClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OnLineAllClass.m; sourceTree = "<group>"; };
 		187CBD1918487E7900F25BD7 /* arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrow.png; sourceTree = "<group>"; };
+		18864C6A188E524300F6D048 /* HotelOrderDetail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HotelOrderDetail.h; sourceTree = "<group>"; };
+		18864C6B188E524300F6D048 /* HotelOrderDetail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HotelOrderDetail.m; sourceTree = "<group>"; };
+		18864C6D188E530900F6D048 /* GetFlightOrderListRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetFlightOrderListRequest.h; sourceTree = "<group>"; };
+		18864C6E188E530900F6D048 /* GetFlightOrderListRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetFlightOrderListRequest.m; sourceTree = "<group>"; };
+		18864C70188E537A00F6D048 /* CancelHotelOrderRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CancelHotelOrderRequest.h; sourceTree = "<group>"; };
+		18864C71188E537A00F6D048 /* CancelHotelOrderRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CancelHotelOrderRequest.m; sourceTree = "<group>"; };
+		18864C73188E53B200F6D048 /* CancelHotelResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CancelHotelResponse.h; sourceTree = "<group>"; };
+		18864C74188E53B200F6D048 /* CancelHotelResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CancelHotelResponse.m; sourceTree = "<group>"; };
+		18864C76188E5FA700F6D048 /* LittleMiuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LittleMiuViewController.h; sourceTree = "<group>"; };
+		18864C77188E5FA700F6D048 /* LittleMiuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LittleMiuViewController.m; sourceTree = "<group>"; };
+		18864C79188E601500F6D048 /* LittleMiuDetail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LittleMiuDetail.h; sourceTree = "<group>"; };
+		18864C7A188E601500F6D048 /* LittleMiuDetail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LittleMiuDetail.m; sourceTree = "<group>"; };
+		18864C7C188E77F600F6D048 /* miutrip.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = miutrip.db; sourceTree = "<group>"; };
 		18A136D8184EC64200516ED3 /* LogoutRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogoutRequest.h; sourceTree = "<group>"; };
 		18A136D9184EC64200516ED3 /* LogoutRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogoutRequest.m; sourceTree = "<group>"; };
 		18A136DB184EE37500516ED3 /* GetLoginUserInfoResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetLoginUserInfoResponse.h; sourceTree = "<group>"; };
@@ -2693,6 +2713,8 @@
 				1247899B18362F8700AA0083 /* CommonlyName.m */,
 				122BD71C184057B800BAA9A9 /* AirOrderDetailCell.h */,
 				122BD71D184057B800BAA9A9 /* AirOrderDetailCell.m */,
+				18864C6A188E524300F6D048 /* HotelOrderDetail.h */,
+				18864C6B188E524300F6D048 /* HotelOrderDetail.m */,
 				122BD71F184057F100BAA9A9 /* HotelOrderDetailCell.h */,
 				122BD720184057F100BAA9A9 /* HotelOrderDetailCell.m */,
 				18B4734F1846E977003FF7AD /* TravelLifeInfo.h */,
@@ -2717,6 +2739,8 @@
 				18573C921849B36100A19D7E /* MiuTripOrderDetail.m */,
 				B529E8571870184B0024E901 /* HotelCustomerModel.h */,
 				B529E8581870184B0024E901 /* HotelCustomerModel.m */,
+				18864C79188E601500F6D048 /* LittleMiuDetail.h */,
+				18864C7A188E601500F6D048 /* LittleMiuDetail.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -2724,6 +2748,7 @@
 		127915561833292700CF94F4 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				18864C7C188E77F600F6D048 /* miutrip.db */,
 				B57E177A188B9F6400E6BF16 /* icon_tip.png */,
 				B50FC07A18794DD700AF9BFD /* left_arrow.png */,
 				B50FC07B18794DD700AF9BFD /* left_arrow@2x.png */,
@@ -2889,6 +2914,8 @@
 				46D0F672188B9E240063CEE6 /* SubmitFlightOrderRequest.m */,
 				46D0F673188B9E240063CEE6 /* SubmitFlightOrderResponse.h */,
 				46D0F674188B9E240063CEE6 /* SubmitFlightOrderResponse.m */,
+				18864C6D188E530900F6D048 /* GetFlightOrderListRequest.h */,
+				18864C6E188E530900F6D048 /* GetFlightOrderListRequest.m */,
 			);
 			path = Flight;
 			sourceTree = "<group>";
@@ -2976,6 +3003,8 @@
 				B5C7C850186577BB008914D0 /* SettingViewController.m */,
 				B5C7C851186577BB008914D0 /* TripCareerViewController.h */,
 				B5C7C852186577BB008914D0 /* TripCareerViewController.m */,
+				18864C76188E5FA700F6D048 /* LittleMiuViewController.h */,
+				18864C77188E5FA700F6D048 /* LittleMiuViewController.m */,
 			);
 			path = MyMiu;
 			sourceTree = "<group>";
@@ -5022,6 +5051,10 @@
 				B59555DD1866CA3E00B2C673 /* GetHotelDistrictsRequest.m */,
 				B59555DF1866CB3F00B2C673 /* GetHotelDistrictsResponse.h */,
 				B59555E01866CB3F00B2C673 /* GetHotelDistrictsResponse.m */,
+				18864C70188E537A00F6D048 /* CancelHotelOrderRequest.h */,
+				18864C71188E537A00F6D048 /* CancelHotelOrderRequest.m */,
+				18864C73188E53B200F6D048 /* CancelHotelResponse.h */,
+				18864C74188E53B200F6D048 /* CancelHotelResponse.m */,
 			);
 			path = Hotel;
 			sourceTree = "<group>";
@@ -5272,6 +5305,7 @@
 				1253D6431835D1E2004B595D /* home_item6_top.png in Resources */,
 				122CE5D1183A3AB5001771DC /* setting_line.png in Resources */,
 				125ADFA5183F7F9500668F08 /* order_done.png in Resources */,
+				18864C7D188E77F600F6D048 /* miutrip.db in Resources */,
 				12DDD836183B5C4E00E774AF /* set_sgitem_l_select.png in Resources */,
 				12350A6E183CFC8D00F9E8A7 /* sub_arilevel.png in Resources */,
 				B53DA0811877A42A00868278 /* pull_up_refresh_arrow.png in Resources */,
@@ -5378,6 +5412,7 @@
 				B5C7C857186577BB008914D0 /* TripCareerViewController.m in Sources */,
 				B57B674D1852BEEC0002C778 /* GetHotelImageListRequest.m in Sources */,
 				B53DA0891878328E00868278 /* HotelListRoomCell.m in Sources */,
+				18864C78188E5FA700F6D048 /* LittleMiuViewController.m in Sources */,
 				187CBD18184879DB00F25BD7 /* OnLineAllClass.m in Sources */,
 				B507B84618570A6C003541B2 /* LoadMoreTableFooterView.m in Sources */,
 				46D9D2B1188BBC5500E8A1EF /* GetCityCityCantonAndSectionsRequest.m in Sources */,
@@ -5398,6 +5433,7 @@
 				B57E1779188B831200E6BF16 /* CKCalendarView.m in Sources */,
 				B57A0A9F184EC77A00A33831 /* BaseUIViewController.m in Sources */,
 				B523F73B18478B94005C45C5 /* BaseRequestModel.m in Sources */,
+				18864C6C188E524300F6D048 /* HotelOrderDetail.m in Sources */,
 				46D9D260188BBC1000E8A1EF /* SqliteManager.m in Sources */,
 				46D0F5E9188B9B620063CEE6 /* DBHotCitys.m in Sources */,
 				18A136E6184EE46A00516ED3 /* GetContactResponse.m in Sources */,
@@ -5463,6 +5499,7 @@
 				4673B356188B989E00CABE33 /* SandboxFile.m in Sources */,
 				18A136EC184EE49C00516ED3 /* SearchPassengersResponse.m in Sources */,
 				124789E51836363100AA0083 /* ASIHTTPRequest.m in Sources */,
+				18864C7B188E601500F6D048 /* LittleMiuDetail.m in Sources */,
 				B57A0AAB184EC7E100A33831 /* HotelListViewController.m in Sources */,
 				46D0F688188B9E240063CEE6 /* SubmitFlightOrderRequest.m in Sources */,
 				B53DA0841877F67800868278 /* HotelMapViewControler.m in Sources */,
@@ -5485,14 +5522,17 @@
 				18A905E8184C6D8700AE4835 /* GetCorpUserBaseInfoRequest.m in Sources */,
 				46D9D2AA188BBC5500E8A1EF /* GetCantonByIDResponse.m in Sources */,
 				18A905EB184C762E00AE4835 /* GetCorpPolicyRequest.m in Sources */,
+				18864C6F188E530900F6D048 /* GetFlightOrderListRequest.m in Sources */,
 				46D0F5E8188B9B620063CEE6 /* DBFlightCitys.m in Sources */,
 				18A905F1184C7C7100AE4835 /* GetCorpStaffRequest.m in Sources */,
 				18A136DA184EC64200516ED3 /* LogoutRequest.m in Sources */,
 				18A905F4184C7DF200AE4835 /* GetCorpInfoRequest.m in Sources */,
 				46D9D2AB188BBC5500E8A1EF /* GetCantonByNameRequest.m in Sources */,
+				18864C75188E53B200F6D048 /* CancelHotelResponse.m in Sources */,
 				46D9D2C0188BBC5500E8A1EF /* SaveSMSResponse.m in Sources */,
 				46D9D2B6188BBC5500E8A1EF /* GetCitysByProvinceIDResponse.m in Sources */,
 				B57B67541852BEEC0002C778 /* SearchHotelsResponse.m in Sources */,
+				18864C72188E537A00F6D048 /* CancelHotelOrderRequest.m in Sources */,
 				18A905F7184C803B00AE4835 /* GetLoginUserInfoRequest.m in Sources */,
 				B57B67491852BEEC0002C778 /* GethotelCitesRequest.m in Sources */,
 				18A905FA184C855300AE4835 /* DeleteMemberPassengerRequest.m in Sources */,

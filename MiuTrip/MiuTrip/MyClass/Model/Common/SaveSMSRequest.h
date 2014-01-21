@@ -11,6 +11,7 @@
 
 @interface SaveSMSRequest : BaseRequestModel
 
+@property (strong , nonatomic) NSNumber  *IsSendNow;   // IsSendNow =1 表示时
 @property (strong, nonatomic) NSNumber      *SMSID;             //短信ID	是	int
 @property (strong, nonatomic) NSNumber      *BusinessType;      //业务类型	是	int	1：国内机票 2：国际机票 3：国内酒店 4：国际酒店 5：租车 6：市场推广 7：其他
 @property (strong, nonatomic) NSString      *OrderID;           //订单ID

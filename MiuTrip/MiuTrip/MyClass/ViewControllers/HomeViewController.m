@@ -25,6 +25,7 @@
 #import "LogoutRequest.h"
 #import "GetNormalFlightsRequest.h"
 
+#import "LittleMiuViewController.h"
 #import "SelectPassengerViewController.h"
 
 @interface HomeViewController ()
@@ -1139,7 +1140,8 @@
             }];
             break;
         }case 403:{
-            
+            LittleMiuViewController *littleMiuView = [[LittleMiuViewController alloc]init];
+            [self pushViewController:littleMiuView transitionType:TransitionPush completionHandler:nil];
             break;
         }case 404:{
             CommonlyNameViewController *commonlyNameView = [[CommonlyNameViewController alloc]init];
