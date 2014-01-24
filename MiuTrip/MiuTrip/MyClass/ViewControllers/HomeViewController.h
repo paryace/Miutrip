@@ -46,7 +46,7 @@ typedef NS_ENUM(NSInteger, popupListType)
 @property (strong, nonatomic) UILabel                   *userName;
 @property (strong, nonatomic) UILabel                   *position;
 @property (strong, nonatomic) UILabel                   *company;
-
+@property (strong, nonatomic) HomeCustomBtn             *customBtn;
 @property (strong,nonatomic) NSArray *popupListData;
 @property (nonatomic) popupListType popListType;
 - (void)showPopupListWithTitle:(NSString*)title withType:(popupListType)type withData:(NSArray*)data;
@@ -57,6 +57,10 @@ typedef NS_ENUM(NSInteger, popupListType)
 
 @property (assign, nonatomic) id<HomeCustomBtnDelegate> delegate;
 @property (assign, nonatomic) BOOL                      unfold;
+@property (strong, nonatomic) BtnItem               *goalBtn;
+@property (strong, nonatomic) BtnItem               *queryTypeBtn;
+@property (strong, nonatomic) BtnItem               *payTypeBtn;
+
 
 - (id)initWithParams:(NSObject*)params;
 

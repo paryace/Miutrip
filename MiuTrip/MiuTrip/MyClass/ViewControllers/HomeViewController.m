@@ -24,10 +24,10 @@
 #import "DateSelectViewController.h"
 #import "LogoutRequest.h"
 #import "GetNormalFlightsRequest.h"
-
+#import "HotelChooseViewController.h"
 #import "LittleMiuViewController.h"
 #import "SelectPassengerViewController.h"
-
+#import "HotelChooseViewController.h"
 @interface HomeViewController ()
 
 @property (strong, nonatomic) UIView                *viewPageHotel;
@@ -471,12 +471,12 @@
         UIButton *checkOutdate = (UIButton *)[hotelSearchView viewWithTag:503];
         [checkOutdate addTarget:self action:@selector(pressHotelItemBtn:) forControlEvents:UIControlEventTouchUpInside];
         
-        HomeCustomBtn *customBtn = [[HomeCustomBtn alloc]initWithParams:data];
-        [customBtn setFrame:CGRectMake(0, 0, appFrame.size.width, 60)];
-        [customBtn setBackgroundColor:color(clearColor)];
-        [customBtn setTag:300];
-        [customBtn setDelegate:self];
-        [hotelSearchView addSubview:customBtn];
+         _customBtn = [[HomeCustomBtn alloc]initWithParams:data];
+        [_customBtn setFrame:CGRectMake(0, 0, appFrame.size.width, 60)];
+        [_customBtn setBackgroundColor:color(clearColor)];
+        [_customBtn setTag:300];
+        [_customBtn setDelegate:self];
+        [hotelSearchView addSubview:_customBtn];
 
         [scrollView setContentSize:CGSizeMake(frame.size.width, frame.size.height)];
         scrollView.bounces = NO;
@@ -494,7 +494,11 @@
 {
     switch (sender.tag) {
         case 550:
-            [self gotoHotelList];
+            if ([_customBtn.queryTypeBtn.selectBtn.titleLabel.text isEqualToString:@"为他人/多人"]){
+                HotelChooseViewController * hotelChooseView = [[HotelChooseViewController alloc]init];
+                [self pushViewController:hotelChooseView transitionType:TransitionPush completionHandler:nil];
+            }else{
+                [self gotoHotelList];}
             break;
         case 504:
             [self showPriceRangeDialog];
@@ -1304,10 +1308,6 @@
 
 @property (strong, nonatomic) HotelDataCache        *hotelDetail;
 @property (strong, nonatomic) AirOrderDetail        *airDetail;
-
-@property (strong, nonatomic) BtnItem               *goalBtn;
-@property (strong, nonatomic) BtnItem               *queryTypeBtn;
-@property (strong, nonatomic) BtnItem               *payTypeBtn;
 
 
 @end

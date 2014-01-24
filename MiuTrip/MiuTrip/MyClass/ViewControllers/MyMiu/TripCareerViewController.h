@@ -7,9 +7,10 @@
 //
 
 #import "BaseUIViewController.h"
-
+#import "TravelLifeInfo.h"
 @interface TripCareerViewController : BaseUIViewController
 
+@property (strong,nonatomic) TravelLifeInfo *travelLifeInfo;
 @end
 
 @interface TripCareerItem : UIView

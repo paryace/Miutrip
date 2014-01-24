@@ -7,7 +7,8 @@
 //
 
 #import "TripCareerViewController.h"
-
+#import "GetTravelLifeInfoRequest.h"
+#import "GetTravelLifeInfoResponse.h"
 @interface TripCareerViewController ()
 
 //@property (strong, nonatomic) TravelLifeInfo    *travelLifeInfo;
@@ -28,6 +29,7 @@
 - (id)init
 {
     if (self = [super init]) {
+        _travelLifeInfo = [[TravelLifeInfo alloc]init];
         [self.contentView setHidden:NO];
         [self setSubviewFrame];
     }
@@ -54,6 +56,8 @@
     [returnBtn setFrame:CGRectMake(0, 0, self.topBar.frame.size.height, self.topBar.frame.size.height)];
     [self setReturnButton:returnBtn];
     [self.view addSubview:returnBtn];
+    [self sendUserRequest];
+    
 }
 
 - (void)setSubjoinViewFrame
@@ -68,8 +72,9 @@
     [airLevelItem setTitleImage:imageNameAndType(@"t_career_ariLevel", nil)];
     [airLevelItem setTitle:imageNameAndType(@"sub_arilevel", nil)];
     [airLevelItem.leftImageView setScaleX:0.85 scaleY:0.85];
-//    NSString *airText = [NSString stringWithFormat:@"您%@飞行了%@公里,搭乘%d次飞机;\n轻松击败百分之%d的商务人士,超级飞人名副其实!",_travelLifeInfo.TimeSpan,_travelLifeInfo.Fli_FlightKM,_travelLifeInfo.Fli_FliCount,93];
-//    [airLevelItem setContentText:airText];
+    NSString *airText = [NSString stringWithFormat:@"您%@飞行了%@公里,搭乘%@次飞机;\n轻松击败百分之%d的商务人士,超级飞人名副其实!",
+                         _travelLifeInfo.TimeSpan,_travelLifeInfo.Fli_FlightKM,_travelLifeInfo.Fli_FliCount,93];
+    [airLevelItem setContentText:airText];
     [itemBg addSubview:airLevelItem];
     
     [itemBg addSubview:[self createLineWithFrame:CGRectMake(airLevelItem.frame.origin.x, controlYLength(airLevelItem) + 5, airLevelItem.frame.size.width, 1.5)]];
@@ -78,8 +83,11 @@
     [arrivedItem setTitleImage:imageNameAndType(@"t_career_arrived", nil)];
     [arrivedItem setTitle:imageNameAndType(@"sub_arrived", nil)];
     [arrivedItem.leftImageView setScaleX:0.85 scaleY:0.85];
-//    NSString *arrivedText = [NSString stringWithFormat:@"您%@去过%d个省份,%d个城市;\n其中%@去过%d次,是您商务出行高发地哦!",_travelLifeInfo.TimeSpan,_travelLifeInfo.Fli_province,_travelLifeInfo.Fli_City,_travelLifeInfo.Fli_HotCityName,_travelLifeInfo.Fli_HotCityCount];
-//    [arrivedItem setContentText:arrivedText];
+    NSString *arrivedText = [NSString stringWithFormat:@"您%@去过%@个省份,%@个城市;\n其中%@去过%@次,是您商务出行高发地哦!",
+                             _travelLifeInfo.TimeSpan, _travelLifeInfo.Fli_province,_travelLifeInfo.Fli_City,_travelLifeInfo.Fli_HotCityName,_travelLifeInfo.Fli_HotCityCount];
+    //    NSLog(@"dddddd%@",_travelLifeInfo.TimeSpan);
+    //    NSLog(@"------------%@",arrivedText);
+    [arrivedItem setContentText:arrivedText];
     [itemBg addSubview:arrivedItem];
     
     [itemBg addSubview:[self createLineWithFrame:CGRectMake(airLevelItem.frame.origin.x, controlYLength(arrivedItem) + 5, airLevelItem.frame.size.width, 1.5)]];
@@ -88,8 +96,9 @@
     [checkedInItem setTitleImage:imageNameAndType(@"t_career_checkedIn", nil)];
     [checkedInItem setTitle:imageNameAndType(@"sub_checkedIn", nil)];
     [checkedInItem.leftImageView setScaleX:0.85 scaleY:0.85];
-//    NSString *checkedInText = [NSString stringWithFormat:@"您%@住过%d家酒店;\n其中北京%@住过%d次共%d晚,情有独钟!",_travelLifeInfo.TimeSpan,_travelLifeInfo.Hot_HotTotalCount,_travelLifeInfo.Hot_HotName,_travelLifeInfo.Hot_HotMostCount,_travelLifeInfo.Hot_HotDayCount];
-//    [checkedInItem setContentText:checkedInText];
+    NSString *checkedInText = [NSString stringWithFormat:@"您%@住过%@家酒店;\n其中北京%@住过%@次共%@晚,情有独钟!",
+                               _travelLifeInfo.TimeSpan,_travelLifeInfo.Hot_HotTotalCount,_travelLifeInfo.Hot_HotName,_travelLifeInfo.Hot_HotMostCount,_travelLifeInfo.Hot_HotDayCount];
+    [checkedInItem setContentText:checkedInText];
     [itemBg addSubview:checkedInItem];
     
     [itemBg addSubview:[self createLineWithFrame:CGRectMake(airLevelItem.frame.origin.x, controlYLength(checkedInItem) + 5, airLevelItem.frame.size.width, 1.5)]];
@@ -98,8 +107,10 @@
     [paidItem setTitleImage:imageNameAndType(@"t_career_paied", nil)];
     [paidItem setTitle:imageNameAndType(@"sub_paied", nil)];
     [paidItem.leftImageView setScaleX:0.85 scaleY:0.85];
-//    NSString *paidText = [NSString stringWithFormat:@"您%@:\n机票支出%.0f元,平均%.0f/张,%@居多;\n酒店支出%.0f元,平均%.0f元/间夜,%@星级为主;",_travelLifeInfo.TimeSpan,_travelLifeInfo.Fli_FliTotalPrice,_travelLifeInfo.Fli_FliPrice,_travelLifeInfo.Fli_FliMostStutes,_travelLifeInfo.Hot_HotTotalPrice,_travelLifeInfo.Hot_HotPrice,_travelLifeInfo.Hot_HotStars];
-//    [paidItem setContentText:paidText];
+    
+    NSString *paidText = [NSString stringWithFormat:@"您%@:\n机票支出%@元,平均%@/张,%@居多;\n酒店支出%@元,平均%@元/间夜,%@星级为主;",
+                          _travelLifeInfo.TimeSpan,_travelLifeInfo.Fli_FliTotalPrice,_travelLifeInfo.Fli_FliPrice,_travelLifeInfo.Fli_FliMostStutes,_travelLifeInfo.Hot_HotTotalPrice,_travelLifeInfo.Hot_HotPrice,_travelLifeInfo.Hot_HotStars];
+    [paidItem setContentText:paidText];
     [itemBg addSubview:paidItem];
     
     [itemBg addSubview:[self createLineWithFrame:CGRectMake(airLevelItem.frame.origin.x, controlYLength(paidItem) + 5, airLevelItem.frame.size.width, 1.5)]];
@@ -108,12 +119,49 @@
     [tripEvaluateItem setTitleImage:imageNameAndType(@"t_career_tripevaluate", nil)];
     [tripEvaluateItem setTitle:imageNameAndType(@"sub_tripevaluate", nil)];
     [tripEvaluateItem.leftImageView setScaleX:0.85 scaleY:0.85];
-//    NSString *tripEvaluateText = [NSString stringWithFormat:@"您%@:\n机票预订完全合规,好同志!\n酒店预订有%d次RC,小心老板有意见哦!",_travelLifeInfo.TimeSpan,_travelLifeInfo.Hot_RC_Count];
-//    [tripEvaluateItem setContentText:tripEvaluateText];
+    NSString *tripEvaluateText = [NSString stringWithFormat:@"您%@:\n机票预订完全合规,好同志!\n酒店预订有%@次RC,小心老板有意见哦!",
+                                  _travelLifeInfo.TimeSpan,_travelLifeInfo.Hot_RC_Count];
+    [tripEvaluateItem setContentText:tripEvaluateText];
     [itemBg addSubview:tripEvaluateItem];
     
     [itemBg setFrame:CGRectMake(itemBg.frame.origin.x, itemBg.frame.origin.y, itemBg.frame.size.width, controlYLength(tripEvaluateItem) + 10)];
     [self.contentView resetContentSize];
+}
+
+- (void)sendUserRequest{
+    GetTravelLifeInfoRequest *lifeRequest = [[GetTravelLifeInfoRequest alloc]initWidthBusinessType:BUSINESS_ACCOUNT methodName:@"GetTravelLifeInfo"];
+    
+    [self.requestManager sendRequest:lifeRequest];
+}
+
+- (void)requestDone:(BaseResponseModel *)response{
+    if (response) {
+        
+        GetTravelLifeInfoResponse *lifeInfoResponse = (GetTravelLifeInfoResponse*)response;
+        NSLog(@"-------%@",lifeInfoResponse.TimeSpan);
+        //        _travelLifeInfo = (TravelLifeInfo*)lifeInfoResponse;
+        _travelLifeInfo.TimeSpan= lifeInfoResponse.TimeSpan;
+        _travelLifeInfo.UID = lifeInfoResponse.UID;
+        _travelLifeInfo.Fli_FlightKM = lifeInfoResponse.Fli_FlightKM;
+        _travelLifeInfo.Fli_FliCount = lifeInfoResponse.Fli_FliCount;
+        _travelLifeInfo.Hot_HotStars = lifeInfoResponse.Hot_HotStars;
+        _travelLifeInfo.Hot_HotTotalCount = lifeInfoResponse.Hot_HotTotalCount;
+        _travelLifeInfo.Hot_HotDayCount = lifeInfoResponse.Hot_HotDayCount;
+        _travelLifeInfo.Hot_HotMostCount = lifeInfoResponse.Hot_HotMostCount;
+        _travelLifeInfo.Hot_HotName = lifeInfoResponse.Hot_HotName;
+        _travelLifeInfo.Hot_HotPrice = lifeInfoResponse.Hot_HotPrice;
+        _travelLifeInfo.Hot_RC_Count = lifeInfoResponse.Hot_RC_Count;
+        _travelLifeInfo.Fli_FliMostStutes = lifeInfoResponse.Fli_FliMostStutes;
+        _travelLifeInfo.Fli_FliPrice = lifeInfoResponse.Fli_FliPrice;
+        _travelLifeInfo.Fli_FliTotalPrice = lifeInfoResponse.Fli_FliTotalPrice;
+        _travelLifeInfo.Fli_HotCityCount = lifeInfoResponse.Fli_HotCityCount;
+        _travelLifeInfo.Fli_HotCityName = lifeInfoResponse.Fli_HotCityName;
+        _travelLifeInfo.Fli_province = lifeInfoResponse.Fli_province;
+        _travelLifeInfo.Hot_HotTotalPrice = lifeInfoResponse.Hot_HotTotalPrice;
+        //        NSLog(@"-------");
+        [self setSubjoinViewFrame];
+        
+    }
 }
 
 - (UIImageView *)createLineWithFrame:(CGRect)rect
@@ -156,6 +204,7 @@
 {
     _leftImageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 40, 40)];
     [_leftImageView setBackgroundColor:color(clearColor)];
+    //    [self setTitleImage:[UIImage imageNamed:@"t_career_airLevel"]];
     [self addSubview:_leftImageView];
     
     _titleAsLabel = [[UILabel alloc]initWithFrame:CGRectMake(controlXLength(_leftImageView), _leftImageView.frame.origin.y, self.frame.size.width - controlXLength(_leftImageView), _leftImageView.frame.size.height)];

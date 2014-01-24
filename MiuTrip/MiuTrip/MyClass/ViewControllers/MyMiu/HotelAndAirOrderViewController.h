@@ -17,6 +17,10 @@ typedef NS_OPTIONS(NSInteger, OrderType){
     OrderTypeAir,
     OrderTypeHotel
 };
+typedef NS_OPTIONS(NSInteger, OrderDetail) {
+    OrderCancel,
+    OrderPay
+};
 
 @interface HotelAndAirOrderViewController : BaseUIViewController<UITableViewDataSource,UITableViewDelegate,BusinessDelegate>
 
@@ -26,6 +30,7 @@ typedef NS_OPTIONS(NSInteger, OrderType){
 @property (strong, nonatomic) UITableView               *theTableView;
 @property (strong, nonatomic) UIActivityIndicatorView   *progressView;
 @property (assign, nonatomic) OrderType                 orderType;
+@property (assign, nonatomic) OrderDetail               orderDetail;
 
 @property int totalPage;
 @property int pageIndex;

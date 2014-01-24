@@ -11,7 +11,7 @@
 @interface GetOrderResponse : BaseResponseModel
 
 //@property(strong,nonatomic) NSNumber *TotalPage;
-@property(strong,nonatomic) NSArray *Data;
+@property(strong,nonatomic) NSDictionary *Data;
 //@property(strong,nonatomic) NSString *OrderID;
 //@property(strong,nonatomic) NSNumber *Status;
 //@property(strong,nonatomic) NSNumber *OrderType;

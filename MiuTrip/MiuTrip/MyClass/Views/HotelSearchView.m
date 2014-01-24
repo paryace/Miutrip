@@ -8,8 +8,8 @@
 
 #import "HotelSearchView.h"
 #import "HotelListViewController.h"
-
-
+#import "HotelChooseViewController.h"
+#import "HomeViewController.h"
 @implementation HotelSearchView
 
 - (id)initWithFrame:(CGRect)frame
@@ -301,6 +301,7 @@
     [_checkOutDateWeek setText:checkOutWeek];
     [_checkOutDateYear setText:checkOutYear];
 }
+
 
 /*
 // Only override drawRect: if you perform custom drawing.
