@@ -10,7 +10,7 @@
 #import "AirOrderDetail.h"
 #import "HotelAndAirOrderViewController.h"
 #import "TripCareerViewController.h"
-#import "CommonlyNameViewController.h"
+#import "InCommonNameViewController.h"
 #import "SettingViewController.h"
 #import "AirListViewController.h"
 #import "HotelListViewController.h"
@@ -1144,7 +1144,7 @@
             [self pushViewController:littleMiuView transitionType:TransitionPush completionHandler:nil];
             break;
         }case 404:{
-            CommonlyNameViewController *commonlyNameView = [[CommonlyNameViewController alloc]init];
+            InCommonNameViewController *commonlyNameView = [[InCommonNameViewController alloc]init];
             [self pushViewController:commonlyNameView transitionType:TransitionPush completionHandler:^{
                 [commonlyNameView setSubjoinViewFrame];
             }];

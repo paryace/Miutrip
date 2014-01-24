@@ -7,8 +7,24 @@
 //
 
 #import "SettingViewController.h"
+#import "SelectCityController.h"
+#import "UserDefaults.h"
+#import "GetMemberDeliverListRequest.h"
+#import "GetMemberDeliverListResponse.h"
+#import "PostAddressController.h"
 
-@interface SettingViewController ()
+@interface SettingViewController (){
+    NSArray *priceScopeData;
+    UITableView *priceScopeView;
+    UIViewController *backGroundModel;
+    UIView *backGroundView;
+    UIView *priceTitleView;
+    NSMutableArray *postTypeData;
+    UITableView *PostTypeView;
+    UIView *postTitleView;
+    NSArray *PostTypeForData;//因为配送方式数据获取不到,所以已此数组代替
+    
+}
 
 @property (strong, nonatomic) NSMutableDictionary           *switchControls;
 
@@ -36,7 +52,10 @@
     if (self = [super init]) {
         [self.contentView setHidden:NO];
         _switchControls = [NSMutableDictionary dictionary];
+        priceScopeData =[NSArray arrayWithObjects:@"不限",@"0~150元",@"151元~300元",@"301元~450元",@"451元~600元",@"600元以上", nil];
+        PostTypeForData =[NSArray arrayWithObjects:@"不需要配送",@"平邮  6.0元",@"快递  10.0元",@"EMS  10.0元",@"快递到付  10.0元",@"定期配送", nil];
         [self setSubviewFrame];
+        
     }
     return self;
 }
@@ -47,9 +66,103 @@
 }
 
 - (void)pressItem:(UIButton*)sender
-{
+{   if(sender.tag==400){
+    SelectCityController *selecttCityView =[[SelectCityController alloc]init];
+    [self pushViewController:selecttCityView transitionType:TransitionPush completionHandler:nil];
+    selecttCityView.selectCity = ^(NSString *cityName){
+        _startCityField.text=cityName;
+    };
+}
+    if (sender.tag==401) {
+        SelectCityController *selectCityView =[[SelectCityController alloc]initWithParams];
+        [self pushViewController:selectCityView transitionType:TransitionPush completionHandler:nil];
+        selectCityView.selectCity = ^(NSString *cityName){
+            _goalCityField.text=cityName;
+        };
+    }
+    if (sender.tag==402) {
+        
+        [self.view addSubview:backGroundModel.view];
+        [backGroundModel.view addSubview:backGroundView];
+        [backGroundModel.view addSubview:priceTitleView];
+        [backGroundModel.view addSubview:priceScopeView];
+        
+    }
+    
+    if (sender.tag==403) {
+        [self.view addSubview:backGroundModel.view];
+        [backGroundModel.view addSubview:backGroundView];
+        [backGroundModel.view addSubview:postTitleView];
+        [backGroundModel.view addSubview:PostTypeView];
+    }
+    
+    if (sender.tag==404) {
+        if (![_postTypeField.text isEqualToString:@"不需要配送"]) {
+            PostAddressController *postModelView =[[PostAddressController alloc]init];
+            [self pushViewController:postModelView transitionType:TransitionPush completionHandler:^{
+                postModelView.postAddress=^(NSString *postAdress){
+                    _postAddressField.text=postAdress;
+                };
+            }];
+                   }
+    }
+}
+
+
+-(void)priceRequest{
+    GetMemberDeliverListRequest *priceForRequest =[[GetMemberDeliverListRequest alloc] initWidthBusinessType:BUSINESS_ACCOUNT methodName:@"GetMemberDeliverList"];
+    priceForRequest.uid=@"22";
+    priceForRequest.FetchRecordCount=[NSNumber numberWithInt:0];
+    priceForRequest.pagingOptions=@"";
+    priceForRequest.name=@"";
+    [self.requestManager sendRequest:priceForRequest];
     
 }
+
+
+- (void)requestDone:(GetMemberDeliverListResponse *)response{
+    if ([response isKindOfClass:[GetMemberDeliverListResponse class]]) {
+        [self getPriceDone:(GetMemberDeliverListResponse*)response];
+    }
+}
+
+
+
+-(void)getPriceDone:(GetMemberDeliverListResponse*)response{
+    postTypeData = [NSMutableArray arrayWithArray:response.delivers];
+}
+//请求失败
+-(void)requestFailedWithErrorCode:(NSNumber *)errorCode withErrorMsg:(NSString *)errorMsg
+{
+    NSLog(@"error = %@",errorMsg);
+    
+}
+-(BaseResponseModel*) getResponseFromRequestClassName:(NSString*) requestClassName{
+    
+    if(requestClassName == nil || requestClassName.length == 0){
+        return nil;
+    }
+    
+    if([requestClassName hasSuffix:@"Request"]){
+        //替换字符串生成对应的RESPONSE类名称
+        NSString *responseClassName = [requestClassName stringByReplacingOccurrencesOfString:@"Request" withString:@"Response"];
+        //反射出对应的类
+        Class responseClass = NSClassFromString(responseClassName);
+        //没找到该类，或出错
+        if(!responseClass){
+            return nil;
+        }
+        //生成对应的对象
+        return [[responseClass alloc] init];
+    }
+    
+    return nil;
+}
+
+
+
+
+
 
 - (void)selectReserveGoal:(UIButton*)sender
 {
@@ -83,7 +196,9 @@
 
 #pragma mark - view init
 - (void)setSubviewFrame
-{
+{   //请求数据
+    [self priceRequest];
+    
     [self setBackGroundImage:imageNameAndType(@"home_bg", nil)];
     [self setTitle:@"系统设置"];
     [self setTopBarBackGroundImage:imageNameAndType(@"topbar", nil)];
@@ -94,15 +209,13 @@
     [returnBtn setFrame:CGRectMake(0, 0, self.topBar.frame.size.height, self.topBar.frame.size.height)];
     [self setReturnButton:returnBtn];
     [self.view addSubview:returnBtn];
+    UIButton *saveBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [saveBtn setFrame:CGRectMake(self.topBar.frame.size.width - self.topBar.frame.size.height-10, 5, self.topBar.frame.size.height, self.topBar.frame.size.height-10)];
+    [saveBtn setTitle:@"保存" forState:UIControlStateNormal];
+    [saveBtn addTarget:self action:@selector(settingSaveBtn:) forControlEvents:UIControlEventTouchUpInside];
+    [saveBtn setImage:imageNameAndType(@"cname_save_normal", nil) highlightImage:imageNameAndType(@"cname_save_press", nil) forState:ButtonImageStateBottom];
+    [self.view addSubview:saveBtn];
     
-//    UIButton *rightBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-//    [rightBtn setBackgroundColor:color(clearColor)];
-//    [rightBtn setImage:imageNameAndType(@"set_save_normal", nil) highlightImage:imageNameAndType(@"set_save_press", nil) forState:ButtonImageStateBottom];
-//    [rightBtn setTitle:@"保存" forState:UIControlStateNormal];
-//    [rightBtn.titleLabel setFont:[UIFont systemFontOfSize:13]];
-//    [rightBtn setFrame:CGRectMake(self.topBar.frame.size.width - self.topBar.frame.size.height, 0, self.topBar.frame.size.height, self.topBar.frame.size.height)];
-//    [rightBtn addTarget:self action:@selector(pressRightBtn:) forControlEvents:UIControlEventTouchUpInside];
-//    [self.view addSubview:rightBtn];
     
 }
 
@@ -126,6 +239,7 @@
     [self.contentView addSubview:preferBGView];
     
     UILabel *reserveObjectLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, 40 * 0, preferBGView.frame.size.width/4 - 10, 40)];
+    [reserveObjectLabel setBackgroundColor:[UIColor clearColor]];
     [reserveObjectLabel setTextColor:color(darkGrayColor)];
     [reserveObjectLabel setText:@"预定对象"];
     [reserveObjectLabel setAutoSize:YES];
@@ -134,6 +248,7 @@
     CustomStatusBtn *reserveForSelf = [[CustomStatusBtn alloc]initWithFrame:CGRectMake(controlXLength(reserveObjectLabel) + 10, reserveObjectLabel.frame.origin.y, (preferBGView.frame.size.width - controlXLength(reserveObjectLabel) - 20)/2, reserveObjectLabel.frame.size.height)];
     [reserveForSelf setDetail:@"本人"];
     [reserveForSelf setTag:100];
+    NSLog(@"high = %d",[UserDefaults shareUserDefault].reserveObject);
     [reserveForSelf setHighlighteds:([UserDefaults shareUserDefault].reserveObject == 0)];
     [reserveForSelf setBackgroundColor:color(clearColor)];
     [reserveForSelf setImage:imageNameAndType(@"set_item_normal", nil) selectedImage:imageNameAndType(@"set_item_select", nil)];
@@ -157,6 +272,7 @@
     [_switchControls setValue:@[reserveForSelf,reserveForOthers] forKey:@"reserveGoal"];
     
     UILabel *tripGoalLabel = [[UILabel alloc]initWithFrame:CGRectMake(reserveObjectLabel.frame.origin.x, 40 * 1, reserveObjectLabel.frame.size.width, reserveObjectLabel.frame.size.height)];
+    [tripGoalLabel setBackgroundColor:[UIColor clearColor]];
     [tripGoalLabel setTextColor:color(darkGrayColor)];
     [tripGoalLabel setText:@"出行目的"];
     [tripGoalLabel setAutoSize:YES];
@@ -192,11 +308,17 @@
     UILabel *startCityLabel = [[UILabel alloc]initWithFrame:CGRectMake(tripGoalLabel.frame.origin.x, controlYLength(tripGoalLabel), tripGoalLabel.frame.size.width, tripGoalLabel.frame.size.height)];
     [startCityLabel setTextColor:color(darkGrayColor)];
     [startCityLabel setText:@"出发城市"];
+    [startCityLabel setBackgroundColor:[UIColor clearColor]];
     [startCityLabel setAutoSize:YES];
     [preferBGView addSubview:startCityLabel];
     _startCityField = [[UILabel alloc]initWithFrame:CGRectMake(controlXLength(startCityLabel) + 20, startCityLabel.frame.origin.y, preferBGView.frame.size.width - controlXLength(startCityLabel) - 20, startCityLabel.frame.size.height)];
+    if ([[UserDefaults shareUserDefault] startCity]==nil) {
+        [_startCityField setText:@"选择出发城市"];
+    }
+    else{
+        _startCityField.text=[[UserDefaults shareUserDefault] startCity];
+    }
     [_startCityField setBackgroundColor:color(clearColor)];
-    [_startCityField setText:@"选择出发城市"];
     [preferBGView addSubview:_startCityField];
     UIButton *startCityBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [startCityBtn setBackgroundColor:color(clearColor)];
@@ -206,15 +328,21 @@
     [preferBGView addSubview:startCityBtn];
     
     [preferBGView addSubview:[self createLine:CGRectMake(lineOne.frame.origin.x, controlYLength(startCityBtn), lineOne.frame.size.width, lineOne.frame.size.height)]];
-
+    
     UILabel *goalCityLabel = [[UILabel alloc]initWithFrame:CGRectMake(startCityLabel.frame.origin.x, controlYLength(startCityLabel), startCityLabel.frame.size.width, startCityLabel.frame.size.height)];
     [goalCityLabel setTextColor:color(darkGrayColor)];
     [goalCityLabel setText:@"入住城市"];
+    [goalCityLabel setBackgroundColor:[UIColor clearColor]];
     [goalCityLabel setAutoSize:YES];
     [preferBGView addSubview:goalCityLabel];
     _goalCityField = [[UILabel alloc]initWithFrame:CGRectMake(_startCityField.frame.origin.x, controlYLength(_startCityField), _startCityField.frame.size.width, _startCityField.frame.size.height)];
     [_goalCityField setBackgroundColor:color(clearColor)];
-    [_goalCityField setText:@"选择入住城市"];
+    if ([[UserDefaults shareUserDefault] goalCity]==nil) {
+        [_goalCityField setText:@"选择入住城市"];
+    }
+    else{
+        _goalCityField.text=[[UserDefaults shareUserDefault] goalCity];
+    }
     [preferBGView addSubview:_goalCityField];
     UIButton *goalCityBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [goalCityBtn setBackgroundColor:color(clearColor)];
@@ -228,11 +356,19 @@
     UILabel *priceRangeLabel = [[UILabel alloc]initWithFrame:CGRectMake(startCityLabel.frame.origin.x, controlYLength(goalCityLabel), startCityLabel.frame.size.width, startCityLabel.frame.size.height)];
     [priceRangeLabel setTextColor:color(darkGrayColor)];
     [priceRangeLabel setText:@"价格范围"];
+    [priceRangeLabel setBackgroundColor:[UIColor clearColor]];
     [priceRangeLabel setAutoSize:YES];
     [preferBGView addSubview:priceRangeLabel];
     _priceRangeField = [[UILabel alloc]initWithFrame:CGRectMake(_startCityField.frame.origin.x, controlYLength(_goalCityField), _startCityField.frame.size.width, _startCityField.frame.size.height)];
     [_priceRangeField setBackgroundColor:color(clearColor)];
-    [_priceRangeField setText:@"0"];
+    if (![[UserDefaults shareUserDefault] priceRange]) {
+        _priceRangeField.text=@"请选择价格范围";
+    }
+    else{
+       _priceRangeField.text =[priceScopeData objectAtIndex:[[UserDefaults shareUserDefault] priceRange]];
+    }
+
+    
     [preferBGView addSubview:_priceRangeField];
     UIButton *priceRangeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [priceRangeBtn setBackgroundColor:color(clearColor)];
@@ -240,17 +376,23 @@
     [priceRangeBtn setTag:402];
     [priceRangeBtn addTarget:self action:@selector(pressItem:) forControlEvents:UIControlEventTouchUpInside];
     [preferBGView addSubview:priceRangeBtn];
-
+    
     [preferBGView addSubview:[self createLine:CGRectMake(lineOne.frame.origin.x, controlYLength(priceRangeBtn), lineOne.frame.size.width, lineOne.frame.size.height)]];
     
     UILabel *postTypeLabel = [[UILabel alloc]initWithFrame:CGRectMake(startCityLabel.frame.origin.x, controlYLength(priceRangeLabel), startCityLabel.frame.size.width, startCityLabel.frame.size.height)];
     [postTypeLabel setTextColor:color(darkGrayColor)];
     [postTypeLabel setText:@"配送方式"];
+    [postTypeLabel setBackgroundColor:[UIColor clearColor]];
     [postTypeLabel setAutoSize:YES];
     [preferBGView addSubview:postTypeLabel];
     _postTypeField = [[UILabel alloc]initWithFrame:CGRectMake(_startCityField.frame.origin.x, controlYLength(_priceRangeField), _startCityField.frame.size.width, _startCityField.frame.size.height)];
     [_postTypeField setBackgroundColor:color(clearColor)];
-    [_postTypeField setText:@"不需要行程单"];
+    if (![[UserDefaults shareUserDefault] postType]) {
+        [_postTypeField setText:@"不需要配送"];
+    }
+    else{
+    _postTypeField.text =[PostTypeForData objectAtIndex:[[UserDefaults shareUserDefault] postType]];
+    }
     [preferBGView addSubview:_postTypeField];
     UIButton *postTypeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [postTypeBtn setBackgroundColor:color(clearColor)];
@@ -263,12 +405,18 @@
     
     UILabel *postAddressLabel = [[UILabel alloc]initWithFrame:CGRectMake(startCityLabel.frame.origin.x, controlYLength(postTypeLabel), startCityLabel.frame.size.width, startCityLabel.frame.size.height)];
     [postAddressLabel setTextColor:color(darkGrayColor)];
-    [postAddressLabel setText:@"邮寄地址"];
+    [postAddressLabel setText:@"配送地址"];
+    [postAddressLabel setBackgroundColor:[UIColor clearColor]];
     [postAddressLabel setAutoSize:YES];
     [preferBGView addSubview:postAddressLabel];
     _postAddressField = [[UILabel alloc]initWithFrame:CGRectMake(_startCityField.frame.origin.x, controlYLength(_postTypeField), _startCityField.frame.size.width, _startCityField.frame.size.height)];
     [_postAddressField setBackgroundColor:color(clearColor)];
-    [_postAddressField setText:@"上海市"];
+    if ([[UserDefaults shareUserDefault] postAddress]==nil) {
+        [_postAddressField setText:@"上海市"];
+    }
+    else{
+        [_postAddressField setText:[[UserDefaults shareUserDefault] postAddress]];
+    }
     [preferBGView addSubview:_postAddressField];
     UIButton *postAddressBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [postAddressBtn setBackgroundColor:color(clearColor)];
@@ -297,6 +445,7 @@
     UILabel *launchPageLabel = [[UILabel alloc]initWithFrame:CGRectMake(startCityLabel.frame.origin.x, 0, startCityLabel.frame.size.width, startCityLabel.frame.size.height)];
     [launchPageLabel setTextColor:color(darkGrayColor)];
     [launchPageLabel setText:@"启动首页"];
+    [launchPageLabel setBackgroundColor:[UIColor clearColor]];
     [launchPageLabel setAutoSize:YES];
     [otherPreferBGView addSubview:launchPageLabel];
     
@@ -347,6 +496,7 @@
     UILabel *shakeLabel = [[UILabel alloc]initWithFrame:CGRectMake(startCityLabel.frame.origin.x, controlYLength(launchPageLabel), startCityLabel.frame.size.width, startCityLabel.frame.size.height)];
     [shakeLabel setTextColor:color(darkGrayColor)];
     [shakeLabel setText:@"摇动设置"];
+    [shakeLabel setBackgroundColor:[UIColor clearColor]];
     [shakeLabel setTextColor:color(darkGrayColor)];
     [shakeLabel setAutoSize:YES];
     [otherPreferBGView addSubview:shakeLabel];
@@ -362,6 +512,7 @@
     UILabel *searchRadiuLabel = [[UILabel alloc]initWithFrame:CGRectMake(startCityLabel.frame.origin.x, controlYLength(shakeLabel) + 20, shakeLabel.frame.size.width, shakeLabel.frame.size.height)];
     [searchRadiuLabel setBackgroundColor:color(clearColor)];
     [searchRadiuLabel setText:@"搜索半径"];
+    [searchRadiuLabel setBackgroundColor:[UIColor clearColor]];
     [searchRadiuLabel setTextColor:color(darkGrayColor)];
     [searchRadiuLabel setAutoSize:YES];
     [otherPreferBGView addSubview:searchRadiuLabel];
@@ -373,12 +524,53 @@
     [progressView setProgress:[UserDefaults shareUserDefault].searchRadiu];
     [progressView setThumbImage:imageNameAndType(@"set_location", nil)];
     [otherPreferBGView addSubview:progressView];
-
-    
     
     [self segmentedControlSelectIndex:[UserDefaults shareUserDefault].launchPage];
+    //暗色效果
+    backGroundModel=[[UIViewController alloc]init];
+    [backGroundModel.view setFrame:CGRectMake(0, -20, self.view.frame.size.width, self.view.frame.size.height+20)];
+    backGroundView =[[UIView alloc]initWithFrame:CGRectMake(0, -20, backGroundModel.view.frame.size.width, backGroundModel.view.frame.size.height)];
+    [backGroundView setBackgroundColor:[UIColor blackColor]];
+    [backGroundView setAlpha:0.35];
+    //UITableView标题
+    priceTitleView =[[UIView alloc]initWithFrame:CGRectMake(30, 3*self.topBar.frame.size.height-40, self.view.frame.size.width-60, 40)];
+    [priceTitleView setBackgroundColor:[UIColor blackColor]];
+    UILabel *priceTitleLabel =[[UILabel alloc]initWithFrame:CGRectMake(0, 0, priceTitleView.frame.size.width, priceTitleView.frame.size.height)];
+    [priceTitleLabel setFont:[UIFont fontWithName:@"Arial" size:25]];
+    [priceTitleLabel setBackgroundColor:[UIColor clearColor]];
+    [priceTitleLabel setTextColor:[UIColor whiteColor]];
+    [priceTitleLabel setText:@"价格赛选"];
+    [priceTitleView addSubview:priceTitleLabel];
+    
+    postTitleView =[[UIView alloc]initWithFrame:CGRectMake(30, 3*self.topBar.frame.size.height-40, self.view.frame.size.width-60, 40)];
+    [postTitleView setBackgroundColor:[UIColor blackColor]];
+    UILabel *postTitleLabel =[[UILabel alloc]initWithFrame:CGRectMake(0, 0, priceTitleView.frame.size.width, postTitleView.frame.size.height)];
+    [postTitleLabel setFont:[UIFont fontWithName:@"Arial" size:25]];
+    [postTitleLabel setBackgroundColor:[UIColor clearColor]];
+    [postTitleLabel setTextColor:[UIColor whiteColor]];
+    [postTitleLabel setText:@"选择配送方式"];
+    [postTitleView addSubview:postTitleLabel];
+    
+    
+    //UITableView
+    priceScopeView =[[UITableView alloc]initWithFrame:CGRectMake(30, 3*self.topBar.frame.size.height, self.view.frame.size.width-60, self.view.frame.size.height/2)];
+    [priceScopeView setDataSource:self];
+    [priceScopeView setDelegate:self];
+    [priceScopeView setTag:1000];
+    priceScopeView.separatorStyle=UITableViewCellSeparatorStyleNone;
+    priceScopeView.showsVerticalScrollIndicator=NO;
+    priceScopeView.bounces=NO;
+    
+    PostTypeView =[[UITableView alloc]initWithFrame:CGRectMake(30, 3*self.topBar.frame.size.height, self.view.frame.size.width-60, self.view.frame.size.height/2)];
+    [PostTypeView setDataSource:self];
+    [PostTypeView setDelegate:self];
+    [PostTypeView setTag:1001];
+    PostTypeView.separatorStyle=UITableViewCellSeparatorStyleNone;
+    PostTypeView.showsVerticalScrollIndicator=NO;
+    PostTypeView.bounces=NO;
 }
-
+-(void)settingSaveBtn:(UIButton*)sender{
+}
 - (void)pressSch:(UISwitch*)sch
 {
     [UserDefaults shareUserDefault].allowShake = sch.on;
@@ -390,6 +582,75 @@
     [line setBackgroundColor:color(clearColor)];
     [line setImage:imageNameAndType(@"setting_line", nil)];
     return line;
+}
+//UITableView
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{   if(tableView.tag==1000){
+    return [priceScopeData count];
+}
+else{
+    return [PostTypeForData count];
+//  return [postTypeData count];
+}
+}
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath*)indexPath{
+    return 40.0f;
+}
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{ if(tableView.tag==1000){
+
+    static NSString *CellIdentifier =@"CellIdentifier";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    if (cell ==nil) {
+        cell =[[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+    }
+   
+        cell.textLabel.text=[priceScopeData objectAtIndex:indexPath.row];
+  
+    return cell;
+}
+else{
+    static NSString *CellIdentifier =@"CellIdentifier";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    if (cell ==nil) {
+        cell =[[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+    }
+    
+//    cell.textLabel.text=[postTypeData objectAtIndex:indexPath.row];
+    cell.textLabel.text=[PostTypeForData objectAtIndex:indexPath.row];
+    return cell;
+
+}
+}
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if(tableView.tag==1000){
+        for (int i=0; i<=[priceScopeData count];i++) {
+            if(indexPath.row==i){
+                [priceScopeView removeFromSuperview];
+                [backGroundView removeFromSuperview];
+                [priceTitleView removeFromSuperview];
+                [backGroundModel.view removeFromSuperview];
+                
+            }
+        }
+        _priceRangeField.text=[priceScopeData objectAtIndex:indexPath.row];
+        [[UserDefaults shareUserDefault] setPriceRange:indexPath.row];
+    }
+    else{
+        for (int i=0; i<=[PostTypeForData count];i++) {
+            if(indexPath.row==i){
+                [PostTypeView removeFromSuperview];
+                [postTitleView removeFromSuperview];
+                [backGroundView removeFromSuperview];
+                [backGroundModel.view removeFromSuperview];
+          }
+        }
+        
+//        _postTypeField.text=[postTypeData objectAtIndex:indexPath.row];
+        _postTypeField.text =[PostTypeForData objectAtIndex:indexPath.row];
+        [[UserDefaults shareUserDefault]setPostType:indexPath.row];
+    }
 }
 
 - (void)viewDidLoad

@@ -8,6 +8,6 @@
 
 #import "BaseUIViewController.h"
 
-@interface SettingViewController : BaseUIViewController
-
+@interface SettingViewController : BaseUIViewController<UITableViewDataSource,UITableViewDelegate>
+@property (strong,nonatomic) void (^PostAddressData)(NSMutableArray*);
 @end

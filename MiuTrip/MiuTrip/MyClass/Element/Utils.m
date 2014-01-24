@@ -160,6 +160,27 @@
     } 
     return animation; 
 } 
+//中文和小写字母
++(BOOL)isCina:(NSString*)value{
+    
+    return [value isMatchedByRegex:@"^[a-z]+$|^[\u4e00-\u9fa5]{0,}$"];
+}
+//只是英文字母
++(BOOL)isEnglish:(NSString*)value{
+    return [value isMatchedByRegex:@"^[A-Za-z]+$"];
+    
+}
+//英文和数字
++(BOOL)isnumberandenglish:(NSString*)value{
+    return [value isMatchedByRegex:@"^[A-Za-z0-9]+$"];
+}
+//数字,英文,括号
++(BOOL)isnumberandenglishandkuo:(NSString *)value{
+    return [value isMatchedByRegex:@"^[A-Za-z0-9]+$"];
+}
++(BOOL)ismailbox:(NSString*)value{
+    return  [value isMatchedByRegex:@"\\b([a-zA-Z0-9%_.+\\-]+)@([a-zA-Z0-9.\\-]+?\\.[a-zA-Z]{2,6})\\b"];
+}
 
 
 @end

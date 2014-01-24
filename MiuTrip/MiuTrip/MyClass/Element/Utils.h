@@ -48,5 +48,10 @@ typedef NS_OPTIONS(NSInteger, Direction){
 +(BOOL)isValidatePassportNum:(NSString *)passportNum;
 
 +(CATransition *)getAnimation:(TransitionType)mytag subType:(Direction)subTag;
++(BOOL)isCina:(NSString*)value;
++(BOOL)isEnglish:(NSString*)value;
++(BOOL)ismailbox:(NSString*)value;
++(BOOL)isnumberandenglish:(NSString*)value;
++(BOOL)isnumberandenglishandkuo:(NSString *)value;
 
 @end

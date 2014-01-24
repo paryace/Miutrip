@@ -25,7 +25,10 @@
 - (NSArray*)mappingAirLineInfo;
 
 - (NSArray*)mappingFlightCitysInfo;
+//
 
-- (NSArray*)mappingHotCitysInfo;
 
+- (NSArray*)mappingNationInfo;//获取国籍列表
+-(NSArray*)mappingHotCityInfo;
+-(NSArray*)mappingWineShopCityInfo;
 @end
