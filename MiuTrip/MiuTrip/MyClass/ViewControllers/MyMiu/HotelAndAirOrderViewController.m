@@ -17,6 +17,9 @@
 #import "CancelFlightOrderRequest.h"
 #import "CancelFlightOrderResponse.h"
 #import "Model.h"
+#import "CancelHotelOrderRequest.h"
+#import "CancelHotelResponse.h"
+
 @interface HotelAndAirOrderViewController ()
 
 @end
@@ -67,12 +70,13 @@
         }else
             rowHeight = AirOrderCellHeight;
     }else if (_orderType == OrderTypeHotel){
-        HotelOrderDetail *detail = [_dataSource objectAtIndex:indexPath.row];
-        if (detail.unfold) {
-            rowHeight = HotelOrderCellUnfoldHeight + HotelItemHeight * [detail.passengers count];
+        NSDictionary *detail = [_dataSource objectAtIndex:indexPath.row];
+        if ([[detail objectForKey:@"unfold"] boolValue]) {
+            rowHeight = HotelOrderCellUnfoldHeight + HotelItemHeight * [[detail objectForKey:@"Guests"] count];
         }else
             rowHeight = HotelOrderCellHeight;
-    }else
+    }
+    else
         rowHeight = 0;
     
     return rowHeight;
@@ -138,11 +142,58 @@
         [airCell.cancleBtn setTag:111];
         
     }else if (_orderType == OrderTypeHotel){
-        //        HotelOrderDetail *detail = [_dataSource objectAtIndex:indexPath.row];
-        //        HotelOrderDetailCell *hotelCell = (HotelOrderDetailCell*)cell;
-        //        [hotelCell setHotelDetail:detail];
-        //        [hotelCell unfoldViewShow:detail.unfold];
-        //        [hotelCell setViewContentWithParams:detail];
+
+        HotelOrderDetailCell *hotelCell = (HotelOrderDetailCell*)cell;
+        
+        NSDictionary *data = [_dataSource objectAtIndex:indexPath.row];
+        
+        NSString *hotelName = [data objectForKey:@"HotelName"];
+        NSString *roomTypeName = [data objectForKey:@"RoomTypeName"];
+        NSString *string = [NSString stringWithFormat:@"%@ %@",hotelName,roomTypeName];
+        hotelCell.hotelName.text = string;
+        
+        NSString *hotelAddress = [data objectForKey:@"HotelAddress"];
+        NSString *hotelString = [NSString stringWithFormat:@"%@",hotelAddress];
+        hotelCell.location.text = hotelString;
+        
+        //根据字符串转换成一种时间格式
+        NSString *comeData = [data objectForKey:@"ComeDate"];
+        NSDateFormatter *comeFormatter = [[NSDateFormatter alloc] init];
+        [comeFormatter setDateFormat:@"yyyy-MM-dd"];
+        NSDate *date = [comeFormatter dateFromString:comeData];
+        //NSLog(@"%@",date);
+        
+        NSDateFormatter * weekAndDayFormatter = [[NSDateFormatter alloc]init];
+        //指定月日的输出的格式
+        [weekAndDayFormatter setDateFormat:@"MM月dd日"];
+        NSString *weekAndDayString= [weekAndDayFormatter stringFromDate:date];
+        
+        NSDateFormatter * yearFormatter = [[NSDateFormatter alloc]init];
+        //指定年的输出的格式
+        [yearFormatter setDateFormat:@"yyyy"];
+        NSString *yearString= [yearFormatter stringFromDate:date];
+        
+        NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+        NSDateComponents *comps = [[NSDateComponents alloc] init];
+        NSInteger unitFlags = NSYearCalendarUnit |
+        NSMonthCalendarUnit |
+        NSDayCalendarUnit |
+        NSWeekdayCalendarUnit |
+        NSHourCalendarUnit |
+        NSMinuteCalendarUnit |
+        NSSecondCalendarUnit;
+        
+        comps = [calendar components:unitFlags fromDate:date];
+        int week = [comps weekday];
+        NSString *strWeek = [self getCreateTime:week];
+        NSString *stringSubDateLabel = [NSString stringWithFormat:@"%@年\n%@",yearString,strWeek];
+        hotelCell.subDateLabel.text = stringSubDateLabel;
+        hotelCell.mainDateLabel.text = weekAndDayString;
+        //NSLog(@"week is:%@",strWeek);
+        
+        [hotelCell unfoldViewShow:data];
+        [hotelCell.cancleBtn addTarget:self action:@selector(cancelHotelOrder) forControlEvents:UIControlEventTouchUpInside];
+
     }
     
     
@@ -162,13 +213,13 @@
         [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
         
     }else if (_orderType == OrderTypeHotel){
-        //        HotelOrderDetail *detail = [_dataSource objectAtIndex:indexPath.row];
-        //        detail.unfold = !detailx.unfold;
-        //
-        //        HotelOrderDetailCell *cell = (HotelOrderDetailCell*)[tableView cellForRowAtIndexPath:indexPath];
-        //        [cell.rightArrow setHighlighted:detail.unfold];
-        //        [cell unfoldViewShow:detail.unfold];
-        //        [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+        NSDictionary *detail = [_dataSource objectAtIndex:indexPath.row];
+        BOOL unfold = [[detail objectForKey:@"unfold"] boolValue];
+        [detail setValue:[NSNumber numberWithBool:!unfold] forKey:@"unfold"];
+        HotelOrderDetailCell *cell = (HotelOrderDetailCell*)[tableView cellForRowAtIndexPath:indexPath];
+        [cell unfoldViewShow:detail];
+        [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+        
     }
 }
 
@@ -226,12 +277,12 @@
     }
     if (_orderType == OrderTypeHotel){
         _hotelRequest = [[GetOrderRequest alloc]initWidthBusinessType:BUSINESS_HOTEL methodName:@"GetOrders"];
-        _hotelRequest.OrderID = @"H131217000112";
+        
+        //_hotelRequest.OrderID = @"H131217000112";
         _hotelRequest.Page=[NSNumber numberWithInt:1];
         _hotelRequest.PageSize=[NSNumber numberWithInt:10];
-        _hotelRequest.Status = [NSNumber numberWithInt:1];
+        _hotelRequest.Status = [NSNumber numberWithInt:0];
         [self.requestManager sendRequest:_hotelRequest];
-        NSLog(@"bkjbkjbj");
     }
     
 }
@@ -266,23 +317,23 @@
     if (_orderType == OrderTypeHotel) {
         if (response) {
             GetOrderResponse *orderResponse = (GetOrderResponse *)response;
-            NSArray *orders = [orderResponse.Data objectForKey:@"Orders"];
-            for (NSDictionary *order in orders) {
+            NSArray *hotelOrder = orderResponse.Data;
+            
+            for (NSDictionary *order in hotelOrder) {
                 [order setValue:[NSNumber numberWithBool:NO] forKey:@"unfold"];
             }
-            _dataSource = orders;
-            // [_dataSource addObjectsFromArray:order];
-            _totalPage = [[orderResponse.Data objectForKey:@"TotalPage"] integerValue];
+            _dataSource = hotelOrder;
             
             if (_pageIndex==1) {
                 [self removeProgressView];
             }
-            //            [self stopLoading];
-            //            [self.theTableView reloadData];
-            //            self.hasMore = YES;
+            [self setSubjoinViewFrame];
+            
         }
     }
-    
+    if ([response isKindOfClass:[CancelHotelResponse class]]) {
+        CancelHotelResponse *response = (CancelHotelResponse *) response;
+    }
     
     
 }
@@ -308,6 +359,15 @@
     cancelOrder.reason = @"test";
     cancelOrder.oTAType = [NSNumber numberWithInt:3];
     [self.requestManager sendRequest:cancelOrder];
+}
+
+- (void)cancelHotelOrder{
+    [[Model shareModel]showPromptText:@"正在取消订单..." model:NO];
+    CancelHotelOrderRequest *cancelHotelOrder = [[CancelHotelOrderRequest alloc]initWidthBusinessType:BUSINESS_HOTEL methodName:@"CancelOrder"];
+    cancelHotelOrder.OrderID = @"H131105000137";
+    cancelHotelOrder.ReasonID = [NSNumber numberWithInt:1];
+    
+    [self.requestManager sendRequest:cancelHotelOrder];
 }
 
 - (NSDate *)timeForString:(NSString *)string {
