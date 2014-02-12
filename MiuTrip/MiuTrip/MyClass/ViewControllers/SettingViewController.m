@@ -539,7 +539,7 @@
     [priceTitleLabel setFont:[UIFont fontWithName:@"Arial" size:25]];
     [priceTitleLabel setBackgroundColor:[UIColor clearColor]];
     [priceTitleLabel setTextColor:[UIColor whiteColor]];
-    [priceTitleLabel setText:@"价格赛选"];
+    [priceTitleLabel setText:@"价格筛选"];
     [priceTitleView addSubview:priceTitleLabel];
     
     postTitleView =[[UIView alloc]initWithFrame:CGRectMake(30, 3*self.topBar.frame.size.height-40, self.view.frame.size.width-60, 40)];

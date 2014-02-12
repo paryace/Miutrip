@@ -28,7 +28,11 @@
 #import "LittleMiuViewController.h"
 #import "SelectPassengerViewController.h"
 #import "HotelChooseViewController.h"
-@interface HomeViewController ()
+#import "GetBizSummary_AtMiutripRequest.h"
+#import "GetBizSummary_AtMiutripResponse.h"
+@interface HomeViewController (){
+    NSDictionary *allDicData;
+}
 
 @property (strong, nonatomic) UIView                *viewPageHotel;
 @property (strong, nonatomic) UIView                *viewPageAir;
@@ -87,6 +91,7 @@
 - (id)init
 {
     if (self = [super init]) {
+        [self GetInfomationData];
         [self.contentView setHidden:NO];
         _moreViewUnfold = NO;
         [self.contentView setUserInteractionEnabled:YES];
@@ -99,6 +104,7 @@
         _datePickerView = [[DatePickerViewController alloc]init];
         [_datePickerView setDelegate:self];
         [self.view addSubview:_datePickerView.view];
+        
     }
     return self;
 }
@@ -146,6 +152,8 @@
         [self logOutDone:(LogoutResponse*)response];
     }else if ([response isKindOfClass:[GetLoginUserInfoResponse class]]){
         [self getUserLoginInfoDone:(GetLoginUserInfoResponse*)response];
+    }else if ([response isKindOfClass:[GetBizSummary_AtMiutripResponse class]]){
+        [self GetInfomationrequestDone:(GetBizSummary_AtMiutripResponse*)response];
     }
 }
 
@@ -1061,6 +1069,10 @@
         
         NSDictionary *airParams = [NSDictionary dictionaryWithObjectsAndKeys:
                                    @"机票订单",                         @"title",
+                                   @[@"总订单",@"未出行"],               @"elems",
+                                   
+                                   [[allDicData objectForKey:@"FlightTotal"] objectForKey:@"FlightOdersTotal"],                              @"总订单",
+                                   [[allDicData objectForKey:@"FlightPending"] objectForKey:@"FlightOdersPending"],                               @"未出行",
                                    nil];
         UIButton *airOrderBtn = [self createButtonItemWithImage:imageNameAndType(@"home_item1_top", nil) highlightImage:imageNameAndType(@"home_item1_bottom", nil) withParams:airParams];
         [airOrderBtn setFrame:CGRectMake(10, controlYLength(titleImage), (self.view.frame.size.width - 30)/2, ((self.view.frame.size.width - 30)/2)*2/3)];
@@ -1070,6 +1082,9 @@
         
         NSDictionary *hotelOrderParams = [NSDictionary dictionaryWithObjectsAndKeys:
                                           @"酒店订单",                         @"title",
+                                          @[@"总订单",@"未出行"],               @"elems",
+                                           [[allDicData objectForKey:@"HotelTotal"] objectForKey:@"HotelOdersTotal"],                              @"总订单",
+                                           [[allDicData objectForKey:@"HotelPending"] objectForKey:@"HotelOdersPending"],                               @"未出行",
                                           nil];
         UIButton *hotelOrderBtn = [self createButtonItemWithImage:imageNameAndType(@"home_item2_top", nil) highlightImage:imageNameAndType(@"home_item2_bottom", nil) withParams:hotelOrderParams];
         [hotelOrderBtn setFrame:CGRectMake(controlXLength(airOrderBtn) + 10, airOrderBtn.frame.origin.y, airOrderBtn.frame.size.width, airOrderBtn.frame.size.height)];
@@ -1078,7 +1093,8 @@
         [_viewPageMiu addSubview:hotelOrderBtn];
         
         NSDictionary *tradeParams = [NSDictionary dictionaryWithObjectsAndKeys:
-                                     @"商旅生涯",                         @"title",
+                                     @"商旅生涯",                               @"title",
+                                     @[@"飞人级别",@"到过哪里",@"费用支出"],       @"elems",
                                      nil];
         UIButton *tradeBtn = [self createButtonItemWithImage:imageNameAndType(@"home_item3_top", nil) highlightImage:imageNameAndType(@"home_item3_bottom", nil) withParams:tradeParams];
         [tradeBtn setFrame:CGRectMake(airOrderBtn.frame.origin.x, controlYLength(airOrderBtn) + 10, airOrderBtn.frame.size.width, airOrderBtn.frame.size.height)];
@@ -1088,6 +1104,7 @@
         
         NSDictionary *littleMiuParams = [NSDictionary dictionaryWithObjectsAndKeys:
                                          @"贴心小觅",                         @"title",
+                                         @[@"一键提醒",@"轻松无忧"],               @"elems",
                                          nil];
         UIButton *littleMiuBtn = [self createButtonItemWithImage:imageNameAndType(@"home_item4_top", nil) highlightImage:imageNameAndType(@"home_item4_bottom", nil) withParams:littleMiuParams];
         [littleMiuBtn setFrame:CGRectMake(hotelOrderBtn.frame.origin.x, tradeBtn.frame.origin.y, airOrderBtn.frame.size.width, airOrderBtn.frame.size.height)];
@@ -1097,6 +1114,9 @@
         
         NSDictionary *commonNameParams = [NSDictionary dictionaryWithObjectsAndKeys:
                                           @"常用姓名",                         @"title",
+                                          @[@"总人数",@"信息完整"],             @"elems",
+                                          [[allDicData objectForKey:@"CommonTotal"]objectForKey:@"CommonNamesTotal"],                              @"总人数",
+                                          [[allDicData objectForKey:@"CommonDetailed"] objectForKey:@"CommonNamesDetailed"],                               @"信息完整",
                                           nil];
         UIButton *commonNameBtn = [self createButtonItemWithImage:imageNameAndType(@"home_item5_top", nil) highlightImage:imageNameAndType(@"home_item5_bottom", nil) withParams:commonNameParams];
         [commonNameBtn setFrame:CGRectMake(airOrderBtn.frame.origin.x, controlYLength(tradeBtn) + 10, airOrderBtn.frame.size.width, airOrderBtn.frame.size.height)];
@@ -1106,6 +1126,7 @@
         
         NSDictionary *settingParams = [NSDictionary dictionaryWithObjectsAndKeys:
                                        @"系统设置",                         @"title",
+                                       @[@"预先设置",@"超级便捷"],            @"elems",
                                        nil];
         UIButton *settingBtn = [self createButtonItemWithImage:imageNameAndType(@"home_item6_top", nil) highlightImage:imageNameAndType(@"home_item6_bottom", nil) withParams:settingParams];
         [settingBtn setFrame:CGRectMake(hotelOrderBtn.frame.origin.x, commonNameBtn.frame.origin.y, airOrderBtn.frame.size.width, airOrderBtn.frame.size.height)];
@@ -1125,6 +1146,54 @@
         [_viewPageMiu setFrame:CGRectMake(_viewPageMiu.frame.origin.x, _viewPageMiu.frame.origin.y, _viewPageMiu.frame.size.width, controlYLength(newsDetailView))];
     }
 }
+
+-(void)GetInfomationData{
+    GetBizSummary_AtMiutripRequest *request =[[GetBizSummary_AtMiutripRequest alloc]initWidthBusinessType:BUSINESS_ACCOUNT methodName:@"GetBizSummary_AtMiutrip"];
+    [self.requestManager sendRequest:request];
+}
+
+-(void)GetInfomationrequestDone:(GetBizSummary_AtMiutripResponse*)response{
+    NSDictionary *FlightOdersTotalDic =[NSDictionary dictionaryWithObject:[response.FlightOrdersTotal stringValue] forKey:@"FlightOdersTotal"];
+    NSDictionary *FlightOdersPending =[NSDictionary dictionaryWithObject:[response.FlightOrdersPending stringValue] forKey:@"FlightOdersPending"];
+    NSDictionary *HotelOdersTotal =[NSDictionary dictionaryWithObject:[response.HotelOrdersTotal stringValue] forKey:@"HotelOdersTotal"];
+    NSDictionary *HotelOdersPending =[NSDictionary dictionaryWithObject:[response.HotelOrdersPending stringValue] forKey:@"HotelOdersPending"];
+    NSDictionary *CommonNamesTotal =[NSDictionary dictionaryWithObject:[response.CommonNamesTotal stringValue] forKey:@"CommonNamesTotal"];
+    NSDictionary *CommonNamesDetailed =[NSDictionary dictionaryWithObject:[response.CommonNamesDetailed stringValue] forKey:@"CommonNamesDetailed"];
+    
+       allDicData =[NSDictionary dictionaryWithObjectsAndKeys:FlightOdersTotalDic,@"FlightTotal",FlightOdersPending,@"FlightPending",HotelOdersTotal,@"HotelTotal",HotelOdersPending,@"HotelPending",CommonNamesTotal,@"CommonTotal",CommonNamesDetailed,@"CommonDetailed",nil];
+    
+}
+
+//请求失败
+-(void)requestFailedWithErrorCode:(NSNumber *)errorCode withErrorMsg:(NSString *)errorMsg
+{
+    NSLog(@"error = %@",errorMsg);
+}
+
+
+-(BaseResponseModel*) getResponseFromRequestClassName:(NSString*) requestClassName{
+    
+    if(requestClassName == nil || requestClassName.length == 0){
+        return nil;
+    }
+    
+    if([requestClassName hasSuffix:@"Request"]){
+        //替换字符串生成对应的RESPONSE类名称
+        NSString *responseClassName = [requestClassName stringByReplacingOccurrencesOfString:@"Request" withString:@"Response"];
+        //反射出对应的类
+        Class responseClass = NSClassFromString(responseClassName);
+        //没找到该类，或出错
+        if(!responseClass){
+            return nil;
+        }
+        //生成对应的对象
+        return [[responseClass alloc] init];
+    }
+    
+    return nil;
+}
+
+
 
 - (void)pressItem3Btn:(UIButton*)sender
 {
@@ -1180,7 +1249,7 @@
     
     for (int i = 0; i<[elems count]; i++) {
         NSString *elem1 = [elems objectAtIndex:i];
-        UILabel *detailLeftLabel = [[UILabel alloc]initWithFrame:CGRectMake(5, 5, (btn.frame.size.width * 4/(2*5)) - 5, btn.frame.size.height/5)];
+        UILabel *detailLeftLabel = [[UILabel alloc]initWithFrame:CGRectMake(5,btn.frame.size.height * i/5 + 5, (btn.frame.size.width * 4/(2*5)) - 5, btn.frame.size.height/5)];
         [detailLeftLabel setBackgroundColor:color(clearColor)];
         [detailLeftLabel setFont:[UIFont systemFontOfSize:12]];
         [detailLeftLabel setTextColor:color(whiteColor)];
@@ -1201,7 +1270,7 @@
     
     UILabel *titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, btn.frame.size.height * 4/5 - 4, btn.frame.size.width - 20, btn.frame.size.height/5)];
     [titleLabel setBackgroundColor:color(clearColor)];
-    [titleLabel setFont:[UIFont systemFontOfSize:13]];
+    [titleLabel setFont:[UIFont systemFontOfSize:15]];
     [titleLabel setTextColor:color(whiteColor)];
     [titleLabel setTextAlignment:NSTextAlignmentRight];
     [titleLabel setAutoSize:YES];
@@ -1211,9 +1280,6 @@
     return btn;
 }
 
--(void)requestFailedWithErrorCode:(NSNumber *)errorCode withErrorMsg:(NSString *)errorMsg{
-    
-}
 
 
 - (BOOL)clearKeyBoard

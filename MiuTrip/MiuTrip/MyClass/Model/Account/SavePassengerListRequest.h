@@ -12,7 +12,7 @@
 
 @interface SavePassengerListRequest : BaseRequestModel
 
-@property (nonatomic , strong) NSNumber  *Passengers;
+@property (nonatomic , strong) NSArray  *Passengers;
 @property (nonatomic , strong) NSNumber  *PassengerID;
 @property (nonatomic , strong) NSString  *CorpUID;
 @property (nonatomic , strong) NSNumber  *IsEmoloyee;
