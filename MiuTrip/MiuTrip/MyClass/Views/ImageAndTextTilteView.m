@@ -56,6 +56,7 @@
     if(_isValueEditeble){
         //value
         _editableValue = [[UITextField alloc] initWithFrame:CGRectMake(controlXLength(title)+5,5, self.frame.size.width-controlXLength(title)-13-10, self.frame.size.height-10)];
+        _editableValue.delegate = self;
         [_editableValue setBackgroundColor:color(clearColor)];
         [_editableValue setBorderStyle:UITextBorderStyleRoundedRect];
         [_editableValue setFont:[UIFont boldSystemFontOfSize:15]];
@@ -85,6 +86,12 @@
     if(_valueView != nil && value != nil){
         [_valueView setText:value];
     }
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [textField resignFirstResponder];
+    return YES;
 }
 
 

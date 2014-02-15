@@ -62,6 +62,10 @@
     [bookBtn setFrame:CGRectMake(self.frame.size.width - 48, 4, 45, 30)];
     [bookBtn addTarget:self action:@selector(bookBtnPressed:) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:bookBtn];
+    
+    UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, 39, self.frame.size.width, 0.5)];
+    [line setBackgroundColor:color(lightGrayColor)];
+    [self addSubview:line];
 }
 
 -(void)bookBtnPressed:(UIButton *)sender{

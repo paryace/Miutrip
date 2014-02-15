@@ -28,6 +28,7 @@
 @property (strong, nonatomic) NSNumber      *ProvinceID;            //省份ID	int
 @property (strong, nonatomic) NSString      *BriefCode;             //简码
 @property (strong, nonatomic) NSString      *AirportCode;           //机场简码
+@property (nonatomic)         BOOL          isHot;                  //是否热门
 
 @property (strong, nonatomic) NSArray       *Cantons;               //区域列表	List<CantonDTO>
 

@@ -427,6 +427,8 @@
 		F2EECB5E18924716005C7A81 /* HotelChooseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F2EECB5D18924716005C7A81 /* HotelChooseViewController.m */; };
 		F2EECB611892475D005C7A81 /* HotelAddViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F2EECB601892475D005C7A81 /* HotelAddViewController.m */; };
 		F2EECB6418924787005C7A81 /* HotelCompileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F2EECB6318924787005C7A81 /* HotelCompileViewController.m */; };
+		FA6661C318AF0EDD00366241 /* HotelCityListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FA6661C218AF0EDD00366241 /* HotelCityListViewController.m */; };
+		FA6661C618AF2BF300366241 /* AIMTableViewIndexBar.m in Sources */ = {isa = PBXBuildFile; fileRef = FA6661C518AF2BF300366241 /* AIMTableViewIndexBar.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -2299,6 +2301,10 @@
 		F2EECB601892475D005C7A81 /* HotelAddViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HotelAddViewController.m; sourceTree = "<group>"; };
 		F2EECB6218924787005C7A81 /* HotelCompileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HotelCompileViewController.h; sourceTree = "<group>"; };
 		F2EECB6318924787005C7A81 /* HotelCompileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HotelCompileViewController.m; sourceTree = "<group>"; };
+		FA6661C118AF0EDD00366241 /* HotelCityListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HotelCityListViewController.h; sourceTree = "<group>"; };
+		FA6661C218AF0EDD00366241 /* HotelCityListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HotelCityListViewController.m; sourceTree = "<group>"; };
+		FA6661C418AF2BF300366241 /* AIMTableViewIndexBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AIMTableViewIndexBar.h; sourceTree = "<group>"; };
+		FA6661C518AF2BF300366241 /* AIMTableViewIndexBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AIMTableViewIndexBar.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -4957,6 +4963,8 @@
 				F2EECB601892475D005C7A81 /* HotelAddViewController.m */,
 				F2EECB6218924787005C7A81 /* HotelCompileViewController.h */,
 				F2EECB6318924787005C7A81 /* HotelCompileViewController.m */,
+				FA6661C118AF0EDD00366241 /* HotelCityListViewController.h */,
+				FA6661C218AF0EDD00366241 /* HotelCityListViewController.m */,
 			);
 			path = Hotel;
 			sourceTree = "<group>";
@@ -4964,6 +4972,8 @@
 		B57A0AAC184F13A700A33831 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				FA6661C418AF2BF300366241 /* AIMTableViewIndexBar.h */,
+				FA6661C518AF2BF300366241 /* AIMTableViewIndexBar.m */,
 				B57E177C188BB48900E6BF16 /* CustomIOS7AlertView.h */,
 				B57E177D188BB48900E6BF16 /* CustomIOS7AlertView.m */,
 				B57E1777188B831200E6BF16 /* CKCalendarView.h */,
@@ -4982,8 +4992,6 @@
 				B501CF9F1852F5DC00802FD9 /* HotelListCellviewCell.m */,
 				B53DA0871878328E00868278 /* HotelListRoomCell.h */,
 				B53DA0881878328E00868278 /* HotelListRoomCell.m */,
-				B57E1781188BCED700E6BF16 /* button_booking_pressed.png */,
-				B57E177F188BCCDD00E6BF16 /* button_booking.png */,
 				B53DA08A1878332100868278 /* HotelListBtnCellView.h */,
 				B53DA08B1878332100868278 /* HotelListBtnCellView.m */,
 			);
@@ -5135,6 +5143,8 @@
 		B5F93B441855B8F000814467 /* Hotel */ = {
 			isa = PBXGroup;
 			children = (
+				B57E1781188BCED700E6BF16 /* button_booking_pressed.png */,
+				B57E177F188BCCDD00E6BF16 /* button_booking.png */,
 				B53DA085187813BA00868278 /* bg_paopao.png */,
 				B529E851186FC17A0024E901 /* icon_filter.png */,
 				B529E84F186FC0870024E901 /* arrow_down.png */,
@@ -5211,6 +5221,9 @@
 				LastUpgradeCheck = 0500;
 				ORGANIZATIONNAME = michael;
 				TargetAttributes = {
+					12791514183326B700CF94F4 = {
+						DevelopmentTeam = 38UDN8LHXH;
+					};
 					1279152F183326B700CF94F4 = {
 						TestTargetID = 12791514183326B700CF94F4;
 					};
@@ -5497,6 +5510,7 @@
 				B57B67511852BEEC0002C778 /* GetHoteltrafficInfoResponse.m in Sources */,
 				B57B674C1852BEEC0002C778 /* GethotelDetailResponse.m in Sources */,
 				1279155B1833292700CF94F4 /* Model.m in Sources */,
+				FA6661C318AF0EDD00366241 /* HotelCityListViewController.m in Sources */,
 				B57B67641852C3CE0002C778 /* GetOrderResponse.m in Sources */,
 				B57B67611852C3CE0002C778 /* GetCommentListRequest.m in Sources */,
 				46D0F678188B9E240063CEE6 /* CancelFlightOrderResponse.m in Sources */,
@@ -5522,6 +5536,7 @@
 				46D9D2CB188BBC7600E8A1EF /* OrderFillInViewController.m in Sources */,
 				124789F61836363100AA0083 /* SBJsonStreamParserAccumulator.m in Sources */,
 				B57E1779188B831200E6BF16 /* CKCalendarView.m in Sources */,
+				FA6661C618AF2BF300366241 /* AIMTableViewIndexBar.m in Sources */,
 				B57A0A9F184EC77A00A33831 /* BaseUIViewController.m in Sources */,
 				B523F73B18478B94005C45C5 /* BaseRequestModel.m in Sources */,
 				E402DD751892176700B2CF5A /* SelectCityController.m in Sources */,
@@ -5794,7 +5809,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_CXX_LIBRARY = "compiler-default";
-				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MiuTrip/MiuTrip-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
@@ -5803,14 +5819,16 @@
 					/usr/include/libxml2,
 				);
 				INFOPLIST_FILE = "MiuTrip/MiuTrip-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = (
 					/Users/Smart_boat/Desktop/Miutrip/MiuTrip/MiuTrip/Library/UPPayPlugin,
 					"\\\"$(SRCROOT)/MiuTrip/LIbrary/FMDatabase",
 				);
 				OTHER_LDFLAGS = "-lxml2";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = "armv7 arm64 armv7s";
 				WRAPPER_EXTENSION = app;
 			};
@@ -5822,7 +5840,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_CXX_LIBRARY = "compiler-default";
-				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MiuTrip/MiuTrip-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
@@ -5831,14 +5850,16 @@
 					/usr/include/libxml2,
 				);
 				INFOPLIST_FILE = "MiuTrip/MiuTrip-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = (
 					/Users/Smart_boat/Desktop/Miutrip/MiuTrip/MiuTrip/Library/UPPayPlugin,
 					"\\\"$(SRCROOT)/MiuTrip/LIbrary/FMDatabase",
 				);
 				OTHER_LDFLAGS = "-lxml2";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = "armv7 arm64 armv7s";
 				WRAPPER_EXTENSION = app;
 			};

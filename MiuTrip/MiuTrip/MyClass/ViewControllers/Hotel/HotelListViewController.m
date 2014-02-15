@@ -38,7 +38,6 @@
 {
     if (self = [super init]) {
         [self.view setHidden:NO];
-        _hasPriceRc = YES;
         [self setSubviewFrame];
     }
     return self;
@@ -50,6 +49,7 @@
     _hotelListData = [[NSMutableArray alloc] init];
     _pageIndex = 1;
     _isFiltered = NO;
+    _hasPriceRc = YES;
     _currentSortType = SORT_BY_RECOMMEND;
     
     UIButton *mapBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -140,12 +140,13 @@
     [filterView addSubview:filterBtn];
     
 
-    [self.contentView addSubview:filterView];
+    [self.view addSubview:filterView];
     
-    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 75, self.contentView.frame.size.width, self.contentView.frame.size.height-80)];
+    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 75, self.contentView.frame.size.width, self.view.frame.size.height-110)];
     [self.tableView setDataSource:self];
     [self.tableView setDelegate:self];
-    [self.contentView addSubview:self.tableView];
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    [self.view addSubview:self.tableView];
     
     [self addPullToRefreshFooter];
 }
@@ -159,7 +160,7 @@
 -(void)reAddTabaleView
 {
     [self removeLoadingView];
-    [self.contentView addSubview:self.tableView];
+    [self.view addSubview:self.tableView];
 }
 
 -(void)filteBtnPressed:(UIButton*)sender
@@ -202,7 +203,6 @@
     }else{
         [self searchHotelsBySort:2];
     }
-    
 }
 
 -(void)loadData{
@@ -237,7 +237,7 @@
     
     _request.SortBy = [NSNumber numberWithInt:sortType];
     _pageIndex = 1;
-    _request.page =[NSNumber numberWithInt:1];
+    _request.page =[NSNumber numberWithInt:_pageIndex];
     [self.requestManager sendRequest:_request];
 }
 
@@ -533,11 +533,7 @@
 - (void)didSelectCellRowFirstDo:(BOOL)firstDoInsert nextDo:(BOOL)nextDoInsert
 {
     self.isOpen = firstDoInsert;
-//    UITableViewCell *cell = (UITableViewCell *)[tableView cellForRowAtIndexPath:self.selectIndex];
-//    [cell changeArrowWithUp:firstDoInsert];
-    
-   
-    
+
     int section = self.selectIndex.section;
     NSDictionary *dic = [_hotelListData objectAtIndex:section];
     NSArray *rooms = [dic objectForKey:@"Rooms"];

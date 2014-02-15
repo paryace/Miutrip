@@ -53,7 +53,9 @@
     [topItemBG setAlpha:0.5];
     [pageHotelBottomView addSubview:topItemBG];
     
+    //入住城市
     ImageAndTextTilteView *cityView = [[ImageAndTextTilteView alloc] initWithFrame:CGRectMake(topItemBG.frame.origin.x, topItemBG.frame.origin.y, topItemBG.frame.size.width, 40) withImageName:@"query_city_name" withLabelName:@"城市名称" isValueEditabel:NO];
+    cityView.tag = 500;
     [pageHotelBottomView addSubview:cityView];
     
     
@@ -277,6 +279,12 @@
 -(void)setHotelCanton:(NSString *)hotelCanton
 {
     [_hotelLoactionView setValue:hotelCanton];
+}
+
+-(void)updateCity
+{
+    ImageAndTextTilteView *cityView = (ImageAndTextTilteView*)[self viewWithTag:500];
+    [cityView setValue:_data.checkInCityName];
 }
 
 -(void)updateDate

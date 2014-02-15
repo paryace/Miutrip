@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ImageAndTextTilteView : UIView
+@interface ImageAndTextTilteView : UIView<UITextFieldDelegate>
 
 @property (strong,nonatomic) NSString *imageName;
 @property (nonatomic,strong) NSString *labelText;

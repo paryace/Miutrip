@@ -39,16 +39,16 @@
     [self addSubview:arrow];
     
     //价格
-    _price = [[UILabel alloc] initWithFrame:CGRectMake(self.frame.size.width - 69, (70 - 16)/2, 50,16)];
+    _price = [[UILabel alloc] initWithFrame:CGRectMake(self.frame.size.width - 69, (70 - 16)/2, 52,16)];
     [_price setBackgroundColor:color(clearColor)];
-    [_price setFont:[UIFont systemFontOfSize:13]];
+    [_price setFont:[UIFont systemFontOfSize:12]];
     [_price setTextColor:UIColorFromRGB(0xee7600)];
     [self addSubview:_price];
     
     //地址
     _address = [[UILabel alloc] initWithFrame:CGRectMake(65, 23, self.frame.size.width - 140, 32)];
     [_address setTextColor:color(grayColor)];
-    [_address setFont:[UIFont systemFontOfSize:13]];
+    [_address setFont:[UIFont systemFontOfSize:11]];
     [_address setNumberOfLines:2];
     [self addSubview:_address];
     
@@ -58,6 +58,10 @@
     [_comment setFont:[UIFont systemFontOfSize:12]];
     
     [self addSubview:_comment];
+    
+    UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, 74, self.frame.size.width, 0.5)];
+    [line setBackgroundColor:color(lightGrayColor)];
+    [self addSubview:line];
 }
 
 

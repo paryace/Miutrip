@@ -66,13 +66,20 @@ static  SqliteManager   *shareSqliteManager;
 {
     NSMutableArray *array = [NSMutableArray array];
     if ([self openDatabase]) {
-        FMResultSet *resultSet = [_database executeQuery:@"SELECT * FROM wineshopcity"];
+        FMResultSet *resultSet = [_database executeQuery:@"SELECT * FROM wineshopcity order by StartChar"];
         while ([resultSet next]) {
             CityDTO *city = [[CityDTO alloc]init];
-            city.CityID   = [NSNumber numberWithInteger:[resultSet intForColumn:@"CityID_TongCheng"]];
+            city.CityID   = [NSNumber numberWithInteger:[resultSet intForColumn:@"ID"]];
             city.CityRequestParams = [resultSet stringForColumn:@"CityCode"];
             city.CityName = [resultSet stringForColumn:@"CityName"];
             city.CityCode = [NSString stringWithUTF8String:(const char *)[resultSet UTF8StringForColumnName:@"StartChar"]];
+            int hotFlag = [resultSet intForColumn:@"IsHot"];
+            if(hotFlag == 0){
+                city.isHot = NO;
+            }else{
+                city.isHot = YES;
+            }
+           
             city.ProvinceID = [NSNumber numberWithInteger:[resultSet intForColumn:@"ProvinceID"]];
             
             [array addObject:city];

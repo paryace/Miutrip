@@ -28,6 +28,8 @@
 #import "LittleMiuViewController.h"
 #import "SelectPassengerViewController.h"
 #import "HotelChooseViewController.h"
+#import "HotelCityListViewController.h"
+
 @interface HomeViewController ()
 
 @property (strong, nonatomic) UIView                *viewPageHotel;
@@ -460,6 +462,8 @@
         [hotelSearchView setBackgroundColor:color(clearColor)];
         hotelSearchView.tag = 2001;
         
+        UIButton *cityBtn = (UIButton *)[hotelSearchView viewWithTag:501];
+        [cityBtn addTarget:self action:@selector(pressHotelItemBtn:) forControlEvents:UIControlEventTouchUpInside];
         UIButton *searchBtn = (UIButton *)[hotelSearchView viewWithTag:550];
         [searchBtn addTarget:self action:@selector(pressHotelItemBtn:) forControlEvents:UIControlEventTouchUpInside];
         UIButton *priceRange = (UIButton *)[hotelSearchView viewWithTag:504];
@@ -493,6 +497,9 @@
 - (void)pressHotelItemBtn:(UIButton*)sender
 {
     switch (sender.tag) {
+        case 501:
+            [self gotoHotelCitySelectViewController];
+            break;
         case 550:
             if ([_customBtn.queryTypeBtn.selectBtn.titleLabel.text isEqualToString:@"为他人/多人"]){
                 HotelChooseViewController * hotelChooseView = [[HotelChooseViewController alloc]init];
@@ -518,10 +525,15 @@
     }
 }
 
+-(void)gotoHotelCitySelectViewController{
+    HotelCityListViewController *viewController = [[HotelCityListViewController alloc] init];
+    [self pushViewController:viewController transitionType:TransitionPush completionHandler:nil];
+}
+
 -(void)gotoHotelCantonViewController
 {
     HotelCantonViewController *viewController = [[HotelCantonViewController alloc] init];
-    [self presentViewController:viewController animated:YES completion:nil];
+    [self pushViewController:viewController transitionType:TransitionPush completionHandler:nil];
 }
 
 -(void)showPriceRangeDialog
@@ -1287,6 +1299,7 @@
     HotelSearchView *hotelSearchView = (HotelSearchView*)[self.contentView viewWithTag:2001];
     [hotelSearchView setHotelCanton:[HotelDataCache sharedInstance].queryCantonName];
     [hotelSearchView updateDate];
+    [hotelSearchView updateCity];
 }
 
 

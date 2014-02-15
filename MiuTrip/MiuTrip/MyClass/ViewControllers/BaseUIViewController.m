@@ -439,10 +439,10 @@
     [backBtn setShowsTouchWhenHighlighted:YES];
     [backBtn addTarget:self action:@selector(returnToPrevView:)forControlEvents:UIControlEventTouchUpInside];
     [titleView addSubview:backBtn];
-    [self.contentView addSubview:titleView];
+    [self.view addSubview:titleView];
     
     if(rightView){
-        [self.contentView addSubview:rightView];
+        [self.view addSubview:rightView];
     }
     
     return titleView;
