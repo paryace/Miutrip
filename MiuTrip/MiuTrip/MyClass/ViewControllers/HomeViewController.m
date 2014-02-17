@@ -28,17 +28,13 @@
 #import "LittleMiuViewController.h"
 #import "SelectPassengerViewController.h"
 #import "HotelChooseViewController.h"
-<<<<<<< HEAD
-#import "HotelCityListViewController.h"
-
-@interface HomeViewController ()
-=======
 #import "GetBizSummary_AtMiutripRequest.h"
 #import "GetBizSummary_AtMiutripResponse.h"
+#import "HotelCityListViewController.h"
+
 @interface HomeViewController (){
     NSDictionary *allDicData;
 }
->>>>>>> bf0a9a98e2fe80278cc9e2d8c686b3e184248869
 
 @property (strong, nonatomic) UIView                *viewPageHotel;
 @property (strong, nonatomic) UIView                *viewPageAir;
@@ -256,7 +252,7 @@
             }if (_viewPageMiu.superview) {
                 [_viewPageMiu removeFromSuperview];
             }
-
+            
             break;
         }case 1:{
             if (!_viewPageAir) {
@@ -269,7 +265,7 @@
             }if (_viewPageMiu.superview) {
                 [_viewPageMiu removeFromSuperview];
             }
-
+            
             break;
         }case 2:{
             if (!_viewPageMiu) {
@@ -282,7 +278,7 @@
             }if (_viewPageAir.superview) {
                 [_viewPageAir removeFromSuperview];
             }
-
+            
             break;
         }
         default:
@@ -293,9 +289,9 @@
 
 - (void)HomeCustomBtnUnfold:(BOOL)unfold
 {
-
+    
     UISegmentedControl *segmentedControl = (UISegmentedControl*)[self.view viewWithTag:10000];
-
+    
     NSInteger selectIndex = segmentedControl.selectedSegmentIndex;
     UIView *responderView = nil;
     if (selectIndex == 0) {
@@ -304,7 +300,7 @@
         responderView = _viewPageAir;
     }
     HomeCustomBtn *customBtn = (HomeCustomBtn*)[responderView viewWithTag:300];
-
+    
     if (unfold) {
         [customBtn setFrame:CGRectMake(customBtn.frame.origin.x, customBtn.frame.origin.y, customBtn.frame.size.width, 90)];
     }else{
@@ -318,7 +314,7 @@
                          [responderView setFrame:CGRectMake(responderView.frame.origin.x, responderView.frame.origin.y, responderView.frame.size.width, controlYLength(view))];
                          [self.contentView resetContentSize];
                      }];
-   }
+}
 
 
 - (void)setSubviewFrame
@@ -416,17 +412,17 @@
     [self.view addSubview:segmentedControl];
     
     [self getLoginUserInfo];
-   
+    
     [self setSubjoinViewFrame];
-
+    
     if (![UserDefaults shareUserDefault].loginInfo) {
-//        [self.requestManager getUserLoginInfo];
+        //        [self.requestManager getUserLoginInfo];
     }
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
-
+    
     [super touchesEnded:touches withEvent:event];
 }
 
@@ -451,7 +447,7 @@
     }
     UISegmentedControl *segmentedControl = (UISegmentedControl*)[self.view viewWithTag:10000];
     [segmentedControl setSelectedSegmentIndex:[UserDefaults shareUserDefault].launchPage];
-
+    
     UIButton *btn = [_btnArray objectAtIndex:[UserDefaults shareUserDefault].launchPage];
     [btn setHighlighted:YES];
     
@@ -487,13 +483,13 @@
         UIButton *checkOutdate = (UIButton *)[hotelSearchView viewWithTag:503];
         [checkOutdate addTarget:self action:@selector(pressHotelItemBtn:) forControlEvents:UIControlEventTouchUpInside];
         
-         _customBtn = [[HomeCustomBtn alloc]initWithParams:data];
+        _customBtn = [[HomeCustomBtn alloc]initWithParams:data];
         [_customBtn setFrame:CGRectMake(0, 0, appFrame.size.width, 60)];
         [_customBtn setBackgroundColor:color(clearColor)];
         [_customBtn setTag:300];
         [_customBtn setDelegate:self];
         [hotelSearchView addSubview:_customBtn];
-
+        
         [scrollView setContentSize:CGSizeMake(frame.size.width, frame.size.height)];
         scrollView.bounces = NO;
         scrollView.scrollsToTop = NO;
@@ -531,7 +527,7 @@
         case 503:
             [self selectDateWithType:CHECK_OUT_DATE];
             break;
-
+            
         default:
             break;
     }
@@ -1099,8 +1095,8 @@
         NSDictionary *hotelOrderParams = [NSDictionary dictionaryWithObjectsAndKeys:
                                           @"酒店订单",                         @"title",
                                           @[@"总订单",@"未出行"],               @"elems",
-                                           [[allDicData objectForKey:@"HotelTotal"] objectForKey:@"HotelOdersTotal"],                              @"总订单",
-                                           [[allDicData objectForKey:@"HotelPending"] objectForKey:@"HotelOdersPending"],                               @"未出行",
+                                          [[allDicData objectForKey:@"HotelTotal"] objectForKey:@"HotelOdersTotal"],                              @"总订单",
+                                          [[allDicData objectForKey:@"HotelPending"] objectForKey:@"HotelOdersPending"],                               @"未出行",
                                           nil];
         UIButton *hotelOrderBtn = [self createButtonItemWithImage:imageNameAndType(@"home_item2_top", nil) highlightImage:imageNameAndType(@"home_item2_bottom", nil) withParams:hotelOrderParams];
         [hotelOrderBtn setFrame:CGRectMake(controlXLength(airOrderBtn) + 10, airOrderBtn.frame.origin.y, airOrderBtn.frame.size.width, airOrderBtn.frame.size.height)];
@@ -1176,7 +1172,7 @@
     NSDictionary *CommonNamesTotal =[NSDictionary dictionaryWithObject:[response.CommonNamesTotal stringValue] forKey:@"CommonNamesTotal"];
     NSDictionary *CommonNamesDetailed =[NSDictionary dictionaryWithObject:[response.CommonNamesDetailed stringValue] forKey:@"CommonNamesDetailed"];
     
-       allDicData =[NSDictionary dictionaryWithObjectsAndKeys:FlightOdersTotalDic,@"FlightTotal",FlightOdersPending,@"FlightPending",HotelOdersTotal,@"HotelTotal",HotelOdersPending,@"HotelPending",CommonNamesTotal,@"CommonTotal",CommonNamesDetailed,@"CommonDetailed",nil];
+    allDicData =[NSDictionary dictionaryWithObjectsAndKeys:FlightOdersTotalDic,@"FlightTotal",FlightOdersPending,@"FlightPending",HotelOdersTotal,@"HotelTotal",HotelOdersPending,@"HotelPending",CommonNamesTotal,@"CommonTotal",CommonNamesDetailed,@"CommonDetailed",nil];
     
 }
 
@@ -1225,7 +1221,7 @@
         }case 402:{
             TripCareerViewController *tripCareerView = [[TripCareerViewController alloc]init];
             [self pushViewController:tripCareerView transitionType:TransitionPush completionHandler:^{
-//                [tripCareerView.requestManager getTravelLifeInfo];
+                //                [tripCareerView.requestManager getTravelLifeInfo];
             }];
             break;
         }case 403:{
@@ -1321,7 +1317,7 @@
     poplistview.listView.scrollEnabled = YES;
     [poplistview setTitle:title];
     [poplistview show];
-
+    
 }
 
 #pragma mark - UIPopoverListViewDataSource
@@ -1330,7 +1326,7 @@
 {
     static NSString *identifier = @"cell";
     UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
-                                                    reuseIdentifier:identifier];
+                                                   reuseIdentifier:identifier];
     
     int row = indexPath.row;
     cell.textLabel.text = [_popupListData objectAtIndex:row];
@@ -1351,9 +1347,9 @@
         
         HotelSearchView *hotelSearchView = (HotelSearchView *)[self.contentView viewWithTag:2001];
         [hotelSearchView setPriceRange:[_popupListData objectAtIndex:indexPath.row]];
-
+        
     }
-   
+    
 }
 
 - (CGFloat)popoverListView:(UIPopoverListView *)popoverListView
@@ -1400,7 +1396,7 @@
 - (id)initWithParams:(NSObject*)params
 {
     if (self = [super init]) {
-         _airDetail = (AirOrderDetail*)params;
+        _airDetail = (AirOrderDetail*)params;
         [self setSubviewFrame];
     }
     return self;
@@ -1492,9 +1488,9 @@
     [self addSubview:_goalBtn];
     
     NSDictionary *queryTypeParams = [NSDictionary dictionaryWithObjectsAndKeys:
-                                @"预定类型",                     @"title",
-                                querySubitems,                  @"params",
-                                nil];
+                                     @"预定类型",                     @"title",
+                                     querySubitems,                  @"params",
+                                     nil];
     _queryTypeBtn = [[BtnItem alloc]initWithParams:queryTypeParams];
     [_queryTypeBtn.titleBtn setTag:101];
     [_queryTypeBtn.selectBtn setTag:201];
@@ -1505,9 +1501,9 @@
     [self addSubview:_queryTypeBtn];
     
     NSDictionary *payTypeParams = [NSDictionary dictionaryWithObjectsAndKeys:
-                                _hotelDetail?@"支付类型":@"预订类型",      @"title",
-                                paySubitems,                            @"params",
-                                nil];
+                                   _hotelDetail?@"支付类型":@"预订类型",      @"title",
+                                   paySubitems,                            @"params",
+                                   nil];
     _payTypeBtn = [[BtnItem alloc]initWithParams:payTypeParams];
     [_payTypeBtn.titleBtn setTag:102];
     [_payTypeBtn.selectBtn setTag:202];

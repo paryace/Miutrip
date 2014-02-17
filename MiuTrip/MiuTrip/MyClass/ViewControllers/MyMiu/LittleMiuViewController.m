@@ -17,6 +17,7 @@
 
 //#import "HotelAroundViewController.h"
 //#import "CurrentToHotelViewController.h"
+#import "HotelDetailViewController.h"
 #import "HomeViewController.h"
 
 //#import "SMS_SendRequest.h"
@@ -217,6 +218,7 @@
         hotelCell.viewController = self;
         [hotelCell setIndexPath:indexPath];
         [hotelCell setViewContentWithParams:detail];
+        hotelCell.hotelNearBtn.indexPath = indexPath;
         return hotelCell;
     }
     return nil;
@@ -270,17 +272,24 @@
     // Dispose of any resources that can be recreated.
 }
 
--(void)pressLittleHotelBtn:(UIButton *) sender
+-(void)pressLittleHotelBtn:(CustomBtn *) sender
 {
     switch (sender.tag) {
         case 27:{
-//            CurrentToHotelViewController *currentView = [[CurrentToHotelViewController alloc] init];
-//            [self pushViewController:currentView transitionType:TransitionPush completionHandler:nil];
+            //            CurrentToHotelViewController *currentView = [[CurrentToHotelViewController alloc] init];
+            //            [self pushViewController:currentView transitionType:TransitionPush completionHandler:nil];
             break;
         }
         case 28:{
-//            HotelAroundViewController *hotelAroundView = [[HotelAroundViewController alloc] init];
-//            [self pushViewController:hotelAroundView transitionType:TransitionPush completionHandler:nil];
+            NSLog(@"index = %d",sender.indexPath.row);
+            NSDictionary *dict = [_dataSource objectAtIndex:sender.indexPath.row];
+            [HotelDataCache sharedInstance].selectedHotelId = [[dict objectForKey:@"HotelId"] integerValue];
+            
+            HotelDetailViewController *hotelDetailView = [[HotelDetailViewController alloc] init];
+            [self pushViewController:hotelDetailView transitionType:TransitionPush completionHandler:nil];
+            
+            //            HotelAroundViewController *hotelAroundView = [[HotelAroundViewController alloc] init];
+            //            [self pushViewController:hotelAroundView transitionType:TransitionPush completionHandler:nil];
             break;
         }
         default:
@@ -915,7 +924,7 @@
     [_unfoldView addSubview:currentPlaceToHotelLabelDown];
     
     //    UIButton *
-    _hotelNearBtn = [[UIButton alloc]initWithFrame:CGRectMake(controlXLength(_currentPlaceToHotelBtn) +10, controlYLength(mapImageView)+5, mapImageView.frame.size.width+mapLabel.frame.size.width+10, mapImageView.frame.size.height*2.5)];
+    _hotelNearBtn = [[CustomBtn alloc]initWithFrame:CGRectMake(controlXLength(_currentPlaceToHotelBtn) +10, controlYLength(mapImageView)+5, mapImageView.frame.size.width+mapLabel.frame.size.width+10, mapImageView.frame.size.height*2.5)];
     [_hotelNearBtn setImage:[UIImage imageNamed:@"bg_wt2"] forState:UIControlStateNormal];
     _hotelNearBtn.layer.cornerRadius = 5;
     [_hotelNearBtn setTag:28];
@@ -1065,14 +1074,14 @@
     }
 }
 
-- (void)pressToHotelBtn:(UIButton *)sender
+- (void)pressToHotelBtn:(CustomBtn *)sender
 {
     if(_viewController){
         [_viewController pressLittleHotelBtn:sender];
     }
 }
 
-- (void)pressHotelAroundBtn:(UIButton *)sender
+- (void)pressHotelAroundBtn:(CustomBtn *)sender
 {
     if(_viewController){
         [_viewController pressLittleHotelBtn:sender];
@@ -1175,7 +1184,7 @@
 
 - (void)getContact{
     GetContactRequest *contactRequest = [[GetContactRequest alloc]initWidthBusinessType:BUSINESS_ACCOUNT methodName:@"GetContact"];
-    contactRequest.CorpID = [NSString stringWithFormat:@"22"];
+    contactRequest.CorpID = [NSNumber numberWithInt:22];
     [self.requestManager sendRequest:contactRequest];
 }
 

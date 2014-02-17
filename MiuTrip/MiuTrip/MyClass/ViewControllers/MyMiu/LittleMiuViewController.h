@@ -99,7 +99,7 @@
 @property (strong, nonatomic) CustomBtn             *cancleBtn;
 @property (strong, nonatomic) CustomBtn             *doneBtn;
 
-@property (strong, nonatomic) UIButton      *hotelNearBtn;
+@property (strong, nonatomic) CustomBtn      *hotelNearBtn;
 @property (strong, nonatomic) UIButton      *currentPlaceToHotelBtn;
 @property (strong, nonatomic) UIButton      *otherBtn;
 @property (assign, nonatomic) LittleMiuViewController      *viewController;
