@@ -231,7 +231,7 @@ static UserDefaults *shareUserDefault;
 - (void)setPostType:(NSInteger)_postType
 {
     if (self.postType != _postType) {
-        [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithInteger:_postType] forKey:@"postType"];
+        [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithInteger:_postType] forKey:@"postTypes"];
         postType = _postType;
     }
 }
@@ -239,7 +239,7 @@ static UserDefaults *shareUserDefault;
 - (NSInteger)postType
 {
     if (!postType) {
-        postType = [[[NSUserDefaults standardUserDefaults] objectForKey:@"postType"] integerValue];
+        postType = [[[NSUserDefaults standardUserDefaults] objectForKey:@"postTypes"] integerValue];
     }
     return postType;
 }
