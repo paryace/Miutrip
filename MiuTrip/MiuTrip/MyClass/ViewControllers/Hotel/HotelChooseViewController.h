@@ -17,7 +17,6 @@
 
 @interface HotelChooseViewController : BaseUIViewController<UITableViewDataSource,UITableViewDelegate,BusinessDelegate,HotelPassengerDelegate,HotelSelectDelegate,HotelAddDelegate>
 
-@property (strong ,nonatomic) NSMutableArray *data;
 @property (strong ,nonatomic) UITableView *theTableView;
 @property (strong, nonatomic) UIView *contentview;
 @property (strong, nonatomic) UIView *alertView;

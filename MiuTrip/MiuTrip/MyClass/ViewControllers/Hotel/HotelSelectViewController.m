@@ -15,6 +15,7 @@
 #import "GetContactRequest.h"
 #import "GetContactResponse.h"
 #import "LoginInfoDTO.h"
+#import "HotelAddViewController.h"
 @interface HotelSelectViewController ()
 
 
@@ -122,18 +123,21 @@
         }
         if (!contains) {
             [_array addObject:dic];
+            NSLog(@"array = %d",[_array count]);
         }
     }else{
         NSMutableArray *needDelete = [NSMutableArray array];
         for (NSDictionary *subDic in _array) {
             if ([[dic objectForKey:@"UniqueID"]isEqualToString:[subDic objectForKey:@"UniqueID"]]) {
                 [needDelete addObject:subDic];
+                NSLog(@"needDelete %d , array = %d",[needDelete count],[_array count]);
             }
         }
         if ([needDelete count] != 0) {
             for (id object in needDelete) {
                 [_array removeObject:object];
             }
+            NSLog(@"needDelete %d , array = %d",[needDelete count],[_array count]);
         }
     }
     
@@ -159,14 +163,16 @@
             hotel.userName.text =userName;
             hotel.UID.text = [(NSDictionary*)[card objectAtIndex:0] objectForKey:@"UID"];
             
-            
-            //    hotel.deptName.text = deptName;
         }else if (btn.tag == 601){
             NSString *ownDept = [UserDefaults shareUserDefault].loginInfo.DeptName;
             NSLog(@"============");
-            if ([hotel.deptName.text isEqualToString:ownDept]) {
-                NSLog(@"string");
-                hotel.userName.text =  [(NSDictionary*)[_dataSource objectAtIndex:[indexPath row]] objectForKey:@"UserName"];
+            NSString *dept =[(NSDictionary*)[_dataSource objectAtIndex:indexPath.row]objectForKey:@"DeptName"];
+            if (dept) {
+                if ([[NSString stringWithFormat:@"%@",dept] isEqualToString:ownDept]) {
+                    hotel.userName.text=[(NSDictionary*) [_dataSource objectAtIndex:indexPath.row] objectForKey:@"UserName"];
+                    hotel.UID.text=[(NSDictionary*) [_dataSource objectAtIndex:indexPath.row] objectForKey:@"UID"];
+                    hotel.deptName.text = ownDept;
+                }
             }
             
         }else{
@@ -237,7 +243,7 @@
     NSLog(@"ssssss");
     if ([response isKindOfClass:[GetCorpStaffResponse class]]) {
         GetCorpStaffResponse *data =  (GetCorpStaffResponse*)response;
-        _allDataSource = data.customers;
+        _allDataSource =data.customers;
         _usDataSource = data.customers;
         _dataSource = data.customers;
         for (NSDictionary *dic in _dataSource) {
@@ -322,7 +328,6 @@
     //    [_thetableView reloadData];
     [self tableViewReloadData:_thetableView];
 }
-
 
 - (void)viewDidLoad
 {

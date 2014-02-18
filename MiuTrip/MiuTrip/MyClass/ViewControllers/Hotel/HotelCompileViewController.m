@@ -24,7 +24,6 @@ static HotelCompileViewController *sharedHotelCompile;
 {
     self = [super init];
     if (self) {
-        _dic = [[NSMutableDictionary alloc]init];
         [self setSubviewFrame];
     }
     return self;
@@ -112,9 +111,8 @@ static HotelCompileViewController *sharedHotelCompile;
 }
 
 - (void)compilePassenger{
-    [_dic setValue:_nameTextField.text forKey:@"name"];
-    [_dic setValue:_costCenterNameLabel.text forKey:@"costCenter"];
-    [self popViewControllerTransitionType:TransitionPush completionHandler:^(void){
+    [self popViewControllerTransitionType:TransitionPush completionHandler:^{
+        self.costCenterName(_costCenterNameLabel.text);
     }];
 }
 - (void)pressPicBtn:(UIButton *)sender

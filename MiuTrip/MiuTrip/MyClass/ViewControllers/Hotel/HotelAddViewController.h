@@ -21,11 +21,12 @@
 @end
 
 
-@interface HotelAddViewController : BaseUIViewController<CoseCenterDelegate>
+@interface HotelAddViewController : BaseUIViewController<CoseCenterDelegate,UITextFieldDelegate,BusinessDelegate>
 
 @property (strong ,nonatomic) id<HotelAddDelegate> delegate;
 @property (strong ,nonatomic)  UILabel  *costCenterNameLabel;
 @property (strong ,nonatomic)  UITextField  *nameTextField;
+@property (strong , nonatomic) NSArray *data;
 @end
 
 #define   ContactItemHeight    30;

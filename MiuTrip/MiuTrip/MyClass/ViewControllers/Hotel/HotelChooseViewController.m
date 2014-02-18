@@ -31,7 +31,6 @@
     self = [super init];
     if (self) {
         [self setupViews];
-        _data = [[NSMutableArray alloc]init];
         _hotelSelect = [[HotelSelectViewController alloc]init];
         [_hotelSelect setDelegate:self];
         
@@ -43,8 +42,8 @@
     
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    NSLog(@"YYYYYYYYYYYY%d",[_data count]);
-    return [_data count];
+    NSLog(@"YYYYYYYYYYYY%d",[_hotelSelect.array count]);
+    return [_hotelSelect.array count];
 }
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     static NSString *indentifierstr = @"cell";
@@ -53,7 +52,7 @@
         cell = [[HomeChooseDetailCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:indentifierstr];
     }
     HomeChooseDetailCell *hotelCell= (HomeChooseDetailCell*)cell;
-    NSDictionary *dic = [_data objectAtIndex:indexPath.row];
+    NSDictionary *dic = [_hotelSelect.array objectAtIndex:indexPath.row];
     hotelCell.userName.text = [dic objectForKey:@"UserName"];
     hotelCell.policy.text = [NSString stringWithFormat:@"差旅政策:%@",[dic objectForKey:@"HotelPolicyTitle"]];
     NSString *cost = [dic objectForKey:@"DeptName"];
@@ -69,15 +68,18 @@
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     HomeChooseDetailCell *cell= (HomeChooseDetailCell*) [tableView cellForRowAtIndexPath:indexPath];
-    NSDictionary *dic = [_data objectAtIndex:indexPath.row];
+    NSDictionary *dic = [_hotelSelect.array objectAtIndex:indexPath.row];
     BOOL show = ![[dic objectForKey:@"show"]boolValue];
     [dic setValue:[NSNumber numberWithBool:show] forKey:@"show"];
     
     if (_show) {
         HotelCompileViewController *comp = [HotelCompileViewController sharedHotelCompile];
-        [self pushViewController:comp transitionType:TransitionPush completionHandler:^(void){
+        [self pushViewController:comp transitionType:TransitionPush completionHandler:^{
             comp.nameTextField.text = cell.userName.text;
             comp.costCenterNameLabel.text = cell.cost.text;
+            comp.costCenterName = ^(NSString *costCenter){
+                cell.cost.text = costCenter;
+            };
         }];
         
     }
@@ -206,7 +208,7 @@
     
     [UIView animateWithDuration:0.25 animations:^{
         [_theTableView setFrame:CGRectMake(_theTableView.frame.origin.x, _theTableView.frame.origin.y
-                                           , _theTableView.frame.size.width,HotelChooseViewCellHeight * [_data count])];
+                                           , _theTableView.frame.size.width,HotelChooseViewCellHeight * [_hotelSelect.array count])];
         [_contentview setFrame:CGRectMake(_contentview.frame.origin.x
                                           , _contentview.frame.origin.y, _contentview.frame.size.width, controlYLength(_theTableView)+5)];
         
@@ -241,10 +243,10 @@
                 for (NSIndexPath *cellIndex in [_theTableView indexPathsForVisibleRows]){
                     HomeChooseDetailCell *cell = (HomeChooseDetailCell*)[_theTableView cellForRowAtIndexPath:cellIndex];
                     
-                    NSDictionary *dic = [_data objectAtIndex:cellIndex.row];
+                    NSDictionary *dic = [_hotelSelect.array objectAtIndex:cellIndex.row];
                     BOOL show = ![[dic objectForKey:@"show"]boolValue];
                     [dic setValue:[NSNumber numberWithBool:show] forKey:@"show"];
-                    [cell showItem:[_data objectAtIndex:cellIndex.row]];
+                    [cell showItem:[_hotelSelect.array objectAtIndex:cellIndex.row]];
                 }
             else
                 for (NSIndexPath *cellIndex in [_theTableView indexPathsForVisibleRows]){
@@ -283,21 +285,14 @@
 }
 
 - (void)getparamsByArray:(NSArray*)array{
-    NSLog(@"-----------------------------%d-------------",[array count]);
-    for (NSDictionary *subDic in array) {
-        for (NSDictionary *sub in _data) {
-            if (subDic == sub) {
-                [_data removeObject:sub];
-            }
-        }
-    }
-    [_data addObjectsFromArray:array];
     
-    for (NSDictionary *dic in _data) {
+    NSLog(@"-----------------------------%d-------------",[array count]);
+    
+    for (NSDictionary *dic in array) {
         [dic setValue:[NSNumber numberWithBool:NO] forKey:@"show"];
     }
     [self setSubjoinViewFrame];
-    if ([_data count]==0) {
+    if ([array count]==0) {
         [_placeHolder setHidden:NO];
         [_contentview setFrame:CGRectMake(_contentview.frame.origin.x, _contentview.frame.origin.y, _contentview.frame.size.width, HotelChooseViewCellHeight+ 25+15)];
         [_alertView setFrame:CGRectMake(6, controlYLength(_contentview) +10, self.contentview.frame.size.width , 80)];
@@ -305,14 +300,14 @@
         UIButton *btn = (UIButton*)[self.contentView viewWithTag:999];
         [btn setFrame:CGRectMake(self.view.frame.size.width/4, controlYLength(_alertView)+20, self.view.frame.size.width/2, 50)];
         
-        
     }
     
 }
 - (void)saveLiveInfo:(NSDictionary *)dic{
-    [_data addObject:dic];
+    [_hotelSelect.allDataSource arrayByAddingObject:dic];
+    [_hotelSelect.array addObject:dic];
     [self setSubjoinViewFrame];
-    NSLog(@"cccccccccccc%@",_data);
+    NSLog(@"cccccccccccc%@",_hotelSelect.allDataSource);
 }
 - (void)viewDidLoad
 {
