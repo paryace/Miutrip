@@ -12,10 +12,20 @@
 
 @interface GetAllProvincesResponse : BaseResponseModel
 
+@property (strong, nonatomic) NSArray       *pros;
+
+- (void)getObjects;
+
+@end
+
+@interface ProvinceDTO : BaseResponseModel
+
 @property (strong, nonatomic) NSNumber      *ProvinceID;        //省份ID	int
 @property (strong, nonatomic) NSString      *ProvinceName;      //省份名称
 @property (strong, nonatomic) NSString      *ProvinceNameEn;    //省份英文名称
 
 @property (strong, nonatomic) NSArray       *Citys;             //城市列表	List<CityDTO>
+
+- (void)getObjects;
 
 @end

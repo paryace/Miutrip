@@ -12,7 +12,6 @@
 
 - (void)parshJsonToResponse:(NSObject *)jsonData
 {
-//    NSLog(@"jsonData = %@",[(NSDictionary*)jsonData objectForKey:@"flights"]);
     NSArray *parshData = nil;
     if (![jsonData isKindOfClass:[NSDictionary class]]) {
         return;
@@ -26,7 +25,6 @@
 
 + (NSMutableArray *)getNormalFlightsResponseWithData:(NSArray*)data
 {
-//    NSLog(@"superdata = %@",data);
     NSMutableArray *flightsResponse = [NSMutableArray array];
     for (NSDictionary *flightDetail in data) {
         DomesticFlightDataDTO *flightData = [[DomesticFlightDataDTO alloc]init];
@@ -34,7 +32,6 @@
         [flightsResponse addObject:flightData];
         
     }
-//    NSLog(@"flights count = %u",[flightsResponse count]);
 
     return flightsResponse;
 }
@@ -49,22 +46,19 @@
 {
     self = [super init];
     if (self) {
-        _unfold = NO;
-
+        _unfold = [NSNumber numberWithBool:NO];
     }
     return self;
 }
 
 - (void)parshJsonToResponse:(NSObject *)jsonData
 {
-    NSLog(@"jsonData = %@",jsonData);
     if (![jsonData isKindOfClass:[NSDictionary class]]) {
         return;
     }
     NSDictionary *dicData = (NSDictionary*)jsonData;
 
     [super parshJsonToResponse:jsonData];
-    NSLog(@"airline aaaaa= %@",[dicData objectForKey:@"Airline"]);
     _AirLine = [[AirlineDTO alloc]init];
     _Dairport = [[AirportDTO alloc]init];
     _Aairport = [[AirportDTO alloc]init];
@@ -76,7 +70,9 @@
     if (![moreFlights isKindOfClass:[NSArray class]]) {
         return;
     }
-//    NSLog(@"source count = %u",[moreFlights count]);
+    
+    _conformLevel = @"F";
+
     _MoreFlights = [GetNormalFlightsResponse getNormalFlightsResponseWithData:moreFlights];
 }
 

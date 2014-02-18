@@ -7,7 +7,32 @@
 //
 
 #import "BaseUIViewController.h"
+#import "PassengerListViewController.h"
 
-@interface SelectPassengerViewController : BaseUIViewController
+@protocol SelectPassengerDelegate <NSObject>
+
+- (void)selectPassengerDone:(NSArray *)passengers policyName:(id)policy;
+
+@end
+
+@protocol SelectPolicyDelegate <NSObject>
+
+- (void)selectPolicyDone:(id)policy;
+- (void)selectPolicyCancel;
+
+@end
+
+@interface SelectPassengerViewController : BaseUIViewController<UITableViewDataSource,UITableViewDelegate,PassengerListViewDelegate,SelectPolicyDelegate>
+
+@property (assign, nonatomic) id<SelectPassengerDelegate> delegate;
+
+@end
+
+@interface SelectProlicyViewController : BaseUIViewController<UITableViewDataSource,UITableViewDelegate>
+
+@property (assign, nonatomic) id<SelectPolicyDelegate>  delegate;
+@property (strong, nonatomic) NSArray                   *dataSource;
+
+- (void)fire;
 
 @end

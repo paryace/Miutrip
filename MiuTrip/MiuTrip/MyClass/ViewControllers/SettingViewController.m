@@ -129,6 +129,7 @@
 
 
 -(void)getPriceDone:(GetMemberDeliverListResponse*)response{
+    [response getObjects];
     postTypeData = [NSMutableArray arrayWithArray:response.delivers];
 }
 //请求失败

@@ -54,4 +54,53 @@
     
 }
 
+-(NSDictionary*)getRequestJsonString{
+    
+    
+    NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+    
+    //获取父类的属性数量
+    unsigned int outCount;
+    objc_property_t *properties = class_copyPropertyList([self class], &outCount);
+    
+    for (int i=0;i<outCount;i++){
+        objc_property_t property = properties[i];
+        //获取到属性的名称
+        NSString *key=[[NSString alloc]initWithCString:property_getName(property)
+                                              encoding:NSUTF8StringEncoding];
+        //生成获取属性名称对应值的selector;
+        SEL selector = NSSelectorFromString(key);
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+        //获取对应的值
+        id value = nil;
+        if ([self respondsToSelector:selector]) {
+            @try {
+                value = [self performSelector:selector];
+            }
+            @catch (NSException *exception) {
+                NSLog(@"name = %@,reason = %@",exception.name,exception.reason);
+            }
+            @finally {
+                
+            }
+        }
+        //nil 转换成 null;
+        if(value == nil){
+            value = [NSNull null];
+        }
+        [dict setObject:value forKey:key];
+        
+    }
+    //释放属性数组
+    free(properties);
+    
+    return dict;
+}
+
+- (id)proxyForJson
+{
+    return [self getRequestJsonString];
+}
+
+
 @end

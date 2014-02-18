@@ -7,7 +7,7 @@
 //
 
 #import "BaseRequestModel.h"
-#import "BaseResponseModel.h"
+#import "GetMemberDeliverListResponse.h"
 ////////////////////////////////////////////////////////////////////////////
 
 @interface GetMemberDeliverListRequest : BaseRequestModel

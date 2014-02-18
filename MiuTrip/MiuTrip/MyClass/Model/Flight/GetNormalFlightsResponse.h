@@ -71,6 +71,8 @@
 
 @property (strong, nonatomic) NSMutableArray    *MoreFlights;           //子仓位列表         List<DomesticFlightDataDTO>
 
-@property (assign, nonatomic) NSNumber          *unfold;                //cell展开          bool
+@property (strong, nonatomic) NSNumber          *unfold;                //cell展开          bool
+
+@property (strong, nonatomic) NSString          *conformLevel;       //政策符合度 T:符和出发时间  F:不符合出发时间  B:符合出发时间段内最低价
 
 @end

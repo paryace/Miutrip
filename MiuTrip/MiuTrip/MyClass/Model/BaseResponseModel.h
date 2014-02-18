@@ -14,6 +14,6 @@
 
 @interface BaseResponseModel : NSObject<ResponseDelegate>
 
-
+-(NSDictionary*)getRequestJsonString;
 
 @end

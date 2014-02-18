@@ -558,3 +558,20 @@
 
 
 
+@implementation NSMutableArray (NSMutableArrayCustom)
+
+- (void)bringObjectToFront:(id)object
+{
+    for (NSObject *aObject in self) {
+        if ([aObject isEqual:object]) {
+            [self removeObjectIdenticalTo:aObject];
+            [self insertObject:object atIndex:0];
+            return;
+        }
+    }
+}
+
+@end
+
+
+

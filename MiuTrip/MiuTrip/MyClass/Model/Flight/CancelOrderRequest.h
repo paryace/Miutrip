@@ -8,6 +8,7 @@
 
 #import "BaseRequestModel.h"
 #import "URLHelper.h"
+#import "CancelOrderResponse.h"
 @interface CancelOrderRequest : BaseRequestModel
 
 @property(strong,nonatomic) NSString *OrderID;

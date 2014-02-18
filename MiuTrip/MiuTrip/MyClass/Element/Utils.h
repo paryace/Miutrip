@@ -13,6 +13,7 @@
 #define             WeekDays                        @"星期日,星期一,星期二,星期三,星期四,星期五,星期六"
 
 typedef NS_OPTIONS(NSInteger, TransitionType){
+    TransitionNone,
     TransitionFade,
     TransitionPush,
     TransitionReveal,
@@ -39,6 +40,8 @@ typedef NS_OPTIONS(NSInteger, Direction){
 +(NSString*)nilToEmpty:(NSString*)value;
 +(NSString*)NULLToEmpty:(id)value;
 +(BOOL)textIsEmpty:(NSString*)value;
++(BOOL)isEmpty:(id)value;
+
 +(NSString *)stringWithDate:(NSDate*)date withFormat:(NSString*)format;
 +(NSDate*)dateWithString:(NSString *)dateString withFormat:(NSString*)format;
 +(NSString *)formatDateWithString:(NSString *)dateString startFormat:(NSString *)startFormat endFormat:(NSString *)endFormat;
@@ -47,7 +50,11 @@ typedef NS_OPTIONS(NSInteger, Direction){
 +(BOOL)isValidateIdNum:(NSString *)idNum;
 +(BOOL)isValidatePassportNum:(NSString *)passportNum;
 
+
++(BOOL)string:(NSString*)string isEqualToString:(NSString*)goalString;
++(BOOL)string:(NSString*)string containsString:(NSString*)substring;
 +(CATransition *)getAnimation:(TransitionType)mytag subType:(Direction)subTag;
+
 +(BOOL)isCina:(NSString*)value;
 +(BOOL)isEnglish:(NSString*)value;
 +(BOOL)ismailbox:(NSString*)value;

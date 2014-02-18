@@ -7,19 +7,12 @@
 //
 
 #import "BaseResponseModel.h"
+#import "OnLineAllClass.h"
 
 @interface GetFlightChangeRuleResponse : BaseResponseModel
 
 
 @property(strong, nonatomic) NSString *rule;
-@end
-
-@interface  Rule : BaseResponseModel
-
-@property(strong, nonatomic) NSString *refund;
-@property(strong, nonatomic) NSString *cDate;
-@property(strong, nonatomic) NSString *upgrades;
-@property(strong, nonatomic) NSString *transfer;
-@property(strong, nonatomic) NSString *rebate;
 
 @end
+

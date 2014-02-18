@@ -8,10 +8,12 @@
 
 #import "CommonlyNameViewController.h"
 #import "CommonlyName.h"
-#import "BookPassengersDTO.h"
 #import "CustomBtn.h"
+#import "Account.h"
 
 @interface CommonlyNameViewController ()
+
+@property (strong, nonatomic) id        selectContact;
 
 @end
 
@@ -38,21 +40,45 @@
 
 - (void)pressRightBtn:(UIButton*)sender
 {
-//    [self.requestManager getContact:nil];
+    [self popViewControllerTransitionType:TransitionPush completionHandler:^{
+        [self.delegate contactSelectDone:_selectContact];
+    }];
 }
 
 #pragma mark - request handle
-- (void)getContactDone:(NSArray *)contacts
+- (void)getContact
 {
-    _dataSource = [NSMutableArray arrayWithArray:contacts];
+    GetContactRequest *request = [[GetContactRequest alloc]initWidthBusinessType:BUSINESS_ACCOUNT methodName:@"getContact"];
+    [request setCorpID:[UserDefaults shareUserDefault].loginInfo.CorpID];
+    [self.requestManager sendRequest:request];
+}
+
+- (void)getContactDone:(GetContactResponse *)response
+{
+    [response getObjects];
+    _dataSource = [NSMutableArray arrayWithArray:response.result];
     [_theTableView reloadData];
 }
 
+
+- (void)requestDone:(BaseResponseModel *)response
+{
+    if ([response isKindOfClass:[GetContactResponse class]]) {
+        [self getContactDone:(GetContactResponse*)response];
+    }
+}
+
+- (void)requestFailedWithErrorCode:(NSNumber *)errorCode withErrorMsg:(NSString *)errorMsg
+{
+    
+}
+
+#pragma mark - tableview handle
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    BookPassengersDTO *passengerDetail = [_dataSource objectAtIndex:indexPath.row];
-    if (passengerDetail.unfold) {
-        return CommonlyNameViewCellHeight * 9;
+    BookPassengersResponse *contactDetail = [_dataSource objectAtIndex:indexPath.row];
+    if ([contactDetail.unfold boolValue]) {
+        return CommonlyNameViewCellHeight * 6;
     }else
         return CommonlyNameViewCellHeight;
 }
@@ -68,33 +94,41 @@
     CommonlyNameViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifierStr];
     if (cell == nil) {
         cell = [[CommonlyNameViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifierStr];
+        [cell.selectBtn addTarget:self action:@selector(pressSelectBtn:) forControlEvents:UIControlEventTouchUpInside];
     }
-    CustomBtn *deleteBtn = (CustomBtn*)[cell viewWithTag:303];
-    CustomBtn *saveBtn   = (CustomBtn*)[cell viewWithTag:304];
     
-    BookPassengersDTO *passengerDetail = [_dataSource objectAtIndex:indexPath.row];
+    BookPassengersResponse *contactDetail = [_dataSource objectAtIndex:indexPath.row];
     
-    [cell setContentWithParams:passengerDetail];
+    cell.isSelect = _selectContact == contactDetail;
     
-    [deleteBtn setIndexPath:indexPath];
-    [saveBtn   setIndexPath:indexPath];
+    [cell setContentWithParams:contactDetail];
+    [cell.selectBtn setIndexPath:indexPath];
     
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    CommonlyNameViewCell *cell = (CommonlyNameViewCell*)[tableView cellForRowAtIndexPath:indexPath];
-    BookPassengersDTO *passengerDetail = [_dataSource objectAtIndex:indexPath.row];
-    passengerDetail.unfold = !passengerDetail.unfold;
-    [cell subviewUnfold:passengerDetail.unfold];
+//    CommonlyNameViewCell *cell = (CommonlyNameViewCell*)[tableView cellForRowAtIndexPath:indexPath];
+    BookPassengersResponse *contactDetail = [_dataSource objectAtIndex:indexPath.row];
+    BOOL unfold = [contactDetail.unfold boolValue];
+    contactDetail.unfold = [NSNumber numberWithBool:!unfold];
+//    [cell subviewUnfold:unfold];
     [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
 }
 
+- (void)pressSelectBtn:(CustomBtn*)sender
+{
+    BookPassengersResponse *contactDetail = [_dataSource objectAtIndex:sender.indexPath.row];
+    _selectContact = contactDetail;
+    [_theTableView reloadData];
+}
+
+#pragma mark - view init
 - (void)setSubviewFrame
 {
     [self setBackGroundImage:imageNameAndType(@"home_bg", nil)];
-    [self setTitle:@"常用姓名"];
+    [self setTitle:@"选择联系人"];
     [self setTopBarBackGroundImage:imageNameAndType(@"topbar", nil)];
     
     UIButton *returnBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -106,10 +140,14 @@
     
     UIButton *rightBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [rightBtn setBackgroundColor:color(clearColor)];
-    [rightBtn setImage:imageNameAndType(@"cname_add", nil) forState:UIControlStateNormal];
+    [rightBtn setImage:imageNameAndType(@"abs__ic_cab_done_holo_dark", nil) forState:UIControlStateNormal];
+    [rightBtn setImage:imageNameAndType(@"abs__ic_cab_done_holo_light", nil) forState:UIControlStateHighlighted];
     [rightBtn setFrame:CGRectMake(self.topBar.frame.size.width - self.topBar.frame.size.height, 0, self.topBar.frame.size.height, self.topBar.frame.size.height)];
+    [rightBtn setScaleX:0.65 scaleY:0.65];
     [rightBtn addTarget:self action:@selector(pressRightBtn:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:rightBtn];
+    
+    [self setSubjoinViewFrame];
 }
 
 - (void)setSubjoinViewFrame
@@ -120,12 +158,10 @@
         [_theTableView setBackgroundColor:color(clearColor)];
         [_theTableView setDelegate:self];
         [_theTableView setDataSource:self];
-        [_theTableView.layer setMasksToBounds:YES];
-        [_theTableView.layer setCornerRadius:10];
-        [self.contentView addSubview:_theTableView];
+        [self.view addSubview:_theTableView];
     }
     
-    [self.contentView setHidden:NO];
+//    [self.contentView setHidden:NO];
 }
 
 - (void)viewDidLoad
@@ -158,6 +194,8 @@
 
 @property (strong, nonatomic) NSMutableArray                *optionBtnArray;
 
+@property (strong, nonatomic) UIButton                      *leftImage;
+
 @end
 
 @implementation CommonlyNameViewCell
@@ -172,12 +210,26 @@
     return self;
 }
 
-- (void)setContentWithParams:(BookPassengersDTO*)passengerDetail
+- (void)setContentWithParams:(BookPassengersResponse*)contactDetail
 {
-    [_userName setText:passengerDetail.UserName];
-    [_unfoldUserName setText:passengerDetail.UserName];
-    [_nationality setText:[Utils NULLToEmpty:passengerDetail.Country]];
-    [_phoneNum setText:passengerDetail.Mobilephone];
+    [self subviewUnfold:[contactDetail.unfold boolValue]];
+    [_userName setText:[Utils NULLToEmpty:contactDetail.UserName]];
+    [_unfoldUserName setText:[Utils NULLToEmpty:contactDetail.UserName]];
+    [_nationality setText:[Utils NULLToEmpty:contactDetail.Country]];
+    MemberIDcardResponse *IDCard = [contactDetail getDefaultIDCard];
+    [_cardType setText:[IDCard getCardTypeName]];
+    [_cardNum setText:IDCard.CardNumber];
+    [_phoneNum setText:[Utils NULLToEmpty:contactDetail.Mobilephone]];
+}
+
+- (void)setIsSelect:(BOOL)isSelect
+{
+    [_leftImage setHighlighted:isSelect];
+}
+
+- (BOOL)isSelect
+{
+    return _leftImage.highlighted;
 }
 
 - (void)subviewUnfold:(BOOL)show
@@ -210,7 +262,19 @@
 {
     [self setBackGroundImage:imageNameAndType(@"cname_box_bg", nil)];
     
-    _userName = [[UILabel alloc]initWithFrame:CGRectMake(10, 0, appFrame.size.width - 40, CommonlyNameViewCellHeight)];
+    _leftImage = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, CommonlyNameViewCellHeight, CommonlyNameViewCellHeight)];
+    [_leftImage setFrame:CGRectMake(0, 0, CommonlyNameViewCellHeight, CommonlyNameViewCellHeight)];
+    [_leftImage setImage:imageNameAndType(@"autolog_normal", nil) forState:UIControlStateNormal];
+    [_leftImage setImage:imageNameAndType(@"autolog_select", nil) forState:UIControlStateHighlighted];
+    [_leftImage setScaleX:0.5 scaleY:0.5];
+    [self.contentView addSubview:_leftImage];
+    
+    _selectBtn = [CustomBtn buttonWithType:UIButtonTypeCustom];
+    [_selectBtn setBackgroundColor:color(clearColor)];
+    [_selectBtn setFrame:CGRectMake(0, 0, CommonlyNameViewCellHeight * 1.5, CommonlyNameViewCellHeight)];
+    [self.contentView addSubview:_selectBtn];
+    
+    _userName = [[UILabel alloc]initWithFrame:CGRectMake(controlXLength(_selectBtn), 0, appFrame.size.width - controlXLength(_selectBtn), CommonlyNameViewCellHeight)];
     [_userName setBackgroundColor:color(clearColor)];
     [self.contentView addSubview:_userName];
     
@@ -301,170 +365,63 @@
     [_phoneNum setLeftView:phoneNumLeft];
     [_phoneNum setLeftViewMode:UITextFieldViewModeAlways];
     
-    [_unfoldView addSubview:[self createLineWithFrame:CGRectMake(_unfoldUserName.frame.origin.x, controlYLength(_phoneNum), _unfoldUserName.frame.size.width, 1)]];
+//    [_unfoldView addSubview:[self createLineWithFrame:CGRectMake(_unfoldUserName.frame.origin.x, controlYLength(_phoneNum), _unfoldUserName.frame.size.width, 1)]];
     [_unfoldView addSubview:_phoneNum];
     
-    CustomStatusBtn *passengersBtn = [[CustomStatusBtn alloc]initWithFrame:CGRectMake(_phoneNum.frame.origin.x, controlYLength(_phoneNum), _phoneNum.frame.size.width/3, _phoneNum.frame.size.height)];
-    [passengersBtn setTag:300];
-    [passengersBtn addTarget:self action:@selector(pressBtn:) forControlEvents:UIControlEventTouchUpInside];
-    [passengersBtn setImage:imageNameAndType(@"cname_item_normal", nil) selectedImage:imageNameAndType(@"cname_item_select", nil)];
-    [passengersBtn setLeftViewScaleX:0.65 scaleY:0.65];
-    [passengersBtn setDetail:@"默认乘机人"];
-    [_unfoldView addSubview:passengersBtn];
-    [_optionBtnArray addObject:passengersBtn];
-    
-    CustomStatusBtn *checkInBtn = [[CustomStatusBtn alloc]initWithFrame:CGRectMake(controlXLength(passengersBtn), passengersBtn.frame.origin.y, passengersBtn.frame.size.width, passengersBtn.frame.size.height)];
-    [checkInBtn setTag:301];
-    [checkInBtn addTarget:self action:@selector(pressBtn:) forControlEvents:UIControlEventTouchUpInside];
-    [checkInBtn setImage:imageNameAndType(@"cname_item_normal", nil) selectedImage:imageNameAndType(@"cname_item_select", nil)];
-    [checkInBtn setLeftViewScaleX:0.65 scaleY:0.65];
-    [checkInBtn setDetail:@"默认入住人"];
-    [_unfoldView addSubview:checkInBtn];
-    [_optionBtnArray addObject:checkInBtn];
-    
-    CustomStatusBtn *contactsBtn = [[CustomStatusBtn alloc]initWithFrame:CGRectMake(controlXLength(checkInBtn), checkInBtn.frame.origin.y, passengersBtn.frame.size.width, passengersBtn.frame.size.height)];
-    [contactsBtn setTag:302];
-    [contactsBtn addTarget:self action:@selector(pressBtn:) forControlEvents:UIControlEventTouchUpInside];
-    [contactsBtn setImage:imageNameAndType(@"cname_item_normal", nil) selectedImage:imageNameAndType(@"cname_item_select", nil)];
-    [contactsBtn setLeftViewScaleX:0.65 scaleY:0.65];
-    [contactsBtn setDetail:@"默认联系人"];
-    [_unfoldView addSubview:contactsBtn];
-    [_optionBtnArray addObject:contactsBtn];
-    
-    [_unfoldView addSubview:[self createLineWithFrame:CGRectMake(_unfoldUserName.frame.origin.x, controlYLength(passengersBtn), _unfoldUserName.frame.size.width, 1)]];
-    [_unfoldView addSubview:_phoneNum];
-    
-    CustomBtn *deleteBtn = [CustomBtn buttonWithType:UIButtonTypeCustom];
-    [deleteBtn setBackgroundColor:color(clearColor)];
-    [deleteBtn setTag:303];
-    [deleteBtn setFrame:CGRectMake(_phoneNum.frame.size.width/6, controlYLength(passengersBtn) + passengersBtn.frame.size.height/2, passengersBtn.frame.size.width,passengersBtn.frame.size.height)];
-    [deleteBtn setImage:imageNameAndType(@"cname_delete_normal", nil) highlightImage:imageNameAndType(@"cname_delete_press", nil) forState:ButtonImageStateBottom];
-    [deleteBtn setTitle:@"删除" forState:UIControlStateNormal];
-    [_unfoldView addSubview:deleteBtn];
-    
-    CustomBtn *saveBtn = [CustomBtn buttonWithType:UIButtonTypeCustom];
-    [saveBtn setBackgroundColor:color(clearColor)];
-    [saveBtn setTag:304];
-    [saveBtn setFrame:CGRectMake(_unfoldView.frame.size.width - controlXLength(deleteBtn), deleteBtn.frame.origin.y, deleteBtn.frame.size.width, deleteBtn.frame.size.height)];
-    [saveBtn setImage:imageNameAndType(@"cname_save_normal", nil) highlightImage:imageNameAndType(@"cname_save_press", nil) forState:ButtonImageStateBottom];
-    [saveBtn setTitle:@"保存" forState:UIControlStateNormal];
-    [_unfoldView addSubview:saveBtn];
-
-    
-    [deleteBtn addTarget:self action:@selector(pressBtn:) forControlEvents:UIControlEventTouchUpInside];
-    [saveBtn   addTarget:self action:@selector(pressBtn:) forControlEvents:UIControlEventTouchUpInside];
-    
-    [_unfoldView setFrame:CGRectMake(_unfoldView.frame.origin.x, _unfoldView.frame.origin.y, _unfoldView.frame.size.width, controlYLength(deleteBtn) + deleteBtn.frame.size.height/2)];
-    
-    
-    {
+//    CustomStatusBtn *passengersBtn = [[CustomStatusBtn alloc]initWithFrame:CGRectMake(_phoneNum.frame.origin.x, controlYLength(_phoneNum), _phoneNum.frame.size.width/3, _phoneNum.frame.size.height)];
+//    [passengersBtn setTag:300];
+//    [passengersBtn addTarget:self action:@selector(pressBtn:) forControlEvents:UIControlEventTouchUpInside];
+//    [passengersBtn setImage:imageNameAndType(@"cname_item_normal", nil) selectedImage:imageNameAndType(@"cname_item_select", nil)];
+//    [passengersBtn setLeftViewScaleX:0.65 scaleY:0.65];
+//    [passengersBtn setDetail:@"默认乘机人"];
+//    [_unfoldView addSubview:passengersBtn];
+//    [_optionBtnArray addObject:passengersBtn];
 //    
-//    UIImageView *passengerBackImage = [[UIImageView alloc]initWithFrame:CGRectMake(_phoneNum.frame.origin.x, controlYLength(_phoneNum), _phoneNum.frame.size.width, _phoneNum.frame.size.height)];
-//    [passengerBackImage setBackgroundColor:color(clearColor)];
-//    [passengerBackImage setImage:imageNameAndType(@"cname_unfold_box_bg", nil)];
-//    [_unfoldView addSubview:passengerBackImage];
+//    CustomStatusBtn *checkInBtn = [[CustomStatusBtn alloc]initWithFrame:CGRectMake(controlXLength(passengersBtn), passengersBtn.frame.origin.y, passengersBtn.frame.size.width, passengersBtn.frame.size.height)];
+//    [checkInBtn setTag:301];
+//    [checkInBtn addTarget:self action:@selector(pressBtn:) forControlEvents:UIControlEventTouchUpInside];
+//    [checkInBtn setImage:imageNameAndType(@"cname_item_normal", nil) selectedImage:imageNameAndType(@"cname_item_select", nil)];
+//    [checkInBtn setLeftViewScaleX:0.65 scaleY:0.65];
+//    [checkInBtn setDetail:@"默认入住人"];
+//    [_unfoldView addSubview:checkInBtn];
+//    [_optionBtnArray addObject:checkInBtn];
 //    
-//    UIButton *leftImageView1 = [UIButton buttonWithType:UIButtonTypeCustom];
-//    [leftImageView1 setFrame:CGRectMake(_unfoldView.frame.origin.x + _phoneNum.frame.origin.x, _unfoldView.frame.origin.y + controlYLength(_phoneNum), _phoneNum.frame.size.height, _phoneNum.frame.size.height)];
-//    [leftImageView1 setBackgroundColor:color(clearColor)];
-//    [leftImageView1 setTag:200];
-//    [leftImageView1 setImage:imageNameAndType(@"cname_item_normal", nil) highlightImage:imageNameAndType(@"cname_item_select", nil) forState:ButtonImageStateTop];
-//    [self addSubview:leftImageView1];
+//    CustomStatusBtn *contactsBtn = [[CustomStatusBtn alloc]initWithFrame:CGRectMake(controlXLength(checkInBtn), checkInBtn.frame.origin.y, passengersBtn.frame.size.width, passengersBtn.frame.size.height)];
+//    [contactsBtn setTag:302];
+//    [contactsBtn addTarget:self action:@selector(pressBtn:) forControlEvents:UIControlEventTouchUpInside];
+//    [contactsBtn setImage:imageNameAndType(@"cname_item_normal", nil) selectedImage:imageNameAndType(@"cname_item_select", nil)];
+//    [contactsBtn setLeftViewScaleX:0.65 scaleY:0.65];
+//    [contactsBtn setDetail:@"默认联系人"];
+//    [_unfoldView addSubview:contactsBtn];
+//    [_optionBtnArray addObject:contactsBtn];
 //    
-//    UILabel *detailLabel1 = [[UILabel alloc]initWithFrame:CGRectMake(controlXLength(leftImageView1), leftImageView1.frame.origin.y, _phoneNum.frame.size.width/3 - controlXLength(leftImageView1), leftImageView1.frame.size.height)];
-//    [detailLabel1 setBackgroundColor:color(clearColor)];
-//    [detailLabel1 setFont:[UIFont systemFontOfSize:12]];
-//    [detailLabel1 setAdjustsFontSizeToFitWidth:YES];
-//    [detailLabel1 setAdjustsLetterSpacingToFitWidth:YES];
-//    [detailLabel1 setBaselineAdjustment:UIBaselineAdjustmentAlignBaselines];
-//    [detailLabel1 setMinimumScaleFactor:0.3];
-//    [detailLabel1 setText:@"默认乘机人"];
-//    [self addSubview:detailLabel1];
-//    
-//    UIButton *btn1 = [UIButton buttonWithType:UIButtonTypeCustom];
-//    [btn1 setFrame:CGRectMake(leftImageView1.frame.origin.x, leftImageView1.frame.origin.y, _phoneNum.frame.size.width/3, _phoneNum.frame.size.height)];
-//    [btn1 setBackgroundColor:color(clearColor)];
-//    [btn1 setTag:300];
-//    [btn1 addTarget:self action:@selector(pressBtn:) forControlEvents:UIControlEventTouchUpInside];
-//    [self addSubview:btn1];
-//    
-//    UIButton *leftImageView2 = [UIButton buttonWithType:UIButtonTypeCustom];
-//    [leftImageView2 setFrame:CGRectMake(controlXLength(btn1), leftImageView1.frame.origin.y, leftImageView1.frame.size.width, leftImageView1.frame.size.height)];
-//    [leftImageView2 setBackgroundColor:color(clearColor)];
-//    [leftImageView2 setTag:201];
-//    [leftImageView2 setImage:imageNameAndType(@"cname_item_normal", nil) highlightImage:imageNameAndType(@"cname_item_select", nil) forState:ButtonImageStateTop];
-//    [self addSubview:leftImageView2];
-//    
-//    UILabel *detailLabel2 = [[UILabel alloc]initWithFrame:CGRectMake(controlXLength(leftImageView2), leftImageView2.frame.origin.y, detailLabel1.frame.size.width, detailLabel1.frame.size.height)];
-//    [detailLabel2 setBackgroundColor:color(clearColor)];
-//    [detailLabel2 setFont:[UIFont systemFontOfSize:12]];
-//    [detailLabel2 setAdjustsFontSizeToFitWidth:YES];
-//    [detailLabel2 setAdjustsLetterSpacingToFitWidth:YES];
-//    [detailLabel2 setBaselineAdjustment:UIBaselineAdjustmentAlignBaselines];
-//    [detailLabel2 setMinimumScaleFactor:0.3];
-//    [detailLabel2 setText:@"默认入住人"];
-//    [self addSubview:detailLabel2];
-//    
-//    UIButton *btn2 = [UIButton buttonWithType:UIButtonTypeCustom];
-//    [btn2 setFrame:CGRectMake(leftImageView2.frame.origin.x, btn1.frame.origin.y, btn1.frame.size.width, btn1.frame.size.height)];
-//    [btn2 setBackgroundColor:color(clearColor)];
-//    [btn2 setTag:301];
-//    [btn2 addTarget:self action:@selector(pressBtn:) forControlEvents:UIControlEventTouchUpInside];
-//    [self addSubview:btn2];
-//    
-//    UIButton *leftImageView3 = [UIButton buttonWithType:UIButtonTypeCustom];
-//    [leftImageView3 setFrame:CGRectMake(controlXLength(btn2), leftImageView1.frame.origin.y, leftImageView1.frame.size.width, leftImageView1.frame.size.height)];
-//    [leftImageView3 setBackgroundColor:color(clearColor)];
-//    [leftImageView3 setTag:202];
-//    [leftImageView3 setImage:imageNameAndType(@"cname_item_normal", nil) highlightImage:imageNameAndType(@"cname_item_select", nil) forState:ButtonImageStateTop];
-//    [self addSubview:leftImageView3];
-//    
-//    UILabel *detailLabel3 = [[UILabel alloc]initWithFrame:CGRectMake(controlXLength(leftImageView3), leftImageView2.frame.origin.y, detailLabel2.frame.size.width, detailLabel2.frame.size.height)];
-//    [detailLabel3 setBackgroundColor:color(clearColor)];
-//    [detailLabel3 setFont:[UIFont systemFontOfSize:12]];
-//    [detailLabel3 setAdjustsFontSizeToFitWidth:YES];
-//    [detailLabel3 setAdjustsLetterSpacingToFitWidth:YES];
-//    [detailLabel3 setBaselineAdjustment:UIBaselineAdjustmentAlignBaselines];
-//    [detailLabel3 setMinimumScaleFactor:0.3];
-//    [detailLabel3 setText:@"默认联系人"];
-//    [self addSubview:detailLabel3];
-//    
-//    UIButton *btn3 = [UIButton buttonWithType:UIButtonTypeCustom];
-//    [btn3 setFrame:CGRectMake(leftImageView3.frame.origin.x, btn1.frame.origin.y, btn1.frame.size.width, btn1.frame.size.height)];
-//    [btn3 setBackgroundColor:color(clearColor)];
-//    [btn3 setTag:302];
-//    [btn3 addTarget:self action:@selector(pressBtn:) forControlEvents:UIControlEventTouchUpInside];
-//    [self addSubview:btn3];
-//    
-//    [leftImageView1 setScaleX:0.65 scaleY:0.65];
-//    [leftImageView2 setScaleX:0.65 scaleY:0.65];
-//    [leftImageView3 setScaleX:0.65 scaleY:0.65];
-//    
-//    UIImageView *contactsEditBackImage = [[UIImageView alloc]initWithFrame:CGRectMake(passengerBackImage.frame.origin.x, controlYLength(passengerBackImage), passengerBackImage.frame.size.width, passengerBackImage.frame.size.height * 2)];
-//    [contactsEditBackImage setBackgroundColor:color(clearColor)];
-//    [contactsEditBackImage setImage:stretchImage(@"cname_unfold_box_bg", nil)];
-//    [_unfoldView addSubview:contactsEditBackImage];
+//    [_unfoldView addSubview:[self createLineWithFrame:CGRectMake(_unfoldUserName.frame.origin.x, controlYLength(passengersBtn), _unfoldUserName.frame.size.width, 1)]];
+//    [_unfoldView addSubview:_phoneNum];
 //    
 //    CustomBtn *deleteBtn = [CustomBtn buttonWithType:UIButtonTypeCustom];
 //    [deleteBtn setBackgroundColor:color(clearColor)];
 //    [deleteBtn setTag:303];
-//    [deleteBtn setFrame:CGRectMake(self.contentView.frame.size.width/7, controlYLength(_unfoldView) + contactsEditBackImage.frame.origin.y + contactsEditBackImage.frame.size.height/4, self.contentView.frame.size.width * 2/7, passengerBackImage.frame.size.height)];
+//    [deleteBtn setFrame:CGRectMake(_phoneNum.frame.size.width/6, controlYLength(passengersBtn) + passengersBtn.frame.size.height/2, passengersBtn.frame.size.width,passengersBtn.frame.size.height)];
 //    [deleteBtn setImage:imageNameAndType(@"cname_delete_normal", nil) highlightImage:imageNameAndType(@"cname_delete_press", nil) forState:ButtonImageStateBottom];
-//    [deleteBtn addTarget:self action:@selector(pressBtn:) forControlEvents:UIControlEventTouchUpInside];
 //    [deleteBtn setTitle:@"删除" forState:UIControlStateNormal];
-//    [self.contentView addSubview:deleteBtn];
+//    [_unfoldView addSubview:deleteBtn];
 //    
 //    CustomBtn *saveBtn = [CustomBtn buttonWithType:UIButtonTypeCustom];
 //    [saveBtn setBackgroundColor:color(clearColor)];
 //    [saveBtn setTag:304];
-//    [saveBtn setFrame:CGRectMake(self.contentView.frame.size.width * 4/7, deleteBtn.frame.origin.y, deleteBtn.frame.size.width, deleteBtn.frame.size.height)];
+//    [saveBtn setFrame:CGRectMake(_unfoldView.frame.size.width - controlXLength(deleteBtn), deleteBtn.frame.origin.y, deleteBtn.frame.size.width, deleteBtn.frame.size.height)];
 //    [saveBtn setImage:imageNameAndType(@"cname_save_normal", nil) highlightImage:imageNameAndType(@"cname_save_press", nil) forState:ButtonImageStateBottom];
-//    [saveBtn addTarget:self action:@selector(pressBtn:) forControlEvents:UIControlEventTouchUpInside];
 //    [saveBtn setTitle:@"保存" forState:UIControlStateNormal];
-//    [self.contentView addSubview:saveBtn];
+//    [_unfoldView addSubview:saveBtn];
+//
 //    
-//    [self subviewUnfold:NO];
-    }
+//    [deleteBtn addTarget:self action:@selector(pressBtn:) forControlEvents:UIControlEventTouchUpInside];
+//    [saveBtn   addTarget:self action:@selector(pressBtn:) forControlEvents:UIControlEventTouchUpInside];
+    
+    [_unfoldView setFrame:CGRectMake(_unfoldView.frame.origin.x, _unfoldView.frame.origin.y, _unfoldView.frame.size.width, controlYLength(_phoneNum))];
+    
+    
+    
 }
 
 - (UIImageView *)createLineWithFrame:(CGRect)frame

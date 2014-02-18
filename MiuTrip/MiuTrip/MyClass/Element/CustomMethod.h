@@ -110,3 +110,11 @@ typedef NS_OPTIONS(NSInteger, ButtonImageState){
 
 @end
 
+
+#pragma mark - NSMutableArray custom method
+
+@interface NSMutableArray (NSMutableArrayCustom)
+
+- (void)bringObjectToFront:(id)object;
+
+@end

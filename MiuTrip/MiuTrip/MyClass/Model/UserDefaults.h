@@ -17,6 +17,8 @@
 
 @property (strong, nonatomic) GetLoginUserInfoResponse  *loginInfo;
 
+@property (strong, nonatomic) NSNumber                  *OTAType;                   //int (通过GetNormalFlights返回实体提取)
+
 @property (strong, nonatomic) NSString                  *userName;
 @property (strong, nonatomic) NSString                  *passWord;
 @property (strong, nonatomic) NSString                  *mobile;

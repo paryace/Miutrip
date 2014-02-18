@@ -10,4 +10,26 @@
 
 @implementation GetMailConfigResponse
 
+- (void)getObjects
+{
+    if (![_mList isKindOfClass:[NSArray class]]) {
+        return;
+    }
+    
+    NSMutableArray *mList = [NSMutableArray array];
+    for (NSDictionary *dict in _mList) {
+        TC_APIMImInfo *info = [[TC_APIMImInfo alloc]init];
+        [info parshJsonToResponse:dict];
+        [mList addObject:info];
+    }
+    
+    _mList = mList;
+}
+
+@end
+
+
+@implementation TC_APIMImInfo
+
+
 @end

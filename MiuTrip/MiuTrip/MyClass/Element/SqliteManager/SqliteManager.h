@@ -12,6 +12,8 @@
 
 #define         PATH_DATABASE_SOUCE             [SandboxFile GetPathForResource:@"miutrip.db"]
 
+@class CityDTO;
+
 @interface SqliteManager : NSObject
 
 + (SqliteManager*)shareSqliteManager;
@@ -21,14 +23,18 @@
 
 - (NSArray*)mappingCityInfo;//获取CityDTO列表
 - (NSString*)getCityCNNameWithCityCode:(NSString*)cityCode;
+- (CityDTO*)getCityInfoWithCityName:(NSString*)cityName;
 
 - (NSArray*)mappingAirLineInfo;
 
 - (NSArray*)mappingFlightCitysInfo;
 //
+- (NSArray*)mappingHotCitysInfo;
 
+- (NSArray*)mappingProvinceInfo;
 
 - (NSArray*)mappingNationInfo;//获取国籍列表
 -(NSArray*)mappingHotCityInfo;
 -(NSArray*)mappingWineShopCityInfo;
+
 @end

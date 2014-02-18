@@ -7,6 +7,7 @@
 //
 
 #import "BaseResponseModel.h"
+#import "GetContactResponse.h"
 
 @interface GetLoginUserInfoResponse  : BaseResponseModel
 
@@ -44,5 +45,13 @@
 @property (strong , nonatomic) NSString  *HotelRC;
 @property (strong , nonatomic) NSNumber  *HtlAmountLimtMax;
 
+@property (strong, nonatomic) NSString  *CreateTime;
+@property (strong, nonatomic) NSArray   *IDCardList;            //MemberIDcardResponse
+@property (strong, nonatomic) NSNumber  *OrderRange;            //long
+@property (strong, nonatomic) NSString  *processTime;
+@property (strong, nonatomic) NSString  *process_status;
+
+- (MemberIDcardResponse*)getDefaultIDCard;
+- (void)getObjects;
 
 @end

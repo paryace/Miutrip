@@ -15,6 +15,7 @@
 
 //@property (strong , nonatomic) NSString  *uid;
 
+
 @end
 
 

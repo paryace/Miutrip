@@ -41,7 +41,19 @@
 @property (strong, nonatomic) NSString      *GetHotelPolicyString;  //获取酒店政策字符串
 @property (strong, nonatomic) GetCorpPolicyResponse *Empty;                 //空政策
 
+- (void)getObjects;
 
 @end
 
+
+@interface ReasonCodeDTO : BaseResponseModel
+
+@property (assign, nonatomic) NSNumber      *RID;                    //RC代码     int
+@property (assign, nonatomic) NSNumber      *CorpID;                 //企业ID     int
+@property (strong, nonatomic) NSString      *ReasonCode;            //RC描述
+@property (strong, nonatomic) NSString      *ReasonCodeEn;          //RC描述(英文)
+@property (assign, nonatomic) NSNumber      *RCClass;                //RC状态(1:有效,0:停用)  int
+@property (assign, nonatomic) NSNumber      *RCType;                 //RC类别(1.机票低价RC，2：机票提前RC)      int
+
+@end
 

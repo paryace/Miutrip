@@ -8,6 +8,7 @@
 
 #import "BaseRequestModel.h"
 #import "URLHelper.h"
+#import "GetFlightChangeRuleResponse.h"
 @interface GetFlightChangeRuleRequest : BaseRequestModel
 
 @property(strong, nonatomic) NSString *guid;

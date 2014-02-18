@@ -12,4 +12,6 @@
 
 @property (strong, nonatomic) NSArray       *cantons;       //区域列表	List<CantonDTO>
 
+- (void)getObjects;
+
 @end

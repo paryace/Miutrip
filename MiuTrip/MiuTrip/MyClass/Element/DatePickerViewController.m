@@ -51,8 +51,6 @@
 
 - (void)setSubviewFrame
 {
-    [self.view setHidden:YES];
-    [self.view setFrame:appBounds];
     UIView *backgroundView = [[UIView alloc]initWithFrame:self.view.bounds];
     [backgroundView setBackgroundColor:color(blackColor)];
     [backgroundView setAlpha:0.35];
@@ -82,6 +80,8 @@
     NSLocale *locale = [NSLocale localeWithLocaleIdentifier:@"zh_Hans"];
     [_datePicker setLocale:locale];
     [_pickerView addSubview:_datePicker];
+    
+    [self.view setHidden:YES];
 }
 
 - (void)fire

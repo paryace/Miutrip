@@ -10,6 +10,27 @@
 
 @implementation SubmitFlightOrderRequest
 
+//- (NSString *)description
+//{
+//    return [NSString stringWithFormat:@"%@ %@",_onlineOrder,_Flights];
+//}
+- (BaseRequestModel *)initWidthBusinessType:(BusinessType)bussinessType methodName:(NSString *)methodName
+{
+    if (self = [super init]) {
+        _Flights = [[SearchFlightDTO alloc]init];
+        _DeliveryType = [[DeliveryTypeDTO alloc]init];
+        _Contacts     = [[OnlineContactDTO alloc]init];
+    }
+    return self;
+}
+- (id)init
+{
+    if (self = [super init]) {
+        _Flights = [[SearchFlightDTO alloc]init];
+        _DeliveryType = [[DeliveryTypeDTO alloc]init];
+    }
+    return self;
+}
 
 -(NSString *)getRequestURLString{
     

@@ -9,6 +9,7 @@
 #import "BaseUIViewController.h"
 #import "RegisterAndLogViewController.h"
 #import "AppDelegate.h"
+#import "HomeViewController.h"
 
 @interface BaseUIViewController ()
 
@@ -316,7 +317,6 @@
     }
     return nil;
 }
-
 - (void)pushViewController:(UIViewController*)_viewController transitionType:(TransitionType)_transitionType completionHandler:(void (^) (void))_compleHandler
 {
     if (self.navigationController) {
@@ -357,24 +357,58 @@
 - (void)popViewControllerTransitionType:(TransitionType)_transitionType completionHandler:(void (^) (void))_compleHandler
 {
     if (self.navigationController) {
-        [self.navigationController popViewControllerAnimated:YES];
+        if (_transitionType == TransitionNone) {
+            [self.navigationController popViewControllerAnimated:NO];
+        }else
+            [self.navigationController popViewControllerAnimated:YES];
         //CATransition *transition = [Utils getAnimation:_transitionType subType:DirectionLeft];
         //[self.navigationController.view.layer addAnimation:transition forKey:@"viewtransition"];
-        [self performSelector:@selector(completionHandler:) withObject:_compleHandler afterDelay:transitionDuration];
+        [self performSelector:@selector(completionHandler:) withObject:_compleHandler afterDelay:(_transitionType == TransitionNone)?0:transitionDuration];
     }
 }
 
 - (void)popToMainViewControllerTransitionType:(TransitionType)_transitionType completionHandler:(void (^) (void))_compleHandler
 {
-    if (self.navigationController) {
-        if (![Model shareModel].mainView) {
-            [Model shareModel].mainView = [[RegisterAndLogViewController alloc]init];
-            [self.navigationController pushViewController:[Model shareModel].mainView animated:YES];
+    AppDelegate *appDelegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
+    
+    if ([appDelegate.window.rootViewController isKindOfClass:[UINavigationController class]]) {
+        //        if (![Model shareModel].mainView) {
+        //            [Model shareModel].mainView = [[RegisterAndLogViewController alloc]init];
+        //            if (_transitionType == TransitionNone) {
+        //                [self.navigationController pushViewController:[Model shareModel].mainView animated:NO];
+        //            }else{
+        //                [self.navigationController pushViewController:[Model shareModel].mainView animated:NO];
+        //                CATransition *transition = [Utils getAnimation:_transitionType subType:DirectionLeft];
+        //                [self.navigationController.view.layer addAnimation:transition forKey:@"viewtransition"];
+        //            }
+        //        }else{
+        //            if (_transitionType == TransitionNone) {
+        //                [self.navigationController popToViewController:[Model shareModel].mainView animated:NO];
+        //            }else
+        //                [self.navigationController popToViewController:[Model shareModel].mainView animated:YES];
+        //        }
+        //        [self performSelector:@selector(completionHandler:) withObject:_compleHandler afterDelay:(_transitionType == TransitionNone)?0:transitionDuration];
+        UINavigationController *navigationController = (UINavigationController*)(appDelegate.window.rootViewController);
+        UIViewController *mainViewController = nil;
+        for (UIViewController *viewController in navigationController.viewControllers) {
+            if ([viewController isKindOfClass:[HomeViewController class]]) {
+                mainViewController = viewController;
+                break;
+            }else if ([viewController isKindOfClass:[RegisterAndLogViewController class]]){
+                mainViewController = viewController;
+            }
+        }
+        if (!mainViewController) {
+            mainViewController = [[RegisterAndLogViewController alloc]init];
+            [navigationController setViewControllers:@[mainViewController]];
+        }
+        
+        if (_transitionType == TransitionNone) {
+            [self.navigationController popToViewController:mainViewController animated:NO];
         }else
-            [self.navigationController popToViewController:[Model shareModel].mainView animated:YES];
-        CATransition *transition = [Utils getAnimation:_transitionType subType:DirectionLeft];
-        [self.navigationController.view.layer addAnimation:transition forKey:@"viewtransition"];
-        [self performSelector:@selector(completionHandler:) withObject:_compleHandler afterDelay:transitionDuration];
+            [self.navigationController popToViewController:mainViewController animated:YES];
+        
+        
     }
 }
 
@@ -387,6 +421,7 @@
         [self performSelector:@selector(completionHandler:) withObject:_compleHandler afterDelay:transitionDuration];
     }
 }
+
 
 - (void)completionHandler:(void (^) (void))_compleHandler
 {

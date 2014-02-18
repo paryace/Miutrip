@@ -7,7 +7,7 @@
 //
 
 #import "BaseRequestModel.h"
-#import "BaseResponseModel.h"
+#import "SavePassengerListResponse.h"
 ///////////////////////////////////////////////////////////////////////
 
 @interface SavePassengerListRequest : BaseRequestModel

@@ -8,6 +8,8 @@
 
 #import "BaseRequestModel.h"
 #import "URLHelper.h"
+#import "GetFlightOrderResponse.h"
+
 @interface GetFlightOrderRequest : BaseRequestModel
 
 @property(strong, nonatomic) NSString *OrderID;

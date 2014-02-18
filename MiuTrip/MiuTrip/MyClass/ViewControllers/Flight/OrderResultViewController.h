@@ -7,7 +7,10 @@
 //
 
 #import "BaseUIViewController.h"
+#import "SubmitFlightOrderRequest.h"
 
 @interface OrderResultViewController : BaseUIViewController
+
+- (id)initWithParams:(SubmitFlightOrderResponse*)params;      //list<MsgPayEntity>
 
 @end

@@ -32,6 +32,9 @@
 
 @property (strong, nonatomic) NSArray       *Cantons;               //区域列表	List<CantonDTO>
 
+- (void)getObjects;
+
+
 @end
 
 @interface CantonDTO : BaseResponseModel
@@ -40,7 +43,5 @@
 @property (strong, nonatomic) NSString      *Canton_Name;           //区域名称
 @property (strong, nonatomic) NSNumber      *CityID;                //城市ID	int
 @property (strong, nonatomic) NSString      *Canton_EnName;         //区域英文名称
-
-+ (NSArray*)getCantonsResponseWithData:(NSObject*)jsonData;
 
 @end

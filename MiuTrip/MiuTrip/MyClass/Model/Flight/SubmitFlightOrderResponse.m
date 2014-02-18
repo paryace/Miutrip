@@ -11,4 +11,29 @@
 
 @implementation SubmitFlightOrderResponse
 
+- (void)parshJsonToResponse:(NSObject *)jsonData
+{
+    if (![jsonData isKindOfClass:[NSDictionary class]]) {
+        return;
+    }
+    
+    [super parshJsonToResponse:jsonData];
+    
+    NSDictionary *responseData = (NSDictionary*)jsonData;
+
+    NSMutableArray *OrderList = [NSMutableArray array];
+    for (NSDictionary *dict in [responseData objectForKey:@"OrderList"]) {
+        MsgPayEntity *order = [[MsgPayEntity alloc]init];
+        [order parshJsonToResponse:dict];
+        [OrderList addObject:order];
+    }
+    _OrderList = OrderList;
+}
+
+@end
+
+@implementation MsgPayEntity
+
+
+
 @end

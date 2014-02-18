@@ -8,6 +8,8 @@
 
 #import "BaseRequestModel.h"
 #import "URLHelper.h"
+#import "GetMailConfigResponse.h"
+
 @interface GetMailConfigRequest : BaseRequestModel
 
 @property(strong, nonatomic) NSNumber *oTAType;

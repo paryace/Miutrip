@@ -11,6 +11,8 @@
 #import "HotelSearchView.h"
 #import "HotelDataCache.h"
 #import <CoreLocation/CoreLocation.h>
+#import "SelectPassengerViewController.h"
+#import "TakeOffTimePickerViewController.h"
 
 typedef NS_ENUM(NSInteger, popupListType)
 {
@@ -41,7 +43,7 @@ typedef NS_ENUM(NSInteger, popupListType)
 @end
 
 @interface HomeViewController : BaseUIViewController<HomeCustomBtnDelegate,UIPopoverListViewDataSource,
-                             UIPopoverListViewDelegate,CLLocationManagerDelegate,CityPickerDelegate,DatePickerDelegate>
+                             UIPopoverListViewDelegate,CLLocationManagerDelegate,CityPickerDelegate,DatePickerDelegate,SelectPassengerDelegate,TakeOffTimePickerDelegate>
 
 @property (strong, nonatomic) UILabel                   *userName;
 @property (strong, nonatomic) UILabel                   *position;
@@ -89,6 +91,7 @@ typedef NS_ENUM(NSInteger, popupListType)
 @property (strong, nonatomic) NSString      *year;
 @property (strong, nonatomic) NSString      *monthAndDay;
 @property (strong, nonatomic) NSString      *leftPlaceholder;
+@property (strong, nonatomic, readonly) NSString      *date;
 
 //setText       text need format @"yyyy-MM-dd"
 

@@ -7,6 +7,7 @@
 //
 
 #import "OrderResultViewController.h"
+#import "SubmitFlightOrderResponse.h"
 
 @interface OrderResultViewController ()
 
@@ -14,6 +15,8 @@
 @property (strong, nonatomic) UILabel           *orderPromptLb;
 @property (strong, nonatomic) UILabel           *orderNumLb;
 @property (strong, nonatomic) UILabel           *priceLb;
+
+@property (strong, nonatomic) SubmitFlightOrderResponse *response;
 
 @end
 
@@ -36,6 +39,21 @@
     return self;
 }
 
+- (id)initWithParams:(SubmitFlightOrderResponse *)params
+{
+    self = [super init];
+    if (self) {
+        _response = params;
+        [self setSubviewFrame];
+    }
+    return self;
+}
+
+- (void)pressReturnBtn:(UIButton*)sender
+{
+    [self popToMainViewControllerTransitionType:TransitionPush completionHandler:nil];
+}
+
 #pragma mark - view init
 - (void)setSubviewFrame
 {
@@ -47,7 +65,8 @@
     [returnBtn setBackgroundColor:color(clearColor)];
     [returnBtn setImage:imageNameAndType(@"return", nil) forState:UIControlStateNormal];
     [returnBtn setFrame:CGRectMake(0, 0, self.topBar.frame.size.height, self.topBar.frame.size.height)];
-    [self setReturnButton:returnBtn];
+//    [self setReturnButton:returnBtn];
+    [returnBtn addTarget:self action:@selector(pressReturnBtn:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:returnBtn];
     
     [self setSubjoinViewFrame];
@@ -62,26 +81,46 @@
     _orderPromptLb = [[UILabel alloc]initWithFrame:CGRectMake(controlXLength(_orderStatusIv), _orderStatusIv.frame.origin.y, self.contentView.frame.size.width - controlXLength(_orderStatusIv) - _orderStatusIv.frame.origin.x, _orderStatusIv.frame.size.height)];
     [_orderPromptLb setFont:[UIFont systemFontOfSize:13]];
     [_orderPromptLb setAutoBreakLine:YES];
-    [_orderPromptLb setText:@"来了来了商量商量商量商量商量商量商量商量商量商量商量商量商量商量商量商量商量商量商量商量商量商量商量说"];
+    [_orderPromptLb setText:@"订单已提交,我们将尽快通过您选择的方式来确认您的订单."];
     [_orderPromptLb setAutoSize:YES];
     [self.contentView addSubview:_orderPromptLb];
     
-    UILabel *orderNumLeft = [[UILabel alloc]initWithFrame:CGRectMake(_orderPromptLb.frame.origin.x, controlYLength(_orderPromptLb), 80, 35)];
-    [orderNumLeft setText:@"订单号:"];
-    [orderNumLeft setTextAlignment:NSTextAlignmentRight];
-    [self.contentView addSubview:orderNumLeft];
-    _orderNumLb = [[UILabel alloc]initWithFrame:CGRectMake(controlXLength(orderNumLeft) + 10, orderNumLeft.frame.origin.y,  _orderPromptLb.frame.size.width - controlXLength(orderNumLeft) - 10, orderNumLeft.frame.size.height)];
-    [_orderNumLb setText:@"123456"];
-    [self.contentView addSubview:_orderNumLb];
-    
-    UILabel *priceLeft = [[UILabel alloc]initWithFrame:CGRectMake(orderNumLeft.frame.origin.x, controlYLength(orderNumLeft), orderNumLeft.frame.size.width, orderNumLeft.frame.size.height)];
-    [priceLeft setText:@"金额:"];
-    [priceLeft setTextAlignment:NSTextAlignmentRight];
-    [self.contentView addSubview:priceLeft];
-    _priceLb = [[UILabel alloc]initWithFrame:CGRectMake(_orderNumLb.frame.origin.x, controlYLength(_orderNumLb), _orderNumLb.frame.size.width, _orderNumLb.frame.size.height)];
-    [_priceLb setText:@"¥1020"];
-    [_priceLb setTextColor:color(colorWithRed:245.0/255.0 green:117.0/255.0 blue:36.0/255.0 alpha:1)];
-    [self.contentView addSubview:_priceLb];
+    NSArray *MsgPayEntitys = _response.OrderList;
+    CGFloat orderItemCellHeight = 30.0f * 2;
+    for (int i = 0; i<[MsgPayEntitys count]; i++) {
+        if (i == 0) {
+            [self.contentView createLineWithParam:color(lightGrayColor) frame:CGRectMake(_orderPromptLb.frame.origin.x, controlYLength(_orderPromptLb), _orderPromptLb.frame.size.width, 0.5)];
+        }
+        MsgPayEntity *entity = [MsgPayEntitys objectAtIndex:i];
+        UILabel *orderNumLeft = [[UILabel alloc]initWithFrame:CGRectMake(_orderPromptLb.frame.origin.x, controlYLength(_orderPromptLb) + orderItemCellHeight * i, 70, 30)];
+        [orderNumLeft setText:@"订单号:"];
+//        [orderNumLeft setBackgroundColor:color(redColor)];
+        [orderNumLeft setAutoSize:YES];
+        [orderNumLeft setFont:_orderPromptLb.font];
+//        [orderNumLeft setTextAlignment:NSTextAlignmentLeft];
+        [self.contentView addSubview:orderNumLeft];
+        _orderNumLb = [[UILabel alloc]initWithFrame:CGRectMake(controlXLength(orderNumLeft) + 10, orderNumLeft.frame.origin.y,  _orderPromptLb.frame.size.width - orderNumLeft.frame.size.width - 10, orderNumLeft.frame.size.height)];
+        [_orderNumLb setText:[NSString stringWithFormat:@"%@",entity.OrderId]];
+        [_orderNumLb setAutoSize:YES];
+//        [_orderNumLb setBackgroundColor:color(greenColor)];
+        [self.contentView addSubview:_orderNumLb];
+        
+        UILabel *orderDesc = [[UILabel alloc]initWithFrame:CGRectMake(orderNumLeft.frame.origin.x, controlYLength(orderNumLeft), orderNumLeft.frame.size.width, orderNumLeft.frame.size.height)];
+        [orderDesc setText:entity.FlightDesc];
+        [orderDesc setFont:_orderPromptLb.font];
+        [orderDesc setAutoSize:YES];
+//        [orderDesc setTextAlignment:NSTextAlignmentRight];
+        [self.contentView addSubview:orderDesc];
+
+        _priceLb = [[UILabel alloc]initWithFrame:CGRectMake(_orderNumLb.frame.origin.x, controlYLength(_orderNumLb), _orderNumLb.frame.size.width, _orderNumLb.frame.size.height)];
+        [_priceLb setText:[NSString stringWithFormat:@"金额:%@",entity.Amount]];
+        [_priceLb setFont:_orderPromptLb.font];
+        [_priceLb setAutoSize:YES];
+        [_priceLb setTextColor:color(colorWithRed:245.0/255.0 green:117.0/255.0 blue:36.0/255.0 alpha:1)];
+        [self.contentView addSubview:_priceLb];
+        
+        [self.contentView createLineWithParam:color(lightGrayColor) frame:CGRectMake(_orderPromptLb.frame.origin.x, orderItemCellHeight * i, _orderPromptLb.frame.size.width, 0.5)];
+    }
     
     UIButton *orderDetailBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [orderDetailBtn setBackgroundImage:imageNameAndType(@"button_style1", nil) forState:UIControlStateNormal];
@@ -110,7 +149,6 @@
     [continuePayBtn setTitleColor:color(colorWithRed:50.0/255.0 green:120.0/255.0 blue:160.0/255.0 alpha:1) forState:UIControlStateHighlighted];
     [self.contentView addSubview:continuePayBtn];
 }
-
 
 - (void)viewDidLoad
 {

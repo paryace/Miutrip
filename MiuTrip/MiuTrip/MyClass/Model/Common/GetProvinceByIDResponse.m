@@ -14,50 +14,24 @@
 
 @implementation CityDTO
 
-- (void)parshJsonToResponse:(NSObject *)jsonData
+- (void)getObjects
 {
-    if (jsonData == NULL) {
+    if (![_Cantons isKindOfClass:[NSArray class]]) {
         return;
     }
-    NSDictionary *dictData = nil;
-    if ([jsonData isKindOfClass:[NSDictionary class]]) {
-        dictData = (NSDictionary*)jsonData;
-    }else{
-        return;
+    NSMutableArray *Canton = [NSMutableArray array];
+    for ( NSDictionary *dic in _Cantons) {
+        CantonDTO *canton = [[CantonDTO alloc]init];
+        [canton parshJsonToResponse:dic];
+        [Canton addObject:canton];
     }
-    _CityID = [dictData objectForKey:@"CityID"];
-    _CityCode = [Utils NULLToEmpty:[dictData objectForKey:@"CityCode"]];
-    _CityName = [Utils NULLToEmpty:[dictData objectForKey:@"CityName"]];
-    _CityNameEn = [Utils NULLToEmpty:[dictData objectForKey:@"CityNameEn"]];
-    _ProvinceID = [dictData objectForKey:@"ProvinceID"];
-    _BriefCode = [dictData objectForKey:@"BriefCode"];
-    _AirportCode = [Utils NULLToEmpty:[dictData objectForKey:@"AirportCode"]];
-    _Cantons = [CantonDTO getCantonsResponseWithData:[dictData objectForKey:@"Cantons"]];
+    
+    _Cantons = Canton;
 }
 
 @end
 
 @implementation CantonDTO
 
-+ (NSArray *)getCantonsResponseWithData:(NSObject *)cantonData
-{
-    if (cantonData == NULL) {
-        return nil;
-    }
-    
-    NSArray *cantonResponse = nil;
-    if ([cantonData isKindOfClass:[NSArray class]]) {
-        cantonResponse = (NSArray*)cantonData;
-    }else{
-        return nil;
-    }
-    NSMutableArray *responseData = [NSMutableArray array];
-    for (NSDictionary *dict in cantonResponse) {
-        CantonDTO *canton = [[CantonDTO alloc]init];
-        [canton parshJsonToResponse:dict];
-        [responseData addObject:canton];
-    }
-    return responseData;
-}
 
 @end

@@ -11,6 +11,8 @@
 
 @interface GetCitysByProvinceIDResponse : BaseResponseModel
 
-@property (strong, nonatomic) NSArray       *cities;          //城市列表	List<CityDTO>
+@property (strong, nonatomic) NSArray       *citys;          //城市列表	List<CityDTO>
+
+- (void)getObjects;
 
 @end

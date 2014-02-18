@@ -14,6 +14,8 @@
 #import "Nation.h"
 #import "HotCityData.h"
 #import "SelectShopCityData.h"
+#import "DBProvince.h"
+
 static  SqliteManager   *shareSqliteManager;
 
 @interface SqliteManager ()
@@ -100,6 +102,21 @@ static  SqliteManager   *shareSqliteManager;
     return cityCNName;
 }
 
+
+- (CityDTO*)getCityInfoWithCityName:(NSString*)cityName
+{
+    CityDTO *cityInfo = nil;
+    for (CityDTO *city in [self mappingCityInfo]) {
+        if ([city.CityName isEqualToString:cityName]) {
+            cityInfo = city;
+            break;
+        }
+    }
+    
+    return cityInfo;
+}
+
+
 - (NSArray*)mappingAirLineInfo
 {
     NSMutableArray *array = [NSMutableArray array];
@@ -140,13 +157,29 @@ static  SqliteManager   *shareSqliteManager;
         while ([resultSet next]) {
             DBHotCitys *hotCity = [[DBHotCitys alloc]init];
             hotCity.en_name = [resultSet stringForColumn:@"englishcity_name"];
-            hotCity.cn_name = [resultSet stringForColumn:@"name"];
-            hotCity.nameCode = [resultSet stringForColumn:@"number_name"];
+            hotCity.cn_name = [resultSet stringForColumn:@"city_name"];
+            hotCity.nameCode = [resultSet stringForColumn:@"addre_name"];
             [array addObject:hotCity];
         }
     }
     return array;
 }
+
+- (NSArray*)mappingProvinceInfo
+{
+    NSMutableArray *array = [NSMutableArray array];
+    if ([self openDatabase]) {
+        FMResultSet *resultSet = [_database executeQuery:@"SELECT * FROM province"];
+        while ([resultSet next]) {
+            DBProvince *province = [[DBProvince alloc]init];
+            province.ProvinceID = [resultSet stringForColumn:@"id"];
+            province.ProvinceName = [resultSet stringForColumn:@"name"];
+            [array addObject:province];
+        }
+    }
+    return array;
+}
+
 - (NSArray*)mappingNationInfo{
     NSMutableArray *array = [NSMutableArray array];
     if ([self openDatabase]) {

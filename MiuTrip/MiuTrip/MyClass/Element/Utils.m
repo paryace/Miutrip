@@ -27,6 +27,13 @@
     }return NO;
 }
 
++(BOOL)isEmpty:(id)value
+{
+    if ([value isKindOfClass:[NSNull class]] || value == nil) {
+        return YES;
+    }return NO;
+}
+
 +(NSString *)stringWithDate:(NSDate*)date withFormat:(NSString*)format
 {
     NSDateFormatter *dateFormate = [[NSDateFormatter alloc]init];
@@ -90,76 +97,103 @@
     return [phoneNumTest evaluateWithObject:idNum];
 }
 
-+(CATransition *)getAnimation:(TransitionType)mytag subType:(Direction)subTag{
-    CATransition *animation = [CATransition animation];
-    animation.delegate = self;
-    animation.duration = transitionDuration;
-    animation.timingFunction = UIViewAnimationCurveEaseInOut;
-    
-    switch (mytag) {
-        case TransitionFade:
-            animation.type = kCATransitionFade;
-            break;
-        case TransitionPush:
-            animation.type = kCATransitionPush;
-            break;
-        case TransitionReveal:
-            animation.type = kCATransitionReveal;
-            break;
-        case TransitionMoveIn:
-            animation.type = kCATransitionMoveIn;
-            break;
-        case TransitionCube:
-            animation.type = @"cube";
-            break;
-        case TransitionSuckEffect:
-            animation.type = @"suckEffect";
-            break;
-        case TransitionOglFlip:
-            animation.type = @"oglFlip";
-            break;
-        case TransitionRippleEffect:
-            animation.type = @"rippleEffect";
-            break;
-        case TransitionPageCurl:
-            animation.type = @"pageCurl";
-            break;
-        case TransitionPageUnCurl:
-            animation.type = @"pageUnCurl";
-            break;
-        case TransitionCameraIrisHollowOpen:
-            animation.type = @"cameraIrisHollowOpen";
-            break;
-        case TransitionCameraIrisHollowClose:
-            animation.type = @"cameraIrisHollowClose";
-            break;
-        default:
-            
-            break;
+
++(BOOL)string:(NSString*)string isEqualToString:(NSString*)goalString
+{
+    BOOL equal = NO;
+    if ([[string uppercaseString] isEqualToString:[goalString uppercaseString]]) {
+        equal = YES;
     }
-    
-    
-    int i = subTag;
-    switch (i) {
-            
-        case DirectionLeft: 
-            animation.subtype = kCATransitionFromLeft; 
-            break; 
-        case DirectionBottom:
-            animation.subtype = kCATransitionFromBottom; 
-            break; 
-        case DirectionRight:
-            animation.subtype = kCATransitionFromRight; 
-            break; 
-        case DirectionTop:
-            animation.subtype = kCATransitionFromTop; 
-            break; 
-        default: 
-            
-            break; 
-    } 
-    return animation; 
-} 
+    return equal;
+}
+
++(BOOL)string:(NSString*)string containsString:(NSString*)substring
+{
+    BOOL contain = NO;
+    NSLog(@"string = %@",string);
+    if ([[string uppercaseString] rangeOfString:[substring uppercaseString]].length > 0) {
+        contain = YES;
+    }
+    NSLog(@"bool = %d",contain);
+    return contain;
+}
+
+
++(CATransition *)getAnimation:(TransitionType)mytag subType:(Direction)subTag{
+    if (mytag != TransitionNone) {
+        CATransition *animation = [CATransition animation];
+        animation.delegate = self;
+        animation.duration = transitionDuration;
+        animation.timingFunction = UIViewAnimationCurveEaseInOut;
+        
+        switch (mytag) {
+            case TransitionFade:
+                animation.type = kCATransitionFade;
+                break;
+            case TransitionPush:
+                animation.type = kCATransitionPush;
+                break;
+            case TransitionReveal:
+                animation.type = kCATransitionReveal;
+                break;
+            case TransitionMoveIn:
+                animation.type = kCATransitionMoveIn;
+                break;
+            case TransitionCube:
+                animation.type = @"cube";
+                break;
+            case TransitionSuckEffect:
+                animation.type = @"suckEffect";
+                break;
+            case TransitionOglFlip:
+                animation.type = @"oglFlip";
+                break;
+            case TransitionRippleEffect:
+                animation.type = @"rippleEffect";
+                break;
+            case TransitionPageCurl:
+                animation.type = @"pageCurl";
+                break;
+            case TransitionPageUnCurl:
+                animation.type = @"pageUnCurl";
+                break;
+            case TransitionCameraIrisHollowOpen:
+                animation.type = @"cameraIrisHollowOpen";
+                break;
+            case TransitionCameraIrisHollowClose:
+                animation.type = @"cameraIrisHollowClose";
+                break;
+            default:
+                
+                break;
+        }
+        
+        
+        int i = subTag;
+        switch (i) {
+                
+            case DirectionLeft:
+                animation.subtype = kCATransitionFromLeft;
+                break;
+            case DirectionBottom:
+                animation.subtype = kCATransitionFromBottom;
+                break;
+            case DirectionRight:
+                animation.subtype = kCATransitionFromRight;
+                break;
+            case DirectionTop:
+                animation.subtype = kCATransitionFromTop;
+                break;
+            default:
+                
+                break;
+        }
+        return animation;
+    }else{
+        return nil;
+    }
+}
+
 //中文和小写字母
 +(BOOL)isCina:(NSString*)value{
     

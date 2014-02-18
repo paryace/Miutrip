@@ -8,6 +8,7 @@
 
 #import "BaseRequestModel.h"
 #import "URLHelper.h"
+#import "GetInsuranceConfigResponse.h"
 @interface GetInsuranceConfigRequest : BaseRequestModel
 
 @property(strong,nonatomic) NSNumber *oTAType;

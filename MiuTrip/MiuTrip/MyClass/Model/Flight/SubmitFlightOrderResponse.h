@@ -11,12 +11,12 @@
 @interface SubmitFlightOrderResponse : BaseResponseModel
 
 @property(strong, nonatomic) NSString *ReturnID;
-@property(strong, nonatomic) NSNumber *IsSuccess;
+@property(strong, nonatomic) NSNumber *IsSuccess;           //BOOL
 @property(strong, nonatomic) NSString *ErrorMsg;
-@property(assign, nonatomic) NSDecimal Amount;
+@property(assign, nonatomic) NSNumber *Amount;              //float
 @property(strong, nonatomic) NSString *PaySerialId;
-@property(strong, nonatomic) NSNumber *OTAType;
-@property(strong, nonatomic)NSDictionary *OrderList;
+@property(strong, nonatomic) NSNumber *OTAType;             //int
+@property(strong, nonatomic) NSArray  *OrderList;           //list<MsgPayEntity>
 @end
 
 @interface  MsgPayEntity : BaseResponseModel

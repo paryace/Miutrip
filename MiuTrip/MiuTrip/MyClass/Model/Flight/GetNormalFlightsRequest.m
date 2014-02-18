@@ -14,7 +14,7 @@
 {
     self = [super init];
     if (self) {
-        _FlightSource = @"Mango";
+//        _FlightSource = @"Mango";
     }
     return self;
 }
@@ -26,7 +26,7 @@
         _FlightSource = @"TongCheng";
         _FlightWay    = @"S";
         _PassengerType = @"ADU";
-        _SendTicketCity = @"";
+//        _SendTicketCity = @"";
     }
     return self;
 }
