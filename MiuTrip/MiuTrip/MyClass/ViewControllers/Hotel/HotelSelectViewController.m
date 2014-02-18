@@ -198,31 +198,19 @@
     }
     switch ( segmentControl.selectedSegmentIndex) {
         case 0:{
-            if ([_allDataSource count] == 0) {
-                [self sendAllRequest];
-            }else{
-                _dataSource = _allDataSource;
-                [self tableViewReloadData:_thetableView];
-            }
+            [self sendAllRequest];
+            [self tableViewReloadData:_thetableView];
             break;
         }
         case 1:{
-            if ([_usDataSource count] == 0) {
-                [self sendAllRequest];
-            }else{
-                _dataSource = _usDataSource;
-                [self tableViewReloadData:_thetableView];
-            }
+            [self sendAllRequest];
+            [self tableViewReloadData:_thetableView];
             break;
         }
         case 2:{
-            if ([_commonNameDataSource count] == 0) {
-                [self sendCommonRequest];
-            }else{
-                _dataSource = _commonNameDataSource;
-                [self tableViewReloadData:_thetableView];
-                
-            }
+            [self sendCommonRequest];
+            [self tableViewReloadData:_thetableView];
+            
             break;
         }
         default:
@@ -243,8 +231,6 @@
     NSLog(@"ssssss");
     if ([response isKindOfClass:[GetCorpStaffResponse class]]) {
         GetCorpStaffResponse *data =  (GetCorpStaffResponse*)response;
-        _allDataSource =data.customers;
-        _usDataSource = data.customers;
         _dataSource = data.customers;
         for (NSDictionary *dic in _dataSource) {
             [dic setValue:[NSNumber numberWithBool:NO] forKey:@"selected"];
@@ -253,7 +239,7 @@
             [dic setValue:[NSNumber numberWithBool:NO] forKey:@"show"];
         }
         
-        for (NSDictionary *dic in _allDataSource) {
+        for (NSDictionary *dic in _dataSource) {
             for (NSDictionary *subDic in _array) {
                 if ([[dic objectForKey:@"UniqueID"]isEqualToString:[subDic objectForKey:@"UniqueID"]]) {
                     [dic setValue:[NSNumber numberWithBool:[[subDic objectForKey:@"selected"]boolValue]] forKey:@"selected"];
@@ -268,7 +254,6 @@
     }
     if ([response isKindOfClass:[GetContactResponse class]]) {
         GetContactResponse *data = (GetContactResponse*)response;
-        _commonNameDataSource = data.result;
         _dataSource = data.result;
         for (NSDictionary *dic in _dataSource) {
             [dic setValue:[NSNumber numberWithBool:NO] forKey:@"selected"];
@@ -277,7 +262,7 @@
             [dic setValue:[NSNumber numberWithBool:NO] forKey:@"show"];
         }
         
-        for (NSDictionary *dic in _commonNameDataSource) {
+        for (NSDictionary *dic in _dataSource) {
             for (NSDictionary *subDic in _array) {
                 if ([[dic objectForKey:@"UniqueID"]isEqualToString:[subDic objectForKey:@"UniqueID"]]) {
                     [dic setValue:[NSNumber numberWithBool:[[subDic objectForKey:@"selected"]boolValue]] forKey:@"selected"];
@@ -325,7 +310,6 @@
         [self.view addSubview:_thetableView];
         
     }
-    //    [_thetableView reloadData];
     [self tableViewReloadData:_thetableView];
 }
 

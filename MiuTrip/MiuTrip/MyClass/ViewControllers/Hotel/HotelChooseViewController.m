@@ -304,10 +304,9 @@
     
 }
 - (void)saveLiveInfo:(NSDictionary *)dic{
-    [_hotelSelect.allDataSource arrayByAddingObject:dic];
     [_hotelSelect.array addObject:dic];
     [self setSubjoinViewFrame];
-    NSLog(@"cccccccccccc%@",_hotelSelect.allDataSource);
+    NSLog(@"cccccccccccc%@",_hotelSelect.array);
 }
 - (void)viewDidLoad
 {
