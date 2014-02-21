@@ -89,18 +89,14 @@
 #pragma mark - save order
 - (void)saveOrder
 {
-//    if ([self getOrderContent]) {
-//        BaseRequestModel *request = _request;
-////        _request.Flights.FirstRoute.Flight.Price = 
-//        [self.requestManager sendRequest:request];
-//    }else{
-//        [[Model shareModel] showPromptText:@"请选择乘车人" model:YES];
-//    }
-//
-    [self popToMainViewControllerTransitionType:TransitionNone completionHandler:^{
-        NSLog(@"pop to main");
-        [[Model shareModel] orderSuccess];
-    }];
+    if ([self getOrderContent]) {
+        BaseRequestModel *request = _request;
+//        _request.Flights.FirstRoute.Flight.Price = 
+        [self.requestManager sendRequest:request];
+    }else{
+        [[Model shareModel] showPromptText:@"请选择乘车人" model:YES];
+    }
+
 }
 
 - (void)saveOrderDone:(SubmitFlightOrderResponse*)response

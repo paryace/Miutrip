@@ -65,7 +65,8 @@
 
 - (void)UPPayPluginResult:(NSString*)result
 {
-    [self popToMainViewControllerTransitionType:TransitionPush completionHandler:^{
+    [self popToMainViewControllerTransitionType:TransitionNone completionHandler:^{
+        NSLog(@"pop to main");
         [[Model shareModel] orderSuccess];
     }];
 }
