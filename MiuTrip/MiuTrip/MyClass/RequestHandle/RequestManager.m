@@ -134,6 +134,12 @@
     
 }
 
+- (void)requestFailed:(ASIHTTPRequest *)request
+{
+    [[Model shareModel] showPromptText:@"请求失败!" model:YES];
+    [[Model shareModel] setUserInteractionEnabled:YES];
+}
+
 - (void)failWithError:(NSError *)theError{
     
     [_delegate requestFailedWithErrorCode:[NSNumber numberWithInteger:theError.code] withErrorMsg:theError.localizedDescription];

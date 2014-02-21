@@ -54,6 +54,22 @@
     [self popToMainViewControllerTransitionType:TransitionPush completionHandler:nil];
 }
 
+#pragma mark - UPPay
+- (void)UPPay
+{
+//    [UPPayPlugin startPay:_response.PaySerialId sysProvide:nil spId:nil mode:@"00" viewController:self delegate:self];
+    [self popToMainViewControllerTransitionType:TransitionPush completionHandler:^{
+        [[Model shareModel] orderSuccess];
+    }];
+}
+
+- (void)UPPayPluginResult:(NSString*)result
+{
+    [self popToMainViewControllerTransitionType:TransitionPush completionHandler:^{
+        [[Model shareModel] orderSuccess];
+    }];
+}
+
 #pragma mark - view init
 - (void)setSubviewFrame
 {
@@ -75,7 +91,7 @@
 - (void)setSubjoinViewFrame
 {
     _orderStatusIv = [[UIImageView alloc]initWithFrame:CGRectMake(20, controlYLength(self.topBar) + 20, 45, 45)];
-    [_orderStatusIv setImage:imageNameAndType(@"icon_win", nil)];
+    [_orderStatusIv setImage:imageNameAndType(@"icon_finish", nil)];
     [self.contentView addSubview:_orderStatusIv];
     
     _orderPromptLb = [[UILabel alloc]initWithFrame:CGRectMake(controlXLength(_orderStatusIv), _orderStatusIv.frame.origin.y, self.contentView.frame.size.width - controlXLength(_orderStatusIv) - _orderStatusIv.frame.origin.x, _orderStatusIv.frame.size.height)];
@@ -147,6 +163,7 @@
     [continuePayBtn.titleLabel setFont:[UIFont systemFontOfSize:13]];
     [continuePayBtn setTitle:@"继续支付" forState:UIControlStateNormal];
     [continuePayBtn setTitleColor:color(colorWithRed:50.0/255.0 green:120.0/255.0 blue:160.0/255.0 alpha:1) forState:UIControlStateHighlighted];
+    [continuePayBtn addTarget:self action:@selector(UPPay) forControlEvents:UIControlEventTouchUpInside];
     [self.contentView addSubview:continuePayBtn];
 }
 

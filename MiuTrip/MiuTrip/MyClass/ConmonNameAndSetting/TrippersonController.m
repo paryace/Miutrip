@@ -862,27 +862,27 @@
     NSLog(@"发送常用出行人请求");
     SavePassengerListRequest *request = [[SavePassengerListRequest alloc]initWidthBusinessType:BUSINESS_ACCOUNT methodName:@"SavePassengerList"];
     request.Passengers =[NSArray array];
-    request.PassengerID =[NSNumber numberWithInt:0];
-    
-    request.CorpUID = @"";
-    request.IsEmoloyee =[NSNumber numberWithInt:0];
-    request.IsServer = [NSNumber numberWithInt:0];
-    request.UserName=fieldName.text;
-    request.LastName =fieldLastName.text;
-    request.FirstName =fieldFirstName.text;
-    request.MiddleName =fieldMiddlerName.text;
-    request.Email =fieldEmail.text;
-    request.Country =nationlityLabel.text;
-    request.Birthday =@"";
-    request.IDCardlist = NULL;
-    request.UID =@"";
-    request.CardType =(NSNumber*)labelcertificateType.text;
-    request.CardNumber =fieldCertificateNumber.text;
-    request.IsDefault = @"";
-    request.Telephone =fieldPhone.text;
-    request.Fax = [NSNumber numberWithInt:0];
-    request.ContactConfirmType=@"";
-    request.Type =[NSNumber numberWithInt:0];
+//    request.PassengerID =[NSNumber numberWithInt:0];
+//    
+//    request.CorpUID = @"";
+//    request.IsEmoloyee =[NSNumber numberWithInt:0];
+//    request.IsServer = [NSNumber numberWithInt:0];
+//    request.UserName=fieldName.text;
+//    request.LastName =fieldLastName.text;
+//    request.FirstName =fieldFirstName.text;
+//    request.MiddleName =fieldMiddlerName.text;
+//    request.Email =fieldEmail.text;
+//    request.Country =nationlityLabel.text;
+//    request.Birthday =@"";
+//    request.IDCardlist = NULL;
+//    request.UID =@"";
+//    request.CardType =(NSNumber*)labelcertificateType.text;
+//    request.CardNumber =fieldCertificateNumber.text;
+//    request.IsDefault = @"";
+//    request.Telephone =fieldPhone.text;
+//    request.Fax = [NSNumber numberWithInt:0];
+//    request.ContactConfirmType=@"";
+//    request.Type =[NSNumber numberWithInt:0];
     
     
     [self.requestManager sendRequest:request];

@@ -41,6 +41,9 @@
 @property (strong, nonatomic) NSString      *GetHotelPolicyString;  //获取酒店政策字符串
 @property (strong, nonatomic) GetCorpPolicyResponse *Empty;                 //空政策
 
+@property (strong, nonatomic) NSString      *IsFltDiscountRC;       //需要折扣限制
+@property (strong, nonatomic) NSString      *FltDiscountRC;         //折扣比率
+
 - (void)getObjects;
 
 @end
