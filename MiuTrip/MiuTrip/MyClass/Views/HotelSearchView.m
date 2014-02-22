@@ -8,7 +8,6 @@
 
 #import "HotelSearchView.h"
 #import "HotelListViewController.h"
-#import "HotelChooseViewController.h"
 #import "HomeViewController.h"
 @implementation HotelSearchView
 

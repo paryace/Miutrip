@@ -26,6 +26,8 @@
 
 @property (assign, nonatomic) id<SelectPassengerDelegate> delegate;
 
+-(id)initWithBusinessType:(int)type;
+
 @end
 
 @interface SelectProlicyViewController : BaseUIViewController<UITableViewDataSource,UITableViewDelegate>

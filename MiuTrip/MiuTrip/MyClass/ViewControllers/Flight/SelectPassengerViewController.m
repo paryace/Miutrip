@@ -32,14 +32,15 @@
     return self;
 }
 
-- (id)init
+-(id)initWithBusinessType:(int)type
 {
     self = [super init];
     if (self) {
-        [self setSubviewFrame];
+        [self setSubviewFrameWithType:type];
     }
     return self;
 }
+
 
 - (void)pressNextStepBtn:(UIButton*)sender
 {
@@ -367,10 +368,14 @@
 }
 
 #pragma mark - view init
-- (void)setSubviewFrame
+- (void)setSubviewFrameWithType:(int) type
 {
     [self setBackGroundImage:imageNameAndType(@"home_bg", nil)];
-    [self setTitle:@"选择乘客"];
+    if(type == 0){
+        [self setTitle:@"选择乘客"];
+    }else{
+        [self setTitle:@"选择入住人"];
+    }
     [self setTopBarBackGroundImage:imageNameAndType(@"topbar", nil)];
     
     UIButton *returnBtn = [UIButton buttonWithType:UIButtonTypeCustom];

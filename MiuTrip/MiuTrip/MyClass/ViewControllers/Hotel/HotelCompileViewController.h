@@ -7,7 +7,6 @@
 //
 
 #import "BaseUIViewController.h"
-#import "HotelChooseViewController.h"
 
 @protocol CostCenterDelegate <NSObject>
 @optional

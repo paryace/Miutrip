@@ -24,10 +24,8 @@
 #import "DateSelectViewController.h"
 #import "LogoutRequest.h"
 #import "GetNormalFlightsRequest.h"
-#import "HotelChooseViewController.h"
 #import "LittleMiuViewController.h"
 #import "SelectPassengerViewController.h"
-#import "HotelChooseViewController.h"
 #import "GetBizSummary_AtMiutripRequest.h"
 #import "GetBizSummary_AtMiutripResponse.h"
 #import "HotelCityListViewController.h"
@@ -252,7 +250,7 @@
 #pragma mark - view page change handle
 - (void)pressSubitem:(UIButton*)sender
 {
-    NSLog(@"------viewController pressSubitem--------->");
+    
 }
 
 - (void)pressSegment:(UISegmentedControl*)segmentedControl
@@ -541,8 +539,9 @@
             break;
         case 550:
             if ([_customBtn.queryTypeBtn.selectBtn.titleLabel.text isEqualToString:@"为他人/多人"]){
-                HotelChooseViewController * hotelChooseView = [[HotelChooseViewController alloc]init];
-                [self pushViewController:hotelChooseView transitionType:TransitionPush completionHandler:nil];
+                SelectPassengerViewController *passengerSelectView = [[SelectPassengerViewController alloc]initWithBusinessType:1];
+                [passengerSelectView setDelegate:self];
+                [self pushViewController:passengerSelectView transitionType:TransitionPush completionHandler:nil];
             }else{
                 [self gotoHotelList];}
             break;
@@ -1069,7 +1068,7 @@
         case 750:{
             if ([self checkOrderDetailComplete]) {
                 if ([customBtn.queryTypeTitle isEqualToString:@"为他人/多人"]) {
-                    SelectPassengerViewController *passengerSelectView = [[SelectPassengerViewController alloc]init];
+                    SelectPassengerViewController *passengerSelectView = [[SelectPassengerViewController alloc]initWithBusinessType:0];
                     [passengerSelectView setDelegate:self];
                     [self pushViewController:passengerSelectView transitionType:TransitionPush completionHandler:nil];
                 }else{
