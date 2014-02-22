@@ -20,7 +20,7 @@
 
 @property (assign, nonatomic) BOOL          saveToCommonName;
 
-@property (strong, nonatomic) BookPassengersResponse *passengerInfo;
+@property (strong, nonatomic) SavePassengerResponse *passengerInfo;
 
 @property (assign, nonatomic) PassengerInitType initType;
 
@@ -45,10 +45,10 @@
     return self;
 }
 
-- (id)initWithParams:(id)params
+- (id)initWithParams:(BookPassengersResponse*)params
 {
     if (self = [super init]) {
-        _passengerInfo = params;
+        _passengerInfo = [SavePassengerResponse getDataWithBookPassengers:params];
         if (params) {
             _initType = PassengerEdit;
         }else{
@@ -86,25 +86,31 @@
     }
 }
 
+- (void)requestFailedWithErrorCode:(NSNumber *)errorCode withErrorMsg:(NSString *)errorMsg
+{
+    //...
+}
+
 - (SavePassengerListRequest *)getSavePassengerRequest
 {
-    SavePassengerListRequest *request = [[SavePassengerListRequest alloc]initWidthBusinessType:BUSINESS_FLIGHT methodName:@"SavePassengerList"];
+    SavePassengerListRequest *request = [[SavePassengerListRequest alloc]initWidthBusinessType:BUSINESS_ACCOUNT methodName:@"SavePassengerList"];
     if (!_passengerInfo) {
-        _passengerInfo = [[BookPassengersResponse alloc]init];
+        _passengerInfo = [[SavePassengerResponse alloc]init];
+        _passengerInfo.PassengerID = [NSNumber numberWithInteger:0];
         [_passengerInfo setIsEmoloyee:[NSNumber numberWithBool:NO]];
         [_passengerInfo setIsServer:[NSNumber numberWithBool:NO]];
-        [_passengerInfo setIsServerCard:[NSNumber numberWithBool:NO]];
+        [_passengerInfo setIsServer:[NSNumber numberWithBool:NO]];
     }
     CustomStatusBtn *customBtn = (CustomStatusBtn*)[self.contentView viewWithTag:103];
     [_passengerInfo setType:[NSNumber numberWithInt:customBtn.select]];
-    [_passengerInfo setUserName:_userNameTf.text];
-    [_passengerInfo setDeptID:[UserDefaults shareUserDefault].loginInfo.DeptID];
+    [_passengerInfo setName:_userNameTf.text];
     
     MemberIDcardResponse *IDCard = [[MemberIDcardResponse alloc]init];
     [IDCard setCardType:[IDCard getCardTypeCodeWithName:_cardTypeBtn.titleLabel.text]];
     [IDCard setCardNumber:_cardNumTf.text];
+    [IDCard setIsDefault:@"T"];
     
-    [_passengerInfo setIDCardList:[NSMutableArray arrayWithArray:@[IDCard]]];
+    [_passengerInfo setIDCardList:[NSArray arrayWithObject:IDCard]];
     
     [request setPassengers:@[_passengerInfo]];
     return request;
@@ -172,7 +178,7 @@
     [_userNameTf setLeftViewMode:UITextFieldViewModeAlways];
     [_userNameTf setLeftView:userNameLeftView];
     [_userNameTf setDelegate:self];
-    [_userNameTf setText:_passengerInfo?_passengerInfo.UserName:nil];
+    [_userNameTf setText:_passengerInfo?_passengerInfo.Name :nil];
     [_userNameTf setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
     [topBGView addSubview:_userNameTf];
     
@@ -238,7 +244,7 @@
     [_insureBtn setTag:101];
     [_insureBtn.titleLabel setFont:[UIFont systemFontOfSize:14]];
     [_insureBtn.titleLabel setTextAlignment:NSTextAlignmentLeft];
-    [_insureBtn setTitle:_passengerInfo?_passengerInfo.UserName:nil forState:UIControlStateNormal];
+    [_insureBtn setTitle:_passengerInfo?_passengerInfo.Name:nil forState:UIControlStateNormal];
     [_insureBtn setTitleColor:color(blackColor) forState:UIControlStateNormal];
     [_insureBtn addTarget:self action:@selector(pressBtnItem:) forControlEvents:UIControlEventTouchUpInside];
     [_insureBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
@@ -262,7 +268,7 @@
     [_costCenterBtn setTag:102];
     [_costCenterBtn setBackgroundColor:color(clearColor)];
     [_costCenterBtn.titleLabel setFont:[UIFont systemFontOfSize:14]];
-    [_costCenterBtn setTitle:_passengerInfo?_passengerInfo.DeptName:nil forState:UIControlStateNormal];
+//    [_costCenterBtn setTitle:_passengerInfo?_passengerInfo.DeptName:nil forState:UIControlStateNormal];
     [_costCenterBtn.titleLabel setTextAlignment:NSTextAlignmentLeft];
     [_costCenterBtn setTitleColor:color(blackColor) forState:UIControlStateNormal];
     [_costCenterBtn addTarget:self action:@selector(pressBtnItem:) forControlEvents:UIControlEventTouchUpInside];
@@ -288,7 +294,7 @@
 - (void)pressSaveToCommonName:(UIButton*)sender
 {
     CustomStatusBtn *customBtn = (CustomStatusBtn*)[self.contentView viewWithTag:103];
-    [customBtn setSelect:!customBtn.select];
+    [customBtn setHighlighteds:!customBtn.select];
     _saveToCommonName = customBtn.select;
 }
 

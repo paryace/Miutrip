@@ -8,8 +8,16 @@
 
 #import "BaseUIViewController.h"
 #import "SubmitFlightOrderRequest.h"
+#import "UPPayPlugin.h"
+#import "UPPayPluginDelegate.h"
 
-@interface OrderResultViewController : BaseUIViewController
+@protocol OrderResultDelegate <NSObject>
+
+- (void)OrderSuccess;
+
+@end
+
+@interface OrderResultViewController : BaseUIViewController<UPPayPluginDelegate>
 
 - (id)initWithParams:(SubmitFlightOrderResponse*)params;      //list<MsgPayEntity>
 

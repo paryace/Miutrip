@@ -181,7 +181,7 @@
         }else if ([Utils textIsEmpty:deliver.Tel]){
             [[Model shareModel] showPromptText:@"请输入电话号码" model:YES];
             return NO;
-        }else if ([Utils isValidatePhoneNum:deliver.Tel]){
+        }else if (![Utils isValidatePhoneNum:deliver.Tel]){
             [[Model shareModel] showPromptText:@"电话号码格式不正确" model:YES];
             return NO;
         }
@@ -265,9 +265,9 @@
         [_cantonTf setText:deliver.Canton_Name];
         [_addressDetailTf setText:deliver.Address];
         [_zipCodeTf setText:deliver.ZipCode];
-        if (![Utils textIsEmpty:deliver.Mobile]) {
+        if (![Utils isEmpty:deliver.Mobile]) {
             [_telTf setText:[Utils NULLToEmpty:deliver.Mobile]];
-        }else if (![Utils textIsEmpty:deliver.Tel]){
+        }else if (![Utils isEmpty:deliver.Tel]){
             [_telTf setText:[Utils NULLToEmpty:deliver.Tel]];
         }
     }else{

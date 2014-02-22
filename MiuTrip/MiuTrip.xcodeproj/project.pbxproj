@@ -231,7 +231,6 @@
 		18B473541846EB84003FF7AD /* BookPassengersDTO.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B473531846EB84003FF7AD /* BookPassengersDTO.m */; };
 		18B473571846F5A2003FF7AD /* CorpServerCardDTO.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B473561846F5A2003FF7AD /* CorpServerCardDTO.m */; };
 		18B4735D1846F9A5003FF7AD /* CorpUserBaseInfoDTO.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B4735C1846F9A5003FF7AD /* CorpUserBaseInfoDTO.m */; };
-		18B473601846FC7A003FF7AD /* CorpPolicyDTO.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B4735F1846FC7A003FF7AD /* CorpPolicyDTO.m */; };
 		18B47363184700F3003FF7AD /* CorpCostCenterDTO.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B47362184700F3003FF7AD /* CorpCostCenterDTO.m */; };
 		18B47368184731AB003FF7AD /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 18B47367184731AB003FF7AD /* libicucore.dylib */; };
 		18B4736C184731DC003FF7AD /* RegexKitLite.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B4736B184731DC003FF7AD /* RegexKitLite.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -370,6 +369,13 @@
 		46D9D2C0188BBC5500E8A1EF /* SaveSMSResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 46D9D29E188BBC5500E8A1EF /* SaveSMSResponse.m */; };
 		46D9D2C1188BBC5500E8A1EF /* SendSMSRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 46D9D2A0188BBC5500E8A1EF /* SendSMSRequest.m */; };
 		46D9D2C2188BBC5500E8A1EF /* SendSMSResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 46D9D2A2188BBC5500E8A1EF /* SendSMSResponse.m */; };
+		520594F518B5AEC600D9AF79 /* TestViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 520594F418B5AEC600D9AF79 /* TestViewController.xib */; };
+		527E58F618B5A3FC00590A49 /* TestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 527E58F518B5A3FC00590A49 /* TestViewController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		527E58F718B5A77600590A49 /* libUPPayPlugin.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 46D0F5D8188B9B0E0063CEE6 /* libUPPayPlugin.a */; };
+		52B2097F18B46B0700CAFE9A /* icon_finish.png in Resources */ = {isa = PBXBuildFile; fileRef = 52B2097E18B46B0700CAFE9A /* icon_finish.png */; };
+		52B2098218B4791F00CAFE9A /* ForgetPasswordRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 52B2098118B4791F00CAFE9A /* ForgetPasswordRequest.m */; };
+		52B2098518B4793600CAFE9A /* ForgetPasswordResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 52B2098418B4793600CAFE9A /* ForgetPasswordResponse.m */; };
+		52B2098718B48E6300CAFE9A /* button_ok.9.png in Resources */ = {isa = PBXBuildFile; fileRef = 52B2098618B48E6300CAFE9A /* button_ok.9.png */; };
 		B501CFA01852F5DC00802FD9 /* HotelListCellviewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B501CF9F1852F5DC00802FD9 /* HotelListCellviewCell.m */; };
 		B507B84618570A6C003541B2 /* LoadMoreTableFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = B507B84518570A6C003541B2 /* LoadMoreTableFooterView.m */; };
 		B50FC06F187935E000AF9BFD /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B50FC06E187935E000AF9BFD /* QuartzCore.framework */; };
@@ -452,6 +458,8 @@
 		E402DD79189217A500B2CF5A /* InCommonNameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E402DD78189217A500B2CF5A /* InCommonNameViewController.m */; };
 		E402DD7C189218C900B2CF5A /* Nation.m in Sources */ = {isa = PBXBuildFile; fileRef = E402DD7B189218C900B2CF5A /* Nation.m */; };
 		E402DD8218921DA100B2CF5A /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E402DD8118921DA100B2CF5A /* SettingViewController.m */; };
+		E4272A2918B357A2005B63D1 /* GetAPIMailCondigRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = E4272A2818B357A2005B63D1 /* GetAPIMailCondigRequest.m */; };
+		E4272A2C18B357C4005B63D1 /* GetAPIMailCondigResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = E4272A2B18B357C4005B63D1 /* GetAPIMailCondigResponse.m */; };
 		E4D250B718AB31E000CC0EDF /* GetBizSummary_AtMiutripRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = E4D250B618AB31E000CC0EDF /* GetBizSummary_AtMiutripRequest.m */; };
 		E4D250BA18AB324000CC0EDF /* GetBizSummary_AtMiutripResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = E4D250B918AB324000CC0EDF /* GetBizSummary_AtMiutripResponse.m */; };
 		F2EECB5218924630005C7A81 /* HotelpassengerDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F2EECB5118924630005C7A81 /* HotelpassengerDetailCell.m */; };
@@ -794,8 +802,6 @@
 		18B473561846F5A2003FF7AD /* CorpServerCardDTO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CorpServerCardDTO.m; sourceTree = "<group>"; };
 		18B4735B1846F9A5003FF7AD /* CorpUserBaseInfoDTO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CorpUserBaseInfoDTO.h; sourceTree = "<group>"; };
 		18B4735C1846F9A5003FF7AD /* CorpUserBaseInfoDTO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CorpUserBaseInfoDTO.m; sourceTree = "<group>"; };
-		18B4735E1846FC7A003FF7AD /* CorpPolicyDTO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CorpPolicyDTO.h; sourceTree = "<group>"; };
-		18B4735F1846FC7A003FF7AD /* CorpPolicyDTO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CorpPolicyDTO.m; sourceTree = "<group>"; };
 		18B47361184700F3003FF7AD /* CorpCostCenterDTO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CorpCostCenterDTO.h; sourceTree = "<group>"; };
 		18B47362184700F3003FF7AD /* CorpCostCenterDTO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CorpCostCenterDTO.m; sourceTree = "<group>"; };
 		18B47367184731AB003FF7AD /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
@@ -1019,6 +1025,15 @@
 		46D9D2A0188BBC5500E8A1EF /* SendSMSRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SendSMSRequest.m; sourceTree = "<group>"; };
 		46D9D2A1188BBC5500E8A1EF /* SendSMSResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SendSMSResponse.h; sourceTree = "<group>"; };
 		46D9D2A2188BBC5500E8A1EF /* SendSMSResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SendSMSResponse.m; sourceTree = "<group>"; };
+		520594F418B5AEC600D9AF79 /* TestViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TestViewController.xib; sourceTree = "<group>"; };
+		527E58F418B5A3FC00590A49 /* TestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestViewController.h; sourceTree = "<group>"; };
+		527E58F518B5A3FC00590A49 /* TestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestViewController.m; sourceTree = "<group>"; };
+		52B2097E18B46B0700CAFE9A /* icon_finish.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_finish.png; sourceTree = "<group>"; };
+		52B2098018B4791F00CAFE9A /* ForgetPasswordRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ForgetPasswordRequest.h; sourceTree = "<group>"; };
+		52B2098118B4791F00CAFE9A /* ForgetPasswordRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ForgetPasswordRequest.m; sourceTree = "<group>"; };
+		52B2098318B4793600CAFE9A /* ForgetPasswordResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ForgetPasswordResponse.h; sourceTree = "<group>"; };
+		52B2098418B4793600CAFE9A /* ForgetPasswordResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ForgetPasswordResponse.m; sourceTree = "<group>"; };
+		52B2098618B48E6300CAFE9A /* button_ok.9.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_ok.9.png; sourceTree = "<group>"; };
 		B501CF9E1852F5DC00802FD9 /* HotelListCellviewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HotelListCellviewCell.h; sourceTree = "<group>"; };
 		B501CF9F1852F5DC00802FD9 /* HotelListCellviewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HotelListCellviewCell.m; sourceTree = "<group>"; };
 		B507B84418570A6C003541B2 /* LoadMoreTableFooterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoadMoreTableFooterView.h; sourceTree = "<group>"; };
@@ -1161,6 +1176,10 @@
 		E402DD7B189218C900B2CF5A /* Nation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Nation.m; sourceTree = "<group>"; };
 		E402DD8018921DA100B2CF5A /* SettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SettingViewController.h; path = ../SettingViewController.h; sourceTree = "<group>"; };
 		E402DD8118921DA100B2CF5A /* SettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SettingViewController.m; path = ../SettingViewController.m; sourceTree = "<group>"; };
+		E4272A2718B357A2005B63D1 /* GetAPIMailCondigRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetAPIMailCondigRequest.h; sourceTree = "<group>"; };
+		E4272A2818B357A2005B63D1 /* GetAPIMailCondigRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetAPIMailCondigRequest.m; sourceTree = "<group>"; };
+		E4272A2A18B357C4005B63D1 /* GetAPIMailCondigResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetAPIMailCondigResponse.h; sourceTree = "<group>"; };
+		E4272A2B18B357C4005B63D1 /* GetAPIMailCondigResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetAPIMailCondigResponse.m; sourceTree = "<group>"; };
 		E4D250B518AB31E000CC0EDF /* GetBizSummary_AtMiutripRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetBizSummary_AtMiutripRequest.h; sourceTree = "<group>"; };
 		E4D250B618AB31E000CC0EDF /* GetBizSummary_AtMiutripRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetBizSummary_AtMiutripRequest.m; sourceTree = "<group>"; };
 		E4D250B818AB324000CC0EDF /* GetBizSummary_AtMiutripResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetBizSummary_AtMiutripResponse.h; sourceTree = "<group>"; };
@@ -1194,6 +1213,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				527E58F718B5A77600590A49 /* libUPPayPlugin.a in Frameworks */,
 				46D0F5DD188B9B370063CEE6 /* libsqlite3.dylib in Frameworks */,
 				B520CF70188A771700CBA018 /* CoreLocation.framework in Frameworks */,
 				B520CF6E188A770A00CBA018 /* MapKit.framework in Frameworks */,
@@ -1661,8 +1681,6 @@
 				18B473561846F5A2003FF7AD /* CorpServerCardDTO.m */,
 				18B4735B1846F9A5003FF7AD /* CorpUserBaseInfoDTO.h */,
 				18B4735C1846F9A5003FF7AD /* CorpUserBaseInfoDTO.m */,
-				18B4735E1846FC7A003FF7AD /* CorpPolicyDTO.h */,
-				18B4735F1846FC7A003FF7AD /* CorpPolicyDTO.m */,
 				18B47361184700F3003FF7AD /* CorpCostCenterDTO.h */,
 				18B47362184700F3003FF7AD /* CorpCostCenterDTO.m */,
 				18573C911849B36100A19D7E /* MiuTripOrderDetail.h */,
@@ -1685,6 +1703,7 @@
 			isa = PBXGroup;
 			children = (
 				18864C7C188E77F600F6D048 /* miutrip.db */,
+				52B2097E18B46B0700CAFE9A /* icon_finish.png */,
 				B57E177A188B9F6400E6BF16 /* icon_tip.png */,
 				B50FC07A18794DD700AF9BFD /* left_arrow.png */,
 				B50FC07B18794DD700AF9BFD /* left_arrow@2x.png */,
@@ -1717,6 +1736,7 @@
 			isa = PBXGroup;
 			children = (
 				18E9834F18B327B3008C3ABC /* AirCompanyLogo */,
+				52B2098618B48E6300CAFE9A /* button_ok.9.png */,
 				18E983B018B327F2008C3ABC /* abs__ic_cab_done_holo_dark.png */,
 				18E983B118B327F2008C3ABC /* abs__ic_cab_done_holo_light.png */,
 				18E983B218B327F2008C3ABC /* bg_btn_blue.png */,
@@ -1756,8 +1776,6 @@
 				18E982E518B30D90008C3ABC /* OrderFillInViewController.m */,
 				18E982E618B30D90008C3ABC /* OrderResultViewController.h */,
 				18E982E718B30D90008C3ABC /* OrderResultViewController.m */,
-				18E982E818B30D90008C3ABC /* PassengerListViewController.h */,
-				18E982E918B30D90008C3ABC /* PassengerListViewController.m */,
 				18E982EA18B30D90008C3ABC /* PolicyIllegalReasonViewController.h */,
 				18E982EB18B30D90008C3ABC /* PolicyIllegalReasonViewController.m */,
 				18E982EC18B30D90008C3ABC /* PostTypeViewController.h */,
@@ -1766,6 +1784,8 @@
 				18E982EF18B30D90008C3ABC /* SelectAddressViewController.m */,
 				18E982F018B30D90008C3ABC /* SelectDeliverViewController.h */,
 				18E982F118B30D90008C3ABC /* SelectDeliverViewController.m */,
+				18E982E818B30D90008C3ABC /* PassengerListViewController.h */,
+				18E982E918B30D90008C3ABC /* PassengerListViewController.m */,
 				18E982F218B30D90008C3ABC /* SelectPassengerViewController.h */,
 				18E982F318B30D90008C3ABC /* SelectPassengerViewController.m */,
 				18E982F418B30D90008C3ABC /* SelectPostTypeViewController.h */,
@@ -1922,6 +1942,10 @@
 				18864C6E188E530900F6D048 /* GetFlightOrderListRequest.m */,
 				46D0F65D188B9E240063CEE6 /* GetFlightOrderListResponse.h */,
 				46D0F65E188B9E240063CEE6 /* GetFlightOrderListResponse.m */,
+				E4272A2718B357A2005B63D1 /* GetAPIMailCondigRequest.h */,
+				E4272A2818B357A2005B63D1 /* GetAPIMailCondigRequest.m */,
+				E4272A2A18B357C4005B63D1 /* GetAPIMailCondigResponse.h */,
+				E4272A2B18B357C4005B63D1 /* GetAPIMailCondigResponse.m */,
 			);
 			path = Flight;
 			sourceTree = "<group>";
@@ -2049,6 +2073,9 @@
 		B57A0A8A184EC77A00A33831 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				527E58F418B5A3FC00590A49 /* TestViewController.h */,
+				527E58F518B5A3FC00590A49 /* TestViewController.m */,
+				520594F418B5AEC600D9AF79 /* TestViewController.xib */,
 				B50FC08218794E1900AF9BFD /* DateSelectViewController.h */,
 				B50FC08318794E1900AF9BFD /* DateSelectViewController.m */,
 				B57A0A99184EC77A00A33831 /* HomeViewController.h */,
@@ -2212,6 +2239,10 @@
 				E4D250B618AB31E000CC0EDF /* GetBizSummary_AtMiutripRequest.m */,
 				E4D250B818AB324000CC0EDF /* GetBizSummary_AtMiutripResponse.h */,
 				E4D250B918AB324000CC0EDF /* GetBizSummary_AtMiutripResponse.m */,
+				52B2098018B4791F00CAFE9A /* ForgetPasswordRequest.h */,
+				52B2098118B4791F00CAFE9A /* ForgetPasswordRequest.m */,
+				52B2098318B4793600CAFE9A /* ForgetPasswordResponse.h */,
+				52B2098418B4793600CAFE9A /* ForgetPasswordResponse.m */,
 			);
 			path = Account;
 			sourceTree = "<group>";
@@ -2333,9 +2364,6 @@
 				LastUpgradeCheck = 0500;
 				ORGANIZATIONNAME = michael;
 				TargetAttributes = {
-					12791514183326B700CF94F4 = {
-						DevelopmentTeam = 38UDN8LHXH;
-					};
 					1279152F183326B700CF94F4 = {
 						TestTargetID = 12791514183326B700CF94F4;
 					};
@@ -2374,7 +2402,9 @@
 				122BD72A184061E200BAA9A9 /* hotel_done_press.png in Resources */,
 				18E9839B18B327B3008C3ABC /* logo_jr@2x.png in Resources */,
 				18E983B918B32840008C3ABC /* tab_selected.png in Resources */,
+				520594F518B5AEC600D9AF79 /* TestViewController.xib in Resources */,
 				18E9839818B327B3008C3ABC /* logo_jd.png in Resources */,
+				52B2097F18B46B0700CAFE9A /* icon_finish.png in Resources */,
 				1856471E184C5F0D0031E5D6 /* bg_date.png in Resources */,
 				12DDD835183B5C4E00E774AF /* set_sgitem_l_normal.png in Resources */,
 				122CE5CD183A3AB5001771DC /* set_progress_select.png in Resources */,
@@ -2532,6 +2562,7 @@
 				18E9839D18B327B3008C3ABC /* logo_kn@2x.png in Resources */,
 				18E983A218B327B3008C3ABC /* logo_mu.png in Resources */,
 				1253D6621835D1E2004B595D /* cname_delete_press.png in Resources */,
+				52B2098718B48E6300CAFE9A /* button_ok.9.png in Resources */,
 				1253D62F1835D1E2004B595D /* bottombar.png in Resources */,
 				125ADFA4183F7F9500668F08 /* order_cancle.png in Resources */,
 				18E983AA18B327B3008C3ABC /* logo_sc.png in Resources */,
@@ -2586,7 +2617,6 @@
 				46D9D2BB188BBC5500E8A1EF /* GetProvinceByNameRequest.m in Sources */,
 				46D9D2A7188BBC5500E8A1EF /* GetAllProvincesRequest.m in Sources */,
 				18A13701184EE53A00516ED3 /* GetMemberDeliverListResponse.m in Sources */,
-				18B473601846FC7A003FF7AD /* CorpPolicyDTO.m in Sources */,
 				124789E21836363100AA0083 /* ASIDataDecompressor.m in Sources */,
 				18B4735D1846F9A5003FF7AD /* CorpUserBaseInfoDTO.m in Sources */,
 				B591AF651849DD01003BA7A3 /* LoginResponse.m in Sources */,
@@ -2614,6 +2644,7 @@
 				B5157F86185BF84100AF3E0C /* HotelCommentViewController.m in Sources */,
 				46D9D2C2188BBC5500E8A1EF /* SendSMSResponse.m in Sources */,
 				E402DD79189217A500B2CF5A /* InCommonNameViewController.m in Sources */,
+				E4272A2918B357A2005B63D1 /* GetAPIMailCondigRequest.m in Sources */,
 				46D9D2BE188BBC5500E8A1EF /* GetSectionsByCityIdResponse.m in Sources */,
 				B551435E185C3C1300D5BDD4 /* HotelDetailViewController.m in Sources */,
 				B57B67621852C3CE0002C778 /* GetCommentListResponse.m in Sources */,
@@ -2731,6 +2762,7 @@
 				12791525183326B700CF94F4 /* main.m in Sources */,
 				18564719184C5C8D0031E5D6 /* LoginInfoDTO.m in Sources */,
 				E402DD8218921DA100B2CF5A /* SettingViewController.m in Sources */,
+				52B2098518B4793600CAFE9A /* ForgetPasswordResponse.m in Sources */,
 				124789F31836363100AA0083 /* NSObject+SBJson.m in Sources */,
 				18A136F8184EE4FC00516ED3 /* GetCorpStaffResponse.m in Sources */,
 				FAFF753718B3379B006CA18D /* SelectCityController.m in Sources */,
@@ -2755,6 +2787,7 @@
 				124789E51836363100AA0083 /* ASIHTTPRequest.m in Sources */,
 				18864C7B188E601500F6D048 /* LittleMiuDetail.m in Sources */,
 				B57A0AAB184EC7E100A33831 /* HotelListViewController.m in Sources */,
+				E4272A2C18B357C4005B63D1 /* GetAPIMailCondigResponse.m in Sources */,
 				B53DA0841877F67800868278 /* HotelMapViewControler.m in Sources */,
 				B57B67661852C3CE0002C778 /* SubmitOrderResponse.m in Sources */,
 				18E9834018B317C7008C3ABC /* GetNormalFlightsRequest.m in Sources */,
@@ -2763,6 +2796,7 @@
 				18E9834818B31EC9008C3ABC /* CommonlyNameViewController.m in Sources */,
 				124789F41836363100AA0083 /* SBJsonParser.m in Sources */,
 				1247899C18362F8700AA0083 /* CommonlyName.m in Sources */,
+				52B2098218B4791F00CAFE9A /* ForgetPasswordRequest.m in Sources */,
 				124789E61836363100AA0083 /* ASIInputStream.m in Sources */,
 				18A905D9184C59DC00AE4835 /* ChangePasswordRequest.m in Sources */,
 				46D9D2B2188BBC5500E8A1EF /* GetCityCityCantonAndSectionsResponse.m in Sources */,
@@ -2816,6 +2850,7 @@
 				18A90609184C8D7000AE4835 /* UpdateCropUserBaseByChinaUMSUIDRequest.m in Sources */,
 				B5C7C860186578B7008914D0 /* HotelOrderViewController.mm in Sources */,
 				E4D250B718AB31E000CC0EDF /* GetBizSummary_AtMiutripRequest.m in Sources */,
+				527E58F618B5A3FC00590A49 /* TestViewController.m in Sources */,
 				18A9060C184C8E0D00AE4835 /* GetCorpNameByMumberUIDRequest.m in Sources */,
 				46D9D2AD188BBC5500E8A1EF /* GetCantonsByCityIDRequest.m in Sources */,
 				B57B674F1852BEEC0002C778 /* GetHotelRoomMultiRequest.m in Sources */,
@@ -2939,7 +2974,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CLANG_CXX_LIBRARY = "compiler-default";
+				CLANG_CXX_LIBRARY = "libstdc++";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -2952,8 +2987,8 @@
 				INFOPLIST_FILE = "MiuTrip/MiuTrip-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = (
-					/Users/Smart_boat/Desktop/Miutrip/MiuTrip/MiuTrip/Library/UPPayPlugin,
-					"\\\"$(SRCROOT)/MiuTrip/LIbrary/FMDatabase",
+					"$(SRCROOT)/MiuTrip/Library/UPPayPlugin",
+					"$(SRCROOT)/MiuTrip/Library/FMDatabase",
 				);
 				OTHER_LDFLAGS = "-lxml2";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2970,7 +3005,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CLANG_CXX_LIBRARY = "compiler-default";
+				CLANG_CXX_LIBRARY = "libstdc++";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -2983,8 +3018,8 @@
 				INFOPLIST_FILE = "MiuTrip/MiuTrip-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = (
-					/Users/Smart_boat/Desktop/Miutrip/MiuTrip/MiuTrip/Library/UPPayPlugin,
-					"\\\"$(SRCROOT)/MiuTrip/LIbrary/FMDatabase",
+					"$(SRCROOT)/MiuTrip/Library/UPPayPlugin",
+					"$(SRCROOT)/MiuTrip/Library/FMDatabase",
 				);
 				OTHER_LDFLAGS = "-lxml2";
 				PRODUCT_NAME = "$(TARGET_NAME)";

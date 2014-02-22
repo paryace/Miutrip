@@ -194,7 +194,9 @@
     }
     
     [self showSubjoinView];
-    [self markConformPolicy];
+    if ([_feeType isEqualToString:FeeTypePUB]) {
+        [self markConformPolicy];
+    }
     
     tableView.scrollsToTop = YES;
     [tableView reloadData];
@@ -405,7 +407,10 @@
         [[Model shareModel] showPromptText:@"不能订购今天以前的票" model:YES];
         return NO;
     }else{
-        if ([flightDate timeIntervalSince1970] >= [self.takeOffDate timeIntervalSince1970] - [_corpPolicy.PreMinute integerValue] * 60 && [flightDate timeIntervalSince1970] <= [self.takeOffDate timeIntervalSince1970] + [_corpPolicy.PreMinute integerValue] * 60) {
+        if ([_feeType isEqualToString:FeeTypeOWN]) {
+            conformPolicy = YES;
+            return conformPolicy;
+        }else if ([flightDate timeIntervalSince1970] >= [self.takeOffDate timeIntervalSince1970] - [_corpPolicy.PreMinute integerValue] * 60 && [flightDate timeIntervalSince1970] <= [self.takeOffDate timeIntervalSince1970] + [_corpPolicy.PreMinute integerValue] * 60) {
             conformPolicy = NO;
             
             for (DomesticFlightDataDTO *flight in _conformPolicies) {
@@ -661,6 +666,7 @@
 {
     NSString *year = [Utils formatDateWithString:_getFlightsRequest.DepartDate startFormat:@"yyyy-MM-dd" endFormat:@"yyyy"];
     NSDate *takeOffDate = [Utils dateWithString:_dateLabel.titleLabel.text withFormat:@"MM月dd日"];
+
     switch (sender.tag) {
         case 300:{
             takeOffDate = [takeOffDate dateByAddingTimeInterval:-24 * 60 * 60];
@@ -674,6 +680,11 @@
     }
     NSString *monthAndDay = [NSString stringWithFormat:@"-%@",[Utils stringWithDate:takeOffDate withFormat:@"MM-dd"]];
     year = [year stringByAppendingString:monthAndDay];
+    
+    if ([[Utils dateWithString:year withFormat:@"yyyy-MM-dd"] timeIntervalSince1970] < [[NSDate date] timeIntervalSince1970]) {
+        [[Model shareModel] showPromptText:@"不能订购今天以前的票" model:YES];
+        return;
+    }
     [_getFlightsRequest setDepartDate:year];
     [self getAirListWithRequest:_getFlightsRequest];
 }
@@ -738,8 +749,8 @@
     
     [_detailLabel setText:[NSString stringWithFormat:@"%d个航班",[_showDataSource count]]];
     BOOL insurance = [_corpPolicy.Insurance isEqualToString:@"T"];
-    //    BOOL isFltDiscountRC = [_corpPolicy.IsFltDiscountRC isEqualToString:@"T"];
-    [_fltPolicyTitleLabel setText:[NSString stringWithFormat:@"%@:提前%@天预订,出发时间前后%@分钟内最低价航班,%@允许买保险.",_corpPolicy.PolicyName,_corpPolicy.FltPreBookDays,_corpPolicy.PreMinute,/*isFltDiscountRC?@"无折扣限制":[NSString stringWithFormat:@"%@折以下航班",_corpPolicy.FltDiscountRC],*/insurance?@"":@"不"]];
+    BOOL isFltDiscountRC = [_corpPolicy.IsFltDiscountRC isEqualToString:@"T"];
+    [_fltPolicyTitleLabel setText:[NSString stringWithFormat:@"%@:提前%@天预订,出发时间前后%@分钟内最低价航班%@,%@允许买保险.",_corpPolicy.PolicyName,_corpPolicy.FltPreBookDays,_corpPolicy.PreMinute,isFltDiscountRC?[NSString stringWithFormat:@",%@折以下航班",_corpPolicy.FltDiscountRC]:@",无折扣限制",insurance?@"":@"不"]];
 }
 
 - (void)setSubjoinViewFrame

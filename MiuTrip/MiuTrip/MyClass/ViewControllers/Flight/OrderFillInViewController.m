@@ -91,12 +91,12 @@
 {
     if ([self getOrderContent]) {
         BaseRequestModel *request = _request;
+//        _request.Flights.FirstRoute.Flight.Price = 
         [self.requestManager sendRequest:request];
     }else{
         [[Model shareModel] showPromptText:@"请选择乘车人" model:YES];
     }
-//    OrderResultViewController *resultViewController = [[OrderResultViewController alloc]init];
-//    [self pushViewController:resultViewController transitionType:TransitionPush completionHandler:nil];
+
 }
 
 - (void)saveOrderDone:(SubmitFlightOrderResponse*)response

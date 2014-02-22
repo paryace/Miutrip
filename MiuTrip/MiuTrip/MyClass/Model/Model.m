@@ -10,6 +10,7 @@
 #import "Utils.h"
 #import "AppDelegate.h"
 #import <QuartzCore/QuartzCore.h>
+#import "HotelAndAirOrderViewController.h"
 
 static      Model       *shareModel;
 
@@ -79,7 +80,7 @@ static      Model       *shareModel;
                              _tipView.alpha = 1.0f;
                          }completion:^(BOOL finished){
                              _showCoverView = NO;
-//                             [self performSelector:@selector(tipHide:) withObject:[NSNumber numberWithBool:model] afterDelay:1.50f];
+                             //                             [self performSelector:@selector(tipHide:) withObject:[NSNumber numberWithBool:model] afterDelay:1.50f];
                              _timer = [NSTimer scheduledTimerWithTimeInterval:2.50f target:self selector:@selector(tipHide:) userInfo:[NSNumber numberWithBool:model] repeats:NO];
                          }];
     }
@@ -106,6 +107,30 @@ static      Model       *shareModel;
 {
     AppDelegate *appDelegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
     [appDelegate.window setUserInteractionEnabled:enabled];
+}
+
+- (void)orderSuccess
+{
+    AppDelegate *appDelegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
+    if (appDelegate.window.rootViewController.presentedViewController) {
+        HotelAndAirOrderViewController *airOrderViewController = [[HotelAndAirOrderViewController alloc]initWithOrderType:OrderTypeAir];
+        UIViewController *viewController = appDelegate.window.rootViewController.presentedViewController;
+        if ([viewController isKindOfClass:[UINavigationController class]]) {
+            UINavigationController *navigationController = (UINavigationController*)viewController;
+            [navigationController pushViewController:airOrderViewController animated:YES];
+        }else{
+            [viewController presentViewController:airOrderViewController animated:YES completion:nil];
+        }
+    }else{
+        HotelAndAirOrderViewController *airOrderViewController = [[HotelAndAirOrderViewController alloc]initWithOrderType:OrderTypeAir];
+        UIViewController *viewController = appDelegate.window.rootViewController;
+        if ([viewController isKindOfClass:[UINavigationController class]]) {
+            UINavigationController *navigationController = (UINavigationController*)viewController;
+            [navigationController pushViewController:airOrderViewController animated:YES];
+        }else{
+            [viewController presentViewController:airOrderViewController animated:YES completion:nil];
+        }
+    }
 }
 
 @end

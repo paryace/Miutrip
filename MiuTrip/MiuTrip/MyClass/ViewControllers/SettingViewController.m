@@ -9,21 +9,19 @@
 #import "SettingViewController.h"
 #import "SelectCityController.h"
 #import "UserDefaults.h"
-#import "GetMemberDeliverListRequest.h"
-#import "GetMemberDeliverListResponse.h"
 #import "PostAddressController.h"
-
+#import "GetAPIMailCondigRequest.h"
+#import "GetAPIMailCondigResponse.h"
 @interface SettingViewController (){
     NSArray *priceScopeData;
     UITableView *priceScopeView;
     UIViewController *backGroundModel;
     UIView *backGroundView;
     UIView *priceTitleView;
-    NSMutableArray *postTypeData;
     UITableView *PostTypeView;
     UIView *postTitleView;
-    NSArray *PostTypeForData;//因为配送方式数据获取不到,所以已此数组代替
-    
+    NSArray *PostTypeForData;
+    NSInteger num;
 }
 
 @property (strong, nonatomic) NSMutableDictionary           *switchControls;
@@ -53,8 +51,9 @@
         [self.contentView setHidden:NO];
         _switchControls = [NSMutableDictionary dictionary];
         priceScopeData =[NSArray arrayWithObjects:@"不限",@"0~150元",@"151元~300元",@"301元~450元",@"451元~600元",@"600元以上", nil];
-        PostTypeForData =[NSArray arrayWithObjects:@"不需要配送",@"平邮  6.0元",@"快递  10.0元",@"EMS  10.0元",@"快递到付  10.0元",@"定期配送", nil];
         [self setSubviewFrame];
+        [self postTypeRequest];
+        
         
     }
     return self;
@@ -97,41 +96,33 @@
     }
     
     if (sender.tag==404) {
-        if (![_postTypeField.text isEqualToString:@"不需要配送"]) {
-            PostAddressController *postModelView =[[PostAddressController alloc]init];
-            [self pushViewController:postModelView transitionType:TransitionPush completionHandler:^{
-                postModelView.postAddress=^(NSString *postAdress){
-                    _postAddressField.text=postAdress;
-                };
-            }];
-                   }
+        
+        PostAddressController *postModelView =[[PostAddressController alloc]init];
+        [self pushViewController:postModelView transitionType:TransitionPush completionHandler:^{
+            postModelView.postAddress=^(NSString *postAdress){
+                _postAddressField.text=postAdress;
+            };
+        }];
+        
     }
 }
 
-
--(void)priceRequest{
-    GetMemberDeliverListRequest *priceForRequest =[[GetMemberDeliverListRequest alloc] initWidthBusinessType:BUSINESS_ACCOUNT methodName:@"GetMemberDeliverList"];
-    priceForRequest.uid=@"22";
-    priceForRequest.FetchRecordCount=[NSNumber numberWithInt:0];
-    priceForRequest.pagingOptions=@"";
-    priceForRequest.name=@"";
-    [self.requestManager sendRequest:priceForRequest];
+-(void)postTypeRequest{
+    GetAPIMailCondigRequest *postForTypeRequest =[[GetAPIMailCondigRequest alloc]initWidthBusinessType:BUSINESS_FLIGHT methodName:@"GetAPIMailConfig"];
+    postForTypeRequest.oTAType =[NSNumber numberWithInt:5];
+    [self.requestManager sendRequest:postForTypeRequest];
+}
+- (void)requestDone:(BaseResponseModel *)response{
     
-}
-
-
-- (void)requestDone:(GetMemberDeliverListResponse *)response{
-    if ([response isKindOfClass:[GetMemberDeliverListResponse class]]) {
-        [self getPriceDone:(GetMemberDeliverListResponse*)response];
+    if ([response isKindOfClass:[GetAPIMailCondigResponse class]]) {
+        [self getPostTypeDone:(GetAPIMailCondigResponse *)response];
     }
 }
-
-
-
--(void)getPriceDone:(GetMemberDeliverListResponse*)response{
-    [response getObjects];
-    postTypeData = [NSMutableArray arrayWithArray:response.delivers];
+-(void)getPostTypeDone:(GetAPIMailCondigResponse *)response{
+    PostTypeForData =response.mList;
+    [priceScopeView reloadData];
 }
+
 //请求失败
 -(void)requestFailedWithErrorCode:(NSNumber *)errorCode withErrorMsg:(NSString *)errorMsg
 {
@@ -159,10 +150,6 @@
     
     return nil;
 }
-
-
-
-
 
 
 - (void)selectReserveGoal:(UIButton*)sender
@@ -197,9 +184,7 @@
 
 #pragma mark - view init
 - (void)setSubviewFrame
-{   //请求数据
-    [self priceRequest];
-    
+{
     [self setBackGroundImage:imageNameAndType(@"home_bg", nil)];
     [self setTitle:@"系统设置"];
     [self setTopBarBackGroundImage:imageNameAndType(@"topbar", nil)];
@@ -366,9 +351,9 @@
         _priceRangeField.text=@"请选择价格范围";
     }
     else{
-       _priceRangeField.text =[priceScopeData objectAtIndex:[[UserDefaults shareUserDefault] priceRange]];
+        _priceRangeField.text =[priceScopeData objectAtIndex:[[UserDefaults shareUserDefault] priceRange]];
     }
-
+    
     
     [preferBGView addSubview:_priceRangeField];
     UIButton *priceRangeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -388,12 +373,11 @@
     [preferBGView addSubview:postTypeLabel];
     _postTypeField = [[UILabel alloc]initWithFrame:CGRectMake(_startCityField.frame.origin.x, controlYLength(_priceRangeField), _startCityField.frame.size.width, _startCityField.frame.size.height)];
     [_postTypeField setBackgroundColor:color(clearColor)];
-    if (![[UserDefaults shareUserDefault] postType]) {
-        [_postTypeField setText:@"不需要配送"];
-    }
-    else{
-    _postTypeField.text =[PostTypeForData objectAtIndex:[[UserDefaults shareUserDefault] postType]];
-    }
+    
+    
+    _postTypeField.text =  [[PostTypeForData objectAtIndex:[[UserDefaults shareUserDefault] postType]] objectForKey:@"mName"];
+    
+    
     [preferBGView addSubview:_postTypeField];
     UIButton *postTypeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [postTypeBtn setBackgroundColor:color(clearColor)];
@@ -591,23 +575,24 @@
 }
 else{
     return [PostTypeForData count];
-//  return [postTypeData count];
+    
 }
+    
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath*)indexPath{
     return 40.0f;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 { if(tableView.tag==1000){
-
+    
     static NSString *CellIdentifier =@"CellIdentifier";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell ==nil) {
         cell =[[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
-   
-        cell.textLabel.text=[priceScopeData objectAtIndex:indexPath.row];
-  
+    
+    cell.textLabel.text=[priceScopeData objectAtIndex:indexPath.row];
+    
     return cell;
 }
 else{
@@ -617,10 +602,10 @@ else{
         cell =[[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
     
-//    cell.textLabel.text=[postTypeData objectAtIndex:indexPath.row];
-    cell.textLabel.text=[PostTypeForData objectAtIndex:indexPath.row];
+ 
+    cell.textLabel.text=[[PostTypeForData objectAtIndex:indexPath.row] objectForKey:@"mName"];;
     return cell;
-
+    
 }
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -645,13 +630,24 @@ else{
                 [postTitleView removeFromSuperview];
                 [backGroundView removeFromSuperview];
                 [backGroundModel.view removeFromSuperview];
-          }
+                
+            }
         }
         
-//        _postTypeField.text=[postTypeData objectAtIndex:indexPath.row];
-        _postTypeField.text =[PostTypeForData objectAtIndex:indexPath.row];
-        [[UserDefaults shareUserDefault]setPostType:indexPath.row];
+        
+        _postTypeField.text =[[PostTypeForData objectAtIndex:indexPath.row] objectForKey:@"mName"];
+        
+        num=indexPath.row;
+        
     }
+    
+    //    _postTypeField.text =[[PostTypeForData objectAtIndex:[[UserDefaults shareUserDefault] postType]] objectForKey:@"mName"];
+    
+}
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [[UserDefaults shareUserDefault]setPostType:num ];
 }
 
 - (void)viewDidLoad

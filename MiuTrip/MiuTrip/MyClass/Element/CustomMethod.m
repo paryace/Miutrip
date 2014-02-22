@@ -332,6 +332,11 @@
     _select = highLighted;
 }
 
+- (BOOL)select
+{
+    return _leftImageView.highlighted;
+}
+
 - (void)setTag:(NSInteger)tag
 {
     [super setTag:tag];

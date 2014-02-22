@@ -1140,7 +1140,12 @@
 {
     NSLog(@"card number = %@",[[UserDefaults shareUserDefault].loginInfo getDefaultIDCard].CardNumber);
     BOOL complete = YES;
-    if (!_airOrderFromCity || !_airOrderToCity) {
+    NSMutableString *flightDate = [NSMutableString stringWithString:_startDateTf.date];
+//    [flightDate appendString:[NSString stringWithFormat:@" %@",_startTime.text]];
+    if ([[Utils dateWithString:flightDate withFormat:@"yyyy-MM-dd"] timeIntervalSince1970] < [[NSDate date] timeIntervalSince1970]){
+        [[Model shareModel] showPromptText:@"不能订购今天以前的票" model:YES];
+        complete = NO;
+    }else if (!_airOrderFromCity || !_airOrderToCity) {
         [[Model shareModel]showPromptText:@"请选择起始地和目的地" model:NO];
         complete = NO;
     }else if ([Utils textIsEmpty:_startDateTf.date] || [Utils textIsEmpty:_startTime.text]){

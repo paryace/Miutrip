@@ -11,7 +11,6 @@
 //#import "GetCorpCostResponse.h"
 #import "GetCorpCostRequest.h"
 #import "GetCorpCostResponse.h"
-
 @interface HotelAddViewController ()
 
 @end
@@ -62,6 +61,7 @@
     [saveBtn setTintColor:[UIColor whiteColor]];
     [saveBtn setTag:777];
     [self.view addSubview:saveBtn];
+    
     [self setSubjoinViewFrame];
     
 }
@@ -73,41 +73,43 @@
     [self.contentView addSubview:bgImgView];
     
     UILabel *nameLabel = [[UILabel alloc]init];
-    [nameLabel setFrame:CGRectMake(10, 5, self.topBar.frame.size.width/6 + 10, self.topBar.frame.size.height/2+10)];
+    [nameLabel setFrame:CGRectMake(bgImgView.frame.origin.x+10, bgImgView.frame.origin.y+5, self.topBar.frame.size.width/6 + 10, self.topBar.frame.size.height/2+10)];
     [nameLabel setText:@"姓      名"];
     [nameLabel setFont:[UIFont systemFontOfSize:14]];
-    [bgImgView addSubview:nameLabel];
+    [self.contentView addSubview:nameLabel];
     
     UILabel *imageLabel = [[UILabel alloc]initWithFrame:CGRectMake(controlXLength(nameLabel) + 5, nameLabel.frame.origin.y, 5, self.topBar.frame.size.height/2+10)];
     [imageLabel setText:@"*"];
     [imageLabel setTextColor:[UIColor redColor]];
     [imageLabel setFont:[UIFont systemFontOfSize:18]];
-    [bgImgView addSubview:imageLabel];
+    [self.contentView addSubview:imageLabel];
     
-    _nameTextField = [[UITextField alloc] initWithFrame:CGRectMake(controlXLength(imageLabel) + 10, imageLabel.frame.origin.y, self.topBar.frame.size.width - _nameTextField.frame.size.width - nameLabel.frame.size.width-50, nameLabel.frame.size.height)];
+    
+    _nameTextField = [[UITextField alloc]initWithFrame:CGRectMake(controlXLength(imageLabel)+10, imageLabel.frame.origin.y, self.view.frame.size.width*2/3, bgImgView.frame.size.height-10)];
     [_nameTextField setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
     [_nameTextField setBorderStyle:UITextBorderStyleLine];
     [_nameTextField setBorderColor:[UIColor lightTextColor] width:1.0];
-    [bgImgView addSubview:_nameTextField];
+    [_nameTextField setDelegate:self];
+    [self.contentView addSubview:_nameTextField];
     
     
     UIImageView *bgImgView2 = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"cname_box_bg"] ];
     [bgImgView2 setFrame:CGRectMake(bgImgView.frame.origin.x, controlYLength(bgImgView), bgImgView.frame.size.width, bgImgView.frame.size.height)];
     [self.contentView addSubview:bgImgView2];
     
-    UILabel *costCenterLabel = [[UILabel alloc]initWithFrame:CGRectMake(nameLabel.frame.origin.x, nameLabel.frame.origin.y, nameLabel.frame.size.width, nameLabel.frame.size.height)];
+    UILabel *costCenterLabel = [[UILabel alloc]initWithFrame:CGRectMake(nameLabel.frame.origin.x, bgImgView2.frame.origin.y +5, nameLabel.frame.size.width, nameLabel.frame.size.height)];
     [costCenterLabel setText:@"成本中心"];
     [costCenterLabel setFont:[UIFont systemFontOfSize:14]];
-    [bgImgView2 addSubview:costCenterLabel];
+    [self.contentView addSubview:costCenterLabel];
     
     _costCenterNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(controlXLength(costCenterLabel) + 50 , costCenterLabel.frame.origin.y, costCenterLabel.frame.size.width*2, costCenterLabel.frame.size.height)];
     [_costCenterNameLabel setFont:[UIFont systemFontOfSize:14]];
-    [bgImgView2 addSubview:_costCenterNameLabel];
+    [self.contentView addSubview:_costCenterNameLabel];
     
     
     UIImageView *image = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"arrow"]];
     [image setFrame:CGRectMake(self.view.frame.size.width/10*9, costCenterLabel.frame.origin.y-5 +15, 10, 15)];
-    [bgImgView2 addSubview:image];
+    [self.contentView addSubview:image];
     
     UIButton *picBtn = [[UIButton alloc] initWithFrame:CGRectMake(bgImgView2.frame.origin.x, bgImgView2.frame.origin.y, bgImgView2.frame.size.width, bgImgView2.frame.size.height) ];
     [picBtn setImage:[UIImage imageNamed:@"bottombar"] forState:UIControlStateHighlighted];
@@ -115,7 +117,6 @@
     [picBtn addTarget:self action:@selector(pressPicBtn:) forControlEvents:UIControlEventTouchUpInside];
     [self.contentView addSubview:picBtn];
 }
-
 - (void)savePassenger{
     [self popViewControllerTransitionType:TransitionPush completionHandler:^(void){
         NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];

@@ -339,17 +339,20 @@
 
 - (void)pushViewControllers:(NSArray*)viewControllers transitionType:(TransitionType)_transitionType completionHandler:(void (^) (void))_compleHandler
 {
-    for (UIViewController *_viewController in viewControllers) {
-        if (viewControllers.lastObject != _viewController) {
-            if (self.navigationController) {
+    if (self.navigationController) {
+        for (UIViewController *_viewController in viewControllers) {
+            if (viewControllers.lastObject != _viewController) {
+                if (self.navigationController) {
+                    [self.navigationController pushViewController:_viewController animated:NO];
+                }
+            }else{
                 [self.navigationController pushViewController:_viewController animated:NO];
+                CATransition *transition = [Utils getAnimation:_transitionType subType:DirectionRight];
+                [self.navigationController.view.layer addAnimation:transition forKey:@"viewtransition"];
+                [self performSelector:@selector(completionHandler:) withObject:_compleHandler afterDelay:transitionDuration];
             }
-        }else{
-            [self.navigationController pushViewController:_viewController animated:NO];
-            CATransition *transition = [Utils getAnimation:_transitionType subType:DirectionRight];
-            [self.navigationController.view.layer addAnimation:transition forKey:@"viewtransition"];
-            [self performSelector:@selector(completionHandler:) withObject:_compleHandler afterDelay:transitionDuration];
         }
+        [self performSelector:@selector(completionHandler:) withObject:_compleHandler afterDelay:(_transitionType == TransitionNone)?0:transitionDuration];
     }
 }
 
@@ -408,7 +411,7 @@
         }else
             [self.navigationController popToViewController:mainViewController animated:YES];
         
-        
+        [self performSelector:@selector(completionHandler:) withObject:_compleHandler afterDelay:(_transitionType == TransitionNone)?0:transitionDuration];
     }
 }
 

@@ -16,6 +16,6 @@ typedef NS_OPTIONS(NSInteger, PassengerInitType){
 
 @interface AddNewPassengerViewController : BaseUIViewController<UITextFieldDelegate>
 
-- (id)initWithParams:(id)params;
+- (id)initWithParams:(BookPassengersResponse*)params;   
 
 @end

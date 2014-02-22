@@ -8,6 +8,7 @@
 
 #import "RegisterAndLogViewController.h"
 #import "HomeViewController.h"
+#import "TestViewController.h"
 
 @interface RegisterAndLogViewController ()
 
@@ -40,17 +41,21 @@
         [logStatusImage setHighlighted:!(logStatusImage.highlighted)];
         [UserDefaults shareUserDefault].autoLogin = logStatusImage.highlighted;
     }else if (sender.tag == 101){
-        LoginRequest *request = [[LoginRequest alloc]initWidthBusinessType:BUSINESS_ACCOUNT methodName:@"login"];
-        [request setUsername:@"18621001200"];
-        [request setPassword:@"123456"];
-        [self.requestManager sendRequestWithoutToken:request];
-        
+//        LoginRequest *request = [[LoginRequest alloc]initWidthBusinessType:BUSINESS_ACCOUNT methodName:@"login"];
+//        [request setUsername:@"18621001200"];
+//        [request setPassword:@"123456"];
+//        [self.requestManager sendRequestWithoutToken:request];
+
+        TestViewController *viewController = [[TestViewController alloc]initWithNibName:@"TestViewController" bundle:nil];
+        [self pushViewController:viewController transitionType:TransitionPush completionHandler:nil];
     }else if (sender.tag == 104){
         
         LoginRequest *request = [[LoginRequest alloc]initWidthBusinessType:BUSINESS_ACCOUNT methodName:@"Login"];
     
-        request.username = @"18621001200";
-        request.password = @"123456";
+//        request.username = @"18621001200";
+//        request.password = @"123456";
+        request.username = _userName.text;
+        request.password = _passWord.text;
         request.rememberMe = [NSNumber numberWithBool:YES];
         
         [self.requestManager sendRequestWithoutToken:request];
@@ -62,7 +67,7 @@
 #pragma mark - request handle
 
 -(void)requestFailedWithErrorCode:(NSNumber *)errorCode withErrorMsg:(NSString *)errorMsg{
-    
+    [[Model shareModel] setUserInteractionEnabled:YES];
 }
 
 -(void)requestDone:(BaseResponseModel *) response{

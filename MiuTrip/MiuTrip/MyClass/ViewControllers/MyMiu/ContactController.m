@@ -203,27 +203,27 @@
     
     
     request.Passengers =[NSArray array];
-    request.PassengerID =[NSNumber numberWithInt:0];
-    
-    request.CorpUID = @"";
-    request.IsEmoloyee =[NSNumber numberWithInt:0];
-    request.IsServer = [NSNumber numberWithInt:0];
-    request.UserName=fieldName.text;
-    request.LastName =@"";
-    request.FirstName =@"";
-    request.MiddleName =@"";
-    request.Email = fieldEmail.text;
-    request.Country =@"";
-    request.Birthday =@"";
-    request.IDCardlist = NULL;
-    request.UID =@"";
-    request.CardType =[NSNumber numberWithInt:0];
-    request.CardNumber =@"";
-    request.IsDefault = @"";
-    request.Telephone =fieldMoviePhone.text;
-    request.Fax = [NSNumber numberWithInt:0];
-    request.ContactConfirmType=@"";
-    request.Type =[NSNumber numberWithInt:1];
+//    request.PassengerID =[NSNumber numberWithInt:0];
+//    
+//    request.CorpUID = @"";
+//    request.IsEmoloyee =[NSNumber numberWithInt:0];
+//    request.IsServer = [NSNumber numberWithInt:0];
+//    request.UserName=fieldName.text;
+//    request.LastName =@"";
+//    request.FirstName =@"";
+//    request.MiddleName =@"";
+//    request.Email = fieldEmail.text;
+//    request.Country =@"";
+//    request.Birthday =@"";
+//    request.IDCardlist = NULL;
+//    request.UID =@"";
+//    request.CardType =[NSNumber numberWithInt:0];
+//    request.CardNumber =@"";
+//    request.IsDefault = @"";
+//    request.Telephone =fieldMoviePhone.text;
+//    request.Fax = [NSNumber numberWithInt:0];
+//    request.ContactConfirmType=@"";
+//    request.Type =[NSNumber numberWithInt:1];
     
     
     [self.requestManager sendRequest:request];

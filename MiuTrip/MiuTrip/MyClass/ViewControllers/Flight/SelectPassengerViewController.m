@@ -317,7 +317,7 @@
         }
         
         if (IDCardInfo != nil) {
-            cell.UID = [NSString stringWithFormat:@"%@:%@",IDCardInfo.CardType,IDCardInfo.CardNumber];
+            cell.UID = [NSString stringWithFormat:@"%@:%@",[IDCardInfo getCardTypeName],IDCardInfo.CardNumber];
         }
     }
     

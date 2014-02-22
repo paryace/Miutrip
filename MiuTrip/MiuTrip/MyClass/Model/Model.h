@@ -23,4 +23,6 @@
 
 - (void)setUserInteractionEnabled:(BOOL)enabled;
 
+- (void)orderSuccess;
+
 @end

@@ -16,7 +16,8 @@
 @end
 
 @interface HotelCompileViewController : BaseUIViewController<CostCenterDelegate>
-@property (strong ,nonatomic)  UILabel  *costCenterNameLabel;
+@property (strong ,nonatomic) UILabel *costCenterNameLabel;
+@property (strong ,nonatomic)  void(^costCenterName)(NSString*);
 @property (strong ,nonatomic)  UITextField  *nameTextField;
 @property (strong ,nonatomic)  NSMutableDictionary *dic;
 @property (strong ,nonatomic) NSString *userName;

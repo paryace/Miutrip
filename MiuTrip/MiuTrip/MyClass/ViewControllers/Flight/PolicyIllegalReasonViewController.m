@@ -80,6 +80,29 @@
 - (void)order
 {
     [_RCDatas setValue:_flight forKey:@"flight"];
+    if (_illegalType == PolicyIllegalDate) {
+        ReasonCodeDTO *reasonDTO = [_RCDatas objectForKey:@"PreBookReasonCodeN"];
+        if (!reasonDTO) {
+            [[Model shareModel] showPromptText:@"请选择提前预定原因" model:YES];
+            return;
+        }
+    }else if (_illegalType == PolicyIllegalPrice){
+        ReasonCodeDTO *reasonDTO = [_RCDatas objectForKey:@"FltPricelReasonCodeN"];
+        if (!reasonDTO) {
+            [[Model shareModel] showPromptText:@"请选择未预订最低价原因" model:YES];
+            return;
+        }
+    }else if (_illegalType == PolicyIllegalDateAndPrice){
+        ReasonCodeDTO *dateRC = [_RCDatas objectForKey:@"PreBookReasonCodeN"];
+        ReasonCodeDTO *priceRC = [_RCDatas objectForKey:@"FltPricelReasonCodeN"];
+        if (!dateRC) {
+            [[Model shareModel] showPromptText:@"请选择提前预定原因" model:YES];
+            return;
+        }else if (!priceRC){
+            [[Model shareModel] showPromptText:@"请选择未预订最低价原因" model:YES];
+            return;
+        }
+    }
     [self pickerFinished:_RCDatas];
 }
 
