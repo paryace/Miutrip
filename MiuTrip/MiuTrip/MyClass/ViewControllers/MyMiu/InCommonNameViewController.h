@@ -31,6 +31,7 @@
 @interface InCommonNameViewController : BaseUIViewController <UIAlertViewDelegate,UIActionSheetDelegate,UITableViewDataSource,UITableViewDelegate,BusinessDelegate,ContactDelegate,TripDelegate>
 @property(strong, nonatomic) UITableView *showtableView;
 @property(nonatomic,assign) NSObject *mydelegate;
+
 @property (strong, nonatomic) UIView                *viewCommonTripPerson;
 @property (strong, nonatomic) UIView                *viewContact;
  @property(nonatomic,assign) NSMutableArray *currentDataSource;

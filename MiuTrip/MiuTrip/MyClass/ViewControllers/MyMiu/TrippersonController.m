@@ -31,6 +31,7 @@
     UITableView *nationlityView;
     NSArray *nationlitydata;
     UILabel *strlabel;
+    NSNumber *num;
   
     
     UILabel *dateOFbirthlabel;
@@ -45,6 +46,7 @@
     UIView *alphaView;
     float height;
     NSTimeInterval animationDuration;
+    BOOL panduan;//0为新增1为编辑修改
 }
 @end//新增出行人
 @implementation TrippersonController
@@ -52,12 +54,13 @@
 
 -(id)initWithParams:(NSDictionary*)param{
     if (self = [super init]) {
-        _param = param;
+        _param = [NSMutableDictionary dictionaryWithDictionary:param];
+        
         [self setSubviewFrame];
         [self updatetrip];
         SqliteManager *sqliteModel =[[SqliteManager alloc]init];
         nationlitydata =[sqliteModel mappingNationInfo];
-        
+        panduan=1;
     }
     return self;
     
@@ -69,6 +72,7 @@
         [self setSubviewFrame];
         SqliteManager *sqliteModel =[[SqliteManager alloc]init];
         nationlitydata =[sqliteModel mappingNationInfo];
+        panduan=0;
     }
     return self;
     
@@ -428,6 +432,7 @@
         dateOFbirthlabel.text =@"1980-01-01";
     }
     else{
+      
         dateOFbirthlabel.text =dateOFbirth;
     }
     
@@ -473,7 +478,7 @@
         }
         
     }
-    NSString *phonenumber =[_param objectForKey:@"Mobulephone"];
+    NSString *phonenumber =[_param objectForKey:@"Mobilephone"];
     if ([phonenumber isKindOfClass:[NSNull class]]) {
         fieldPhone.text =@"";
     }
@@ -859,33 +864,133 @@
     }
 }
 -(void)getpassenger{
-    NSLog(@"发送常用出行人请求");
-    SavePassengerListRequest *request = [[SavePassengerListRequest alloc]initWidthBusinessType:BUSINESS_ACCOUNT methodName:@"SavePassengerList"];
-    request.Passengers =[NSArray array];
-//    request.PassengerID =[NSNumber numberWithInt:0];
-//    
-//    request.CorpUID = @"";
-//    request.IsEmoloyee =[NSNumber numberWithInt:0];
-//    request.IsServer = [NSNumber numberWithInt:0];
-//    request.UserName=fieldName.text;
-//    request.LastName =fieldLastName.text;
-//    request.FirstName =fieldFirstName.text;
-//    request.MiddleName =fieldMiddlerName.text;
-//    request.Email =fieldEmail.text;
-//    request.Country =nationlityLabel.text;
-//    request.Birthday =@"";
-//    request.IDCardlist = NULL;
-//    request.UID =@"";
-//    request.CardType =(NSNumber*)labelcertificateType.text;
-//    request.CardNumber =fieldCertificateNumber.text;
-//    request.IsDefault = @"";
-//    request.Telephone =fieldPhone.text;
-//    request.Fax = [NSNumber numberWithInt:0];
-//    request.ContactConfirmType=@"";
-//    request.Type =[NSNumber numberWithInt:0];
+    if (panduan==0) {
+        NSLog(@"发送常用出行人请求");
+        SavePassengerListRequest *request = [[SavePassengerListRequest alloc]initWidthBusinessType:BUSINESS_ACCOUNT methodName:@"SavePassengerList"];
+        if (!_passengerInfomation) {
+            _passengerInfomation =[[SavePassengerResponse alloc]init];
+            _passengerInfomation.PassengerID=[NSNumber numberWithInt:0];
+            _passengerInfomation.CorpUID=@"";
+            _passengerInfomation.IsEmoloyee=[NSNumber numberWithBool:NO];
+            _passengerInfomation.IsServer=[NSNumber numberWithBool:NO];
+            _passengerInfomation.Name=fieldName.text;
+            _passengerInfomation.LastName=fieldFirstName.text;
+            _passengerInfomation.FirstName=fieldFirstName.text;
+            _passengerInfomation.MiddleName=fieldMiddlerName.text;
+            _passengerInfomation.FullENName=@"";
+            _passengerInfomation.Email=fieldEmail.text;
+            NSString *country =nationlityLabel.text;
+            NSString *countryName = nil;
+            for (Nation *nation in [[SqliteManager shareSqliteManager] mappingNationInfo]) {
+                if ([nation.china_name isEqualToString:country]) {
+                    countryName = [nation abb_name];
+                    continue;
+                }
+            }
+            _passengerInfomation.Country=countryName;
+            _passengerInfomation.Birthday=dateOFbirthlabel.text;
+            _passengerInfomation.LastUseDate=@"";
+        }
+        MemberIDcardResponse *IDCard =[[MemberIDcardResponse alloc]init];
+        [IDCard setUID:@""];
+        
+        if ([labelcertificateType.text isEqualToString:@"身份证"]) {
+            num=[NSNumber numberWithInt:0];
+        }
+        if ([labelcertificateType.text isEqualToString:@"护照"]) {
+            num=[NSNumber numberWithInt:1];
+        }
+        if ([labelcertificateType.text isEqualToString:@"军官证"]) {
+            num =[NSNumber numberWithInt:2];
+        }
+        if ([labelcertificateType.text isEqualToString:@"回乡证"]) {
+            num =[NSNumber numberWithInt:3];
+        }
+        if ([labelcertificateType.text isEqualToString:@"港澳通行证"]) {
+            num =[NSNumber numberWithInt:4];
+        }
+        if ([labelcertificateType.text isEqualToString:@"台胞证"]) {
+            num =[NSNumber numberWithInt:5];
+        }
+        if ([labelcertificateType.text isEqualToString:@"其他"]) {
+            num =[NSNumber numberWithInt:9];
+        }
+        [IDCard setCardType:num];
+        [IDCard setCardNumber:fieldCertificateNumber.text];
+        [IDCard setIsDefault:@"T"];
+        _passengerInfomation.IDCardList=[NSArray arrayWithObject:IDCard];
+        [_passengerInfomation setTelephone:@""];
+        [_passengerInfomation setFax:[NSNumber numberWithInt:0]];
+        [_passengerInfomation setContactConfirmType:@""];
+        [_passengerInfomation setMobilePhone:fieldPhone.text];
+        [_passengerInfomation setType:[NSNumber numberWithInteger:0]];
+        request.Passengers = [NSArray arrayWithObjects:_passengerInfomation,nil];
+        [self.requestManager sendRequest:request];
+    }
+    if (panduan==1) {
+        NSLog(@"发送常用出行人请求");
+        SavePassengerListRequest *request = [[SavePassengerListRequest alloc]initWidthBusinessType:BUSINESS_ACCOUNT methodName:@"SavePassengerList"];
+        if (!_passengerInfomation) {
+            _passengerInfomation =[[SavePassengerResponse alloc]init];
+            _passengerInfomation.PassengerID=[_param objectForKey:@"PassengerID"];
+            _passengerInfomation.CorpUID=@"";
+            _passengerInfomation.IsEmoloyee=[NSNumber numberWithBool:NO];
+            _passengerInfomation.IsServer=[NSNumber numberWithBool:NO];
+            _passengerInfomation.Name=fieldName.text;
+            _passengerInfomation.LastName=fieldFirstName.text;
+            _passengerInfomation.FirstName=fieldFirstName.text;
+            _passengerInfomation.MiddleName=fieldMiddlerName.text;
+            _passengerInfomation.FullENName=@"";
+            _passengerInfomation.Email=fieldEmail.text;
+            NSString *country =nationlityLabel.text;
+            NSString *countryName = nil;
+            for (Nation *nation in [[SqliteManager shareSqliteManager] mappingNationInfo]) {
+                if ([nation.china_name isEqualToString:country]) {
+                    countryName = [nation abb_name];
+                    continue;
+                }
+            }
+            _passengerInfomation.Country=countryName;
+            _passengerInfomation.Birthday=dateOFbirthlabel.text;
+            _passengerInfomation.LastUseDate=@"";
+        }
+        MemberIDcardResponse *IDCard =[[MemberIDcardResponse alloc]init];
+        [IDCard setUID:@""];
+        
+        if ([labelcertificateType.text isEqualToString:@"身份证"]) {
+            num=[NSNumber numberWithInt:0];
+        }
+        if ([labelcertificateType.text isEqualToString:@"护照"]) {
+            num=[NSNumber numberWithInt:1];
+        }
+        if ([labelcertificateType.text isEqualToString:@"军官证"]) {
+            num =[NSNumber numberWithInt:2];
+        }
+        if ([labelcertificateType.text isEqualToString:@"回乡证"]) {
+            num =[NSNumber numberWithInt:3];
+        }
+        if ([labelcertificateType.text isEqualToString:@"港澳通行证"]) {
+            num =[NSNumber numberWithInt:4];
+        }
+        if ([labelcertificateType.text isEqualToString:@"台胞证"]) {
+            num =[NSNumber numberWithInt:5];
+        }
+        if ([labelcertificateType.text isEqualToString:@"其他"]) {
+            num =[NSNumber numberWithInt:9];
+        }
+        [IDCard setCardType:num];
+        [IDCard setCardNumber:fieldCertificateNumber.text];
+        [IDCard setIsDefault:@"T"];
+        _passengerInfomation.IDCardList=[NSArray arrayWithObject:IDCard];
+        [_passengerInfomation setTelephone:@""];
+        [_passengerInfomation setFax:[NSNumber numberWithInt:0]];
+        [_passengerInfomation setContactConfirmType:@""];
+        [_passengerInfomation setMobilePhone:fieldPhone.text];
+        [_passengerInfomation setType:[NSNumber numberWithInteger:0]];
+        request.Passengers = [NSArray arrayWithObjects:_passengerInfomation,nil];
+        [self.requestManager sendRequest:request];
+    }
     
-    
-    [self.requestManager sendRequest:request];
 }
 
 
@@ -901,6 +1006,7 @@
         
         [self popViewControllerTransitionType:TransitionPush completionHandler:^{
             [self.tripDelegate savepassengersDone];
+           
         }];
     }
  

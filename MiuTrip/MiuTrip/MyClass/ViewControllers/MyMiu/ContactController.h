@@ -15,9 +15,9 @@
 
 @interface ContactController : BaseUIViewController<UITextFieldDelegate,BusinessDelegate>
 
-@property (nonatomic,strong) NSDictionary *param;
+@property (nonatomic,strong) NSMutableDictionary *param;
 @property (nonatomic,assign) id<ContactDelegate> contactDelegate;
-
+@property (strong, nonatomic) SavePassengerResponse *passengerInfomation;
 -(id)initWithParamss:(NSDictionary*)param;
 -(void)updatecontact;
 @end

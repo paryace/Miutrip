@@ -200,6 +200,7 @@
 
 - (void)savepassengersDone
 {    [self getPassengers];
+ 
     
 }
 
@@ -207,10 +208,13 @@
     if (alertView.tag==1000) {
         if (buttonIndex != [alertView cancelButtonIndex]) {
             ContactController *contact = [[ContactController alloc]init];
+            contact.ContactDelegate=self;
             [self.navigationController pushViewController:contact animated:YES];   }
         else{
             TrippersonController *trippersonView = [[TrippersonController alloc]init];
+            trippersonView.tripDelegate=self;
             [self.navigationController pushViewController:trippersonView animated:YES];
+           
         }
     }
     if (alertView.tag==1001) {
@@ -266,12 +270,12 @@
 
 -(void)getdeletepassenger{
     DeleteMemberPassengerRequest *deleterequest =[[DeleteMemberPassengerRequest alloc] initWidthBusinessType:BUSINESS_ACCOUNT methodName:@"DeleteMemberPassenger"];
-    deleterequest.PassengerID =[NSNumber numberWithInt:22];//出行人id
+    deleterequest.PassengerID =[(NSDictionary*)_passeditObject objectForKey:@"PassengerID"];//出行人id
     [self.requestManager sendRequest:deleterequest];
 }
 -(void)getdeletecontact{
     DeleteMemberPassengerRequest *deleterequest =[[DeleteMemberPassengerRequest alloc] initWidthBusinessType:BUSINESS_ACCOUNT methodName:@"DeleteMemberPassenger"];
-    deleterequest.PassengerID =[NSNumber numberWithInt:870];//联系人id
+    deleterequest.PassengerID =[(NSDictionary*)_passeditObject objectForKey:@"PassengerID"];//联系人id
     [self.requestManager sendRequest:deleterequest];
 }
 

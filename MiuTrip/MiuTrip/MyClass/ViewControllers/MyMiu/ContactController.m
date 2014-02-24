@@ -14,6 +14,7 @@
     UITextField *fieldMoviePhone;
     UITextField *fieldEmail;
     float height;
+    BOOL panduan;
 
 }
 
@@ -24,16 +25,17 @@
 -(id)init{
     if (self = [super init]) {
         [self setSubviewFrame];
-        
+        panduan=0;
     }
     return self;
     
 }
 -(id)initWithParamss:(NSDictionary*)param{
     if (self = [super init]) {
-        _param =param;
         [self setSubviewFrame];
+        _param =[NSMutableDictionary dictionaryWithDictionary:param];
         [self updatecontact];
+        panduan=1;
     }
     return self;
 }
@@ -134,6 +136,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keboardWillshow:) name:UIKeyboardDidShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyBoardWillHide:) name:UIKeyboardDidHideNotification object:nil];
 }
+
 //常用联系人编辑后获得的数据
 -(void)updatecontact{
     NSString *name =[_param objectForKey:@"UserName"];
@@ -167,7 +170,7 @@
  self.bottomBar.frame=CGRectMake(0, self.view.frame.size.height-self.bottomBar.frame.size.height-height, self.view.frame.size.width, self.bottomBar.frame.size.height);
 }
 -(void)keyBoardWillHide:(NSNotification *)notification{
-//    [[NSNotificationCenter defaultCenter] removeObserver:self];
+
     self.bottomBar.frame=CGRectMake(0, self.view.frame.size.height-self.bottomBar.frame.size.height, self.view.frame.size.width, self.bottomBar.frame.size.height);
 }
 
@@ -200,33 +203,92 @@
 -(void)send{
     SavePassengerListRequest *request = [[SavePassengerListRequest alloc]initWidthBusinessType:BUSINESS_ACCOUNT methodName:@"SavePassengerList"];
     
-    
-    
-    request.Passengers =[NSArray array];
-//    request.PassengerID =[NSNumber numberWithInt:0];
-//    
-//    request.CorpUID = @"";
-//    request.IsEmoloyee =[NSNumber numberWithInt:0];
-//    request.IsServer = [NSNumber numberWithInt:0];
-//    request.UserName=fieldName.text;
-//    request.LastName =@"";
-//    request.FirstName =@"";
-//    request.MiddleName =@"";
-//    request.Email = fieldEmail.text;
-//    request.Country =@"";
-//    request.Birthday =@"";
-//    request.IDCardlist = NULL;
-//    request.UID =@"";
-//    request.CardType =[NSNumber numberWithInt:0];
-//    request.CardNumber =@"";
-//    request.IsDefault = @"";
-//    request.Telephone =fieldMoviePhone.text;
-//    request.Fax = [NSNumber numberWithInt:0];
-//    request.ContactConfirmType=@"";
-//    request.Type =[NSNumber numberWithInt:1];
-    
-    
-    [self.requestManager sendRequest:request];
+    if (panduan==0) {
+        if (!_passengerInfomation) {
+            _passengerInfomation =[[SavePassengerResponse alloc]init];
+            _passengerInfomation.PassengerID=[NSNumber numberWithInt:0];
+            _passengerInfomation.CorpUID=@"";
+            _passengerInfomation.IsEmoloyee=[NSNumber numberWithBool:NO];
+            _passengerInfomation.IsServer=[NSNumber numberWithBool:NO];
+            _passengerInfomation.Name=fieldName.text;
+            _passengerInfomation.LastName=@"";
+            _passengerInfomation.FirstName=@"";
+            _passengerInfomation.MiddleName=@"";
+            _passengerInfomation.FullENName=@"";
+            _passengerInfomation.Email=fieldEmail.text;
+            _passengerInfomation.Country=@"";
+            _passengerInfomation.Birthday=@"";
+            _passengerInfomation.LastUseDate=@"";
+        }
+        MemberIDcardResponse *IDCard =[[MemberIDcardResponse alloc]init];
+        [IDCard setUID:@""];
+        [IDCard setCardType:[NSNumber numberWithInt:0]];
+        [IDCard setCardNumber:@"230124199002237037"];
+        [IDCard setIsDefault:@"T"];
+        _passengerInfomation.IDCardList=[NSArray arrayWithObject:IDCard];
+        [_passengerInfomation setTelephone:@""];
+        [_passengerInfomation setFax:[NSNumber numberWithInt:0]];
+        [_passengerInfomation setContactConfirmType:@""];
+        [_passengerInfomation setMobilePhone:fieldMoviePhone.text];
+        [_passengerInfomation setType:[NSNumber numberWithInteger:1]];
+        request.Passengers = [NSArray arrayWithObjects:_passengerInfomation,nil];
+
+    }
+    if (panduan==1) {
+        if (!_passengerInfomation) {
+            _passengerInfomation =[[SavePassengerResponse alloc]init];
+            _passengerInfomation.PassengerID=[_param objectForKey:@"PassengerID"];
+            _passengerInfomation.CorpUID=@"";
+            _passengerInfomation.IsEmoloyee=[NSNumber numberWithBool:NO];
+            _passengerInfomation.IsServer=[NSNumber numberWithBool:NO];
+            _passengerInfomation.Name=fieldName.text;
+            _passengerInfomation.LastName=@"";
+            _passengerInfomation.FirstName=@"";
+            _passengerInfomation.MiddleName=@"";
+            _passengerInfomation.FullENName=@"";
+            _passengerInfomation.Email=fieldEmail.text;
+            _passengerInfomation.Country=@"";
+            _passengerInfomation.Birthday=@"";
+            _passengerInfomation.LastUseDate=@"";
+        }
+        MemberIDcardResponse *IDCard =[[MemberIDcardResponse alloc]init];
+        [IDCard setUID:@""];
+        [IDCard setCardType:[NSNumber numberWithInt:0]];
+        [IDCard setCardNumber:@"230124199002237037"];
+        [IDCard setIsDefault:@"T"];
+        _passengerInfomation.IDCardList=[NSArray arrayWithObject:IDCard];
+        [_passengerInfomation setTelephone:@""];
+        [_passengerInfomation setFax:[NSNumber numberWithInt:0]];
+        [_passengerInfomation setContactConfirmType:@""];
+        [_passengerInfomation setMobilePhone:fieldMoviePhone.text];
+        [_passengerInfomation setType:[NSNumber numberWithInteger:1]];
+        request.Passengers = [NSArray arrayWithObjects:_passengerInfomation,nil];
+    }
+       [self.requestManager sendRequest:request];
+}
+-(void)savecompileBtn:(UIButton*)sender{
+    if (![Utils isCina:fieldName.text]||[fieldName.text isEqualToString:@""]) {
+        UIAlertView *fieldalert = [[UIAlertView alloc]initWithTitle:nil message:@"姓名为空或格式不匹配" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil];
+        [fieldalert show];
+        
+        
+        
+    }
+    else{
+        if ([Utils isValidatePhoneNum:fieldMoviePhone.text]) {
+            if ([Utils ismailbox:fieldEmail.text]) {
+                          }
+            else{
+                UIAlertView *fieldalert = [[UIAlertView alloc]initWithTitle:nil message:@"邮箱格式错误" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil];
+                [fieldalert show];
+            }
+        }
+        else{
+            UIAlertView *fieldalert = [[UIAlertView alloc]initWithTitle:nil message:@"手机号码为空或格式错误" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil];
+            [fieldalert show];
+        }
+    }
+
 }
 
 /**
