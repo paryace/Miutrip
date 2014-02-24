@@ -557,6 +557,7 @@
     
         celllabel =[[UILabel alloc]initWithFrame:CGRectMake(10, 0, self.frame.size.width, 40)];
     NSString *name=[_cellparam objectForKey:@"UserName"];
+    [celllabel setAutoSize:YES];
     [celllabel setBackgroundColor:color(clearColor)];
     NSLog(@"name is %@",name);
     [self.contentView addSubview:celllabel];
@@ -646,19 +647,24 @@
         [compileButton addTarget:self.superview action:@selector(compileButton:) forControlEvents:UIControlEventTouchUpInside];
         [tripView addSubview:compileButton];
     //动态label
-    nameandlabel = [[UILabel alloc]initWithFrame:CGRectMake(tripView.frame.size.width/3,2,tripView.frame.size.width/3,tripView.frame.size.height/7-4)];
+    nameandlabel = [[UILabel alloc]initWithFrame:CGRectMake(tripView.frame.size.width/3,2,tripView.frame.size.width/3*2,tripView.frame.size.height/7-4)];
+    [nameandlabel setAutoSize:YES];
     [tripView addSubview:nameandlabel];
     
-    nationlityandlabel = [[UILabel alloc]initWithFrame:CGRectMake(tripView.frame.size.width/3,tripView.frame.size.height/7+2,tripView.frame.size.width/3,tripView.frame.size.height/7-4)];
+    nationlityandlabel = [[UILabel alloc]initWithFrame:CGRectMake(tripView.frame.size.width/3,tripView.frame.size.height/7+2,tripView.frame.size.width/3*2,tripView.frame.size.height/7-4)];
+    [nationlityandlabel setAutoSize:YES];
        [tripView addSubview:nationlityandlabel];
     
-    certificateTypeandlabel = [[UILabel alloc]initWithFrame:CGRectMake(tripView.frame.size.width/3,tripView.frame.size.height/7*2+2,tripView.frame.size.width/3,tripView.frame.size.height/7-4)];
+    certificateTypeandlabel = [[UILabel alloc]initWithFrame:CGRectMake(tripView.frame.size.width/3,tripView.frame.size.height/7*2+2,tripView.frame.size.width/3*2,tripView.frame.size.height/7-4)];
+    [certificateTypeandlabel setAutoSize:YES];
     [tripView addSubview:certificateTypeandlabel];
     
-    certificateNumberandlabel=[[UILabel alloc]initWithFrame:CGRectMake(tripView.frame.size.width/3,tripView.frame.size.height/7*3+2,tripView.frame.size.width*0.7,tripView.frame.size.height/7-4)];
+    certificateNumberandlabel=[[UILabel alloc]initWithFrame:CGRectMake(tripView.frame.size.width/3,tripView.frame.size.height/7*3+2,tripView.frame.size.width/3*2,tripView.frame.size.height/7-4)];
+    [certificateNumberandlabel setAutoSize:YES];
    [tripView addSubview:certificateNumberandlabel];
     
-    moviePhoneNumberandlabel =[[UILabel alloc]initWithFrame:CGRectMake(tripView.frame.size.width/3,tripView.frame.size.height/7*4+2,tripView.frame.size.width/2,tripView.frame.size.height/7-4)];
+    moviePhoneNumberandlabel =[[UILabel alloc]initWithFrame:CGRectMake(tripView.frame.size.width/3,tripView.frame.size.height/7*4+2,tripView.frame.size.width/3*2,tripView.frame.size.height/7-4)];
+    [moviePhoneNumberandlabel setAutoSize:YES];
         [tripView addSubview:moviePhoneNumberandlabel];
     
 }
@@ -671,6 +677,7 @@
     [self.contentView addSubview:imageview];
 
     celllabel =[[UILabel alloc]initWithFrame:CGRectMake(10, 0, self.frame.size.width, 40)];
+    [celllabel setAutoSize:YES];
     [celllabel setBackgroundColor:[UIColor clearColor]];
     NSString *name=[_cellparam objectForKey:@"UserName"];
     NSLog(@"name is %@",name);
@@ -743,12 +750,15 @@
         [tripView addSubview:rightcompilebutton];
 //动态label
     
-    rightNameandLabel =[[UILabel alloc]initWithFrame:CGRectMake(tripView.frame.size.width/3,2,tripView.frame.size.width/3,tripView.frame.size.height/5-4)];
+    rightNameandLabel =[[UILabel alloc]initWithFrame:CGRectMake(tripView.frame.size.width/3,2,tripView.frame.size.width/3*2,tripView.frame.size.height/5-4)];
+    [rightNameandLabel setAutoSize:YES];
         [tripView addSubview:rightNameandLabel];
     
-    rightMoviePhoneNumberAndLabel =[[UILabel alloc]initWithFrame:CGRectMake(tripView.frame.size.width/3,tripView.frame.size.height/5+2,tripView.frame.size.width/2,tripView.frame.size.height/5-4)];
+    rightMoviePhoneNumberAndLabel =[[UILabel alloc]initWithFrame:CGRectMake(tripView.frame.size.width/3,tripView.frame.size.height/5+2,tripView.frame.size.width/3*2,tripView.frame.size.height/5-4)];
+    [rightMoviePhoneNumberAndLabel setAutoSize:YES];
         [tripView addSubview:rightMoviePhoneNumberAndLabel];
-    rightEmail = [[UILabel alloc] initWithFrame:CGRectMake(tripView.frame.size.width/3,tripView.frame.size.height/5*2+2,tripView.frame.size.width*0.7,tripView.frame.size.height/5-4)];
+    rightEmail = [[UILabel alloc] initWithFrame:CGRectMake(tripView.frame.size.width/3,tripView.frame.size.height/5*2+2,tripView.frame.size.width/3*2,tripView.frame.size.height/5-4)];
+    [rightEmail setAutoSize:YES];
        [tripView addSubview:rightEmail];
     
 }
