@@ -166,6 +166,9 @@
 		12DDD836183B5C4E00E774AF /* set_sgitem_l_select.png in Resources */ = {isa = PBXBuildFile; fileRef = 12DDD832183B5C4E00E774AF /* set_sgitem_l_select.png */; };
 		12DDD837183B5C4E00E774AF /* set_sgitem_r_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 12DDD833183B5C4E00E774AF /* set_sgitem_r_normal.png */; };
 		12DDD838183B5C4E00E774AF /* set_sgitem_r_select.png in Resources */ = {isa = PBXBuildFile; fileRef = 12DDD834183B5C4E00E774AF /* set_sgitem_r_select.png */; };
+		1812686018BC644400BDF2F9 /* GetHotelPendingOrdersRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 1812685F18BC644400BDF2F9 /* GetHotelPendingOrdersRequest.m */; };
+		1812686318BC646C00BDF2F9 /* GetHotelPendingOrdersResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 1812686218BC646C00BDF2F9 /* GetHotelPendingOrdersResponse.m */; };
+		1812686618BC694600BDF2F9 /* BindingAccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1812686518BC694600BDF2F9 /* BindingAccountViewController.m */; };
 		183E48931845E2F9009F6C4E /* RequestManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 183E48921845E2F9009F6C4E /* RequestManager.m */; };
 		18564719184C5C8D0031E5D6 /* LoginInfoDTO.m in Sources */ = {isa = PBXBuildFile; fileRef = 18564718184C5C8D0031E5D6 /* LoginInfoDTO.m */; };
 		1856471E184C5F0D0031E5D6 /* bg_date.png in Resources */ = {isa = PBXBuildFile; fileRef = 1856471B184C5F0D0031E5D6 /* bg_date.png */; };
@@ -686,6 +689,12 @@
 		12DDD832183B5C4E00E774AF /* set_sgitem_l_select.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = set_sgitem_l_select.png; sourceTree = "<group>"; };
 		12DDD833183B5C4E00E774AF /* set_sgitem_r_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = set_sgitem_r_normal.png; sourceTree = "<group>"; };
 		12DDD834183B5C4E00E774AF /* set_sgitem_r_select.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = set_sgitem_r_select.png; sourceTree = "<group>"; };
+		1812685E18BC644400BDF2F9 /* GetHotelPendingOrdersRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetHotelPendingOrdersRequest.h; sourceTree = "<group>"; };
+		1812685F18BC644400BDF2F9 /* GetHotelPendingOrdersRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetHotelPendingOrdersRequest.m; sourceTree = "<group>"; };
+		1812686118BC646C00BDF2F9 /* GetHotelPendingOrdersResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetHotelPendingOrdersResponse.h; sourceTree = "<group>"; };
+		1812686218BC646C00BDF2F9 /* GetHotelPendingOrdersResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetHotelPendingOrdersResponse.m; sourceTree = "<group>"; };
+		1812686418BC694600BDF2F9 /* BindingAccountViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BindingAccountViewController.h; sourceTree = "<group>"; };
+		1812686518BC694600BDF2F9 /* BindingAccountViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BindingAccountViewController.m; sourceTree = "<group>"; };
 		183E48911845E2F9009F6C4E /* RequestManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RequestManager.h; sourceTree = "<group>"; };
 		183E48921845E2F9009F6C4E /* RequestManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RequestManager.m; sourceTree = "<group>"; };
 		18564717184C5C8D0031E5D6 /* LoginInfoDTO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginInfoDTO.h; sourceTree = "<group>"; };
@@ -2086,6 +2095,8 @@
 				B57A0A8C184EC77A00A33831 /* BaseUIViewController.m */,
 				B590F176186140C0002D6A6D /* PullRefreshTableViewController.h */,
 				B590F177186140C0002D6A6D /* PullRefreshTableViewController.m */,
+				1812686418BC694600BDF2F9 /* BindingAccountViewController.h */,
+				1812686518BC694600BDF2F9 /* BindingAccountViewController.m */,
 				18E982DD18B30D90008C3ABC /* Flight */,
 				B5000ADB18657600006BF295 /* MyMiu */,
 				B57A0AA8184EC7C000A33831 /* Hotel */,
@@ -2294,6 +2305,10 @@
 				18864C71188E537A00F6D048 /* CancelHotelOrderRequest.m */,
 				18864C73188E53B200F6D048 /* CancelHotelResponse.h */,
 				18864C74188E53B200F6D048 /* CancelHotelResponse.m */,
+				1812685E18BC644400BDF2F9 /* GetHotelPendingOrdersRequest.h */,
+				1812685F18BC644400BDF2F9 /* GetHotelPendingOrdersRequest.m */,
+				1812686118BC646C00BDF2F9 /* GetHotelPendingOrdersResponse.h */,
+				1812686218BC646C00BDF2F9 /* GetHotelPendingOrdersResponse.m */,
 			);
 			path = Hotel;
 			sourceTree = "<group>";
@@ -2629,6 +2644,7 @@
 				18E9833E18B317C7008C3ABC /* GetMailConfigRequest.m in Sources */,
 				18A13710184EE59F00516ED3 /* GetCorpNameByMumberUIDResponse.m in Sources */,
 				18A136DD184EE37500516ED3 /* GetLoginUserInfoResponse.m in Sources */,
+				1812686018BC644400BDF2F9 /* GetHotelPendingOrdersRequest.m in Sources */,
 				46D9D2A6188BBC5500E8A1EF /* GetAllCityResponse.m in Sources */,
 				18E9833518B317C7008C3ABC /* CancelFlightOrderResponse.m in Sources */,
 				18A13704184EE55400516ED3 /* DeleteMemberDeliverResponse.m in Sources */,
@@ -2662,6 +2678,7 @@
 				E402DD7C189218C900B2CF5A /* Nation.m in Sources */,
 				183E48931845E2F9009F6C4E /* RequestManager.m in Sources */,
 				46D9D2BD188BBC5500E8A1EF /* GetSectionsByCityIdRequest.m in Sources */,
+				1812686318BC646C00BDF2F9 /* GetHotelPendingOrdersResponse.m in Sources */,
 				B59555DB1866C6F000B2C673 /* HotelCantonViewController.m in Sources */,
 				124789FA1836363100AA0083 /* SBJsonStreamWriterAccumulator.m in Sources */,
 				B57B67501852BEEC0002C778 /* GetHotelRoomsMultiResponse.m in Sources */,
@@ -2761,6 +2778,7 @@
 				46D9D2A4188BBC5500E8A1EF /* GetAllCantonsResponse.m in Sources */,
 				12791525183326B700CF94F4 /* main.m in Sources */,
 				18564719184C5C8D0031E5D6 /* LoginInfoDTO.m in Sources */,
+				1812686618BC694600BDF2F9 /* BindingAccountViewController.m in Sources */,
 				E402DD8218921DA100B2CF5A /* SettingViewController.m in Sources */,
 				52B2098518B4793600CAFE9A /* ForgetPasswordResponse.m in Sources */,
 				124789F31836363100AA0083 /* NSObject+SBJson.m in Sources */,

@@ -8,25 +8,17 @@
 
 #import "LittleMiuViewController.h"
 #import "LittleMiuDetail.h"
-//#import "CustomBtn.h"
 #import "LoginInfoDTO.h"
 #import "CommonlyName.h"
 #import "GetFlightOrderListRequest.h"
-#import "GetOrderRequest.h"
-#import "GetOrderResponse.h"
+#import "GetHotelPendingOrdersRequest.h"
+#import "GetHotelPendingOrdersResponse.h"
 
-//#import "HotelAroundViewController.h"
-//#import "CurrentToHotelViewController.h"
 #import "HotelDetailViewController.h"
 #import "HomeViewController.h"
 
-//#import "SMS_SendRequest.h"
-//#import "SMS_SendResponse.h"
-
 #import "SaveSMSRequest.h"
 #import "SaveSMSResponse.h"
-//#import "SMSDTORequest.h"
-//#import "SMSDTOResponse.h"
 
 #import "Utils.h"
 @interface LittleMiuViewController ()
@@ -98,15 +90,12 @@
     airRequest.CorpID = @"22";
     airRequest.PageNumber = [NSNumber numberWithInt:1];
     airRequest.PageSize = [NSNumber numberWithInt:20];
-    airRequest.NotTravel = [NSNumber numberWithBool:false];
+    airRequest.NotTravel = [NSNumber numberWithBool:YES];
     airRequest.isCorpDelivery = [NSNumber numberWithBool:false];
     [self.requestManager sendRequest:airRequest];
     
-    GetOrderRequest *hotelRequest = [[GetOrderRequest alloc]initWidthBusinessType:BUSINESS_HOTEL methodName:@"GetOrders"];
-    hotelRequest.Page=[NSNumber numberWithInt:1];
-    hotelRequest.PageSize=[NSNumber numberWithInt:20];
-    hotelRequest.Status = [NSNumber numberWithInt:0];
-    //    airRequest.NotTravel = [NSNumber numberWithBool:false];
+    GetHotelPendingOrdersRequest *hotelRequest = [[GetHotelPendingOrdersRequest alloc] initWidthBusinessType:BUSINESS_HOTEL methodName:@"GetPendingOrders"];
+    hotelRequest.NotTravel = [NSNumber numberWithBool:YES];
     [self.requestManager sendRequest:hotelRequest];
 }
 
@@ -120,8 +109,8 @@
         }
         [_dataSource addObjectsFromArray:orders];
     }
-    else if ([response isKindOfClass:[GetOrderResponse class]]) {
-        GetOrderResponse *orderResponse = (GetOrderResponse *)response;
+    else if ([response isKindOfClass:[GetHotelPendingOrdersResponse class]]) {
+        GetHotelPendingOrdersResponse *orderResponse = (GetHotelPendingOrdersResponse *)response;
         NSArray *hotelOrders = orderResponse.Data;
         for (NSDictionary *hotelOrder in hotelOrders) {
             [hotelOrder setValue:@"HotelList" forKey:@"OrderType"];
@@ -276,8 +265,7 @@
 {
     switch (sender.tag) {
         case 27:{
-            //            CurrentToHotelViewController *currentView = [[CurrentToHotelViewController alloc] init];
-            //            [self pushViewController:currentView transitionType:TransitionPush completionHandler:nil];
+        
             break;
         }
         case 28:{
@@ -288,8 +276,6 @@
             HotelDetailViewController *hotelDetailView = [[HotelDetailViewController alloc] init];
             [self pushViewController:hotelDetailView transitionType:TransitionPush completionHandler:nil];
             
-            //            HotelAroundViewController *hotelAroundView = [[HotelAroundViewController alloc] init];
-            //            [self pushViewController:hotelAroundView transitionType:TransitionPush completionHandler:nil];
             break;
         }
         default:
@@ -361,7 +347,7 @@
         sendRequest.IsSendNow = [NSNumber numberWithInt:1];
         sendRequest.BusinessType = [NSNumber numberWithInt:i];
         sendRequest.OrderID = orderid;
-        //        sendRequest.Mobile = mobileString;
+        sendRequest.Mobile = mobileString;
         sendRequest.SmsContent = string;
         sendRequest.AddCode = @"15618323344";
         sendRequest.Priority = [NSNumber numberWithInt:3];
@@ -386,7 +372,7 @@
         sendRequest.IsSendNow = [NSNumber numberWithInt:1];
         sendRequest.BusinessType = [NSNumber numberWithInt:i];
         sendRequest.OrderID = orderid;
-        //        sendRequest.Mobile = mobileString;
+        sendRequest.Mobile = mobileString;
         sendRequest.SmsContent = string;
         sendRequest.AddCode = @"15618323344";
         sendRequest.Priority = [NSNumber numberWithInt:3];
@@ -586,8 +572,11 @@
     
     [_itemArray removeAllObjects];
     NSArray *array = [params objectForKey:@"FltPassengers"];
+    NSDictionary *dic = [params objectForKey:@"FltDeliver"];
+    NSString *molbile = [dic objectForKey:@"ContactMobile"];
     for (int i = 0;i<[array count];i++) {
         NSDictionary *detail = [array objectAtIndex:i];
+        [detail setValue:molbile forKey:@"Mobile"];
         UIView *view = [self createAirCellItemWithParams:detail frame:CGRectMake(line.frame.origin.x + 10, controlYLength(line) + LittleMiuItemHeight * i, linkBtn.frame.size.width, LittleMiuItemHeight)];
         [_unfoldView addSubview:view];
         [_itemArray addObject:view];
@@ -630,7 +619,7 @@
     [view addSubview:nameLabel];
     
     UILabel *phoneLabel = [[UILabel alloc]initWithFrame:CGRectMake(controlXLength(nameLabel), nameLabel.frame.origin.y, frame.size.width, nameLabel.frame.size.height)];
-    [phoneLabel setText:[detail objectForKey:@"Mobilephone"]];
+    [phoneLabel setText:[detail objectForKey:@"Mobile"]];
     //    [phoneLabel setText:@"13855556666"];
     [phoneLabel setTextAlignment:NSTextAlignmentRight];
     [phoneLabel setFont:[UIFont systemFontOfSize:15]];
@@ -855,8 +844,10 @@
     
     [_itemArray removeAllObjects];
     NSArray *array = [params objectForKey:@"Guests"];
+    NSString *mobile = [params objectForKey:@"ContactMobile"];
     for (int i = 0;i<[array count];i++) {
         NSDictionary *detail = [array objectAtIndex:i];
+        [detail setValue:mobile forKey:@"Mobile"];
         UIView *view = [self createHotelCellItemWithParams:detail frame:CGRectMake(line.frame.origin.x+10, controlYLength(line) + LittleMiuItemHeight * i, linkBtn.frame.size.width, LittleMiuItemHeight)];
         [_unfoldView addSubview:view];
         [_itemArray addObject:view];
@@ -964,7 +955,7 @@
     //    UILabel *
     _phoneLabel = [[UILabel alloc]initWithFrame:CGRectMake(controlXLength(_nameLabel), _nameLabel.frame.origin.y, frame.size.width, _nameLabel.frame.size.height)];
     [_phoneLabel setBackgroundColor:color(clearColor)];
-    [_phoneLabel setText:[detail objectForKey:@"Mobilephone"]];
+    [_phoneLabel setText:[detail objectForKey:@"Mobile"]];
     //    [_phoneLabel setText:@"13855556666"];
     [_phoneLabel setTextAlignment:NSTextAlignmentRight];
     [_phoneLabel setFont:[UIFont systemFontOfSize:15]];

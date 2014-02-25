@@ -30,6 +30,7 @@
 #import "GetBizSummary_AtMiutripResponse.h"
 #import "HotelCityListViewController.h"
 
+
 @interface HomeViewController (){
     NSDictionary *allDicData;
 }
@@ -1463,6 +1464,8 @@
             [self pushViewController:hotelOrderView transitionType:TransitionPush completionHandler:nil];
             break;
         }case 402:{
+//            BindingAccountViewController *bindingView = [[BindingAccountViewController alloc]init];
+//            [self pushViewController:bindingView transitionType:TransitionPush completionHandler:nil];
             TripCareerViewController *tripCareerView = [[TripCareerViewController alloc]init];
             [self pushViewController:tripCareerView transitionType:TransitionPush completionHandler:^{
                 //                [tripCareerView.requestManager getTravelLifeInfo];
