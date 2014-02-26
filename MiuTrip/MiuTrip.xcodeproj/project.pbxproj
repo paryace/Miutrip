@@ -465,6 +465,7 @@
 		E4272A2C18B357C4005B63D1 /* GetAPIMailCondigResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = E4272A2B18B357C4005B63D1 /* GetAPIMailCondigResponse.m */; };
 		E4D250B718AB31E000CC0EDF /* GetBizSummary_AtMiutripRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = E4D250B618AB31E000CC0EDF /* GetBizSummary_AtMiutripRequest.m */; };
 		E4D250BA18AB324000CC0EDF /* GetBizSummary_AtMiutripResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = E4D250B918AB324000CC0EDF /* GetBizSummary_AtMiutripResponse.m */; };
+		F227CE3318BD87C200F07E48 /* AccountActViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F227CE3218BD87C200F07E48 /* AccountActViewController.m */; };
 		F2EECB5218924630005C7A81 /* HotelpassengerDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F2EECB5118924630005C7A81 /* HotelpassengerDetailCell.m */; };
 		F2EECB58189246A8005C7A81 /* HotelSelectedDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F2EECB57189246A8005C7A81 /* HotelSelectedDetailCell.m */; };
 		F2EECB5B189246D2005C7A81 /* HomeChooseDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F2EECB5A189246D2005C7A81 /* HomeChooseDetailCell.m */; };
@@ -1193,6 +1194,8 @@
 		E4D250B618AB31E000CC0EDF /* GetBizSummary_AtMiutripRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetBizSummary_AtMiutripRequest.m; sourceTree = "<group>"; };
 		E4D250B818AB324000CC0EDF /* GetBizSummary_AtMiutripResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetBizSummary_AtMiutripResponse.h; sourceTree = "<group>"; };
 		E4D250B918AB324000CC0EDF /* GetBizSummary_AtMiutripResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetBizSummary_AtMiutripResponse.m; sourceTree = "<group>"; };
+		F227CE3118BD87C200F07E48 /* AccountActViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccountActViewController.h; sourceTree = "<group>"; };
+		F227CE3218BD87C200F07E48 /* AccountActViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccountActViewController.m; sourceTree = "<group>"; };
 		F2EECB5018924630005C7A81 /* HotelpassengerDetailCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HotelpassengerDetailCell.h; sourceTree = "<group>"; };
 		F2EECB5118924630005C7A81 /* HotelpassengerDetailCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HotelpassengerDetailCell.m; sourceTree = "<group>"; };
 		F2EECB56189246A8005C7A81 /* HotelSelectedDetailCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HotelSelectedDetailCell.h; sourceTree = "<group>"; };
@@ -2100,6 +2103,8 @@
 				18E982DD18B30D90008C3ABC /* Flight */,
 				B5000ADB18657600006BF295 /* MyMiu */,
 				B57A0AA8184EC7C000A33831 /* Hotel */,
+				F227CE3118BD87C200F07E48 /* AccountActViewController.h */,
+				F227CE3218BD87C200F07E48 /* AccountActViewController.m */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -2748,6 +2753,7 @@
 				18A136EF184EE4B500516ED3 /* GetCorpUserBaseInfoResponse.m in Sources */,
 				18A136F5184EE4E200516ED3 /* GetCorpCostResponse.m in Sources */,
 				B5C7C854186577BB008914D0 /* HotelAndAirOrderViewController.m in Sources */,
+				F227CE3318BD87C200F07E48 /* AccountActViewController.m in Sources */,
 				B529E856186FC97D0024E901 /* HotelDataCache.m in Sources */,
 				122BD721184057F100BAA9A9 /* HotelOrderDetailCell.m in Sources */,
 				18E9833F18B317C7008C3ABC /* GetMailConfigResponse.m in Sources */,
