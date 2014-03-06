@@ -14,5 +14,7 @@
 
 @property (strong, nonatomic) UIWindow *window;
 @property (strong, nonatomic) BaseUIViewController *viewController;
+@property (assign, nonatomic) BOOL isForSelf;
+
 
 @end

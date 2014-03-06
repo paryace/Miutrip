@@ -166,6 +166,7 @@
 		12DDD836183B5C4E00E774AF /* set_sgitem_l_select.png in Resources */ = {isa = PBXBuildFile; fileRef = 12DDD832183B5C4E00E774AF /* set_sgitem_l_select.png */; };
 		12DDD837183B5C4E00E774AF /* set_sgitem_r_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 12DDD833183B5C4E00E774AF /* set_sgitem_r_normal.png */; };
 		12DDD838183B5C4E00E774AF /* set_sgitem_r_select.png in Resources */ = {isa = PBXBuildFile; fileRef = 12DDD834183B5C4E00E774AF /* set_sgitem_r_select.png */; };
+		180D7F8718C8203D00D42A22 /* SiftCorpCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 180D7F8618C8203D00D42A22 /* SiftCorpCell.m */; };
 		1812686018BC644400BDF2F9 /* GetHotelPendingOrdersRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 1812685F18BC644400BDF2F9 /* GetHotelPendingOrdersRequest.m */; };
 		1812686318BC646C00BDF2F9 /* GetHotelPendingOrdersResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 1812686218BC646C00BDF2F9 /* GetHotelPendingOrdersResponse.m */; };
 		1812686618BC694600BDF2F9 /* BindingAccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1812686518BC694600BDF2F9 /* BindingAccountViewController.m */; };
@@ -690,6 +691,8 @@
 		12DDD832183B5C4E00E774AF /* set_sgitem_l_select.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = set_sgitem_l_select.png; sourceTree = "<group>"; };
 		12DDD833183B5C4E00E774AF /* set_sgitem_r_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = set_sgitem_r_normal.png; sourceTree = "<group>"; };
 		12DDD834183B5C4E00E774AF /* set_sgitem_r_select.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = set_sgitem_r_select.png; sourceTree = "<group>"; };
+		180D7F8518C8203D00D42A22 /* SiftCorpCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SiftCorpCell.h; sourceTree = "<group>"; };
+		180D7F8618C8203D00D42A22 /* SiftCorpCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SiftCorpCell.m; sourceTree = "<group>"; };
 		1812685E18BC644400BDF2F9 /* GetHotelPendingOrdersRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetHotelPendingOrdersRequest.h; sourceTree = "<group>"; };
 		1812685F18BC644400BDF2F9 /* GetHotelPendingOrdersRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetHotelPendingOrdersRequest.m; sourceTree = "<group>"; };
 		1812686118BC646C00BDF2F9 /* GetHotelPendingOrdersResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetHotelPendingOrdersResponse.h; sourceTree = "<group>"; };
@@ -2159,6 +2162,8 @@
 				B53DA0881878328E00868278 /* HotelListRoomCell.m */,
 				B53DA08A1878332100868278 /* HotelListBtnCellView.h */,
 				B53DA08B1878332100868278 /* HotelListBtnCellView.m */,
+				180D7F8518C8203D00D42A22 /* SiftCorpCell.h */,
+				180D7F8618C8203D00D42A22 /* SiftCorpCell.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -2830,6 +2835,7 @@
 				46D9D2AE188BBC5500E8A1EF /* GetCantonsByCityIDResponse.m in Sources */,
 				B529E8591870184B0024E901 /* HotelCustomerModel.m in Sources */,
 				18A905DC184C5A9200AE4835 /* GetTravelLifeInfoRequest.m in Sources */,
+				180D7F8718C8203D00D42A22 /* SiftCorpCell.m in Sources */,
 				18A905DF184C61DD00AE4835 /* GetContactRequest.m in Sources */,
 				18E9830C18B31105008C3ABC /* DatePickerViewController.m in Sources */,
 				18A905E2184C699200AE4835 /* GetCorpServerCardListRequest.m in Sources */,

@@ -14,9 +14,12 @@
 
 @end
 
-@interface FlightSiftViewController : BaseUIViewController
+@interface FlightSiftViewController : BaseUIViewController<UITableViewDataSource,UITableViewDelegate>
 
 @property (assign, nonatomic) id<FlightSiftViewDelegate> delegate;
+
+@property (strong, nonatomic) NSMutableArray    *airCompanyBtnArray;
+
 
 @end
 

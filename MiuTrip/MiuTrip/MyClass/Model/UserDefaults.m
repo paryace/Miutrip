@@ -58,7 +58,15 @@ static UserDefaults *shareUserDefault;
     self = [super init];
     if (self) {
         getUserInfo = NO;
-        goalCity    = @"上海";
+        
+        startCity = [[NSUserDefaults standardUserDefaults] objectForKey:@"startCity"];
+        if (startCity == nil){
+            startCity    = @"上海";
+        }
+        goalCity = [[NSUserDefaults standardUserDefaults] objectForKey:@"goalCity"];
+        if (goalCity == nil) {
+            goalCity     = @"北京";
+        }
     }
     return self;
 }

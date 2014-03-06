@@ -160,6 +160,9 @@
     [self done:postType];
 }
 
+
+
+
 #pragma mark - view init
 - (void)setSubviewFrame
 {

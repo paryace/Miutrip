@@ -29,7 +29,8 @@
 #import "GetBizSummary_AtMiutripRequest.h"
 #import "GetBizSummary_AtMiutripResponse.h"
 #import "HotelCityListViewController.h"
-
+#import "SqliteManager.h"
+#import "AppDelegate.h"
 
 @interface HomeViewController (){
     NSDictionary *allDicData;
@@ -660,6 +661,11 @@
         [_fromCity setCornerRadius:5];
         [_fromCity setFrame:CGRectMake(10, controlYLength(startImage), (pageAirBottomView.frame.size.width - 20 - 10 - 40)/2, 40)];
         [_fromCity setTag:700];
+        
+#pragma mark --- 修改默认出发城市 ---上海
+        
+        NSString *startCity = [[UserDefaults shareUserDefault] startCity];
+        [_fromCity setTitle:startCity forState:UIControlStateNormal];
         //[_fromCity setTitle:@"上海" forState:UIControlStateNormal];
         [_fromCity setTitleColor:color(blackColor) forState:UIControlStateNormal];
         [_fromCity setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
@@ -679,6 +685,11 @@
         [_toCity setCornerRadius:5];
         [_toCity setFrame:CGRectMake(controlXLength(exchangeFromAndTo) + 5, _fromCity.frame.origin.y, _fromCity.frame.size.width, _fromCity.frame.size.height)];
         [_toCity setTag:701];
+        
+#pragma mark -- 修改默认到达城市  ---北京
+        
+        NSString *goalCity = [[UserDefaults shareUserDefault] goalCity];
+        [_toCity setTitle:goalCity forState:UIControlStateNormal];
         //[_toCity setTitle:@"北京" forState:UIControlStateNormal];
         [_toCity setTitleColor:color(blackColor) forState:UIControlStateNormal];
         [_toCity setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
@@ -700,6 +711,12 @@
         [pageAirBottomView addSubview:startDateImage];
         
         _startDateTf = [[CustomDateTextField alloc]initWithFrame:CGRectMake(controlXLength(startDateImage), startDateImage.frame.origin.y, controlXLength(topItemBG) - controlXLength(startDateImage), startDateImage.frame.size.height)];
+        
+#pragma mark --修改出发时间,默认为当前时间的第二天
+        
+        NSString *date = [[self class] GetTomorrowDay:[NSDate date]];
+        [_startDateTf setText:date];
+        
         [_startDateTf setLeftPlaceholder:@"出发日期"];
         [pageAirBottomView addSubview:_startDateTf];
         UIImageView *startDateRightImage = [[UIImageView alloc]initWithFrame:CGRectMake(_startDateTf.frame.size.width - _startDateTf.frame.size.height, 0, _startDateTf.frame.size.height, _startDateTf.frame.size.height)];
@@ -951,6 +968,39 @@
     }
 }
 
+
+#pragma mark --获取第二天的日期
++(NSString *)GetTomorrowDay:(NSDate *)aDate
+{
+    NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar] ;
+    NSDateComponents *components = [gregorian components:NSWeekdayCalendarUnit | NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit fromDate:aDate];
+    [components setDay:([components day]+1)];
+    
+    NSDate *beginningOfWeek = [gregorian dateFromComponents:components];
+    NSDateFormatter *dateday = [[NSDateFormatter alloc] init] ;
+    [dateday setDateFormat:@"yyyy-MM-dd"];
+    NSString *str =[dateday stringFromDate:beginningOfWeek];
+    NSLog(@"%@",str);
+    return str;
+}
+
+
+
+#pragma mark --页面消失前,保存数据  上次输入的城市信息
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    
+    NSLog(@"%@",_fromCity.titleLabel.text);
+    NSString *startCity = _fromCity.titleLabel.text;
+    NSString *goalCity = _toCity.titleLabel.text;
+    [[UserDefaults shareUserDefault] setStartCity:startCity];
+    [[UserDefaults shareUserDefault]setGoalCity:goalCity];
+    
+    
+}
+
 - (void)showReturnQueryView:(BOOL)show
 {
     UIView *responderView = _viewPageAir;
@@ -1062,6 +1112,9 @@
     }
 }
 
+
+#pragma mark --查询按钮触发事件
+
 - (void)pressAirItemDone:(UIButton*)sender
 {
     HomeCustomBtn *customBtn = (HomeCustomBtn*)[_viewPageAir viewWithTag:300];
@@ -1071,8 +1124,13 @@
                 if ([customBtn.queryTypeTitle isEqualToString:@"为他人/多人"]) {
                     SelectPassengerViewController *passengerSelectView = [[SelectPassengerViewController alloc]initWithBusinessType:0];
                     [passengerSelectView setDelegate:self];
+                    AppDelegate *app = [[UIApplication sharedApplication] delegate];
+                    app.isForSelf = NO;
                     [self pushViewController:passengerSelectView transitionType:TransitionPush completionHandler:nil];
                 }else{
+                    //为个人
+                    AppDelegate *app = [[UIApplication sharedApplication] delegate];
+                    app.isForSelf = YES;
                     if ([self checkIDNumValidateWithData:@[[UserDefaults shareUserDefault].loginInfo]]){
                         GetNormalFlightsRequest *request = [self getNormalFlightsRequest];
                         AirListViewController *airListView = [[AirListViewController alloc]init];
@@ -1143,6 +1201,12 @@
     BOOL complete = YES;
     NSMutableString *flightDate = [NSMutableString stringWithString:_startDateTf.date];
 //    [flightDate appendString:[NSString stringWithFormat:@" %@",_startTime.text]];
+    
+#pragma mark -- 根据城市名字获取信息 cityDTO
+    
+    _airOrderFromCity = [[SqliteManager shareSqliteManager] getCityInfoWithCityName:_fromCity.titleLabel.text];
+    _airOrderToCity = [[SqliteManager shareSqliteManager] getCityInfoWithCityName:_toCity.titleLabel.text];
+    
     if ([[Utils dateWithString:flightDate withFormat:@"yyyy-MM-dd"] timeIntervalSince1970] < [[NSDate date] timeIntervalSince1970]){
         [[Model shareModel] showPromptText:@"不能订购今天以前的票" model:YES];
         complete = NO;

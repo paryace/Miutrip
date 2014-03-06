@@ -451,19 +451,22 @@
         [changeOtherLb setTextColor:color(lightGrayColor)];
         [changeOtherLb setTextAlignment:NSTextAlignmentCenter];
         [changeOtherLb setFont:[UIFont systemFontOfSize:13]];
-        [_contentView addSubview:changeOtherLb];
+#pragma mark --- 修改隐藏最低价航班
+       // [_contentView addSubview:changeOtherLb];
         
         AirListViewCell   *cheapestCell = nil;
         if (_flight) {
             cheapestCell = [[AirListViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
-            [cheapestCell setFrame:CGRectMake(0, controlYLength(changeOtherLb) + 5, _contentView.frame.size.width, AirListViewCellHeight)];
+            [cheapestCell setFrame:CGRectMake(0, controlYLength(_selectPriceReasonBtn) + changeOtherLbHeight + 5 + 5, _contentView.frame.size.width, AirListViewCellHeight)];
             [cheapestCell isShow:YES];
             [cheapestCell setViewContentWithParams:_flight];
-            [_contentView addSubview:cheapestCell];
+#pragma mark --- 修改隐藏最低价航班
+            
+           // [_contentView addSubview:cheapestCell];
         }
         
         UIButton *returnBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [returnBtn setFrame:CGRectMake(_contentView.frame.size.width/6, controlYLength((cheapestCell?cheapestCell:changeOtherLb)) + 5, _contentView.frame.size.width/4, 30)];
+        [returnBtn setFrame:CGRectMake(_contentView.frame.size.width/6, controlYLength(_selectPriceReasonBtn) + 5, _contentView.frame.size.width/4, 30)];
         [returnBtn setBackgroundImage:imageNameAndType(@"bg_btn_blue", nil) forState:UIControlStateNormal];
         [returnBtn setTitle:@"返回重选" forState:UIControlStateNormal];
         [returnBtn.titleLabel setFont:[UIFont systemFontOfSize:13]];

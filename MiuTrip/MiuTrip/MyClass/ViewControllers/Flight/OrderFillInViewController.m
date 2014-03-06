@@ -13,6 +13,8 @@
 #import "SubmitFlightOrderRequest.h"
 #import "CommonlyNameViewController.h"
 #import "AirListViewController.h"
+#import "AppDelegate.h"
+
 
 @interface OrderFillInViewController ()
 
@@ -442,6 +444,28 @@
     [self setSubjoinViewFrame];
 }
 
+
+#pragma mark --在view将要显示的时候判断:为个人   为多人
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    AppDelegate *app = [[UIApplication sharedApplication] delegate];
+    UIView *view = (UIView *)[self.contentView viewWithTag:200];
+    UIButton *clear = (UIButton *)[view viewWithTag:400];
+    UIButton *add = (UIButton *)[view viewWithTag:401];
+    if (app.isForSelf) {
+
+        clear.hidden = YES;
+        add.hidden = YES;
+    }else
+    {
+        clear.hidden = NO;
+        add.hidden = NO;
+    }
+}
+
+
 - (void)setSubjoinViewFrame
 {
     UILabel *baseInfoLabel = [[UILabel alloc]initWithFrame:CGRectMake(15, controlYLength(self.topBar), self.contentView.frame.size.width - 20, 30)];
@@ -556,6 +580,7 @@
     UIView *addPassengersBackgroundView = [[UIView alloc]initWithFrame:CGRectMake(baseInfoBackgroundView.frame.origin.x, controlYLength(fillInPassengerLabel), baseInfoBackgroundView.frame.size.width, 0)];
     [addPassengersBackgroundView setBackgroundColor:color(whiteColor)];
     [addPassengersBackgroundView setCornerRadius:2.5];
+    
     [addPassengersBackgroundView setTag:200];
     [addPassengersBackgroundView setShaowColor:addPassengersBackgroundView.backgroundColor offset:CGSizeMake(4, 4) opacity:1 radius:2.5];
     [self.contentView addSubview:addPassengersBackgroundView];
@@ -571,6 +596,7 @@
     [clearPassengerBtn setTitleColor:color(blackColor) forState:UIControlStateNormal];
     [clearPassengerBtn.titleLabel setFont:[UIFont systemFontOfSize:12]];
     [clearPassengerBtn setFrame:CGRectMake(controlXLength(selectedPassengerLabel), selectedPassengerLabel.frame.origin.y, selectedPassengerLabel.frame.size.width/4, selectedPassengerLabel.frame.size.height)];
+#pragma mark --为个人订票时需要隐藏的"清空按钮" tag
     [clearPassengerBtn setTag:400];
     [clearPassengerBtn addTarget:self action:@selector(editPassenger:) forControlEvents:UIControlEventTouchUpInside];
     [addPassengersBackgroundView addSubview:clearPassengerBtn];
@@ -580,6 +606,7 @@
     [addPassengerBtn setTitleColor:color(blackColor) forState:UIControlStateNormal];
     [addPassengerBtn.titleLabel setFont:[UIFont systemFontOfSize:12]];
     [addPassengerBtn setFrame:CGRectMake(controlXLength(clearPassengerBtn), clearPassengerBtn.frame.origin.y, clearPassengerBtn.frame.size.width, clearPassengerBtn.frame.size.height)];
+#pragma mark --为个人订票时需要隐藏的"新增按钮" tag
     [addPassengerBtn setTag:401];
     [addPassengerBtn addTarget:self action:@selector(editPassenger:) forControlEvents:UIControlEventTouchUpInside];
     [addPassengersBackgroundView addSubview:addPassengerBtn];

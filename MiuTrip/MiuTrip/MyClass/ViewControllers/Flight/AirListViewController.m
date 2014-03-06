@@ -300,6 +300,8 @@
     [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
 }
 
+#pragma mark --点击预定按钮
+
 - (void)pressMainBtn:(CustomBtn *)sender
 {
     DomesticFlightDataDTO *flight = [_showDataSource objectAtIndex:sender.indexPath.row];
@@ -874,9 +876,9 @@
 - (void)siftDone:(NSDictionary *)params
 {
     NSString *seatTypeStr = [params objectForKey:@"seatType"];
-    NSString *airCompanyStr = [params objectForKey:@"airCompany"];
+    NSArray *airCompanyStr = [params objectForKey:@"airCompany"];
     
-    if (![seatTypeStr isEqualToString:@"不限"] || ![airCompanyStr isEqualToString:@"不限"]) {
+    if (![seatTypeStr isEqualToString:@"不限"] || ![airCompanyStr containsObject:@"不限"]) {
         [_showDataSource removeAllObjects];
         
         if (![seatTypeStr isEqualToString:@"不限"]) {
@@ -889,12 +891,23 @@
             [_showDataSource addObjectsFromArray:_dataSource];
         }
         NSMutableArray *elemArray = [NSMutableArray array];
-        if (![airCompanyStr isEqualToString:@"不限"]) {
-            for (DomesticFlightDataDTO *flight in _showDataSource) {
-                if ([[flight.AirLine.ShortName uppercaseString] rangeOfString:airCompanyStr].length != 0) {
-                    [elemArray addObject:flight];
+        if (![airCompanyStr containsObject:@"不限"]) {
+            
+         
+                for (NSUInteger i = 0; i < [airCompanyStr count]; i++) {
+                    
+                    NSString *airCompanyName = [airCompanyStr objectAtIndex:i];
+                    
+                    for (DomesticFlightDataDTO *flight in _showDataSource) {
+                        
+                        if ( [flight.AirLine.ShortName isEqualToString:airCompanyName]){
+                            
+                            [elemArray addObject:flight];
+                        }
+                    }
+                    
                 }
-            }
+            
             _showDataSource = elemArray;
         }
     }else{
@@ -904,10 +917,25 @@
     [self tableViewReloadData:_theTableView];
 }
 
+
+#pragma mark --点击筛选按钮
+
 - (void)pressFilterBtn:(AirListCustomBtn*)sender
 {
     FlightSiftViewController *viewController = [[FlightSiftViewController alloc]init];
     [viewController setDelegate:self];
+    
+#pragma mark --本次查询的航空公司名字(不重复)
+    for (NSUInteger i = 0;i <  _dataSource.count; i++) {
+        DomesticFlightDataDTO *flight = [_dataSource objectAtIndex:i];
+        NSString *airLineName = flight.AirLine.ShortName;
+        
+        if ( ![viewController.airCompanyBtnArray containsObject:airLineName] ){
+            [viewController.airCompanyBtnArray addObject:airLineName];
+        }
+    }
+ 
+    
     [self pushViewController:viewController transitionType:TransitionPush completionHandler:nil];
 }
 
@@ -1249,6 +1277,7 @@
     [_discountLb setAutoSize:YES];
     [_discountLb setTextColor:color(grayColor)];
     [self addSubview:_discountLb];
+    
     
     _doneBtn = [CustomBtn buttonWithType:UIButtonTypeCustom];
     [_doneBtn setFrame:CGRectMake(controlXLength(_priceLb), AirListViewSubjoinCellHeight/2 - 20, _priceLb.frame.size.width, 40)];

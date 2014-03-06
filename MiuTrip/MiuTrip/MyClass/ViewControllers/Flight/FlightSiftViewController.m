@@ -8,12 +8,23 @@
 
 #import "FlightSiftViewController.h"
 #import "DBAirLine.h"
-#import "SqliteManager.h"
+#import "SiftCorpCell.h"
+
+
+
+#define kCELLHEIGHT  41.5f
+
 
 @interface FlightSiftViewController ()
 
 @property (strong, nonatomic) NSMutableArray    *seatTypeBtnArray;
-@property (strong, nonatomic) NSMutableArray    *airCompanyBtnArray;
+@property (strong, nonatomic) NSMutableArray    *airCompanyOfSift;
+
+@property (strong, nonatomic) UITableView       *airCompanyList;
+
+
+
+
 
 @end
 
@@ -34,10 +45,28 @@
     if (self) {
         _seatTypeBtnArray = [NSMutableArray array];
         _airCompanyBtnArray = [NSMutableArray array];
-        [self setSubviewFrame];
+        [_airCompanyBtnArray addObject:@"不限"];
+        _airCompanyOfSift = [NSMutableArray array];
+    
     }
     return self;
 }
+
+
+
+
+
+
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self setSubviewFrame];
+    _airCompanyList.frame = CGRectMake(0, 0, _airCompanyList.frame.size.width, kCELLHEIGHT * _airCompanyBtnArray.count);
+    [_airCompanyList reloadData];
+}
+
+#pragma mark --筛选条件确认
 
 - (void)pressRightBtn:(UIButton *)sender
 {
@@ -48,16 +77,10 @@
             break;
         }
     }
-    NSString *airCompanyStr = nil;
-    for (FlightSiftViewCustomBtn *btn in _airCompanyBtnArray) {
-        if (btn.leftImageHighlighted) {
-            airCompanyStr = btn.titleLabel.text;
-            break;
-        }
-    }
+
     NSDictionary *dic = [NSDictionary dictionaryWithObjectsAndKeys:
                          seatTypeStr,               @"seatType",
-                         airCompanyStr,             @"airCompany",
+                         _airCompanyOfSift,          @"airCompany",
                          nil];
     [self popViewControllerTransitionType:TransitionPush completionHandler:^{
         [self.delegate siftDone:dic];
@@ -99,7 +122,7 @@
 //    [seatTypeBGView setShaowColor:color(lightGrayColor) offset:CGSizeMake(4, 4) opacity:1 radius:2.5];
     [self.contentView addSubview:seatTypeBGView];
     
-    FlightSiftViewCustomBtn *seatNoneBtn = [[FlightSiftViewCustomBtn alloc]initWithFrame:CGRectMake(0, 0, seatTypeBGView.frame.size.width, 40)];
+    FlightSiftViewCustomBtn *seatNoneBtn = [[FlightSiftViewCustomBtn alloc]initWithFrame:CGRectMake(0, 0, seatTypeBGView.frame.size.width , 40)];
     [seatNoneBtn setTitle:@"不限" forState:UIControlStateNormal];
     [seatNoneBtn.titleLabel setFont:[UIFont systemFontOfSize:13]];
     [seatNoneBtn setTitleColor:color(blackColor) forState:UIControlStateNormal];
@@ -133,7 +156,7 @@
     [seatTypeBGView addSubview:seatBusinessBtn];
     [_seatTypeBtnArray addObject:seatBusinessBtn];
     
-    NSArray *companyArray = [[SqliteManager shareSqliteManager] mappingAirLineInfo];
+//    NSArray *companyArray = [[SqliteManager shareSqliteManager] mappingAirLineInfo];
     
     UILabel *airCompanyLb = [[UILabel alloc]initWithFrame:CGRectMake(seatTypeLb.frame.origin.x, controlYLength(seatTypeBGView), seatTypeLb.frame.size.width, seatTypeLb.frame.size.height)];
     [airCompanyLb setBackgroundColor:color(clearColor)];
@@ -141,44 +164,56 @@
     [airCompanyLb setText:@"航空公司"];
     [self.contentView addSubview:airCompanyLb];
     
-    UIView *airCompanyBGView = [[UIView alloc]initWithFrame:CGRectMake(seatTypeBGView.frame.origin.x, controlYLength(airCompanyLb), seatTypeBGView.frame.size.width, 40 * [companyArray count])];
+    UIView *airCompanyBGView = [[UIView alloc]initWithFrame:CGRectMake(seatTypeBGView.frame.origin.x, controlYLength(airCompanyLb), seatTypeBGView.frame.size.width, kCELLHEIGHT * [_airCompanyBtnArray count])];
     [airCompanyBGView setBackgroundColor:color(whiteColor)];
     [airCompanyBGView setBorderColor:color(lightGrayColor) width:1];
     [airCompanyBGView setCornerRadius:5];
     [self.contentView addSubview:airCompanyBGView];
     
-    for (int i = 0; i<=[companyArray count]; i++) {
-        if (i > 0) {
-            DBAirLine *airLine = [companyArray objectAtIndex:i - 1];
-            FlightSiftViewCustomBtn *btn = [[FlightSiftViewCustomBtn alloc]initWithFrame:CGRectMake(0, 40 * i, airCompanyBGView.frame.size.width, 40)];
-            [btn setTag:(200 + i)];
-            [btn setTitle:airLine.short_name forState:UIControlStateNormal];
-            [btn setTitleColor:color(blackColor) forState:UIControlStateNormal];
-            [btn.titleLabel setFont:[UIFont systemFontOfSize:13]];
-            [btn setLeftImage:imageNameAndType(@"set_item_normal", nil) LeftHighlightedImage:imageNameAndType(@"set_item_select", nil)];
-            [btn addTarget:self action:@selector(pressAirCompanyBtn:) forControlEvents:UIControlEventTouchUpInside];
-            [airCompanyBGView addSubview:btn];
-            [_airCompanyBtnArray addObject:btn];
-            
-
-        }else{
-            FlightSiftViewCustomBtn *btn = [[FlightSiftViewCustomBtn alloc]initWithFrame:CGRectMake(0, 40 * i, airCompanyBGView.frame.size.width, 40)];
-            [btn setTag:(200 + i)];
-            [btn setTitle:@"不限" forState:UIControlStateNormal];
-            [btn setTitleColor:color(blackColor) forState:UIControlStateNormal];
-            [btn.titleLabel setFont:[UIFont systemFontOfSize:13]];
-            [btn setLeftImage:imageNameAndType(@"set_item_normal", nil) LeftHighlightedImage:imageNameAndType(@"set_item_select", nil)];
-            [btn addTarget:self action:@selector(pressAirCompanyBtn:) forControlEvents:UIControlEventTouchUpInside];
-            [airCompanyBGView addSubview:btn];
-            [_airCompanyBtnArray addObject:btn];
-        }
-        if (i < [companyArray count] - 1) {
-            [airCompanyBGView createLineWithParam:color(lightGrayColor) frame:CGRectMake(0, 40 * i, airCompanyBGView.frame.size.width, 1)];
-        }
-    }
+#pragma mark --修改
     
+    _airCompanyList = [[UITableView alloc] initWithFrame:airCompanyBGView.bounds style:UITableViewStylePlain];
+    _airCompanyList.delegate = self;
+    _airCompanyList.dataSource = self;
+    _airCompanyList.bounces = NO;
+    _airCompanyList.separatorStyle = UITableViewCellSeparatorStyleNone;
+   // _airCompanyList.editing = YES;
+    
+    [airCompanyBGView addSubview:_airCompanyList];
+
+#if 0
+//    for (int i = 0; i<=[_airCompanyBtnArray count]; i++) {
+//        if (i > 0) {
+//            NSString *airLine = [_airCompanyBtnArray objectAtIndex:i - 1];
+//            FlightSiftViewCustomBtn *btn = [[FlightSiftViewCustomBtn alloc]initWithFrame:CGRectMake(0, 40 * i, airCompanyBGView.frame.size.width, 40)];
+//            [btn setTag:(200 + i)];
+//            [btn setTitle:airLine forState:UIControlStateNormal];
+//            [btn setTitleColor:color(blackColor) forState:UIControlStateNormal];
+//            [btn.titleLabel setFont:[UIFont systemFontOfSize:13]];
+//            [btn setLeftImage:imageNameAndType(@"set_item_normal", nil) LeftHighlightedImage:imageNameAndType(@"set_item_select", nil)];
+//            [btn addTarget:self action:@selector(pressAirCompanyBtn:) forControlEvents:UIControlEventTouchUpInside];
+//            [airCompanyBGView addSubview:btn];
+//            //[_airCompanyBtnArray addObject:btn];
+//            
+//
+//        }else{
+//            FlightSiftViewCustomBtn *btn = [[FlightSiftViewCustomBtn alloc]initWithFrame:CGRectMake(0, 40 * i, airCompanyBGView.frame.size.width, 40)];
+//            [btn setTag:(200 + i)];
+//            [btn setTitle:@"不限" forState:UIControlStateNormal];
+//            [btn setTitleColor:color(blackColor) forState:UIControlStateNormal];
+//            [btn.titleLabel setFont:[UIFont systemFontOfSize:13]];
+//            [btn setLeftImage:imageNameAndType(@"set_item_normal", nil) LeftHighlightedImage:imageNameAndType(@"set_item_select", nil)];
+//            [btn addTarget:self action:@selector(pressAirCompanyBtn:) forControlEvents:UIControlEventTouchUpInside];
+//            [airCompanyBGView addSubview:btn];
+//           // [_airCompanyBtnArray addObject:btn];
+//        }
+//        if (i < [companyArray count] - 1) {
+//            [airCompanyBGView createLineWithParam:color(lightGrayColor) frame:CGRectMake(0, 40 * i, airCompanyBGView.frame.size.width, 1)];
+//        }
+//    }
+#endif
     [self pressSeatTypeBtn:seatNoneBtn];
-    [self pressAirCompanyBtn:(FlightSiftViewCustomBtn*)[airCompanyBGView viewWithTag:200]];
+   // [self pressAirCompanyBtn:(FlightSiftViewCustomBtn*)[airCompanyBGView viewWithTag:200]];
 }
 
 - (void)pressSeatTypeBtn:(FlightSiftViewCustomBtn*)sender
@@ -188,17 +223,102 @@
     }
 }
 
-- (void)pressAirCompanyBtn:(FlightSiftViewCustomBtn*)sender
+
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    for (FlightSiftViewCustomBtn *btn in _airCompanyBtnArray) {
-        [btn setLeftImageHighlighted:(sender.tag == btn.tag)];
+    return _airCompanyBtnArray.count;
+}
+
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    static NSString *company = @"airCompanyCell";
+    
+    SiftCorpCell *cell = [tableView dequeueReusableCellWithIdentifier:company];
+    
+    if (nil == cell) {
+        cell = [[SiftCorpCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:company];
     }
+    
+    cell.airCorpName.text = [_airCompanyBtnArray objectAtIndex:indexPath.row];
+    cell.selectionStyle =  UITableViewCellSelectionStyleNone;
+
+    
+    return cell;
+}
+
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    
+
+    
+    if (indexPath.row == 0) {
+        //第一个cell 不限
+        NSIndexPath *path = [NSIndexPath indexPathForRow:0 inSection:0];
+        SiftCorpCell *cellA = (SiftCorpCell *)[tableView cellForRowAtIndexPath:path];
+        cellA.isSelected = YES;
+        
+        
+        for (NSUInteger i = 1 ; i < [_airCompanyBtnArray count]; i++) {
+            NSIndexPath *path = [NSIndexPath indexPathForRow:i inSection:0];
+            SiftCorpCell *cell = (SiftCorpCell *)[tableView cellForRowAtIndexPath:path];
+            cell.isSelected = NO;
+            
+            if ([_airCompanyOfSift containsObject:cell.airCorpName.text]) {
+                [_airCompanyOfSift removeObject:cell.airCorpName.text];
+            }
+        }
+        [_airCompanyOfSift addObject:@"不限"];
+    }else{
+        //NSString *airLineName = [_airCompanyBtnArray objectAtIndex:indexPath.row];
+        //第一个cell 设置为未选中状态
+        NSIndexPath *path = [NSIndexPath indexPathForRow:0 inSection:0];
+        SiftCorpCell *cellA = (SiftCorpCell *)[tableView cellForRowAtIndexPath:path];
+        cellA.isSelected = NO;
+        
+        //其他cell设置为相反的状态
+        NSIndexPath *index = [NSIndexPath indexPathForRow:indexPath.row inSection:0];
+        SiftCorpCell *cellM = (SiftCorpCell *)[tableView cellForRowAtIndexPath:index];
+        cellM.isSelected = !cellM.isSelected;
+        
+        //如果包含--不限--选项,则删除不限选项
+        if ([_airCompanyOfSift containsObject:cellA.airCorpName.text]) {
+            [_airCompanyOfSift removeObject:cellA.airCorpName.text];
+        }
+        //如果是选中状态,则把这个cell加入到筛选数组中
+        if (cellM.isSelected) {
+            [_airCompanyOfSift addObject:cellM.airCorpName.text];
+        }else
+            //如果不是选中状态,则从数组中移除
+        {
+            if ([_airCompanyOfSift containsObject:cellM.airCorpName.text]) {
+                [_airCompanyOfSift removeObject:cellM.airCorpName.text];
+            }
+        }
+    }
+}
+
+
+
+//- (void)pressAirCompanyBtn:(FlightSiftViewCustomBtn*)sender
+//{
+//    for (FlightSiftViewCustomBtn *btn in _airCompanyBtnArray) {
+//        [btn setLeftImageHighlighted:(sender.tag == btn.tag)];
+//    }
+//}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return kCELLHEIGHT;
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+
 }
 
 - (void)didReceiveMemoryWarning
