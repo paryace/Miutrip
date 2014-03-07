@@ -9,7 +9,8 @@
 #import "AppDelegate.h"
 #import "RegisterAndLogViewController.h"
 #import "HomeViewController.h"
-
+#import "BindingAccountViewController.h"
+#import "AccountActViewController.h"
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -29,13 +30,14 @@
         _viewController = [[RegisterAndLogViewController alloc]init];
         [Model shareModel].mainView = _viewController;
     }
+    
+//   BindingAccountViewController * bindingAccVC = [[BindingAccountViewController alloc] init];
+//    
+//    self.window.rootViewController = bindingAccVC;
 
     UINavigationController *navigationController = [[UINavigationController alloc]initWithRootViewController:_viewController];
     [navigationController setNavigationBarHidden:YES];
-    self.window.rootViewController = navigationController;
-    //[[UIApplication sharedApplication] setStatusBarHidden:YES];
-    self.window.backgroundColor = [UIColor whiteColor];
-    [self.window makeKeyAndVisible];
+
     
     if (deviceVersion >= 7.0) {
         UIViewController *viewController = nil;
@@ -50,7 +52,11 @@
 
         [viewController.view setFrame:CGRectMake(0, 0, viewController.view.frame.size.width, viewController.view.frame.size.height)];
         [viewController.view setTransform:newTransform];
-    }
+        self.window.rootViewController = navigationController;
+    [[UIApplication sharedApplication] setStatusBarHidden:YES];
+    self.window.backgroundColor = [UIColor whiteColor];
+    [self.window makeKeyAndVisible];
+}
     return YES;
 }
 

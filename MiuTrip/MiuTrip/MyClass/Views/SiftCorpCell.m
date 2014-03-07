@@ -22,6 +22,7 @@
 
 - (void)setUpAirCorpCellUI
 {
+
     _btnImage = [[UIImageView alloc] initWithFrame:CGRectMake(7.5, 7, 28, 28)];
     
     _btnImage.image = [UIImage imageNamed:@"set_item_normal"];
