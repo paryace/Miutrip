@@ -105,6 +105,11 @@
     }
 }
 
+-(void)requestFailedWithErrorCode:(NSNumber *)errorCode withErrorMsg:(NSString *)errorMsg
+{
+    
+}
+
 - (void)segmentedChangeSelectedIndex:(UISegmentedControl*)sender
 {
     NSInteger selectedIndex = sender.selectedSegmentIndex;

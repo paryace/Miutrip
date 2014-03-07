@@ -11,7 +11,7 @@
 
 @protocol SelectPassengerDelegate <NSObject>
 
-- (void)selectPassengerDone:(NSArray *)passengers policyName:(id)policy;
+- (void)selectPassengerDone:(NSArray *)passengers policyName:(id)policy bussinessType:(int)type;
 
 @end
 
@@ -25,6 +25,8 @@
 @interface SelectPassengerViewController : BaseUIViewController<UITableViewDataSource,UITableViewDelegate,PassengerListViewDelegate,SelectPolicyDelegate>
 
 @property (assign, nonatomic) id<SelectPassengerDelegate> delegate;
+@property (nonatomic)         int businessType;
+
 
 -(id)initWithBusinessType:(int)type;
 

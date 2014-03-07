@@ -99,6 +99,8 @@
         data.guestMobile = [UserDefaults shareUserDefault].loginInfo.Mobilephone;
         
         data.executor = customer;
+    }else{
+        data.roomCount = data.customers.count;
     }
 }
 
@@ -112,11 +114,12 @@
 - (void)addChildView{
     
     float width = self.contentView.frame.size.width;
+    float height = self.contentView.frame.size.height - 78;
     
-    UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0,40,width,660)];
+    UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0,40,width,height)];
     scrollView.tag = 1000;
     scrollView.delaysContentTouches = NO;
-    [self.contentView addSubview:scrollView];
+    [self.view addSubview:scrollView];
     
     
     UILabel *infoTitle = [[UILabel alloc] initWithFrame:CGRectMake(15, 5, 150, 20)];
@@ -191,7 +194,7 @@
         [executor setBackgroundColor:color(clearColor)];
         [executor setTextColor:color(blackColor)];
         [executor setFont:[UIFont systemFontOfSize:14]];
-        [executor setText:@"张三男"];
+        [executor setText:data.executor.name];
         [scrollView addSubview:executor];
         
         UIView *line2 = [[UIView alloc] initWithFrame:CGRectMake(10, y+40, width-20, 1)];
@@ -256,6 +259,8 @@
     UILabel *arriveTime = [[UILabel alloc] initWithFrame:CGRectMake(110, y+4, width - 140, 40)];
     [arriveTime setTextColor:color(blackColor)];
     [arriveTime setFont:[UIFont systemFontOfSize:14]];
+    [arriveTime setTextAlignment:NSTextAlignmentCenter];
+    [arriveTime setText:data.arriveTime];
     [scrollView addSubview:arriveTime];
     
     UIImageView *arrow1 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"arrow.png"]];
@@ -292,6 +297,8 @@
     UILabel *roomCount = [[UILabel alloc] initWithFrame:CGRectMake(100, y+4, width - 140, 34)];
     [roomCount setTextColor:color(blackColor)];
     [roomCount setFont:[UIFont systemFontOfSize:14]];
+    [roomCount setTextAlignment:NSTextAlignmentCenter];
+    [roomCount setText:[NSString stringWithFormat:@"%d间",data.roomCount]];
     [scrollView addSubview:roomCount];
     
     UIImageView *arrow2 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"arrow.png"]];
@@ -313,8 +320,9 @@
     [costTitle setText:@"费用结算"];
     [scrollView addSubview:costTitle];
     
+    int tableHeight = 40*data.customers.count;
     UIImageView *costBg = [[UIImageView alloc] init];
-    [costBg setFrame:CGRectMake(10, y+38, width-20, 125)];
+    [costBg setFrame:CGRectMake(10, y+38, width-20, tableHeight+85)];
     [costBg setBackgroundColor:color(whiteColor)];
     [costBg setBorderColor:color(lightGrayColor) width:1.0];
     [costBg setCornerRadius:5.0];
@@ -362,13 +370,14 @@
     [costApportionTitle setText:@"费用分摊"];
     [consumerTitle addSubview:costApportionTitle];
     
-    UITableView *tableView = [[UITableView alloc] initWithFrame:CGRectMake(1, 75, width - 22, 40)];
+    
+    UITableView *tableView = [[UITableView alloc] initWithFrame:CGRectMake(1, 75, width - 22, tableHeight)];
     tableView.dataSource = self;
     tableView.delegate = self;
     tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [costView addSubview:tableView];
     
-    y += 168;
+    y += 125+tableHeight;
     
     //填写联系人
     UILabel *contactorTitle = [[UILabel alloc] initWithFrame:CGRectMake(15, y+5, 150, 18)];
@@ -451,6 +460,9 @@
     [submitOrderBtn setFrame:CGRectMake(80, y+130, width-80*2, 40)];
     [submitOrderBtn addTarget:self action:@selector(userPayAction:) forControlEvents:UIControlEventTouchUpInside];
     [scrollView addSubview:submitOrderBtn];
+    
+    scrollView.contentSize = CGSizeMake(width,  y+200);
+
 }
 
 
@@ -643,12 +655,12 @@
 #pragma mark - Passenager tableView dataSource and delegate
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return  1;
+    return  [HotelDataCache sharedInstance].customers.count;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return [HotelDataCache sharedInstance].customers.count;
+    return 1;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath

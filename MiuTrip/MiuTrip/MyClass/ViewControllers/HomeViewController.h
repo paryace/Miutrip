@@ -62,9 +62,10 @@ typedef NS_ENUM(NSInteger, popupListType)
 @property (strong, nonatomic) BtnItem               *goalBtn;
 @property (strong, nonatomic) BtnItem               *queryTypeBtn;
 @property (strong, nonatomic) BtnItem               *payTypeBtn;
+@property (nonatomic)         int                   businessType;
 
 
-- (id)initWithParams:(NSObject*)params;
+- (id)initWithParams:(NSObject*)params withType:(int)type;
 
 - (NSString *)goalTitle;
 - (NSString *)queryTypeTitle;

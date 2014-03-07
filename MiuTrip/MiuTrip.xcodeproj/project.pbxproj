@@ -375,8 +375,6 @@
 		46D9D2C0188BBC5500E8A1EF /* SaveSMSResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 46D9D29E188BBC5500E8A1EF /* SaveSMSResponse.m */; };
 		46D9D2C1188BBC5500E8A1EF /* SendSMSRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 46D9D2A0188BBC5500E8A1EF /* SendSMSRequest.m */; };
 		46D9D2C2188BBC5500E8A1EF /* SendSMSResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 46D9D2A2188BBC5500E8A1EF /* SendSMSResponse.m */; };
-		520594F518B5AEC600D9AF79 /* TestViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 520594F418B5AEC600D9AF79 /* TestViewController.xib */; };
-		527E58F618B5A3FC00590A49 /* TestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 527E58F518B5A3FC00590A49 /* TestViewController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		527E58F718B5A77600590A49 /* libUPPayPlugin.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 46D0F5D8188B9B0E0063CEE6 /* libUPPayPlugin.a */; };
 		52B2097F18B46B0700CAFE9A /* icon_finish.png in Resources */ = {isa = PBXBuildFile; fileRef = 52B2097E18B46B0700CAFE9A /* icon_finish.png */; };
 		52B2098218B4791F00CAFE9A /* ForgetPasswordRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 52B2098118B4791F00CAFE9A /* ForgetPasswordRequest.m */; };
@@ -1044,9 +1042,6 @@
 		46D9D2A0188BBC5500E8A1EF /* SendSMSRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SendSMSRequest.m; sourceTree = "<group>"; };
 		46D9D2A1188BBC5500E8A1EF /* SendSMSResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SendSMSResponse.h; sourceTree = "<group>"; };
 		46D9D2A2188BBC5500E8A1EF /* SendSMSResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SendSMSResponse.m; sourceTree = "<group>"; };
-		520594F418B5AEC600D9AF79 /* TestViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TestViewController.xib; sourceTree = "<group>"; };
-		527E58F418B5A3FC00590A49 /* TestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestViewController.h; sourceTree = "<group>"; };
-		527E58F518B5A3FC00590A49 /* TestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestViewController.m; sourceTree = "<group>"; };
 		52B2097E18B46B0700CAFE9A /* icon_finish.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_finish.png; sourceTree = "<group>"; };
 		52B2098018B4791F00CAFE9A /* ForgetPasswordRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ForgetPasswordRequest.h; sourceTree = "<group>"; };
 		52B2098118B4791F00CAFE9A /* ForgetPasswordRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ForgetPasswordRequest.m; sourceTree = "<group>"; };
@@ -2094,9 +2089,6 @@
 		B57A0A8A184EC77A00A33831 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				527E58F418B5A3FC00590A49 /* TestViewController.h */,
-				527E58F518B5A3FC00590A49 /* TestViewController.m */,
-				520594F418B5AEC600D9AF79 /* TestViewController.xib */,
 				B50FC08218794E1900AF9BFD /* DateSelectViewController.h */,
 				B50FC08318794E1900AF9BFD /* DateSelectViewController.m */,
 				B57A0A99184EC77A00A33831 /* HomeViewController.h */,
@@ -2437,7 +2429,6 @@
 				122BD72A184061E200BAA9A9 /* hotel_done_press.png in Resources */,
 				18E9839B18B327B3008C3ABC /* logo_jr@2x.png in Resources */,
 				18E983B918B32840008C3ABC /* tab_selected.png in Resources */,
-				520594F518B5AEC600D9AF79 /* TestViewController.xib in Resources */,
 				18E9839818B327B3008C3ABC /* logo_jd.png in Resources */,
 				52B2097F18B46B0700CAFE9A /* icon_finish.png in Resources */,
 				1856471E184C5F0D0031E5D6 /* bg_date.png in Resources */,
@@ -2891,7 +2882,6 @@
 				18A90609184C8D7000AE4835 /* UpdateCropUserBaseByChinaUMSUIDRequest.m in Sources */,
 				B5C7C860186578B7008914D0 /* HotelOrderViewController.mm in Sources */,
 				E4D250B718AB31E000CC0EDF /* GetBizSummary_AtMiutripRequest.m in Sources */,
-				527E58F618B5A3FC00590A49 /* TestViewController.m in Sources */,
 				18A9060C184C8E0D00AE4835 /* GetCorpNameByMumberUIDRequest.m in Sources */,
 				46D9D2AD188BBC5500E8A1EF /* GetCantonsByCityIDRequest.m in Sources */,
 				B57B674F1852BEEC0002C778 /* GetHotelRoomMultiRequest.m in Sources */,

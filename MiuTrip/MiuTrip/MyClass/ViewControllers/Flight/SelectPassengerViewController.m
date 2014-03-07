@@ -51,7 +51,7 @@
     }else{
         if ([self checkIDNumValidateWithData:_dataSource]) {
             [self popViewControllerTransitionType:TransitionNone completionHandler:^{
-                [self.delegate selectPassengerDone:_dataSource policyName:_policyData];
+                [self.delegate selectPassengerDone:_dataSource policyName:_policyData bussinessType:_businessType];
             }];
         }
     }
@@ -371,6 +371,7 @@
 - (void)setSubviewFrameWithType:(int) type
 {
     [self setBackGroundImage:imageNameAndType(@"home_bg", nil)];
+    _businessType = type;
     if(type == 0){
         [self setTitle:@"选择乘客"];
     }else{

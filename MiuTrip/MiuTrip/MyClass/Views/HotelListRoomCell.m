@@ -70,16 +70,17 @@
 
 -(void)bookBtnPressed:(UIButton *)sender{
     
-    [HotelDataCache sharedInstance].selectedHotelId = _hotelId;
-    [HotelDataCache sharedInstance].selectedHotelName = _hotelName;
-    [HotelDataCache sharedInstance].selectedRoomData = _roomData;
+    HotelDataCache *data = [HotelDataCache sharedInstance];
+    data.selectedHotelId = _hotelId;
+    data.selectedHotelName = _hotelName;
+    data.selectedRoomData = _roomData;
 
     NSArray *pricePolicies = [_roomData objectForKey:@"PricePolicies"];
     NSDictionary *priceDic = [pricePolicies objectAtIndex:0];
     NSArray *priceInfos = [priceDic objectForKey:@"PriceInfos"];
     NSDictionary *roomPriceDic = [priceInfos objectAtIndex:0];
     int price = [[roomPriceDic objectForKey:@"SalePrice"] intValue];
-    if(price >  _viewController.policyMaxPrice){
+    if(!data.isPrivte && _viewController.hasPriceRc && price >  _viewController.policyMaxPrice){
         [_viewController showRuleView];
         return;
     }

@@ -8,7 +8,6 @@
 
 #import "RegisterAndLogViewController.h"
 #import "HomeViewController.h"
-#import "TestViewController.h"
 
 @interface RegisterAndLogViewController ()
 
@@ -46,9 +45,7 @@
 //        [request setPassword:@"123456"];
 //        [self.requestManager sendRequestWithoutToken:request];
 
-        TestViewController *viewController = [[TestViewController alloc]initWithNibName:@"TestViewController" bundle:nil];
-        [self pushViewController:viewController transitionType:TransitionPush completionHandler:nil];
-    }else if (sender.tag == 104){
+     }else if (sender.tag == 104){
         
         LoginRequest *request = [[LoginRequest alloc]initWidthBusinessType:BUSINESS_ACCOUNT methodName:@"Login"];
     

@@ -514,7 +514,7 @@
         UIButton *checkOutdate = (UIButton *)[hotelSearchView viewWithTag:503];
         [checkOutdate addTarget:self action:@selector(pressHotelItemBtn:) forControlEvents:UIControlEventTouchUpInside];
         
-        _customBtn = [[HomeCustomBtn alloc]initWithParams:data];
+        _customBtn = [[HomeCustomBtn alloc]initWithParams:data withType:1];
         [_customBtn setFrame:CGRectMake(0, 0, appFrame.size.width, 60)];
         [_customBtn setBackgroundColor:color(clearColor)];
         [_customBtn setTag:300];
@@ -540,12 +540,7 @@
             [self gotoHotelCitySelectViewController];
             break;
         case 550:
-            if ([_customBtn.queryTypeBtn.selectBtn.titleLabel.text isEqualToString:@"为他人/多人"]){
-                SelectPassengerViewController *passengerSelectView = [[SelectPassengerViewController alloc]initWithBusinessType:1];
-                [passengerSelectView setDelegate:self];
-                [self pushViewController:passengerSelectView transitionType:TransitionPush completionHandler:nil];
-            }else{
-                [self gotoHotelList];}
+            [self gotoHotelList];
             break;
         case 504:
             [self showPriceRangeDialog];
@@ -596,6 +591,30 @@
 
 -(void)gotoHotelList
 {
+    HotelDataCache *data = [HotelDataCache sharedInstance];
+    
+    if([_customBtn.goalBtn.selectBtn.titleLabel.text isEqualToString:@"因公"]){
+        data.isPrivte = NO;
+    }else{
+         data.isPrivte = YES;
+    }
+    
+    if([_customBtn.payTypeBtn.selectBtn.titleLabel.text isEqualToString:@"现付"]){
+        data.isPrePay = NO;
+    }else{
+        data.isPrePay = YES;
+    }
+    
+    if ([_customBtn.queryTypeBtn.selectBtn.titleLabel.text isEqualToString:@"为他人/多人"]){
+        data.isForSelf = NO;
+        SelectPassengerViewController *passengerSelectView = [[SelectPassengerViewController alloc]initWithBusinessType:1];
+        [passengerSelectView setDelegate:self];
+        [self pushViewController:passengerSelectView transitionType:TransitionPush completionHandler:nil];
+        return;
+    }else{
+        data.isForSelf = YES;
+    }
+    
     HotelListViewController * hotelListView  = [[HotelListViewController alloc] init];
     [self.navigationController pushViewController:hotelListView animated:NO];
     CATransition *transition = [Utils getAnimation:TransitionPush subType:DirectionRight];
@@ -624,7 +643,7 @@
         [titleImage setImage:imageNameAndType(@"shadow", nil)];
         [_viewPageAir addSubview:titleImage];
         
-        HomeCustomBtn *customBtn = [[HomeCustomBtn alloc]initWithParams:[[AirOrderDetail alloc]init]];
+        HomeCustomBtn *customBtn = [[HomeCustomBtn alloc]initWithParams:[[AirOrderDetail alloc]init] withType:0];
         [customBtn setFrame:CGRectMake(0, controlYLength(titleImage), appFrame.size.width, 60)];
         [customBtn setBackgroundColor:color(clearColor)];
         [customBtn setTag:300];
@@ -1272,27 +1291,87 @@
     return searchType;
 }
 
-- (void)selectPassengerDone:(NSArray *)passengers policyName:(id)policy
+- (void)selectPassengerDone:(NSArray *)passengers policyName:(id)policy bussinessType:(int)type
 {
     NSLog(@"select done");
-    if ([self checkOrderDetailComplete]) {
-        if ([self checkIDNumValidateWithData:passengers]){
-            GetNormalFlightsRequest *request = [self getNormalFlightsRequest];
-            AirListViewController *airListView = [[AirListViewController alloc]init];
-            if (_haveReturn) {
-                GetNormalFlightsRequest *returnRequest = [self getReturnFlightsRequest];
-                [airListView setGetReturnFlightsRequest:returnRequest];
+    if(type == 0){
+        if ([self checkOrderDetailComplete]) {
+            if ([self checkIDNumValidateWithData:passengers]){
+                GetNormalFlightsRequest *request = [self getNormalFlightsRequest];
+                AirListViewController *airListView = [[AirListViewController alloc]init];
+                if (_haveReturn) {
+                    GetNormalFlightsRequest *returnRequest = [self getReturnFlightsRequest];
+                    [airListView setGetReturnFlightsRequest:returnRequest];
+                }
+                [airListView setPassengers:passengers];
+                [airListView setPolicyData:policy];
+                [airListView setBookType:[self getBookType]];
+                [airListView setFeeType:[self getFeeType]];
+                [airListView setSearchType:[self getSearchType]];
+                [airListView setGetFlightsRequest:request];
+                [self pushViewController:airListView transitionType:TransitionPush completionHandler:^{
+                    [airListView showViewContent];
+                }];
             }
-            [airListView setPassengers:passengers];
-            [airListView setPolicyData:policy];
-            [airListView setBookType:[self getBookType]];
-            [airListView setFeeType:[self getFeeType]];
-            [airListView setSearchType:[self getSearchType]];
-            [airListView setGetFlightsRequest:request];
-            [self pushViewController:airListView transitionType:TransitionPush completionHandler:^{
-                [airListView showViewContent];
-            }];
         }
+
+    }else{
+        
+        HotelDataCache *data = [HotelDataCache sharedInstance];
+        if(!data.customers){
+            data.customers = [[NSMutableArray alloc] init];
+        }else{
+            [data.customers removeAllObjects];
+        }
+        for(id item in passengers){
+            
+            HotelCustomerModel *customer = [[HotelCustomerModel alloc] init];
+            if([item isKindOfClass:[BookPassengersResponse class]]){
+                BookPassengersResponse *response = (BookPassengersResponse*) item;
+                customer.name = response.UserName;
+                customer.UID = response.UniqueID;
+                customer.passengerId = [response.PassengerID stringValue];
+                customer.corpUID = [response.CorpID stringValue];
+                customer.costCenter = response.DeptName;
+                customer.apportionRate = 1;
+                [data.customers addObject:customer];
+                
+            }else if([item isKindOfClass:[CorpStaffDTO class]]){
+                CorpStaffDTO *staff = (CorpStaffDTO*)item;
+                customer.name = staff.UserName;
+                customer.UID = staff.UniqueID;
+                customer.passengerId = [staff.PassengerID stringValue];
+                customer.corpUID = staff.CorpUID;
+                customer.costCenter = staff.DeptName;
+                customer.apportionRate = 1;
+                [data.customers addObject:customer];
+                
+            }
+            
+        }
+        
+        HotelCustomerModel *model = [[HotelCustomerModel alloc] init];
+        if([policy isKindOfClass:[CorpStaffDTO class]]){
+            CorpStaffDTO *staff = (CorpStaffDTO*)policy;
+            model.name = staff.UserName;
+            model.UID = staff.UniqueID;
+            model.passengerId = [staff.PassengerID stringValue];
+            model.corpUID = staff.CorpUID;
+            model.policyId = [staff.PolicyID intValue];
+
+        }else if([policy isKindOfClass:[BookPassengersResponse class]]){
+            BookPassengersResponse *response = (BookPassengersResponse*)policy;
+            model.name = response.UserName;
+            model.UID = response.UniqueID;
+            model.passengerId = [response.PassengerID stringValue];
+            model.corpUID = response.CorpUID;
+            model.policyId = [response.PolicyID intValue];
+        }
+        data.executor = model;
+        HotelListViewController * hotelListView  = [[HotelListViewController alloc] init];
+        [self.navigationController pushViewController:hotelListView animated:NO];
+        CATransition *transition = [Utils getAnimation:TransitionPush subType:DirectionRight];
+        [self.navigationController.view.layer addAnimation:transition forKey:@"viewtransition"];
     }
 }
 
@@ -1704,10 +1783,14 @@
 
 @implementation HomeCustomBtn
 
-- (id)initWithParams:(NSObject*)params
+- (id)initWithParams:(NSObject*)params withType:(int)type
 {
     if (self = [super init]) {
-        _airDetail = (AirOrderDetail*)params;
+        if(type == 0){
+            _airDetail = (AirOrderDetail*)params;
+        }else{
+            _hotelDetail = (HotelDataCache*)params;
+        }
         [self setSubviewFrame];
     }
     return self;
