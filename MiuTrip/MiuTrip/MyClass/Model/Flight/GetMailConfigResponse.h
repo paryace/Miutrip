@@ -7,22 +7,12 @@
 //
 
 #import "BaseResponseModel.h"
+#import "OnLineAllClass.h"
 
 @interface GetMailConfigResponse : BaseResponseModel
 
 @property(strong, nonatomic) NSArray *mList;
 
 - (void)getObjects;
-
-@end
-
-@interface TC_APIMImInfo : BaseResponseModel
-
-@property(strong, nonatomic) NSString *mCode;
-@property(strong, nonatomic) NSString *mName;
-@property(strong, nonatomic) NSString *sPrice;
-@property(strong, nonatomic) NSString *rPrice;
-@property(strong, nonatomic) NSString *rTime;
-
 
 @end

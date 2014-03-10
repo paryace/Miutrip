@@ -12,10 +12,11 @@
 #import "SelectPostTypeViewController.h"
 
 @class DeliveryTypeDTO;
+@class TC_APImInfo;
 
 @protocol PostTypeDelegate <NSObject>
 
-- (void)selectPostDone:(DeliveryTypeDTO*)postType mailCode:(TC_APIMImInfo*)mailCode address:(NSString*)address;
+- (void)selectPostDone:(DeliveryTypeDTO*)postType mailCode:(TC_APImInfo*)mailCode address:(NSString*)address;
 
 @end
 

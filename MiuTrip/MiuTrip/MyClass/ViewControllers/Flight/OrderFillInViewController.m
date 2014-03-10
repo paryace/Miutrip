@@ -464,7 +464,7 @@
     [self pushViewController:viewController transitionType:TransitionPush completionHandler:nil];
 }
 
-- (void)selectPostDone:(DeliveryTypeDTO*)delivery mailCode:(TC_APIMImInfo*)postType address:(NSString *)address
+- (void)selectPostDone:(DeliveryTypeDTO*)delivery mailCode:(TC_APImInfo*)postType address:(NSString *)address
 {
     [_postAddressTf setText:address];
     
@@ -523,6 +523,7 @@
     UIView *baseInfoBackgroundView = [[UIView alloc]initWithFrame:CGRectMake(5, controlYLength(baseInfoLabel), self.contentView.frame.size.width - 10, 50)];
     [baseInfoBackgroundView setBackgroundColor:color(whiteColor)];
     [baseInfoBackgroundView setCornerRadius:2.5];
+    [baseInfoBackgroundView setBorderColor:color(lightGrayColor) width:0.5];
     [baseInfoBackgroundView setShaowColor:baseInfoBackgroundView.backgroundColor offset:CGSizeMake(4, 4) opacity:1 radius:2.5];
     [self.contentView addSubview:baseInfoBackgroundView];
     
@@ -659,9 +660,9 @@
     UIView *addPassengersBackgroundView = [[UIView alloc]initWithFrame:CGRectMake(baseInfoBackgroundView.frame.origin.x, controlYLength(fillInPassengerLabel), baseInfoBackgroundView.frame.size.width, 0)];
     [addPassengersBackgroundView setBackgroundColor:color(whiteColor)];
     [addPassengersBackgroundView setCornerRadius:2.5];
-    
+    [addPassengersBackgroundView setShaowColor:color(lightGrayColor) offset:CGSizeMake(4, 4) opacity:1 radius:2.5];
+    [addPassengersBackgroundView setBorderColor:color(lightGrayColor) width:0.5];
     [addPassengersBackgroundView setTag:200];
-    [addPassengersBackgroundView setShaowColor:addPassengersBackgroundView.backgroundColor offset:CGSizeMake(4, 4) opacity:1 radius:2.5];
     [self.contentView addSubview:addPassengersBackgroundView];
     
     UILabel *selectedPassengerLabel = [[UILabel alloc]initWithFrame:CGRectMake(_passengerNameLb.frame.origin.x, 0, (addPassengersBackgroundView.frame.size.width - 20) * 2/3, _passengerNameLb.frame.size.height)];

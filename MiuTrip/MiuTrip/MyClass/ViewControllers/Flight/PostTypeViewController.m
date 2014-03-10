@@ -27,12 +27,12 @@
 @property (strong, nonatomic) MemberDeliverDTO  *memberDeliverDTO;  //配送地址信息
 @property (strong, nonatomic) Corp_AddressResponse *corpDeliver;    //公司配送地址信息
 
-@property (strong, nonatomic) TC_APIMImInfo *postType;
+@property (strong, nonatomic) TC_APImInfo *postType;
 @property (strong, nonatomic) DBProvince    *province;
 @property (strong, nonatomic) CityDTO       *city;
 @property (strong, nonatomic) CantonDTO     *canton;
 
-@property (strong, nonatomic) SelectPostTypeViewController *selectPostTypeView;
+//@property (strong, nonatomic) SelectPostTypeViewController *selectPostTypeView;
 
 @end
 
@@ -54,9 +54,9 @@
         _saveAddress = YES;
         [self setSubviewFrame];
         
-        _selectPostTypeView = [[SelectPostTypeViewController alloc]init];
-        [_selectPostTypeView setDelegate:self];
-        [self.view addSubview:_selectPostTypeView.view];
+//        _selectPostTypeView = [[SelectPostTypeViewController alloc]init];
+//        [_selectPostTypeView setDelegate:self];
+//        [self.view addSubview:_selectPostTypeView.view];
     }
     return self;
 }
@@ -211,7 +211,11 @@
     NSLog(@"tag = %d",sender.tag);
     switch (sender.tag) {
         case 100:{
-            [_selectPostTypeView fire];
+            SelectPostTypeViewController *selectPostTypeView = [[SelectPostTypeViewController alloc]init];
+            [selectPostTypeView setDelegate:self];
+            [self pushViewController:selectPostTypeView transitionType:TransitionPush completionHandler:^{
+                [selectPostTypeView getMailConfigRequest];
+            }];
             break;
         }case 101:{
             DeliverType deliverType = DeliverCommon;
@@ -335,7 +339,7 @@
 }
 
 #pragma mark - select post type
-- (void)selectPostTypeDone:(TC_APIMImInfo*)postType
+- (void)selectPostTypeDone:(TC_APImInfo*)postType
 {
     _postType = postType;
     [_postDescTf setText:[NSString stringWithFormat:@"%@(%@)",postType.mName,postType.rPrice]];

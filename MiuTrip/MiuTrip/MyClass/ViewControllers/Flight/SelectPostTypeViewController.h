@@ -6,9 +6,7 @@
 //  Copyright (c) 2014年 michael. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-#import "flight.h"
-#import "RequestManager.h"
+#import "BaseUIViewController.h"
 
 @class PostType;
 
@@ -18,10 +16,10 @@
 
 @end
 
-@interface SelectPostTypeViewController : UIViewController<UITableViewDataSource,UITableViewDelegate,BusinessDelegate>
+@interface SelectPostTypeViewController : BaseUIViewController<UITableViewDataSource,UITableViewDelegate,BusinessDelegate>
 
 @property (assign, nonatomic) id<SelectPostTypeDelegate> delegate;
 
-- (void)fire;
+- (void)getMailConfigRequest;
 
 @end

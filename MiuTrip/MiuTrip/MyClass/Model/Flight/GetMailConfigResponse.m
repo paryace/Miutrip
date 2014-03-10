@@ -18,18 +18,12 @@
     
     NSMutableArray *mList = [NSMutableArray array];
     for (NSDictionary *dict in _mList) {
-        TC_APIMImInfo *info = [[TC_APIMImInfo alloc]init];
+        TC_APImInfo *info = [[TC_APImInfo alloc]init];
         [info parshJsonToResponse:dict];
         [mList addObject:info];
     }
     
     _mList = mList;
 }
-
-@end
-
-
-@implementation TC_APIMImInfo
-
 
 @end

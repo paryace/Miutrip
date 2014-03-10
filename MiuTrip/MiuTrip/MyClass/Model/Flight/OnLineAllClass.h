@@ -73,7 +73,7 @@
 @interface TC_APImInfo : BaseResponseModel
 
 @property (strong, nonatomic) NSString      *mCode;         //配置代码
-@property (assign, nonatomic) NSInteger     mName;          //配置名称
+@property (assign, nonatomic) NSString      *mName;          //配置名称
 @property (strong, nonatomic) NSString      *sPrice;        //建议价格
 @property (strong, nonatomic) NSString      *rPrice;        //合作价格
 @property (strong, nonatomic) NSString      *rTime;         //是否实时结算

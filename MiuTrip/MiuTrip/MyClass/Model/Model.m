@@ -54,17 +54,22 @@ static      Model       *shareModel;
         _tipView.enabled = NO;
         [_tipView setBackgroundImage:stretchImage(@"tipImage", nil) forState:UIControlStateNormal];
         [_tipView.titleLabel setNumberOfLines:0];
-        [_tipView.layer setMasksToBounds:YES];
-        [_tipView.layer setCornerRadius:10.0f];
         [_tipView.titleLabel setTextAlignment:NSTextAlignmentCenter];
+        UIView *tipBGView = [[UIView alloc]init];
+        [tipBGView setTag:100];
+        [tipBGView setCornerRadius:10];
+        [tipBGView setBackgroundColor:color(blackColor)];
+        [tipBGView setAlpha:0.5];
+        [_tipView insertSubview:tipBGView belowSubview:_tipView.titleLabel];
         [_tipView.titleLabel setLineBreakMode:NSLineBreakByWordWrapping];
         [_tipView.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:13]];
-        [_tipView setBackgroundColor:color(darkGrayColor)];
-        _tipView.alpha = 0.0;
+        [_tipView setBackgroundColor:color(clearColor)];
     }
     CGFloat height = [Utils heightForWidth:appFrame.size.width*2/3 - 10 text:text font:_tipView.titleLabel.font];
     height = height < 30?30:height;
     _tipView.frame = CGRectMake(0, 0, appFrame.size.width*2/3, height + 10);
+    UIView *tipBGView = [_tipView viewWithTag:100];
+    [tipBGView setFrame:_tipView.bounds];
     _tipView.center = CGPointMake(appFrame.size.width/2, appFrame.size.height*2/3);
     [_tipView setTitle:text forState:UIControlStateNormal];
     
@@ -72,7 +77,6 @@ static      Model       *shareModel;
         [_timer invalidate];
         _timer = nil;
     }
-    
     
     if (_showCoverView) {
         [view addSubview:_tipView];

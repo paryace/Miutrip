@@ -19,7 +19,6 @@
 #import "GetMailConfigRequest.h"
 #import "GetNormalFlightsRequest.h"
 #import "SubmitFlightOrderRequest.h"
-#import "GetMailConfigRequest.h"
 
 
 #endif

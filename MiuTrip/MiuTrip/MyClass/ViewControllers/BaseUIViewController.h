@@ -17,6 +17,7 @@
 #import "DatePickerViewController.h"
 #import "CityPickerViewController.h"
 #import "Account.h"
+#import "flight.h"
 
 #define LOADING_VIEW_TAG  9999
 

@@ -38,71 +38,31 @@
     self = [super init];
     if (self) {
         _getDone = NO;
-        _requestManager = [[RequestManager alloc]init];
-        [_requestManager setDelegate:self];
         [self setSubviewFrame];
     }
     return self;
 }
 
-- (void)fire
-{
-    void (^fireBlock)(void) = ^{
-        [_theTableView setFrame:CGRectMake(0, 0, appFrame.size.width - 20, 40 * ([_dataSource count] + 1))];
-        [_theTableView setCenter:self.view.center];
-        CGAffineTransform transform = _theTableView.transform;
-        [_theTableView setScaleX:1 scaleY:0];
-        [_theTableView setHidden:NO];
-        [self.view setAlpha:1];
-        [self.view setHidden:NO];
-        [UIView animateWithDuration:0.25
-                         animations:^{
-                             [_theTableView setTransform:transform];
-                         }completion:^(BOOL finished){
-                             
-                         }];
-    };
-    if (!_dataSource || [_dataSource count] == 0) {
-            GetMailConfigRequest *request = [self getMailConfigRequest];
-            [self.requestManager sendRequest:request];
-            [self.view setAlpha:1];
-            [self.view setHidden:NO];
-    }else{
-        fireBlock();
-    }
-}
-
 - (void)done:(PostType*)postType
 {
-    [UIView animateWithDuration:0.25
-                     animations:^{
-                         [_theTableView setHidden:YES];
-                         [self.view setAlpha:0];
-                     }completion:^(BOOL finished){
-                         [self.view setHidden:YES];
-                         [self.delegate selectPostTypeDone:postType];
-                     }];
+    [self popViewControllerTransitionType:TransitionPush completionHandler:^{
+        [self.delegate selectPostTypeDone:postType];
+    }];
 }
 
 - (void)cancel
 {
-    [UIView animateWithDuration:0.25
-                     animations:^{
-                         [_theTableView setHidden:YES];
-                         [self.view setAlpha:0];
-                     }completion:^(BOOL finished){
-                         [self.view setHidden:YES];
-                     }];
+    [self popViewControllerTransitionType:TransitionPush completionHandler:nil];
 }
 
 #pragma mark - getApiMailConfig
-- (GetMailConfigRequest*)getMailConfigRequest
+- (void)getMailConfigRequest
 {
     [_indicatorView startAnimating];
     GetMailConfigRequest *request = [[GetMailConfigRequest alloc]initWidthBusinessType:BUSINESS_FLIGHT methodName:@"GetAPIMailConfig"];
     [request setOTAType:[UserDefaults shareUserDefault].OTAType];
     
-    return request;
+    [self.requestManager sendRequest:request];
 }
 
 - (void)getMailConfigDone:(GetMailConfigResponse*)response
@@ -111,7 +71,7 @@
         [response getObjects];
         _getDone = YES;
         _dataSource = response.mList;
-        [self fire];
+        [_theTableView reloadData];
     }else{
         [[Model shareModel] showPromptText:@"未找到配送信息" model:YES];
     }
@@ -148,7 +108,7 @@
     if (cell == nil) {
         cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reuseIdentifier];
     }
-    TC_APIMImInfo *postType = [_dataSource objectAtIndex:indexPath.row];
+    TC_APImInfo *postType = [_dataSource objectAtIndex:indexPath.row];
     [cell.textLabel setText:postType.mName];
     
     return cell;
@@ -166,27 +126,38 @@
 #pragma mark - view init
 - (void)setSubviewFrame
 {
-    UIView *backgroundView = [[UIView alloc]initWithFrame:self.view.bounds];
-    [backgroundView setBackgroundColor:color(blackColor)];
-    [backgroundView setAlpha:0.35];
-    [self.view addSubview:backgroundView];
+//    UIView *backgroundView = [[UIView alloc]initWithFrame:self.view.bounds];
+//    [backgroundView setBackgroundColor:color(blackColor)];
+//    [backgroundView setAlpha:0.35];
+//    [self.view addSubview:backgroundView];
     
-    _indicatorView = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
-    [_indicatorView setCenter:backgroundView.center];
-    [self.view addSubview:_indicatorView];
+    [self setBackGroundImage:imageNameAndType(@"home_bg", nil)];
+    [self setTitle:@"选择配送方式"];
+    [self setTopBarBackGroundImage:imageNameAndType(@"topbar", nil)];
+    
+    UIButton *returnBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [returnBtn setBackgroundColor:color(clearColor)];
+    [returnBtn setImage:imageNameAndType(@"return", nil) forState:UIControlStateNormal];
+    [returnBtn setFrame:CGRectMake(0, 0, self.topBar.frame.size.height, self.topBar.frame.size.height)];
+    [self setReturnButton:returnBtn];
+    [self.view addSubview:returnBtn];
+    
+//    _indicatorView = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+//    [_indicatorView setCenter:backgroundView.center];
+//    [self.view addSubview:_indicatorView];
 
-    _theTableView = [[UITableView alloc]init];
+    _theTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, controlYLength(self.topBar), self.view.frame.size.width, self.view.frame.size.height - controlYLength(self.topBar) - self.bottomBar.frame.size.height)];
     [_theTableView setSeparatorStyle:UITableViewCellSeparatorStyleSingleLine];
     [_theTableView setDelegate:self];
     [_theTableView setDataSource:self];
-    UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, appFrame.size.width - 20, 40)];
-    [label setBackgroundColor:color(blackColor)];
-    [label setText:[NSString stringWithFormat:@"  选择配送方式"]];
-    [label setTextColor:color(whiteColor)];
-    [_theTableView setTableHeaderView:label];
+//    UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, appFrame.size.width - 20, 40)];
+//    [label setBackgroundColor:color(blackColor)];
+//    [label setText:[NSString stringWithFormat:@"  选择配送方式"]];
+//    [label setTextColor:color(whiteColor)];
+//    [_theTableView setTableHeaderView:label];
     [self.view addSubview:_theTableView];
     
-    [self.view setHidden:YES];
+//    [self.view setHidden:YES];
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
