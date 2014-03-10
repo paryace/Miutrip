@@ -15,7 +15,7 @@
 
 @protocol PostTypeDelegate <NSObject>
 
-- (void)selectPostDone:(DeliveryTypeDTO*)postType mailCode:(TC_APIMImInfo*)mailCode;
+- (void)selectPostDone:(DeliveryTypeDTO*)postType mailCode:(TC_APIMImInfo*)mailCode address:(NSString*)address;
 
 @end
 

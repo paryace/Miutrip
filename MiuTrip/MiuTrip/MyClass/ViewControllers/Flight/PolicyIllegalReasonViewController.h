@@ -11,14 +11,23 @@
 @class DomesticFlightDataDTO;
 @class AirListViewCell;
 @class ReasonCodeDTO;
-
+@class GetCorpPolicyResponse;
 
 typedef NS_OPTIONS(NSInteger, PolicyIllegalType) {
-    PolicyIllegalNone,
-    PolicyIllegalDate,
-    PolicyIllegalPrice,
-    PolicyIllegalDateAndPrice
+    IllegalNone,
+    IllegalDate,
+    IllegalPrice,
+    IllegalRate,
+    IllegalDateAndPrice,
+    IllegalDateAndRate,
+    IllegalPriceAndRate,
+    IllegalAll
 };
+
+#define PolicyIllegalNone   @"PolicyIllegalNone"
+#define PolicyIllegalDate   @"PolicyIllegalDate"
+#define PolicyIllegalPrice  @"PolicyIllegalPrice"
+#define PolicyIllegalRate   @"PolicyIllegalRate"
 
 @protocol PolicyIllegalReasonDelegate <NSObject>
 
@@ -39,9 +48,9 @@ typedef NS_OPTIONS(NSInteger, PolicyIllegalType) {
 
 @property (assign, nonatomic) id<PolicyIllegalReasonDelegate> delegate;
 
-@property (assign, nonatomic) DomesticFlightDataDTO   *flight;
+@property (retain, nonatomic) DomesticFlightDataDTO   *flight;
 
-- (void)fireWithIllegalType:(PolicyIllegalType)illegalType corpPolicy:(id)corpPolicy;
+- (void)fireWithIllegalType:(NSArray*)illegalType corpPolicy:(GetCorpPolicyResponse*)corpPolicy flight:(DomesticFlightDataDTO*)flight;
 
 @end
 

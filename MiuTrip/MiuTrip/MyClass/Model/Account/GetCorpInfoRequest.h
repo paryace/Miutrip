@@ -7,7 +7,7 @@
 //
 
 #import "BaseRequestModel.h"
-#import "BaseResponseModel.h"
+#import "GetCorpInfoResponse.h"
 //////////////////////////////////////////////////////////////////////////////////
 
 @interface GetCorpInfoRequest : BaseRequestModel

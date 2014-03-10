@@ -123,6 +123,8 @@
 @property (strong, nonatomic) NSString              *RCofDaysCode;      //提前RC
 @property (strong, nonatomic) NSString              *RCofPrice;         //提前RC ID
 @property (strong, nonatomic) NSString              *RCofPriceCode;     //提前RC
+@property (strong, nonatomic) NSString              *RCofRate;          //折扣RC ID
+@property (strong, nonatomic) NSString              *RCofRateCode;      //折扣RC
 @property (strong, nonatomic) NSNumber              *LowestPrice;       //航段最低价     float
 @property (strong, nonatomic) DomesticFlightDataDTO *Flight;            //航班信息
 

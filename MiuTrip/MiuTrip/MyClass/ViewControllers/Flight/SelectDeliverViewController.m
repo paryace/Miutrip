@@ -7,11 +7,14 @@
 //
 
 #import "SelectDeliverViewController.h"
+#import "GetCorpInfoRequest.h"
 
 @interface SelectDeliverViewController ()
 
 @property (strong, nonatomic) NSArray       *dataSource;
 @property (strong, nonatomic) UITableView   *theTableView;
+
+@property (assign, nonatomic) DeliverType   deliverType;
 
 @end
 
@@ -36,29 +39,32 @@
     return self;
 }
 
-#pragma mark - request handle
-- (void)getMemberDeliverList:(id)policyPerson
+- (id)initWithDeliverType:(DeliverType)deliverType
 {
-    GetMemberDeliverListRequest *request = [self getRequestWithPolicy:policyPerson];
-    if (request) {
-        [self.requestManager sendRequest:request];
+    self = [super init];
+    if (self) {
+        _deliverType = deliverType;
+        [self setSubviewFrame];
+    }
+    return self;
+}
+
+#pragma mark - request handle
+- (void)getDeliverList:(id)policyPerson
+{
+    if (_deliverType == DeliverAtRegular) {
+        [self getCorpDeliverList:policyPerson];
+    }else if (_deliverType == DeliverCommon){
+        [self getMemberDeliverList:policyPerson];
     }
 }
 
-- (GetMemberDeliverListRequest*)getRequestWithPolicy:(id)policy
+- (void)getMemberDeliverList:(id)policyPerson
 {
-    GetMemberDeliverListRequest *request = [[GetMemberDeliverListRequest alloc]initWidthBusinessType:BUSINESS_ACCOUNT methodName:@"GetMemberDeliverList"];
-//    if ([policy isKindOfClass:[BookPassengersResponse class]]) {
-//        BookPassengersResponse *passenger = policy;
-//        [request setUid:passenger.CorpUID];
-//    }else if ([policy isKindOfClass:[GetLoginUserInfoResponse class]]){
-//        GetLoginUserInfoResponse *loginfo = policy;
-//        [request setUid:loginfo.UID];
-//    }else{
-//        request = nil;
-//        [[Model shareModel] showPromptText:@"联系人UID不正确" model:YES];
-//    }
-    return request;
+    GetMemberDeliverListRequest *request = (GetMemberDeliverListRequest*)[self getRequestWithPolicy:policyPerson];
+    if (request) {
+        [self.requestManager sendRequest:request];
+    }
 }
 
 - (void)getMemberDeliverListDone:(GetMemberDeliverListResponse*)response
@@ -68,10 +74,41 @@
     [_theTableView reloadData];
 }
 
+- (void)getCorpDeliverList:(id)policyPerson
+{
+    GetCorpInfoRequest *request = (GetCorpInfoRequest*)[self getRequestWithPolicy:policyPerson];
+    if (request) {
+        [self.requestManager sendRequest:request];
+    }
+}
+
+- (void)getCorpDeliverDone:(GetCorpInfoResponse*)response
+{
+    [response getObjects];
+    _dataSource = response.Corp_AddressList;
+    [_theTableView reloadData];
+}
+
+- (BaseRequestModel*)getRequestWithPolicy:(id)policy
+{
+    if (_deliverType == DeliverAtRegular) {
+        GetCorpInfoRequest *request = [[GetCorpInfoRequest alloc]initWidthBusinessType:BUSINESS_ACCOUNT methodName:@"GetCorpInfo"];
+        [request setCorpID:[NSString stringWithFormat:@"%@",[UserDefaults shareUserDefault].loginInfo.CorpID]];
+        
+        return request;
+    }else{
+        GetMemberDeliverListRequest *request = [[GetMemberDeliverListRequest alloc]initWidthBusinessType:BUSINESS_ACCOUNT methodName:@"GetMemberDeliverList"];
+        return request;
+    }
+    
+}
+
 - (void)requestDone:(BaseResponseModel *)response
 {
     if ([response isKindOfClass:[GetMemberDeliverListResponse class]]) {
         [self getMemberDeliverListDone:(GetMemberDeliverListResponse*)response];
+    }else if ([response isKindOfClass:[GetCorpInfoResponse class]]){
+        [self getCorpDeliverDone:(GetCorpInfoResponse*)response];
     }
 }
 
@@ -100,9 +137,17 @@
         [cell.textLabel setAutoSize:YES];
         [cell.detailTextLabel setAutoSize:YES];
     }
-    MemberDeliverDTO *deliverDTO = [_dataSource objectAtIndex:indexPath.row];
-    [cell.textLabel setText:[NSString stringWithFormat:@"收件人:%@\t邮编:%@",deliverDTO.RecipientName,deliverDTO.ZipCode]];
-    [cell.detailTextLabel setText:[NSString stringWithFormat:@"地址:%@(省)%@(市)%@(区)%@",deliverDTO.ProvinceName,deliverDTO.CityName,deliverDTO.Canton_Name,deliverDTO.Address]];
+    id deliverDTO = [_dataSource objectAtIndex:indexPath.row];
+    if ([deliverDTO isKindOfClass:[MemberDeliverDTO class]]) {
+        MemberDeliverDTO *memberDeliver = deliverDTO;
+        [cell.textLabel setText:[NSString stringWithFormat:@"收件人:%@\t邮编:%@",memberDeliver.RecipientName,memberDeliver.ZipCode]];
+        [cell.detailTextLabel setText:[NSString stringWithFormat:@"地址:%@(省)%@(市)%@(区)%@",memberDeliver.ProvinceName,memberDeliver.CityName,memberDeliver.Canton_Name,memberDeliver.Address]];
+    }else if ([deliverDTO isKindOfClass:[Corp_AddressResponse class]]){
+        Corp_AddressResponse *corpDeliver = deliverDTO;
+        [cell.textLabel setText:[NSString stringWithFormat:@"收件人:%@\t邮编:%@",corpDeliver.RecipientName,corpDeliver.ZipCode]];
+        [cell.detailTextLabel setText:[NSString stringWithFormat:@"地址:%@(省)%@(市)%@(区)%@",corpDeliver.ProvinceName,corpDeliver.CityName,corpDeliver.CantonName,corpDeliver.Address]];
+    }
+    
     
     return cell;
 }

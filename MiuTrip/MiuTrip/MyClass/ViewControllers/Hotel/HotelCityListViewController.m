@@ -53,7 +53,7 @@
     _citysData = [[NSMutableDictionary alloc] init];
     NSMutableArray *hotCityArray = [[NSMutableArray alloc] init];
     for (CityDTO *city in citys) {
-        if(city.isHot){
+        if([city.isHot boolValue]){
             [hotCityArray addObject:city];
         }
     }

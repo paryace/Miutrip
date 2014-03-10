@@ -716,7 +716,7 @@
         [_toCity addTarget:self action:@selector(pressAirItemBtn:) forControlEvents:UIControlEventTouchUpInside];
         [pageAirBottomView addSubview:_toCity];
         
-        UIImageView *topItemBG = [[UIImageView alloc]initWithFrame:CGRectMake(_fromCity.frame.origin.x, controlYLength(_fromCity) + 10, pageAirBottomView.frame.size.width - _fromCity.frame.origin.x * 2, _fromCity.frame.size.height * 2)];
+        UIImageView *topItemBG = [[UIImageView alloc]initWithFrame:CGRectMake(_fromCity.frame.origin.x, controlYLength(_fromCity) + 10, pageAirBottomView.frame.size.width - _fromCity.frame.origin.x * 2, _fromCity.frame.size.height)];
         [topItemBG setBackgroundColor:color(whiteColor)];
         [topItemBG setBorderColor:color(lightGrayColor) width:1.0];
         [topItemBG setCornerRadius:5.0];
@@ -748,40 +748,40 @@
         [startDateBtn addTarget:self action:@selector(pressAirItemBtn:) forControlEvents:UIControlEventTouchUpInside];
         [pageAirBottomView addSubview:startDateBtn];
         
-        [pageAirBottomView addSubview:[self createLineWithParam:color(lightGrayColor) frame:CGRectMake(startDateImage.frame.origin.x, controlYLength(_startDateTf), topItemBG.frame.size.width, 1)]];
-        
-        UIImageView *startTimeImage = [[UIImageView alloc]initWithFrame:CGRectMake(startDateImage.frame.origin.x, controlYLength(startDateImage), startDateImage.frame.size.width, startDateImage.frame.size.height)];
-        [startTimeImage setBackgroundColor:color(clearColor)];
-        [startTimeImage setImage:imageNameAndType(@"query_time", nil)];
-        [pageAirBottomView addSubview:startTimeImage];
-        
-        UILabel *startTimeLeft = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, (topItemBG.frame.size.width - startTimeImage.frame.size.width)/3, startTimeImage.frame.size.height)];
-        [startTimeLeft setBackgroundColor:color(clearColor)];
-        [startTimeLeft setTextColor:color(darkGrayColor)];
-        [startTimeLeft setText:@"出发时间"];
-        [startTimeLeft setFont:[UIFont systemFontOfSize:13]];
-        _startTime = [[UITextField alloc]initWithFrame:CGRectMake(_startDateTf.frame.origin.x, controlYLength(startDateImage), _startDateTf.frame.size.width, _startDateTf.frame.size.height)];
-        [_startTime setBackgroundColor:color(clearColor)];
-        [_startTime setLeftView:startTimeLeft];
-        [_startTime setLeftViewMode:UITextFieldViewModeAlways];
-        [_startTime setFont:[UIFont boldSystemFontOfSize:15]];
-        [pageAirBottomView addSubview:_startTime];
-        UIImageView *startTimeRightImage = [[UIImageView alloc]initWithFrame:startDateRightImage.frame];
-        [startTimeRightImage setImage:imageNameAndType(@"arrow", nil)];
-        [_startTime addSubview:startTimeRightImage];
-        UIButton *startTimeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [startTimeBtn setFrame:_startTime.frame];
-        [startTimeBtn setTag:703];
-        [startTimeBtn setBackgroundColor:color(clearColor)];
-        [startTimeBtn addTarget:self action:@selector(pressAirItemBtn:) forControlEvents:UIControlEventTouchUpInside];
-        [pageAirBottomView addSubview:startTimeBtn];
+        //        [pageAirBottomView addSubview:[self createLineWithParam:color(lightGrayColor) frame:CGRectMake(startDateImage.frame.origin.x, controlYLength(_startDateTf), topItemBG.frame.size.width, 1)]];
+        //
+        //        UIImageView *startTimeImage = [[UIImageView alloc]initWithFrame:CGRectMake(startDateImage.frame.origin.x, controlYLength(startDateImage), startDateImage.frame.size.width, startDateImage.frame.size.height)];
+        //        [startTimeImage setBackgroundColor:color(clearColor)];
+        //        [startTimeImage setImage:imageNameAndType(@"query_time", nil)];
+        //        [pageAirBottomView addSubview:startTimeImage];
+        //
+        //        UILabel *startTimeLeft = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, (topItemBG.frame.size.width - startTimeImage.frame.size.width)/3, startTimeImage.frame.size.height)];
+        //        [startTimeLeft setBackgroundColor:color(clearColor)];
+        //        [startTimeLeft setTextColor:color(darkGrayColor)];
+        //        [startTimeLeft setText:@"出发时间"];
+        //        [startTimeLeft setFont:[UIFont systemFontOfSize:13]];
+        //        _startTime = [[UITextField alloc]initWithFrame:CGRectMake(_startDateTf.frame.origin.x, controlYLength(startDateImage), _startDateTf.frame.size.width, _startDateTf.frame.size.height)];
+        //        [_startTime setBackgroundColor:color(clearColor)];
+        //        [_startTime setLeftView:startTimeLeft];
+        //        [_startTime setLeftViewMode:UITextFieldViewModeAlways];
+        //        [_startTime setFont:[UIFont boldSystemFontOfSize:15]];
+        //        [pageAirBottomView addSubview:_startTime];
+        //        UIImageView *startTimeRightImage = [[UIImageView alloc]initWithFrame:startDateRightImage.frame];
+        //        [startTimeRightImage setImage:imageNameAndType(@"arrow", nil)];
+        //        [_startTime addSubview:startTimeRightImage];
+        //        UIButton *startTimeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        //        [startTimeBtn setFrame:_startTime.frame];
+        //        [startTimeBtn setTag:703];
+        //        [startTimeBtn setBackgroundColor:color(clearColor)];
+        //        [startTimeBtn addTarget:self action:@selector(pressAirItemBtn:) forControlEvents:UIControlEventTouchUpInside];
+        //        [pageAirBottomView addSubview:startTimeBtn];
         
         
         UIView *returnDataView = [[UIView alloc]init];
         [returnDataView setBackgroundColor:color(clearColor)];
         [returnDataView setTag:781];
         [returnDataView.layer setAnchorPoint:CGPointMake(0.5, 0)];
-        [returnDataView setFrame:CGRectMake(0, controlYLength(startTimeBtn), pageAirBottomView.frame.size.width, startTimeBtn.frame.size.height * 2)];
+        [returnDataView setFrame:CGRectMake(0, controlYLength(startDateBtn), pageAirBottomView.frame.size.width, startDateBtn.frame.size.height)];
         _returnDateTransform = returnDataView.transform;
         [pageAirBottomView addSubview:returnDataView];
         
@@ -804,47 +804,48 @@
         [returnDateBtn addTarget:self action:@selector(pressAirItemBtn:) forControlEvents:UIControlEventTouchUpInside];
         [returnDataView addSubview:returnDateBtn];
         
-        [returnDataView addSubview:[self createLineWithParam:color(lightGrayColor) frame:CGRectMake(startDateImage.frame.origin.x, controlYLength(_returnDateTf), topItemBG.frame.size.width, 1)]];
+        //        [returnDataView addSubview:[self createLineWithParam:color(lightGrayColor) frame:CGRectMake(startDateImage.frame.origin.x, controlYLength(_returnDateTf), topItemBG.frame.size.width, 1)]];
+        //
+        //        UIImageView *returnTimeImage = [[UIImageView alloc]initWithFrame:CGRectMake(startDateImage.frame.origin.x, controlYLength(returnDateBtn), startDateImage.frame.size.width, startDateImage.frame.size.height)];
+        //        [returnTimeImage setBackgroundColor:color(clearColor)];
+        //        [returnTimeImage setImage:imageNameAndType(@"query_time", nil)];
+        //        [returnDataView addSubview:returnTimeImage];
+        //
+        //        UILabel *returnTimeLeft = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, (topItemBG.frame.size.width - startTimeImage.frame.size.width)/3, startTimeImage.frame.size.height)];
+        //        [returnTimeLeft setBackgroundColor:color(clearColor)];
+        //        [returnTimeLeft setTextColor:color(darkGrayColor)];
+        //        [returnTimeLeft setText:@"返回时间"];
+        //        [returnTimeLeft setFont:[UIFont systemFontOfSize:13]];
+        //        _returnTime = [[UITextField alloc]initWithFrame:CGRectMake(_returnDateTf.frame.origin.x, controlYLength(_returnDateTf), _returnDateTf.frame.size.width, _returnDateTf.frame.size.height)];
+        //        [_returnTime setBackgroundColor:color(clearColor)];
+        //        [_returnTime setLeftView:returnTimeLeft];
+        //        [_returnTime setLeftViewMode:UITextFieldViewModeAlways];
+        //        [_returnTime setFont:[UIFont boldSystemFontOfSize:15]];
+        //        [returnDataView addSubview:_returnTime];
+        //        UIImageView *returnTimeRightImage = [[UIImageView alloc]initWithFrame:startDateRightImage.frame];
+        //        [returnTimeRightImage setImage:imageNameAndType(@"arrow", nil)];
+        //        [_returnTime addSubview:returnTimeRightImage];
+        //        UIButton *returnTimeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        //        [returnTimeBtn setFrame:_returnTime.frame];
+        //        [returnTimeBtn setTag:803];
+        //        [returnTimeBtn addTarget:self action:@selector(pressAirItemBtn:) forControlEvents:UIControlEventTouchUpInside];
+        //        [returnDataView addSubview:returnTimeBtn];
         
-        UIImageView *returnTimeImage = [[UIImageView alloc]initWithFrame:CGRectMake(startDateImage.frame.origin.x, controlYLength(returnDateBtn), startDateImage.frame.size.width, startDateImage.frame.size.height)];
-        [returnTimeImage setBackgroundColor:color(clearColor)];
-        [returnTimeImage setImage:imageNameAndType(@"query_time", nil)];
-        [returnDataView addSubview:returnTimeImage];
-        
-        UILabel *returnTimeLeft = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, (topItemBG.frame.size.width - startTimeImage.frame.size.width)/3, startTimeImage.frame.size.height)];
-        [returnTimeLeft setBackgroundColor:color(clearColor)];
-        [returnTimeLeft setTextColor:color(darkGrayColor)];
-        [returnTimeLeft setText:@"返回时间"];
-        [returnTimeLeft setFont:[UIFont systemFontOfSize:13]];
-        _returnTime = [[UITextField alloc]initWithFrame:CGRectMake(_returnDateTf.frame.origin.x, controlYLength(_returnDateTf), _returnDateTf.frame.size.width, _returnDateTf.frame.size.height)];
-        [_returnTime setBackgroundColor:color(clearColor)];
-        [_returnTime setLeftView:returnTimeLeft];
-        [_returnTime setLeftViewMode:UITextFieldViewModeAlways];
-        [_returnTime setFont:[UIFont boldSystemFontOfSize:15]];
-        [returnDataView addSubview:_returnTime];
-        UIImageView *returnTimeRightImage = [[UIImageView alloc]initWithFrame:startDateRightImage.frame];
-        [returnTimeRightImage setImage:imageNameAndType(@"arrow", nil)];
-        [_returnTime addSubview:returnTimeRightImage];
-        UIButton *returnTimeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [returnTimeBtn setFrame:_returnTime.frame];
-        [returnTimeBtn setTag:803];
-        [returnTimeBtn addTarget:self action:@selector(pressAirItemBtn:) forControlEvents:UIControlEventTouchUpInside];
-        [returnDataView addSubview:returnTimeBtn];
-        
-        [startTimeImage setScaleX:0.5 scaleY:0.5];
-        [returnTimeImage setScaleX:0.5 scaleY:0.5];
+        //        [startTimeImage setScaleX:0.5 scaleY:0.5];
+        //        [returnTimeImage setScaleX:0.5 scaleY:0.5];
         [returnDataView setScaleX:1 scaleY:0];
         _haveReturn = NO;
         
         UIButton *moreConditionBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [moreConditionBtn setFrame:CGRectMake(startTimeImage.frame.origin.x, controlYLength(topItemBG), 65 + startTimeBtn.frame.size.height*2/3, startTimeBtn.frame.size.height*2/3)];
+        [moreConditionBtn setFrame:CGRectMake(startDateImage.frame.origin.x, controlYLength(topItemBG), 65 + startDateBtn.frame.size.height*2/3, startDateBtn.frame.size.height*2/3)];
         [moreConditionBtn setTag:790];
         [moreConditionBtn setBackgroundColor:color(clearColor)];
         [moreConditionBtn addTarget:self action:@selector(pressMoreConditionBtn:) forControlEvents:UIControlEventTouchUpInside];
         [pageAirBottomView addSubview:moreConditionBtn];
         
-        UILabel *moreConditionLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 65, startTimeBtn.frame.size.height*2/3)];
+        UILabel *moreConditionLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 65, startDateBtn.frame.size.height*2/3)];
         [moreConditionLabel setFont:[UIFont systemFontOfSize:13]];
+        [moreConditionLabel setBackgroundColor:color(clearColor)];
         [moreConditionLabel setTextAlignment:NSTextAlignmentRight];
         [moreConditionLabel setText:@"更多条件"];
         [moreConditionBtn addSubview:moreConditionLabel];
@@ -858,81 +859,19 @@
         [moreConditionView setBackgroundColor:color(clearColor)];
         [pageAirBottomView addSubview:moreConditionView];
         
-        UIImageView *moreLeftItem = [[UIImageView alloc]initWithFrame:CGRectMake(topItemBG.frame.origin.x, 0, topItemBG.frame.size.width/2 - topItemBG.frame.origin.x, returnTimeLeft.frame.size.height * 2)];
+        UIImageView *moreLeftItem = [[UIImageView alloc]initWithFrame:CGRectMake(topItemBG.frame.origin.x, 0, topItemBG.frame.size.width/2 - topItemBG.frame.origin.x, startDateBtn.frame.size.height)];
         [moreLeftItem setCornerRadius:5];
         [moreLeftItem setBorderColor:color(lightGrayColor) width:1];
         [moreLeftItem setBackgroundColor:color(whiteColor)];
         [moreLeftItem setAlpha:0.5];
         [moreConditionView addSubview:moreLeftItem];
         
-        UILabel *sendAddressLeft = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, moreLeftItem.frame.size.width/3, returnTimeLeft.frame.size.height)];
-        [sendAddressLeft setTextColor:color(darkGrayColor)];
-        [sendAddressLeft setText:@"送票"];
-        [sendAddressLeft setFont:[UIFont systemFontOfSize:12]];
-        [sendAddressLeft setTextAlignment:NSTextAlignmentCenter];
-        _sendAddressTf = [[UITextField alloc]initWithFrame:CGRectMake(moreLeftItem.frame.origin.x, moreLeftItem.frame.origin.y, moreLeftItem.frame.size.width, sendAddressLeft.frame.size.height)];
-        [_sendAddressTf setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
-        [_sendAddressTf setLeftView:sendAddressLeft];
-        [_sendAddressTf setLeftViewMode:UITextFieldViewModeAlways];
-        [_sendAddressTf setPlaceholder:@"地址"];
-        [moreConditionView addSubview:_sendAddressTf];
-        UIButton *sendAddressBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [sendAddressBtn setTag:704];
-        [sendAddressBtn setFrame:_sendAddressTf.frame];
-        [sendAddressBtn addTarget:self action:@selector(pressAirItemBtn:) forControlEvents:UIControlEventTouchUpInside];
-        [moreConditionView addSubview:sendAddressBtn];
-        
-        [moreConditionView createLineWithParam:color(lightGrayColor) frame:CGRectMake(moreLeftItem.frame.origin.x, controlYLength(sendAddressBtn), moreLeftItem.frame.size.width, 1)];
-        
-        UILabel *passengerNumLeft = [[UILabel alloc]initWithFrame:sendAddressLeft.bounds];
-        [passengerNumLeft setTextColor:color(darkGrayColor)];
-        [passengerNumLeft setText:@"乘客"];
-        [passengerNumLeft setFont:[UIFont systemFontOfSize:12]];
-        [passengerNumLeft setTextAlignment:NSTextAlignmentCenter];
-        _passengerNumTf = [[UITextField alloc]initWithFrame:CGRectMake(_sendAddressTf.frame.origin.x, controlYLength(_sendAddressTf), _sendAddressTf.frame.size.width, _sendAddressTf.frame.size.height)];
-        [_passengerNumTf setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
-        [_passengerNumTf setLeftView:passengerNumLeft];
-        [_passengerNumTf setLeftViewMode:UITextFieldViewModeAlways];
-        [_passengerNumTf setPlaceholder:@"数量"];
-        [moreConditionView addSubview:_passengerNumTf];
-        UIButton *passengerNumBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [passengerNumBtn setTag:706];
-        [passengerNumBtn setFrame:_passengerNumTf.frame];
-        [passengerNumBtn addTarget:self action:@selector(pressAirItemBtn:) forControlEvents:UIControlEventTouchUpInside];
-        [moreConditionView addSubview:passengerNumBtn];
-        
-        UIImageView *moreRightItem = [[UIImageView alloc]initWithFrame:CGRectMake(topItemBG.frame.origin.x * 2 + controlXLength(moreLeftItem), moreLeftItem.frame.origin.y, moreLeftItem.frame.size.width, moreLeftItem.frame.size.height)];
-        [moreRightItem setCornerRadius:5];
-        [moreRightItem setBorderColor:color(lightGrayColor) width:1];
-        [moreRightItem setBackgroundColor:color(whiteColor)];
-        [moreRightItem setAlpha:0.5];
-        [moreConditionView addSubview:moreRightItem];
-        
-        UILabel *airLineCompanyLeft = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, moreRightItem.frame.size.width/2, sendAddressLeft.frame.size.height)];
-        [airLineCompanyLeft setTextColor:color(darkGrayColor)];
-        [airLineCompanyLeft setText:@"航空公司"];
-        [airLineCompanyLeft setFont:[UIFont systemFontOfSize:12]];
-        [airLineCompanyLeft setTextAlignment:NSTextAlignmentCenter];
-        _airLineCompanyTf = [[UITextField alloc]initWithFrame:CGRectMake(moreRightItem.frame.origin.x, moreRightItem.frame.origin.y, _sendAddressTf.frame.size.width, _sendAddressTf.frame.size.height)];
-        [_airLineCompanyTf setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
-        [_airLineCompanyTf setLeftView:airLineCompanyLeft];
-        [_airLineCompanyTf setLeftViewMode:UITextFieldViewModeAlways];
-        [_airLineCompanyTf setPlaceholder:@"不限"];
-        [moreConditionView addSubview:_airLineCompanyTf];
-        UIButton *airLineCompanyBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [airLineCompanyBtn setTag:705];
-        [airLineCompanyBtn setFrame:_airLineCompanyTf.frame];
-        [airLineCompanyBtn addTarget:self action:@selector(pressAirItemBtn:) forControlEvents:UIControlEventTouchUpInside];
-        [moreConditionView addSubview:airLineCompanyBtn];
-        
-        [moreConditionView createLineWithParam:color(lightGrayColor) frame:CGRectMake(moreRightItem.frame.origin.x, controlYLength(airLineCompanyBtn), moreRightItem.frame.size.width, 1)];
-        
-        UILabel *seatLevelLeft = [[UILabel alloc]initWithFrame:airLineCompanyLeft.bounds];
+        UILabel *seatLevelLeft = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, moreLeftItem.frame.size.width/2, startDateBtn.frame.size.height)];
         [seatLevelLeft setTextColor:color(darkGrayColor)];
         [seatLevelLeft setText:@"舱位等级"];
         [seatLevelLeft setFont:[UIFont systemFontOfSize:12]];
         [seatLevelLeft setTextAlignment:NSTextAlignmentCenter];
-        _seatLevelTf = [[UITextField alloc]initWithFrame:CGRectMake(_airLineCompanyTf.frame.origin.x, controlYLength(_airLineCompanyTf), _airLineCompanyTf.frame.size.width, _airLineCompanyTf.frame.size.height)];
+        _seatLevelTf = [[UITextField alloc]initWithFrame:CGRectMake(moreLeftItem.frame.origin.x, moreLeftItem.frame.origin.y, moreLeftItem.frame.size.width, seatLevelLeft.frame.size.height)];
         [_seatLevelTf setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
         [_seatLevelTf setLeftView:seatLevelLeft];
         [_seatLevelTf setLeftViewMode:UITextFieldViewModeAlways];
@@ -943,6 +882,30 @@
         [seatLevelBtn setFrame:_seatLevelTf.frame];
         [seatLevelBtn addTarget:self action:@selector(pressAirItemBtn:) forControlEvents:UIControlEventTouchUpInside];
         [moreConditionView addSubview:seatLevelBtn];
+        
+        UIImageView *moreRightItem = [[UIImageView alloc]initWithFrame:CGRectMake(topItemBG.frame.origin.x * 2 + controlXLength(moreLeftItem), moreLeftItem.frame.origin.y, moreLeftItem.frame.size.width, moreLeftItem.frame.size.height)];
+        [moreRightItem setCornerRadius:5];
+        [moreRightItem setBorderColor:color(lightGrayColor) width:1];
+        [moreRightItem setBackgroundColor:color(whiteColor)];
+        [moreRightItem setAlpha:0.5];
+        [moreConditionView addSubview:moreRightItem];
+        
+        UILabel *airLineCompanyLeft = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, moreRightItem.frame.size.width/2, _seatLevelTf.frame.size.height)];
+        [airLineCompanyLeft setTextColor:color(darkGrayColor)];
+        [airLineCompanyLeft setText:@"航空公司"];
+        [airLineCompanyLeft setFont:[UIFont systemFontOfSize:12]];
+        [airLineCompanyLeft setTextAlignment:NSTextAlignmentCenter];
+        _airLineCompanyTf = [[UITextField alloc]initWithFrame:CGRectMake(moreRightItem.frame.origin.x, moreRightItem.frame.origin.y, _seatLevelTf.frame.size.width, _seatLevelTf.frame.size.height)];
+        [_airLineCompanyTf setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
+        [_airLineCompanyTf setLeftView:airLineCompanyLeft];
+        [_airLineCompanyTf setLeftViewMode:UITextFieldViewModeAlways];
+        [_airLineCompanyTf setPlaceholder:@"不限"];
+        [moreConditionView addSubview:_airLineCompanyTf];
+        UIButton *airLineCompanyBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [airLineCompanyBtn setTag:705];
+        [airLineCompanyBtn setFrame:_airLineCompanyTf.frame];
+        [airLineCompanyBtn addTarget:self action:@selector(pressAirItemBtn:) forControlEvents:UIControlEventTouchUpInside];
+        [moreConditionView addSubview:airLineCompanyBtn];
         
         [moreConditionView.layer setAnchorPoint:CGPointMake(0.5, 0.0)];
         
@@ -1042,7 +1005,7 @@
     [UIView animateWithDuration:0.25
                      animations:^{
                          [returnDateView setTransform:transform];
-                         [topItemBG setFrame:CGRectMake(topItemBG.frame.origin.x, topItemBG.frame.origin.y, topItemBG.frame.size.width, _startDateTf.frame.size.height * (show?4:2))];
+                         [topItemBG setFrame:CGRectMake(topItemBG.frame.origin.x, topItemBG.frame.origin.y, topItemBG.frame.size.width, _startDateTf.frame.size.height * (show?2:1))];
                          [moreConditionUnfoldBtn setFrame:CGRectMake(moreConditionUnfoldBtn.frame.origin.x, controlYLength(topItemBG), moreConditionUnfoldBtn.frame.size.width, moreConditionUnfoldBtn.frame.size.height)];
                          [moreConditionView setFrame:CGRectMake(moreConditionView.frame.origin.x, controlYLength(moreConditionUnfoldBtn), moreConditionView.frame.size.width, moreConditionView.frame.size.height)];
                          [queryBtn setFrame:CGRectMake(queryBtn.frame.origin.x, controlYLength(moreConditionView) + 15, queryBtn.frame.size.width, queryBtn.frame.size.height)];
@@ -1232,11 +1195,11 @@
     }else if (!_airOrderFromCity || !_airOrderToCity) {
         [[Model shareModel]showPromptText:@"请选择起始地和目的地" model:NO];
         complete = NO;
-    }else if ([Utils textIsEmpty:_startDateTf.date] || [Utils textIsEmpty:_startTime.text]){
+    }else if ([Utils textIsEmpty:_startDateTf.date]){
         [[Model shareModel] showPromptText:@"请选择出发日期和时间" model:NO];
         complete = NO;
     }else if (_haveReturn){
-        if ([Utils textIsEmpty:_returnDateTf.date] || [Utils textIsEmpty:_returnTime.text]){
+        if ([Utils textIsEmpty:_returnDateTf.date]){
             [[Model shareModel] showPromptText:@"请选择返回日期和时间" model:NO];
             complete = NO;
         }

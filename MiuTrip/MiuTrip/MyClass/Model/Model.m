@@ -11,6 +11,7 @@
 #import "AppDelegate.h"
 #import <QuartzCore/QuartzCore.h>
 #import "HotelAndAirOrderViewController.h"
+#import "LittleMiuViewController.h"
 
 static      Model       *shareModel;
 
@@ -109,7 +110,7 @@ static      Model       *shareModel;
     [appDelegate.window setUserInteractionEnabled:enabled];
 }
 
-- (void)orderSuccess
+- (void)goToAirOrderList
 {
     AppDelegate *appDelegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
     if (appDelegate.window.rootViewController.presentedViewController) {
@@ -133,4 +134,27 @@ static      Model       *shareModel;
     }
 }
 
+- (void)goToLittleMiu
+{
+    AppDelegate *appDelegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
+    if (appDelegate.window.rootViewController.presentedViewController) {
+        LittleMiuViewController *littleMiuViewController = [[LittleMiuViewController alloc]init];
+        UIViewController *viewController = appDelegate.window.rootViewController.presentedViewController;
+        if ([viewController isKindOfClass:[UINavigationController class]]) {
+            UINavigationController *navigationController = (UINavigationController*)viewController;
+            [navigationController pushViewController:littleMiuViewController animated:YES];
+        }else{
+            [viewController presentViewController:littleMiuViewController animated:YES completion:nil];
+        }
+    }else{
+        LittleMiuViewController *littleMiuViewController = [[LittleMiuViewController alloc]init];
+        UIViewController *viewController = appDelegate.window.rootViewController;
+        if ([viewController isKindOfClass:[UINavigationController class]]) {
+            UINavigationController *navigationController = (UINavigationController*)viewController;
+            [navigationController pushViewController:littleMiuViewController animated:YES];
+        }else{
+            [viewController presentViewController:littleMiuViewController animated:YES completion:nil];
+        }
+    }
+}
 @end

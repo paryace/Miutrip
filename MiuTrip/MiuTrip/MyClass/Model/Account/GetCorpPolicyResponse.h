@@ -33,6 +33,8 @@
 @property (strong, nonatomic) NSMutableArray *FltPricelReasonCodeN; //国内飞机票最低价RC	List<ReasonCodeDTO>
 @property (strong, nonatomic) NSMutableArray *PreBookReasonCodeI;   //国际提前预定RC	List<ReasonCodeDTO>
 @property (strong, nonatomic) NSMutableArray *FltPricelReasonCodeI; //国际飞机票最低价RC	List<ReasonCodeDTO>
+@property (strong, nonatomic) NSMutableArray *FltRateReasonCodeN;   //国内机票折扣RC
+@property (strong, nonatomic) NSMutableArray *FltRateReasonCodeI;   //国际机票折扣RC
 
 @property (assign, nonatomic) NSNumber      *HtlAmountLimtMax;       //酒店预订标准上限
 @property (strong, nonatomic) NSString      *DefineFlag;            //是否需要自定义字段 T/F

@@ -77,9 +77,9 @@ static  SqliteManager   *shareSqliteManager;
             city.CityCode = [NSString stringWithUTF8String:(const char *)[resultSet UTF8StringForColumnName:@"StartChar"]];
             int hotFlag = [resultSet intForColumn:@"IsHot"];
             if(hotFlag == 0){
-                city.isHot = NO;
+                city.isHot = [NSNumber numberWithBool:NO];
             }else{
-                city.isHot = YES;
+                city.isHot = [NSNumber numberWithBool:YES];
             }
            
             city.ProvinceID = [NSNumber numberWithInteger:[resultSet intForColumn:@"ProvinceID"]];

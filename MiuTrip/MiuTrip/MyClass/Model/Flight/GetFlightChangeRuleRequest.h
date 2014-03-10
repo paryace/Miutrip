@@ -16,5 +16,6 @@
 @property(strong, nonatomic) NSString *room;
 @property(strong, nonatomic) NSNumber *pType;
 @property(strong, nonatomic) NSNumber *oTAType;
+@property(strong, nonatomic) NSNumber *corpId;
 
 @end

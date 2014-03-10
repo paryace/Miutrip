@@ -14,6 +14,7 @@
 #import "CommonlyNameViewController.h"
 #import "AirListViewController.h"
 #import "AppDelegate.h"
+#import "GetFlightChangeRuleRequest.h"
 
 
 @interface OrderFillInViewController ()
@@ -56,6 +57,10 @@
 @property (strong, nonatomic) DomesticFlightDataDTO *secondFlight;
 @property (strong, nonatomic) SubmitFlightOrderRequest *request;
 
+@property (strong, nonatomic) NSMutableArray        *changeRules;
+@property (strong, nonatomic) UILabel               *firstRuleLb;
+@property (strong, nonatomic) UILabel               *secondRuleLb;
+
 @end
 
 @implementation OrderFillInViewController
@@ -84,6 +89,7 @@
         _corpPolicy = corpPolicy;
         //        self.flight = _request.Flights.FirstRoute.Flight;
         [self setSubviewFrame];
+        [self getChangeRule];
     }
     return self;
 }
@@ -93,12 +99,12 @@
 {
     if ([self getOrderContent]) {
         BaseRequestModel *request = _request;
-//        _request.Flights.FirstRoute.Flight.Price = 
+        //        _request.Flights.FirstRoute.Flight.Price =
         [self.requestManager sendRequest:request];
     }else{
         [[Model shareModel] showPromptText:@"请选择乘车人" model:YES];
     }
-
+    
 }
 
 - (void)saveOrderDone:(SubmitFlightOrderResponse*)response
@@ -112,6 +118,8 @@
     
     if ([response isKindOfClass:[SubmitFlightOrderResponse class]]){
         [self saveOrderDone:(SubmitFlightOrderResponse*)response];
+    }else if ([response isKindOfClass:[GetFlightChangeRuleResponse class]]){
+        [self getChangeRuleDone:(GetFlightChangeRuleResponse*)response];
     }
 }
 
@@ -209,6 +217,42 @@
     
 }
 
+#pragma mark - get flight change rule
+- (void)getChangeRule
+{
+    if (!_changeRules) {
+        _changeRules = [NSMutableArray array];
+    }
+    [_changeRules removeAllObjects];
+    
+    DomesticFlightDataDTO *flight = self.firstFlight;
+    GetFlightChangeRuleRequest *request = [[GetFlightChangeRuleRequest alloc]initWidthBusinessType:BUSINESS_FLIGHT methodName:@"GetAPIChangeRule"];
+    [request setGuid:flight.Guid];
+    [request setFNo:flight.Flight];
+    [request setRoom:flight.Class];
+    [request setPType:[NSNumber numberWithInteger:0]];
+    [request setOTAType:[UserDefaults shareUserDefault].OTAType];
+    [request setCorpId:[UserDefaults shareUserDefault].loginInfo.CorpID];
+    [self.requestManager sendRequest:request];
+}
+
+- (void)getChangeRuleDone:(GetFlightChangeRuleResponse*)response
+{
+    [_changeRules addObject:response];
+    if ([_changeRules count] != 2 && self.secondFlight) {
+        DomesticFlightDataDTO *flight = self.secondFlight;
+        GetFlightChangeRuleRequest *request = [[GetFlightChangeRuleRequest alloc]initWidthBusinessType:BUSINESS_FLIGHT methodName:@"GetAPIChangeRule"];
+        [request setGuid:flight.Guid];
+        [request setFNo:flight.Flight];
+        [request setRoom:flight.Class];
+        [request setPType:[NSNumber numberWithInteger:0]];
+        [request setOTAType:[UserDefaults shareUserDefault].OTAType];
+        [request setCorpId:[UserDefaults shareUserDefault].loginInfo.CorpID];
+        [self.requestManager sendRequest:request];
+        return;
+    }
+    [self setSubjoinViewFrame];
+}
 
 #pragma mark - tableview handle
 - (void)tableViewReloadData:(UITableView*)tableView
@@ -320,32 +364,35 @@
 - (void)reloadTableViewData
 {
     UIView *addPassengersBackgroundView = [self.contentView viewWithTag:200];
-    UIView *pressToSelectBtn = [addPassengersBackgroundView viewWithTag:201];
-    BOOL showPassengers = NO;
-    if ([_dataSource count] != 0) {
-        if (!_theTableView) {
-            _theTableView = [[UITableView alloc]initWithFrame:pressToSelectBtn.frame];
-            [_theTableView setDelegate:self];
-            [_theTableView setDataSource:self];
-            [_theTableView setScrollEnabled:NO];
-            [_theTableView setBackgroundColor:color(clearColor)];
-            [_theTableView setSeparatorStyle:UITableViewCellSeparatorStyleSingleLine];
-            [addPassengersBackgroundView addSubview:_theTableView];
+    if (addPassengersBackgroundView) {
+        UIView *pressToSelectBtn = [addPassengersBackgroundView viewWithTag:201];
+        BOOL showPassengers = NO;
+        if ([_dataSource count] != 0) {
+            if (!_theTableView) {
+                _theTableView = [[UITableView alloc]initWithFrame:pressToSelectBtn.frame];
+                [_theTableView setDelegate:self];
+                [_theTableView setDataSource:self];
+                [_theTableView setScrollEnabled:NO];
+                [_theTableView setBackgroundColor:color(clearColor)];
+                [_theTableView setSeparatorStyle:UITableViewCellSeparatorStyleSingleLine];
+                [addPassengersBackgroundView addSubview:_theTableView];
+            }
+            showPassengers = YES;
         }
-        showPassengers = YES;
+        [_theTableView setHidden:!showPassengers];
+        [pressToSelectBtn setHidden:showPassengers];
+        CGFloat tableViewHeight = showPassengers?OrderFillCellHeight * [_dataSource count]:(pressToSelectBtn.frame.size.height + 10);
+        [UIView animateWithDuration:0.25
+                         animations:^{
+                             [_theTableView setFrame:CGRectMake(_theTableView.frame.origin.x, _theTableView.frame.origin.y, _theTableView.frame.size.width, tableViewHeight)];
+                             [addPassengersBackgroundView setFrame:CGRectMake(addPassengersBackgroundView.frame.origin.x, addPassengersBackgroundView.frame.origin.y, addPassengersBackgroundView.frame.size.width, controlYLength(_theTableView))];
+                             [_subjoinView setFrame:CGRectMake(_subjoinView.frame.origin.x, controlYLength(addPassengersBackgroundView), _subjoinView.frame.size.width, _subjoinView.frame.size.height)];
+                         }completion:^(BOOL finished){
+                             [_theTableView reloadData];
+                             [self.contentView resetContentSize];
+                         }];
+        
     }
-    [_theTableView setHidden:!showPassengers];
-    [pressToSelectBtn setHidden:showPassengers];
-    CGFloat tableViewHeight = showPassengers?OrderFillCellHeight * [_dataSource count]:(pressToSelectBtn.frame.size.height + 10);
-    [UIView animateWithDuration:0.25
-                     animations:^{
-                         [_theTableView setFrame:CGRectMake(_theTableView.frame.origin.x, _theTableView.frame.origin.y, _theTableView.frame.size.width, tableViewHeight)];
-                         [addPassengersBackgroundView setFrame:CGRectMake(addPassengersBackgroundView.frame.origin.x, addPassengersBackgroundView.frame.origin.y, addPassengersBackgroundView.frame.size.width, controlYLength(_theTableView))];
-                         [_subjoinView setFrame:CGRectMake(_subjoinView.frame.origin.x, controlYLength(addPassengersBackgroundView), _subjoinView.frame.size.width, _subjoinView.frame.size.height)];
-                     }completion:^(BOOL finished){
-                         [_theTableView reloadData];
-                         [self.contentView resetContentSize];
-                     }];
 }
 
 #pragma mark - select passenger delegate method
@@ -417,14 +464,16 @@
     [self pushViewController:viewController transitionType:TransitionPush completionHandler:nil];
 }
 
-- (void)selectPostDone:(DeliveryTypeDTO*)delivery mailCode:(TC_APIMImInfo*)postType
+- (void)selectPostDone:(DeliveryTypeDTO*)delivery mailCode:(TC_APIMImInfo*)postType address:(NSString *)address
 {
+    [_postAddressTf setText:address];
+    
     [_request setMailCode:[NSNumber numberWithInteger:[postType.mCode integerValue]]];
-
+    
     [_request setDeliveryType:delivery];
     
     [_postTypeTf setText:[NSString stringWithFormat:@"%@(%@)",postType.mName,postType.rPrice]];
-//    _postAddressTf setText:<#(NSString *)#>
+    //    _postAddressTf setText:<#(NSString *)#>
 }
 
 #pragma mark - view init
@@ -441,25 +490,22 @@
     [self setReturnButton:returnBtn];
     [self.view addSubview:returnBtn];
     
-    [self setSubjoinViewFrame];
+    //    [self setSubjoinViewFrame];
 }
 
 
 #pragma mark --在view将要显示的时候判断:为个人   为多人
 
-- (void)viewWillAppear:(BOOL)animated
+- (void)checkEditContactBtnState
 {
-    [super viewWillAppear:animated];
-    AppDelegate *app = [[UIApplication sharedApplication] delegate];
     UIView *view = (UIView *)[self.contentView viewWithTag:200];
     UIButton *clear = (UIButton *)[view viewWithTag:400];
     UIButton *add = (UIButton *)[view viewWithTag:401];
-    if (app.isForSelf) {
-
+    
+    if ([_request.Flights.BookingType isEqualToString:OrderBookForSelf]) {
         clear.hidden = YES;
         add.hidden = YES;
-    }else
-    {
+    }else{
         clear.hidden = NO;
         add.hidden = NO;
     }
@@ -521,9 +567,25 @@
     
     [baseInfoBackgroundView createLineWithParam:color(lightGrayColor) frame:CGRectMake(10, controlYLength(_priceLb1), baseInfoBackgroundView.frame.size.width - 20, 0.5)];
     
+    NSString *firstRuleStr = [NSString stringWithFormat:@"基建费:%@\n燃油费:%@",self.firstFlight.Tax,self.firstFlight.OilFee];
+    NSString *firstChangeRuleFormat = [[_changeRules objectAtIndex:0] description];
+    if (firstChangeRuleFormat) {
+        firstRuleStr = [firstRuleStr stringByAppendingFormat:@"\n%@",firstChangeRuleFormat];
+    }
+    
+    CGFloat firstRuleLbHeight = [Utils heightForWidth:baseInfoBackgroundView.frame.size.width - airLineInfo.frame.origin.x*2 text:firstRuleStr font:[UIFont systemFontOfSize:13]];
+    _firstRuleLb = [[UILabel alloc]initWithFrame:CGRectMake(airLineInfo.frame.origin.x, controlYLength(_priceLb1) + 10, baseInfoBackgroundView.frame.size.width - airLineInfo.frame.origin.x*2, firstRuleLbHeight)];
+    [_firstRuleLb setBackgroundColor:color(clearColor)];
+    [_firstRuleLb setAutoBreakLine:YES];
+    [_firstRuleLb setText:firstRuleStr];
+    [_firstRuleLb setFont: [UIFont systemFontOfSize:13]];
+    [baseInfoBackgroundView addSubview:_firstRuleLb];
+    
     if (_request.Flights.SecondRoute) {
         
-        _flightTimeLb2 = [[UILabel alloc]initWithFrame:CGRectMake(_flightTimeLb1.frame.origin.x, controlYLength(_seatTypeLb1), _flightTimeLb1.frame.size.width, _flightTimeLb1.frame.size.height)];
+        [baseInfoBackgroundView createLineWithParam:color(lightGrayColor) frame:CGRectMake(10, controlYLength(_firstRuleLb) + 5, baseInfoBackgroundView.frame.size.width - 20, 0.5)];
+        
+        _flightTimeLb2 = [[UILabel alloc]initWithFrame:CGRectMake(_flightTimeLb1.frame.origin.x, controlYLength(_firstRuleLb) + 10, _flightTimeLb1.frame.size.width, _flightTimeLb1.frame.size.height)];
         [_flightTimeLb2 setFont:[UIFont systemFontOfSize:13]];
         [_flightTimeLb2 setAutoSize:YES];
         [_flightTimeLb2 setText:[NSString stringWithFormat:@"%@",self.secondFlight.TakeOffDate]];
@@ -557,9 +619,26 @@
         [baseInfoBackgroundView addSubview:_priceLb2];
         
         [baseInfoBackgroundView createLineWithParam:color(lightGrayColor) frame:CGRectMake(10, controlYLength(_priceLb2), baseInfoBackgroundView.frame.size.width - 20, 0.5)];
+        
+        NSString *secondRuleStr = [NSString stringWithFormat:@"基建费:%@\n燃油费:%@",self.secondFlight.Tax,self.secondFlight.OilFee];
+        NSString *secondChangeRuleFormat = [[_changeRules objectAtIndex:1] description];
+        if (secondChangeRuleFormat) {
+            secondRuleStr = [secondRuleStr stringByAppendingFormat:@"\n%@",secondChangeRuleFormat];
+        }
+        
+        CGFloat secondRuleLbHeight = [Utils heightForWidth:_firstRuleLb.frame.size.width text:secondRuleStr font:[UIFont systemFontOfSize:13]];
+        _secondRuleLb = [[UILabel alloc]initWithFrame:CGRectMake(_firstRuleLb.frame.origin.x, controlYLength(_priceLb2) + 5, _firstRuleLb.frame.size.width, secondRuleLbHeight)];
+        [_secondRuleLb setBackgroundColor:color(clearColor)];
+        [_secondRuleLb setAutoBreakLine:YES];
+        [_secondRuleLb setText:secondRuleStr];
+        [_secondRuleLb setFont: [UIFont systemFontOfSize:13]];
+        [baseInfoBackgroundView addSubview:_secondRuleLb];
+        
     }
     
-    _positionLb = [[UILabel alloc]initWithFrame:CGRectMake(_flightNumLb1.frame.origin.x, controlYLength((_flightNumLb2?_flightNumLb2:_flightNumLb1)), baseInfoBackgroundView.frame.size.width, _flightNumLb1.frame.size.height)];
+    [baseInfoBackgroundView createLineWithParam:color(lightGrayColor) frame:CGRectMake(10, controlYLength((_secondRuleLb?_secondRuleLb:_firstRuleLb)) + 5, baseInfoBackgroundView.frame.size.width - 20, 0.5)];
+    
+    _positionLb = [[UILabel alloc]initWithFrame:CGRectMake(_flightNumLb1.frame.origin.x, controlYLength((_secondRuleLb?_secondRuleLb:_firstRuleLb)) + 10, baseInfoBackgroundView.frame.size.width, _flightNumLb1.frame.size.height)];
     [_positionLb setTextColor:color(grayColor)];
     [_positionLb setFont:[UIFont systemFontOfSize:12]];
     [_positionLb setText:@"政策执行人"];
@@ -809,6 +888,10 @@
     [self.contentView resetContentSize];
     
     NSLog(@"setSubjoinViewFrame");
+    
+    [self setPolicyExecutor:self.policyExecutor];
+    [self setPassengers:self.passengers];
+    [self checkEditContactBtnState];
     
 }
 

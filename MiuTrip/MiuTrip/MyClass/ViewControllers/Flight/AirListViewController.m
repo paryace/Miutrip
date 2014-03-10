@@ -200,13 +200,45 @@
     
     tableView.scrollsToTop = YES;
     [tableView reloadData];
+    
+    [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(showCheapestFlight) userInfo:nil repeats:NO];
+}
+
+- (void)showCheapestFlight
+{
+    DomesticFlightDataDTO *cheapestFlight = nil;
+    if ([_conformPolicies count] == 0 || !_conformPolicies) {
+        for (DomesticFlightDataDTO *flight in _showDataSource) {
+            if ([cheapestFlight.Price floatValue] > [flight.Price floatValue] || cheapestFlight == nil) {
+                cheapestFlight = flight;
+            }
+        }
+        for (DomesticFlightDataDTO *flight in _showDataSource) {
+            if ([cheapestFlight.Price floatValue] == [flight.Price floatValue]) {
+                [flight setConformLevel:@"B"];
+            }
+        }
+    }else{
+        for (DomesticFlightDataDTO *flight in _conformPolicies) {
+            if ([cheapestFlight.Price floatValue] > [flight.Price floatValue] || cheapestFlight == nil) {
+                cheapestFlight = flight;
+            }
+        }
+    }
+    
+    NSInteger row = [_showDataSource indexOfObject:cheapestFlight];
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:row inSection:0];
+    [_theTableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+    if ([_conformPolicies count] != 0) {
+        [_theTableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
+    }
 }
 
 - (void)markConformPolicy
 {
     [_conformPolicies removeAllObjects];
     for (DomesticFlightDataDTO *flight in _showDataSource) {
-        if (_getFlightsRequest.DepartTime) {
+        if (_takeOffDate) {
             NSDate *flightDate = [Utils dateWithString:[flight.TakeOffDate stringByAppendingFormat:@" %@",flight.TakeOffTime] withFormat:@"yyyy-MM-dd HH:mm"];
             if ([flightDate timeIntervalSince1970] >= [self.takeOffDate timeIntervalSince1970] - [_corpPolicy.PreMinute integerValue] * 60 && [flightDate timeIntervalSince1970] <= [self.takeOffDate timeIntervalSince1970] + [_corpPolicy.PreMinute integerValue] * 60) {
                 [flight setConformLevel:@"T"];
@@ -226,9 +258,9 @@
             DomesticFlightDataDTO *object = [_conformPolicies objectAtIndex:i];
             cheapestFlight = [cheapestFlight.Price floatValue] < [object.Price floatValue]?cheapestFlight:object;
             
-            if ([_showDataSource containsObject:object]) {
-                [_showDataSource bringObjectToFront:object];
-            }
+            //            if ([_showDataSource containsObject:object]) {
+            //                [_showDataSource bringObjectToFront:object];
+            //            }
         }
         
         if (cheapestFlight) {
@@ -305,6 +337,11 @@
 - (void)pressMainBtn:(CustomBtn *)sender
 {
     DomesticFlightDataDTO *flight = [_showDataSource objectAtIndex:sender.indexPath.row];
+    if (![_conformPolicies containsObject:flight]) {
+        NSString *takeOffString = [flight.TakeOffDate stringByAppendingFormat:@" %@",flight.TakeOffTime];
+        _takeOffDate = [Utils dateWithString:takeOffString withFormat:@"yyyy-MM-dd HH:mm"];
+        [self tableViewReloadData:_theTableView];
+    }
     
     if ([self checkOrderStatusWithCorpPolicy:flight withObject:sender]) {
         
@@ -326,6 +363,7 @@
             [airListView setBookType:[self bookType]];
             [airListView setGetFlightsRequest:self.getReturnFlightsRequest];
             [airListView setPolicyData:[self currentPolicy]];
+            [airListView setFeeType:self.feeType];
             [self pushViewController:airListView transitionType:TransitionPush completionHandler:^{
                 [airListView showViewContent];
             }];
@@ -343,6 +381,12 @@
 {
     DomesticFlightDataDTO *mainFlight = [_showDataSource objectAtIndex:sender.indexPath.row];
     DomesticFlightDataDTO *flight = [mainFlight.MoreFlights objectAtIndex:(sender.tag - 200)];
+    if (![_conformPolicies containsObject:flight]) {
+        NSString *takeOffString = [flight.TakeOffDate stringByAppendingFormat:@" %@",flight.TakeOffTime];
+        _takeOffDate = [Utils dateWithString:takeOffString withFormat:@"yyyy-MM-dd HH:mm"];
+        [self tableViewReloadData:_theTableView];
+    }
+    
     if ([self checkOrderStatusWithCorpPolicy:flight withObject:sender]) {
         if (self.isReturnPickerController) {
             [self popViewControllerTransitionType:TransitionNone completionHandler:^{
@@ -362,6 +406,7 @@
             [airListView setBookType:[self bookType]];
             [airListView setGetFlightsRequest:self.getReturnFlightsRequest];
             [airListView setPolicyData:[self currentPolicy]];
+            [airListView setFeeType:self.feeType];
             [self pushViewController:airListView transitionType:TransitionPush completionHandler:^{
                 [airListView showViewContent];
             }];
@@ -397,7 +442,7 @@
     [orderFillInView setPassengers:self.passengers];
     [orderFillInView setPolicyExecutor:[self currentPolicy]];
     [self pushViewController:orderFillInView transitionType:TransitionPush completionHandler:^{
-//        [self.requestManager sendRequest:request];
+        //        [self.requestManager sendRequest:request];
     }];
 }
 
@@ -421,24 +466,28 @@
                 }
             }
             
-            PolicyIllegalType illegalType = PolicyIllegalNone;
+            //            PolicyIllegalType illegalType = PolicyIllegalNone;
+            NSMutableArray *policyIllegals = [NSMutableArray array];
             
             NSDate *prevOrderDate = [Utils dateWithString:[Utils stringWithDate:[[NSDate date] dateByAddingTimeInterval:3 * 24 * 60 * 60] withFormat:@"yyyy-MM-dd"] withFormat:@"yyyy-MM-dd"];
             if ([[Utils dateWithString:flight.TakeOffDate withFormat:@"yyyy-MM-dd"] timeIntervalSince1970] < [prevOrderDate timeIntervalSince1970]) {
-                illegalType = PolicyIllegalDate;
+                [policyIllegals addObject:PolicyIllegalDate];
+            }
+            
+            if ([_corpPolicy.IsFltDiscountRC isEqualToString:@"T"]) {
+                if ([flight.Rate floatValue] > [_corpPolicy.FltDiscountRC floatValue]) {
+                    [policyIllegals addObject:PolicyIllegalRate];
+                }
             }
             
             if (![flight.conformLevel isEqualToString:@"B"]) {
-                if (illegalType == PolicyIllegalDate) {
-                    illegalType = PolicyIllegalDateAndPrice;
-                }else{
-                    illegalType = PolicyIllegalPrice;
-                }
+                [policyIllegals addObject:PolicyIllegalPrice];
             }
-            if (illegalType == PolicyIllegalNone){
+            if ([policyIllegals count] == 0){
                 conformPolicy = YES;
             }else{
-                [_policyIllegalView fireWithIllegalType:illegalType corpPolicy:_corpPolicy];
+                
+                [_policyIllegalView fireWithIllegalType:policyIllegals corpPolicy:_corpPolicy flight:flight];
             }
         }else{
             NSString *prevDate = [Utils stringWithDate:[self.takeOffDate dateByAddingTimeInterval:-60 * 60] withFormat:@"HH:mm"];
@@ -457,6 +506,7 @@
     RouteEntity *routeEntity = [[RouteEntity alloc]init];
     ReasonCodeDTO *PreBookReasonCodeN = [data objectForKey:@"PreBookReasonCodeN"];
     ReasonCodeDTO *FltPricelReasonCodeN = [data objectForKey:@"FltPricelReasonCodeN"];
+    ReasonCodeDTO *FltRateReasonCodeN = [data objectForKey:@"FltRateReasonCodeN"];
     DomesticFlightDataDTO *flight = [data objectForKey:@"flight"];
     if (PreBookReasonCodeN) {
         routeEntity.RCofDays = [NSString stringWithFormat:@"%@",PreBookReasonCodeN.RID];
@@ -464,6 +514,9 @@
     }if (FltPricelReasonCodeN) {
         routeEntity.RCofPrice = [NSString stringWithFormat:@"%@",FltPricelReasonCodeN.RID];
         routeEntity.RCofPriceCode = FltPricelReasonCodeN.ReasonCode;
+    }if (FltRateReasonCodeN) {
+        routeEntity.RCofRate = [NSString stringWithFormat:@"%@",FltRateReasonCodeN.RID];
+        routeEntity.RCofRateCode = FltRateReasonCodeN.ReasonCode;
     }
     if (!flight) {
         [[Model shareModel]showPromptText:@"未找到航班信息" model:YES];
@@ -529,6 +582,7 @@
         [airListView setBookType:[self bookType]];
         [airListView setGetFlightsRequest:self.getReturnFlightsRequest];
         [airListView setPolicyData:[self currentPolicy]];
+        [airListView setFeeType:self.feeType];
         [self pushViewController:airListView transitionType:TransitionPush completionHandler:^{
             [airListView showViewContent];
         }];
@@ -602,14 +656,14 @@
     request.Flights.PassengerType = firstFlight.PassengerType;
     
     request.Flights.RouteIndex = firstFlight.RouteIndex;
-        
+    
     request.Flights.FirstRoute = _firstFlightData;
     
     
-//    request.Contacts = [OnlineContactDTO getOnlineContactWithData:[self currentPolicy]];
-//    request.Contacts.UserName = @"马宏亮";
-//    request.Contacts.Mobilephone = @"15000609705";
-//    request.Contacts.ConfirmType = [NSNumber numberWithInt:0];
+    //    request.Contacts = [OnlineContactDTO getOnlineContactWithData:[self currentPolicy]];
+    //    request.Contacts.UserName = @"马宏亮";
+    //    request.Contacts.Mobilephone = @"15000609705";
+    //    request.Contacts.ConfirmType = [NSNumber numberWithInt:0];
     
     request.PayType = @"第三方支付";
     request.Addition = @"";
@@ -668,7 +722,7 @@
 {
     NSString *year = [Utils formatDateWithString:_getFlightsRequest.DepartDate startFormat:@"yyyy-MM-dd" endFormat:@"yyyy"];
     NSDate *takeOffDate = [Utils dateWithString:_dateLabel.titleLabel.text withFormat:@"MM月dd日"];
-
+    
     switch (sender.tag) {
         case 300:{
             takeOffDate = [takeOffDate dateByAddingTimeInterval:-24 * 60 * 60];
@@ -893,20 +947,20 @@
         NSMutableArray *elemArray = [NSMutableArray array];
         if (![airCompanyStr containsObject:@"不限"]) {
             
-         
-                for (NSUInteger i = 0; i < [airCompanyStr count]; i++) {
+            
+            for (NSUInteger i = 0; i < [airCompanyStr count]; i++) {
+                
+                NSString *airCompanyName = [airCompanyStr objectAtIndex:i];
+                
+                for (DomesticFlightDataDTO *flight in _showDataSource) {
                     
-                    NSString *airCompanyName = [airCompanyStr objectAtIndex:i];
-                    
-                    for (DomesticFlightDataDTO *flight in _showDataSource) {
+                    if ( [flight.AirLine.ShortName isEqualToString:airCompanyName]){
                         
-                        if ( [flight.AirLine.ShortName isEqualToString:airCompanyName]){
-                            
-                            [elemArray addObject:flight];
-                        }
+                        [elemArray addObject:flight];
                     }
-                    
                 }
+                
+            }
             
             _showDataSource = elemArray;
         }
@@ -934,20 +988,20 @@
             [viewController.airCompanyBtnArray addObject:airLineName];
         }
     }
- 
+    
     
     [self pushViewController:viewController transitionType:TransitionPush completionHandler:nil];
 }
-
-- (NSDate *)takeOffDate
-{
-    NSMutableString *dateString = [NSMutableString stringWithString:_getFlightsRequest.DepartDate];
-    if (_getFlightsRequest.DepartTime) {
-        [dateString appendFormat:@" %@",_getFlightsRequest.DepartTime];
-    }
-    
-    return [Utils dateWithString:dateString withFormat:@"yyyy-MM-dd HH:mm"];
-}
+//
+//- (NSDate *)takeOffDate
+//{
+//    NSMutableString *dateString = [NSMutableString stringWithString:_getFlightsRequest.DepartDate];
+//    if (_getFlightsRequest.DepartTime) {
+//        [dateString appendFormat:@" %@",_getFlightsRequest.DepartTime];
+//    }
+//
+//    return [Utils dateWithString:dateString withFormat:@"yyyy-MM-dd HH:mm"];
+//}
 
 - (void)viewDidLoad
 {

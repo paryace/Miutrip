@@ -9,6 +9,7 @@
 #import "PostTypeViewController.h"
 #import "DBProvince.h"
 #import "OnLineAllClass.h"
+#import "GetCorpInfoResponse.h"
 
 @interface PostTypeViewController ()
 
@@ -24,6 +25,7 @@
 @property (assign, nonatomic) BOOL          saveAddress;        //保存到常用地址       //cover btn tag  105
 
 @property (strong, nonatomic) MemberDeliverDTO  *memberDeliverDTO;  //配送地址信息
+@property (strong, nonatomic) Corp_AddressResponse *corpDeliver;    //公司配送地址信息
 
 @property (strong, nonatomic) TC_APIMImInfo *postType;
 @property (strong, nonatomic) DBProvince    *province;
@@ -75,7 +77,7 @@
             }
         }
         [self popViewControllerTransitionType:TransitionPush completionHandler:^{
-            [self.delegate selectPostDone:deliverDTO mailCode:_postType];
+            [self.delegate selectPostDone:deliverDTO mailCode:_postType address:_postAddressLb.text];
         }];
     }
 }
@@ -107,40 +109,53 @@
         }else if (![Utils textIsEmpty:_memberDeliverDTO.Tel]){
             [deliverDTO setTel:[Utils NULLToEmpty:_memberDeliverDTO.Tel]];
         }
+    }else if (_corpDeliver){
+        deliverDTO.Province = [NSNumber numberWithInteger:[_corpDeliver.ProvinceId integerValue]];
+        deliverDTO.City     = [NSNumber numberWithInteger:[_corpDeliver.CityId integerValue]];
+        deliverDTO.Canton   = [NSNumber numberWithInteger:[_corpDeliver.CantonId integerValue]];
+        deliverDTO.Address  = _corpDeliver.Address;
+        //        deliverDTO.AddID    = _corpDeliver.AddID;
+        deliverDTO.ZipCode  = _corpDeliver.ZipCode;
+        deliverDTO.RecipientName = _corpDeliver.RecipientName;
+        if (![Utils textIsEmpty:_corpDeliver.Mobile]) {
+            [deliverDTO setTel:[Utils NULLToEmpty:_corpDeliver.Mobile]];
+        }else if (![Utils textIsEmpty:_corpDeliver.Tel]){
+            [deliverDTO setTel:[Utils NULLToEmpty:_corpDeliver.Tel]];
+        }
     }else{
-//        if ([Utils textIsEmpty:_recipientTf.text]) {
-//            [[Model shareModel] showPromptText:@"请输入收件人姓名" model:YES];
-//            return nil;
-//        }else if (!_province){
-//            [[Model shareModel] showPromptText:@"请选择配送省份" model:YES];
-//            return nil;
-//        }else if (!_city){
-//            [[Model shareModel] showPromptText:@"请选择配送城市" model:YES];
-//            return nil;
-//        }else if (!_canton){
-//            [[Model shareModel] showPromptText:@"请选择配送区域" model:YES];
-//            return nil;
-//        }else if ([Utils textIsEmpty:_addressDetailTf.text]){
-//            [[Model shareModel] showPromptText:@"请输入街道地址" model:YES];
-//            return nil;
-//        }else if ([Utils textIsEmpty:_zipCodeTf.text]){
-//            [[Model shareModel] showPromptText:@"请输入邮政编码" model:YES];
-//            return nil;
-//        }else if ([Utils textIsEmpty:_telTf.text]){
-//            [[Model shareModel] showPromptText:@"请输入电话号码" model:YES];
-//            return nil;
-//        }else if (![Utils isValidatePhoneNum:_telTf.text]){
-//            [[Model shareModel] showPromptText:@"电话号码格式不正确" model:YES];
-//            return nil;
-//        }else{
-            deliverDTO.RecipientName = _recipientTf.text;
-            deliverDTO.Province = [NSNumber numberWithInteger:[_province.ProvinceID integerValue]];
-            deliverDTO.City     = _city.CityID;
-            deliverDTO.Canton   = _canton.CID;
-            deliverDTO.Address  = _addressDetailTf.text;
-            deliverDTO.ZipCode  = _zipCodeTf.text;
-            deliverDTO.Tel      = _telTf.text;
-//        }
+        //        if ([Utils textIsEmpty:_recipientTf.text]) {
+        //            [[Model shareModel] showPromptText:@"请输入收件人姓名" model:YES];
+        //            return nil;
+        //        }else if (!_province){
+        //            [[Model shareModel] showPromptText:@"请选择配送省份" model:YES];
+        //            return nil;
+        //        }else if (!_city){
+        //            [[Model shareModel] showPromptText:@"请选择配送城市" model:YES];
+        //            return nil;
+        //        }else if (!_canton){
+        //            [[Model shareModel] showPromptText:@"请选择配送区域" model:YES];
+        //            return nil;
+        //        }else if ([Utils textIsEmpty:_addressDetailTf.text]){
+        //            [[Model shareModel] showPromptText:@"请输入街道地址" model:YES];
+        //            return nil;
+        //        }else if ([Utils textIsEmpty:_zipCodeTf.text]){
+        //            [[Model shareModel] showPromptText:@"请输入邮政编码" model:YES];
+        //            return nil;
+        //        }else if ([Utils textIsEmpty:_telTf.text]){
+        //            [[Model shareModel] showPromptText:@"请输入电话号码" model:YES];
+        //            return nil;
+        //        }else if (![Utils isValidatePhoneNum:_telTf.text]){
+        //            [[Model shareModel] showPromptText:@"电话号码格式不正确" model:YES];
+        //            return nil;
+        //        }else{
+        deliverDTO.RecipientName = _recipientTf.text;
+        deliverDTO.Province = [NSNumber numberWithInteger:[_province.ProvinceID integerValue]];
+        deliverDTO.City     = _city.CityID;
+        deliverDTO.Canton   = _canton.CID;
+        deliverDTO.Address  = _addressDetailTf.text;
+        deliverDTO.ZipCode  = _zipCodeTf.text;
+        deliverDTO.Tel      = _telTf.text;
+        //        }
         
         
     }
@@ -151,11 +166,11 @@
 {
     BOOL isValidate = YES;
     
-//    if (_postType) {
-//        if ([_postType.postCode integerValue] == 0) {
-//            return YES;
-//        }
-//    }
+    //    if (_postType) {
+    //        if ([_postType.postCode integerValue] == 0) {
+    //            return YES;
+    //        }
+    //    }
     
     if (!deliver) {
         return NO;
@@ -199,10 +214,15 @@
             [_selectPostTypeView fire];
             break;
         }case 101:{
-            SelectDeliverViewController *viewController = [[SelectDeliverViewController alloc]init];
+            DeliverType deliverType = DeliverCommon;
+            NSRange range = [_postDescTf.text rangeOfString:@"定期配送"];
+            if (range.length != 0) {
+                deliverType = DeliverAtRegular;
+            }
+            SelectDeliverViewController *viewController = [[SelectDeliverViewController alloc]initWithDeliverType:deliverType];
             [viewController setDelegate:self];
             [self pushViewController:viewController transitionType:TransitionPush completionHandler:^{
-                [viewController getMemberDeliverList:_policyExecutor];
+                [viewController getDeliverList:_policyExecutor];
             }];
             break;
         }case 102:{
@@ -241,9 +261,9 @@
 }
 
 #pragma mark - select deliver
-- (void)selectDeliverDone:(MemberDeliverDTO *)deliverDTO
+- (void)selectDeliverDone:(id)deliverDTO
 {
-    _memberDeliverDTO = deliverDTO;
+    //    _memberDeliverDTO = deliverDTO;
     [self setViewContentWithParams:deliverDTO];
 }
 
@@ -257,12 +277,28 @@
 {
     
     if ([object isKindOfClass:[MemberDeliverDTO class]]) {
+        _memberDeliverDTO = object;
         MemberDeliverDTO *deliver = object;
         [_postAddressLb setText:[NSString stringWithFormat:@"%@(省)%@(市)%@(区)%@",deliver.ProvinceName,deliver.CityName,deliver.Canton_Name,deliver.Address]];
         [_recipientTf setText:deliver.RecipientName];
         [_provinceTf setText:deliver.ProvinceName];
         [_cityTf setText:deliver.CityName];
         [_cantonTf setText:deliver.Canton_Name];
+        [_addressDetailTf setText:deliver.Address];
+        [_zipCodeTf setText:deliver.ZipCode];
+        if (![Utils isEmpty:deliver.Mobile]) {
+            [_telTf setText:[Utils NULLToEmpty:deliver.Mobile]];
+        }else if (![Utils isEmpty:deliver.Tel]){
+            [_telTf setText:[Utils NULLToEmpty:deliver.Tel]];
+        }
+    }else if ([object isKindOfClass:[Corp_AddressResponse class]]){
+        _corpDeliver = object;
+        Corp_AddressResponse *deliver = object;
+        [_postAddressLb setText:[NSString stringWithFormat:@"%@(省)%@(市)%@(区)%@",deliver.ProvinceName,deliver.CityName,deliver.CantonName,deliver.Address]];
+        [_recipientTf setText:deliver.RecipientName];
+        [_provinceTf setText:deliver.ProvinceName];
+        [_cityTf setText:deliver.CityName];
+        [_cantonTf setText:deliver.CantonName];
         [_addressDetailTf setText:deliver.Address];
         [_zipCodeTf setText:deliver.ZipCode];
         if (![Utils isEmpty:deliver.Mobile]) {

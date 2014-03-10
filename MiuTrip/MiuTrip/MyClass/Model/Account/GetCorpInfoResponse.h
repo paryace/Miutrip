@@ -15,16 +15,19 @@
 @property (strong, nonatomic) NSString      *CorpName;                  //公司名称
 @property (strong, nonatomic) NSString      *CorpNameEn;                //公司英文名
 @property (strong, nonatomic) NSString      *CorpShortName;             //公司简短名
-@property (strong, nonatomic) NSNumber     *NeedDelivery;               //是否需要定期配送      0：否 1：是
-@property (strong, nonatomic) NSNumber    *NeedStrictDelivery;         //是否限制定期配送      0：否 1：是
+@property (strong, nonatomic) NSNumber      *NeedDelivery;               //是否需要定期配送      0：否 1：是
+@property (strong, nonatomic) NSNumber      *NeedStrictDelivery;         //是否限制定期配送      0：否 1：是
 
 @property (strong, nonatomic) NSMutableArray *Corp_AddressList;         //定期配送地址列表	List<Corp_AddressDTO>
+
+- (void)getObjects;
 
 @end
 
 @interface Corp_AddressResponse : BaseResponseModel
 
 @property (strong, nonatomic) NSString      *ID;                        //配送地址记录id
+@property (strong, nonatomic) NSString      *CorpId;                    //
 @property (strong, nonatomic) NSString      *CreateUser;                //创建人
 @property (strong, nonatomic) NSString      *RecipientName;             //收件人
 @property (strong, nonatomic) NSString      *ProvinceId;                //省id
@@ -37,5 +40,7 @@
 @property (strong, nonatomic) NSString      *ZipCode;                   //邮编
 @property (strong, nonatomic) NSString      *Tel;                       //电话
 @property (strong, nonatomic) NSString      *Mobile;                    //手机
+@property (strong, nonatomic) NSNumber      *IsDefault;                 //默认
+@property (strong, nonatomic) NSString      *LastUseDate;               //最后使用时间
 
 @end

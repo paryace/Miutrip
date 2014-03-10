@@ -12,7 +12,7 @@
 @interface GetFlightChangeRuleResponse : BaseResponseModel
 
 
-@property(strong, nonatomic) NSString *rule;
+@property(strong, nonatomic) Rule   *rule;
 
 @end
 

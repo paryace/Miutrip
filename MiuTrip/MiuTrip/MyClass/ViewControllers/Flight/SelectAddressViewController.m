@@ -93,7 +93,7 @@
         [[Model shareModel] showPromptText:@"获取城市列表请求失败" model:YES];
         return nil;
     }
-
+    
 }
 
 - (void)getCitysDone:(GetCitysByProvinceIDResponse*)response

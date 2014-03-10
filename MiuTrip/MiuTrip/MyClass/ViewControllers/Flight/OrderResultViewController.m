@@ -57,17 +57,30 @@
 #pragma mark - UPPay
 - (void)UPPay
 {
-//    [UPPayPlugin startPay:_response.PaySerialId sysProvide:nil spId:nil mode:@"00" viewController:self delegate:self];
-    [self popToMainViewControllerTransitionType:TransitionPush completionHandler:^{
-        [[Model shareModel] orderSuccess];
-    }];
+    [UPPayPlugin startPay:_response.PaySerialId sysProvide:nil spId:nil mode:@"00" viewController:self delegate:self];
 }
 
 - (void)UPPayPluginResult:(NSString*)result
 {
     [self popToMainViewControllerTransitionType:TransitionNone completionHandler:^{
         NSLog(@"pop to main");
-        [[Model shareModel] orderSuccess];
+        [[Model shareModel] goToAirOrderList];
+    }];
+}
+
+- (void)pressOrderDetailBtn:(UIButton*)sender
+{
+    [self popToMainViewControllerTransitionType:TransitionNone completionHandler:^{
+        NSLog(@"pop to main");
+        [[Model shareModel] goToAirOrderList];
+    }];
+}
+
+- (void)pressLittleMiuBtn:(UIButton*)sender
+{
+    [self popToMainViewControllerTransitionType:TransitionNone completionHandler:^{
+        NSLog(@"pop to main");
+        [[Model shareModel] goToLittleMiu];
     }];
 }
 
@@ -82,7 +95,7 @@
     [returnBtn setBackgroundColor:color(clearColor)];
     [returnBtn setImage:imageNameAndType(@"return", nil) forState:UIControlStateNormal];
     [returnBtn setFrame:CGRectMake(0, 0, self.topBar.frame.size.height, self.topBar.frame.size.height)];
-//    [self setReturnButton:returnBtn];
+    //    [self setReturnButton:returnBtn];
     [returnBtn addTarget:self action:@selector(pressReturnBtn:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:returnBtn];
     
@@ -111,24 +124,24 @@
         MsgPayEntity *entity = [MsgPayEntitys objectAtIndex:i];
         UILabel *orderNumLeft = [[UILabel alloc]initWithFrame:CGRectMake(_orderPromptLb.frame.origin.x, controlYLength(_orderPromptLb) + orderItemCellHeight * i, 70, 30)];
         [orderNumLeft setText:@"订单号:"];
-//        [orderNumLeft setBackgroundColor:color(redColor)];
+        //        [orderNumLeft setBackgroundColor:color(redColor)];
         [orderNumLeft setAutoSize:YES];
         [orderNumLeft setFont:_orderPromptLb.font];
-//        [orderNumLeft setTextAlignment:NSTextAlignmentLeft];
+        //        [orderNumLeft setTextAlignment:NSTextAlignmentLeft];
         [self.contentView addSubview:orderNumLeft];
         _orderNumLb = [[UILabel alloc]initWithFrame:CGRectMake(controlXLength(orderNumLeft) + 10, orderNumLeft.frame.origin.y,  _orderPromptLb.frame.size.width - orderNumLeft.frame.size.width - 10, orderNumLeft.frame.size.height)];
         [_orderNumLb setText:[NSString stringWithFormat:@"%@",entity.OrderId]];
         [_orderNumLb setAutoSize:YES];
-//        [_orderNumLb setBackgroundColor:color(greenColor)];
+        //        [_orderNumLb setBackgroundColor:color(greenColor)];
         [self.contentView addSubview:_orderNumLb];
         
         UILabel *orderDesc = [[UILabel alloc]initWithFrame:CGRectMake(orderNumLeft.frame.origin.x, controlYLength(orderNumLeft), orderNumLeft.frame.size.width, orderNumLeft.frame.size.height)];
         [orderDesc setText:entity.FlightDesc];
         [orderDesc setFont:_orderPromptLb.font];
         [orderDesc setAutoSize:YES];
-//        [orderDesc setTextAlignment:NSTextAlignmentRight];
+        //        [orderDesc setTextAlignment:NSTextAlignmentRight];
         [self.contentView addSubview:orderDesc];
-
+        
         _priceLb = [[UILabel alloc]initWithFrame:CGRectMake(_orderNumLb.frame.origin.x, controlYLength(_orderNumLb), _orderNumLb.frame.size.width, _orderNumLb.frame.size.height)];
         [_priceLb setText:[NSString stringWithFormat:@"金额:%@",entity.Amount]];
         [_priceLb setFont:_orderPromptLb.font];
@@ -146,6 +159,7 @@
     [orderDetailBtn setTitle:@"订单详情" forState:UIControlStateNormal];
     [orderDetailBtn setTitleColor:color(colorWithRed:50.0/255.0 green:120.0/255.0 blue:160.0/255.0 alpha:1) forState:UIControlStateNormal];
     [orderDetailBtn setTitleColor:color(whiteColor) forState:UIControlStateHighlighted];
+    [orderDetailBtn addTarget:self action:@selector(pressOrderDetailBtn:) forControlEvents:UIControlEventTouchUpInside];
     [self.contentView addSubview:orderDetailBtn];
     
     UIButton *littleMiuBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -155,6 +169,7 @@
     [littleMiuBtn setTitle:@"贴心小觅" forState:UIControlStateNormal];
     [littleMiuBtn setTitleColor:color(colorWithRed:50.0/255.0 green:120.0/255.0 blue:160.0/255.0 alpha:1) forState:UIControlStateNormal];
     [littleMiuBtn setTitleColor:color(whiteColor) forState:UIControlStateHighlighted];
+    [littleMiuBtn addTarget:self action:@selector(pressLittleMiuBtn:) forControlEvents:UIControlEventTouchUpInside];
     [self.contentView addSubview:littleMiuBtn];
     
     UIButton *continuePayBtn = [UIButton buttonWithType:UIButtonTypeCustom];

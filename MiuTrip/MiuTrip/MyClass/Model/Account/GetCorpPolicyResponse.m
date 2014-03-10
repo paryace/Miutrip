@@ -61,6 +61,22 @@
     }
     _FltPricelReasonCodeI = FltPricelReasonCodeIArray;
     
+    NSMutableArray *FltRateReasonCodeNArray = [NSMutableArray array];
+    for (NSDictionary *dic in _FltRateReasonCodeN) {
+        ReasonCodeDTO *rcDTO = [[ReasonCodeDTO alloc]init];
+        [rcDTO parshJsonToResponse:dic];
+        [FltRateReasonCodeNArray addObject:rcDTO];
+    }
+    _FltRateReasonCodeN = FltRateReasonCodeNArray;
+    
+    NSMutableArray *FltRateReasonCodeIArray = [NSMutableArray array];
+    for (NSDictionary *dic in _FltRateReasonCodeI) {
+        ReasonCodeDTO *rcDTO = [[ReasonCodeDTO alloc]init];
+        [rcDTO parshJsonToResponse:dic];
+        [FltRateReasonCodeIArray addObject:rcDTO];
+    }
+    _FltRateReasonCodeI = FltRateReasonCodeIArray;
+
 }
 
 @end

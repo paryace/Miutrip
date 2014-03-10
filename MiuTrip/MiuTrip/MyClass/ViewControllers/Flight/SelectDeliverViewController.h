@@ -8,9 +8,16 @@
 
 #import "BaseUIViewController.h"
 
+//regular intervals
+
+typedef NS_OPTIONS(NSInteger, DeliverType){
+    DeliverAtRegular,
+    DeliverCommon
+};
+
 @protocol SelectDeliverDelegate <NSObject>
 
-- (void)selectDeliverDone:(MemberDeliverDTO*)deliverDTO;
+- (void)selectDeliverDone:(id)deliverDTO;
 
 @end
 
@@ -18,6 +25,10 @@
 
 @property (assign, nonatomic) id<SelectDeliverDelegate> delegate;
 
+- (id)initWithDeliverType:(DeliverType)deliverType;
+
 - (void)getMemberDeliverList:(id)policyPerson;
+
+- (void)getDeliverList:(id)policyPerson;
 
 @end

@@ -23,6 +23,9 @@
 
 - (void)setUserInteractionEnabled:(BOOL)enabled;
 
-- (void)orderSuccess;
+- (void)goToAirOrderList;
+
+- (void)goToLittleMiu;
+
 
 @end
