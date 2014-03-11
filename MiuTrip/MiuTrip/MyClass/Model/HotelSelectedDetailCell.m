@@ -35,6 +35,7 @@
     [self addSubview:checkBox];
     
     _userName = [[UILabel alloc]initWithFrame:CGRectMake(controlXLength(checkBox)+5, self.frame.size.height/3, self.frame.size.width/5, self.frame.size.height/3)];
+    [_userName setBackgroundColor:color(clearColor)];
     [_userName setText:@"游乐场"];
     [_userName setTextAlignment:NSTextAlignmentLeft];
     [_userName setFont:[UIFont systemFontOfSize:14]];
@@ -43,6 +44,7 @@
     _UID = [[UILabel alloc]initWithFrame:CGRectMake(controlXLength(_userName)+5, _userName.frame.origin.y
                                                     , self.frame.size.width/4, _userName.frame.size.height)];
     [_UID setText:@"游乐场"];
+    [_UID setBackgroundColor:color(clearColor)];
     [_UID setTextAlignment:NSTextAlignmentLeft];
     [_UID setFont:[UIFont systemFontOfSize:14]];
     [self addSubview:_UID];
@@ -50,6 +52,7 @@
     _deptName =[[UILabel alloc]initWithFrame:CGRectMake(controlXLength(_UID)+5, _userName.frame.origin.y
                                                         , self.frame.size.width/3, _userName.frame.size.height)];
     [_deptName setText:@"游乐场"];
+    [_deptName setBackgroundColor:color(clearColor)];
     [_deptName setTextAlignment:NSTextAlignmentLeft];
     [_deptName setFont:[UIFont systemFontOfSize:14]];
     [self addSubview:_deptName];

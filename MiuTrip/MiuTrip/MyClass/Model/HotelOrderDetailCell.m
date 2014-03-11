@@ -254,6 +254,7 @@
     [cardNumLabelLeft setFont:[UIFont systemFontOfSize:12]];
     UILabel *cardNumLabelRight = [[UILabel alloc]initWithFrame:CGRectMake(controlXLength(cardNumLabelLeft), cardNumLabelLeft.frame.origin.y, cardNumLabel.frame.size.width/3*2, cardNumLabel.frame.size.height)];
     [cardNumLabelRight setFont:[UIFont systemFontOfSize:12]];
+    [cardNumLabelRight setBackgroundColor:color(clearColor)];
     NSString *cardNum = [detail objectForKey:@""];
     [cardNumLabelRight setText:[NSString stringWithFormat:@"%@",cardNum]];
     [cardNumLabel addSubview:cardNumLabelRight];
@@ -270,6 +271,7 @@
     [costCenterLabelLeft setFont:[UIFont systemFontOfSize:12]];
     UILabel *costCenterLabelRight = [[UILabel alloc]initWithFrame:CGRectMake(controlXLength(costCenterLabelLeft), costCenterLabelLeft.frame.origin.y, cardNumLabelLeft.frame.size.width*2, cardNumLabelLeft.frame.size.height)];
     [costCenterLabelRight setFont:[UIFont systemFontOfSize:12]];
+    [costCenterLabelRight setBackgroundColor:color(clearColor)];
     NSString *costcenter = [detail objectForKey:@"CostCenter"];
     [costCenterLabelRight setText:[NSString stringWithFormat:@"%@",costcenter]];
     [costCenterLabel addSubview:costCenterLabelRight];
@@ -286,6 +288,7 @@
     [costLabelLeft setFont:[UIFont systemFontOfSize:12]];
     UILabel *costLabelRight = [[UILabel alloc]initWithFrame:CGRectMake(controlXLength(costLabelLeft), costLabelLeft.frame.origin.y, costLabelLeft.frame.size.width*2, costLabelLeft.frame.size.height)];
     [costLabelRight setFont:[UIFont systemFontOfSize:12]];
+    [costLabelRight setBackgroundColor:color(clearColor)];
     NSString *shareAmount = [detail objectForKey:@"ShareAmount"];
     [costLabelRight setText:[NSString stringWithFormat:@"%@",shareAmount]];
     [costLabel addSubview:costLabelRight];

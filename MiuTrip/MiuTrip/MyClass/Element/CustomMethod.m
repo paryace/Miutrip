@@ -434,6 +434,7 @@
         [label setAutoSize:YES];
         [label setText:title];
         [label setTag:(301 + i)];
+        [label setBackgroundColor:color(clearColor)];
         [_titleArray addObject:label];
         [self addSubview:label];
     }

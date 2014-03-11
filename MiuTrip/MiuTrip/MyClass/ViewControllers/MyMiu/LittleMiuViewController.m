@@ -619,6 +619,7 @@
     [view addSubview:nameLabel];
     
     UILabel *phoneLabel = [[UILabel alloc]initWithFrame:CGRectMake(controlXLength(nameLabel), nameLabel.frame.origin.y, frame.size.width, nameLabel.frame.size.height)];
+    [phoneLabel setBackgroundColor:color(clearColor)];
     [phoneLabel setText:[detail objectForKey:@"Mobile"]];
     //    [phoneLabel setText:@"13855556666"];
     [phoneLabel setTextAlignment:NSTextAlignmentRight];
@@ -888,6 +889,7 @@
     
     UILabel *mapLabel=[[UILabel alloc]init];
     [mapLabel setFrame:CGRectMake(controlXLength(mapImageView)+5, mapImageView.frame.origin.y, _unfoldView.frame.size.width/4, mapImageView.frame.size.height)];
+    [mapLabel setBackgroundColor:color(clearColor)];
     [mapLabel setText:@"地图来帮觅"];
     [mapLabel setFont:[UIFont boldSystemFontOfSize:14]];
     [mapLabel setTextColor:color(colorWithRed:241.0/255.0 green:122.0/255.0 blue:90.0/255.0 alpha:1)];
@@ -903,12 +905,14 @@
     
     
     UILabel *currentPlaceToHotelLabelUp = [[UILabel alloc]initWithFrame:CGRectMake(_currentPlaceToHotelBtn.frame.origin.x+8, _currentPlaceToHotelBtn.frame.origin.y+8 , _currentPlaceToHotelBtn.frame.size.width*2/3, (_currentPlaceToHotelBtn.frame.size.height-15)/2)];
+    [currentPlaceToHotelLabelUp setBackgroundColor:color(clearColor)];
     [currentPlaceToHotelLabelUp setText:@"当前位置"];
     [currentPlaceToHotelLabelUp setTextColor:[UIColor whiteColor]];
     [currentPlaceToHotelLabelUp setFont:[UIFont boldSystemFontOfSize:13]];
     [_unfoldView addSubview:currentPlaceToHotelLabelUp];
     
     UILabel *currentPlaceToHotelLabelDown = [[UILabel alloc]initWithFrame:CGRectMake(_currentPlaceToHotelBtn.frame.origin.x+8, controlYLength(currentPlaceToHotelLabelUp), _currentPlaceToHotelBtn.frame.size.width*2/3+10, (_currentPlaceToHotelBtn.frame.size.height-15)/2)];
+    [currentPlaceToHotelLabelDown setBackgroundColor:color(clearColor)];
     [currentPlaceToHotelLabelDown setText:@"怎么去酒店"];
     [currentPlaceToHotelLabelDown setTextColor:[UIColor whiteColor]];
     [currentPlaceToHotelLabelDown setFont:[UIFont boldSystemFontOfSize:13]];
@@ -924,6 +928,7 @@
     
     UILabel *hotelNearLabel=[[UILabel alloc]initWithFrame:CGRectMake(_hotelNearBtn.frame.origin.x+10, _hotelNearBtn.frame.origin.y+5, _hotelNearBtn.frame.size.width, _hotelNearBtn.frame.size.height-10)];
     [hotelNearLabel setText:@"酒店周边信息"];
+    [hotelNearLabel setBackgroundColor:color(clearColor)];
     [hotelNearLabel setFont:[UIFont boldSystemFontOfSize:13]];
     [hotelNearLabel setTextColor:[UIColor whiteColor]];
     [_unfoldView addSubview:hotelNearLabel];
@@ -1277,9 +1282,11 @@
     
     _userName = [[UILabel alloc]initWithFrame:CGRectMake(10, 5, (appFrame.size.width - 50)/4-10, 40)];
     [_userName setFont:[UIFont systemFontOfSize:12]];
+    [_userName setBackgroundColor:color(clearColor)];
     [self.contentView addSubview:_userName];
     
     _mobilePhone = [[UILabel alloc]initWithFrame:CGRectMake(controlXLength(_userName),_userName.frame.origin.y, _userName.frame.size.width*2+20, _userName.frame.size.height)];
+    [_mobilePhone setBackgroundColor:color(clearColor)];
     [_mobilePhone setFont:[UIFont systemFontOfSize:12]];
     [self.contentView addSubview:_mobilePhone];
     

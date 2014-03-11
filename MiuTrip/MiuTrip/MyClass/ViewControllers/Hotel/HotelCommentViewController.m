@@ -155,6 +155,7 @@
     _title = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 35, 20)];
     [_title setFont:[UIFont boldSystemFontOfSize:15]];
     [_title setTextColor:color(blackColor)];
+    [_title setBackgroundColor:color(clearColor)];
     [self addSubview:_title];
     
     _timeIcon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"comment_time.png"]];
@@ -165,12 +166,14 @@
     _time = [[UILabel alloc] initWithFrame:CGRectMake(self.frame.size.width - 100, 0, 112, 20)];
     [_time setFont:[UIFont systemFontOfSize:10]];
     [_time setTextColor:color(grayColor)];
+    [_time setBackgroundColor:color(clearColor)];
     [self addSubview:_time];
     
     //评论内容
     _content = [[UILabel alloc] init];
     [_content setFont:[UIFont systemFontOfSize:12]];
     [_content setTextColor:color(blackColor)];
+    [_content setBackgroundColor:color(clearColor)];
     [_content setLineBreakMode:NSLineBreakByCharWrapping];
     [_content setNumberOfLines:0];
     [self addSubview:_content];

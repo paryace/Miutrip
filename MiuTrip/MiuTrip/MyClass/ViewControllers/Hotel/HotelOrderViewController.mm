@@ -141,6 +141,7 @@
     
     UILabel *hotelInfoTitle = [[UILabel alloc] initWithFrame:CGRectMake(20,30, 100, 15)];
     [hotelInfoTitle setTextColor:color(grayColor)];
+    [hotelInfoTitle setBackgroundColor:color(clearColor)];
     [hotelInfoTitle setFont:[UIFont systemFontOfSize:10]];
     [hotelInfoTitle setText:@"酒店信息"];
     [scrollView addSubview:hotelInfoTitle];
@@ -231,6 +232,7 @@
     
     UITextField *customerMobile = [[UITextField alloc] initWithFrame:CGRectMake(105, y+4, width - 130, 34)];
     [customerMobile setTextColor:color(blackColor)];
+    [customerMobile setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
     [customerMobile setBorderStyle:UITextBorderStyleRoundedRect];
     [customerMobile setFont:[UIFont systemFontOfSize:14]];
     [scrollView addSubview:customerMobile];
@@ -252,12 +254,14 @@
     
     UILabel *star2 = [[UILabel alloc] initWithFrame:CGRectMake(75, y+4, 10, 40)];
     [star2 setTextColor:color(redColor)];
+    [star2 setBackgroundColor:color(clearColor)];
     [star2 setFont:[UIFont systemFontOfSize:13]];
     [star2 setText:@"*"];
     [scrollView addSubview:star2];
     
     UILabel *arriveTime = [[UILabel alloc] initWithFrame:CGRectMake(110, y+4, width - 140, 40)];
     [arriveTime setTextColor:color(blackColor)];
+    [arriveTime setBackgroundColor:color(clearColor)];
     [arriveTime setFont:[UIFont systemFontOfSize:14]];
     [arriveTime setTextAlignment:NSTextAlignmentCenter];
     [arriveTime setText:data.arriveTime];
@@ -290,12 +294,14 @@
     
     UILabel *star3 = [[UILabel alloc] initWithFrame:CGRectMake(75, y+4, 10, 40)];
     [star3 setTextColor:color(redColor)];
+    [star3 setBackgroundColor:color(clearColor)];
     [star3 setFont:[UIFont systemFontOfSize:13]];
     [star3 setText:@"*"];
     [scrollView addSubview:star3];
     
     UILabel *roomCount = [[UILabel alloc] initWithFrame:CGRectMake(100, y+4, width - 140, 34)];
     [roomCount setTextColor:color(blackColor)];
+    [roomCount setBackgroundColor:color(clearColor)];
     [roomCount setFont:[UIFont systemFontOfSize:14]];
     [roomCount setTextAlignment:NSTextAlignmentCenter];
     [roomCount setText:[NSString stringWithFormat:@"%d间",data.roomCount]];
@@ -430,6 +436,7 @@
     UITextField *nameText = [[UITextField alloc] initWithFrame:CGRectMake(65, 3, width - 130, 34)];
     [nameText setBorderStyle:UITextBorderStyleRoundedRect];
     [nameText setTextColor:color(blackColor)];
+    [nameText setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
     [nameText setFont:[UIFont systemFontOfSize:13]];
     [nameText setText:[UserDefaults shareUserDefault].loginInfo.UserName];
     [contactorView addSubview:nameText];
@@ -438,6 +445,7 @@
     [mobileText setBorderStyle:UITextBorderStyleRoundedRect];
     [mobileText setTextColor:color(blackColor)];
     [mobileText setFont:[UIFont systemFontOfSize:13]];
+    [mobileText setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
     [mobileText setText:[UserDefaults shareUserDefault].loginInfo.Mobilephone];
     [contactorView addSubview:mobileText];
     

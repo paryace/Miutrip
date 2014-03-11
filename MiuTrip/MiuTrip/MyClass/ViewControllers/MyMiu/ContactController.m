@@ -109,6 +109,7 @@
 //textfield
     fieldName = [[UITextField alloc]initWithFrame:CGRectMake(backGroundView.frame.size.width/4+4, 4, backGroundView.frame.size.width/4*3-8, backGroundView.frame.size.height/3-8)];
     [fieldName setDelegate:self];
+    [fieldName setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
     fieldName.clearButtonMode = UITextFieldViewModeWhileEditing;
     fieldName.autocapitalizationType = UITextAutocapitalizationTypeNone;
     fieldName.font =[UIFont fontWithName:@"Arial" size:20];
@@ -122,6 +123,7 @@
     fieldMoviePhone.font =[UIFont fontWithName:@"Arial" size:20];
     fieldMoviePhone.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
     [fieldMoviePhone setDelegate:self];
+    [fieldMoviePhone setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
      [fieldMoviePhone setBorderColor:[UIColor lightGrayColor] width:0.5];
     [backGroundView addSubview:fieldMoviePhone];
 
@@ -131,6 +133,7 @@
     fieldEmail.font =[UIFont fontWithName:@"Arial" size:20];
     fieldEmail.keyboardType = UIKeyboardTypeEmailAddress;
     [fieldEmail setDelegate:self];
+    [fieldEmail setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
      [fieldEmail setBorderColor:[UIColor lightGrayColor] width:0.5];
     [backGroundView addSubview:fieldEmail];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keboardWillshow:) name:UIKeyboardDidShowNotification object:nil];

@@ -517,6 +517,7 @@
 - (void)setSubjoinViewFrame
 {
     UILabel *baseInfoLabel = [[UILabel alloc]initWithFrame:CGRectMake(15, controlYLength(self.topBar), self.contentView.frame.size.width - 20, 30)];
+    [baseInfoLabel setBackgroundColor:color(clearColor)];
     [baseInfoLabel setText:@"基本信息"];
     [baseInfoLabel setTextColor:color(colorWithRed:130.0/255.0 green:140.0/255.0 blue:170.0/255.0 alpha:1)];
     [baseInfoLabel setFont:[UIFont systemFontOfSize:13]];
@@ -531,6 +532,7 @@
     
     UILabel *airLineInfo = [[UILabel alloc]initWithFrame:CGRectMake(10, 0, baseInfoBackgroundView.frame.size.width - 20, 25)];
     [airLineInfo setText:@"航班信息"];
+    [airLineInfo setBackgroundColor:color(clearColor)];
     [airLineInfo setTextColor:color(grayColor)];
     [airLineInfo setFont:[UIFont systemFontOfSize:12]];
     [baseInfoBackgroundView addSubview:airLineInfo];
@@ -538,18 +540,21 @@
     _flightTimeLb1 = [[UILabel alloc]initWithFrame:CGRectMake(airLineInfo.frame.origin.x, controlYLength(airLineInfo), airLineInfo.frame.size.width/3, airLineInfo.frame.size.height)];
     [_flightTimeLb1 setFont:[UIFont systemFontOfSize:13]];
     [_flightTimeLb1 setAutoSize:YES];
+    [_flightTimeLb1 setBackgroundColor:color(clearColor)];
     [_flightTimeLb1 setText:[NSString stringWithFormat:@"%@",self.firstFlight.TakeOffDate]];
     [baseInfoBackgroundView addSubview:_flightTimeLb1];
     
     _fromAndToLb1 = [[UILabel alloc]initWithFrame:CGRectMake(controlXLength(_flightTimeLb1), _flightTimeLb1.frame.origin.y, baseInfoBackgroundView.frame.size.width - controlXLength(_flightTimeLb1), _flightTimeLb1.frame.size.height)];
     [_fromAndToLb1 setFont:[UIFont systemFontOfSize:14]];
     [_fromAndToLb1 setAutoSize:YES];
+    [_fromAndToLb1 setBackgroundColor:color(clearColor)];
     [_fromAndToLb1 setText:[NSString stringWithFormat:@"%@ - %@",self.firstFlight.Dairport.AirportName,self.firstFlight.Aairport.AirportName]];
     [baseInfoBackgroundView addSubview:_fromAndToLb1];
     
     _flightNumLb1 = [[UILabel alloc]initWithFrame:CGRectMake(_flightTimeLb1.frame.origin.x, controlYLength(_flightTimeLb1), _flightTimeLb1.frame.size.width, _flightTimeLb1.frame.size.height)];
     [_flightNumLb1 setFont:[UIFont systemFontOfSize:12]];
     [_flightNumLb1 setAutoSize:YES];
+    [_flightNumLb1 setBackgroundColor:color(clearColor)];
     [_flightNumLb1 setText:[NSString stringWithFormat:@"%@ %@",self.firstFlight.AirLine.ShortName,self.firstFlight.Flight]];
     [_flightNumLb1 setTextColor:color(grayColor)];
     [baseInfoBackgroundView addSubview:_flightNumLb1];
@@ -557,6 +562,7 @@
     _seatTypeLb1 = [[UILabel alloc]initWithFrame:CGRectMake(controlXLength(_flightNumLb1), _flightNumLb1.frame.origin.y, _flightNumLb1.frame.size.width, _flightNumLb1.frame.size.height)];
     [_seatTypeLb1 setFont:[UIFont systemFontOfSize:12]];
     [_seatTypeLb1 setAutoSize:YES];
+    [_seatTypeLb1 setBackgroundColor:color(clearColor)];
     [_seatTypeLb1 setText:self.firstFlight.Class];
     [_seatTypeLb1 setTextAlignment:NSTextAlignmentCenter];
     [_seatTypeLb1 setTextColor:color(grayColor)];
@@ -564,6 +570,7 @@
     
     _priceLb1 = [[UILabel alloc]initWithFrame:CGRectMake(controlXLength(_seatTypeLb1), _seatTypeLb1.frame.origin.y, _seatTypeLb1.frame.size.width, _seatTypeLb1.frame.size.height)];
     [_priceLb1 setFont:[UIFont systemFontOfSize:12]];
+    [_priceLb1 setBackgroundColor:color(clearColor)];
     [_priceLb1 setText:[NSString stringWithFormat:@"¥%@",self.firstFlight.Price]];
     [_priceLb1 setTextColor:color(colorWithRed:245.0/255.0 green:117.0/255.0 blue:36.0/255.0 alpha:1)];
     [baseInfoBackgroundView addSubview:_priceLb1];
@@ -591,18 +598,21 @@
         _flightTimeLb2 = [[UILabel alloc]initWithFrame:CGRectMake(_flightTimeLb1.frame.origin.x, controlYLength(_firstRuleLb) + 10, _flightTimeLb1.frame.size.width, _flightTimeLb1.frame.size.height)];
         [_flightTimeLb2 setFont:[UIFont systemFontOfSize:13]];
         [_flightTimeLb2 setAutoSize:YES];
+        [_flightTimeLb2 setBackgroundColor:color(clearColor)];
         [_flightTimeLb2 setText:[NSString stringWithFormat:@"%@",self.secondFlight.TakeOffDate]];
         [baseInfoBackgroundView addSubview:_flightTimeLb2];
         
         _fromAndToLb2 = [[UILabel alloc]initWithFrame:CGRectMake(controlXLength(_flightTimeLb2), _flightTimeLb2.frame.origin.y, _fromAndToLb1.frame.size.width, _fromAndToLb1.frame.size.height)];
         [_fromAndToLb2 setFont:[UIFont systemFontOfSize:14]];
         [_fromAndToLb2 setAutoSize:YES];
+        [_fromAndToLb2 setBackgroundColor:color(clearColor)];
         [_fromAndToLb2 setText:[NSString stringWithFormat:@"%@ - %@",self.secondFlight.Dairport.AirportName,self.secondFlight.Aairport.AirportName]];
         [baseInfoBackgroundView addSubview:_fromAndToLb2];
         
         _flightNumLb2 = [[UILabel alloc]initWithFrame:CGRectMake(_flightTimeLb2.frame.origin.x, controlYLength(_flightTimeLb2), _flightNumLb1.frame.size.width, _flightNumLb1.frame.size.height)];
         [_flightNumLb2 setFont:[UIFont systemFontOfSize:12]];
         [_flightNumLb2 setAutoSize:YES];
+        [_flightNumLb2 setBackgroundColor:color(clearColor)];
         [_flightNumLb2 setText:[NSString stringWithFormat:@"%@ %@",self.secondFlight.AirLine.ShortName,self.secondFlight.Flight]];
         [_flightNumLb2 setTextColor:color(grayColor)];
         [baseInfoBackgroundView addSubview:_flightNumLb2];
@@ -610,6 +620,7 @@
         _seatTypeLb2 = [[UILabel alloc]initWithFrame:CGRectMake(controlXLength(_flightNumLb2), _flightNumLb2.frame.origin.y, _seatTypeLb1.frame.size.width, _seatTypeLb1.frame.size.height)];
         [_seatTypeLb2 setFont:[UIFont systemFontOfSize:12]];
         [_seatTypeLb2 setAutoSize:YES];
+        [_seatTypeLb2 setBackgroundColor:color(clearColor)];
         [_seatTypeLb2 setText:self.secondFlight.Class];
         [_seatTypeLb2 setTextAlignment:NSTextAlignmentCenter];
         [_seatTypeLb2 setTextColor:color(grayColor)];
@@ -617,6 +628,7 @@
         
         _priceLb2 = [[UILabel alloc]initWithFrame:CGRectMake(controlXLength(_seatTypeLb2), _seatTypeLb2.frame.origin.y, _priceLb1.frame.size.width, _priceLb1.frame.size.height)];
         [_priceLb2 setFont:[UIFont systemFontOfSize:12]];
+        [_priceLb2 setBackgroundColor:color(clearColor)];
         [_priceLb2 setText:[NSString stringWithFormat:@"¥%@",self.secondFlight.Price]];
         [_priceLb2 setTextColor:color(colorWithRed:245.0/255.0 green:117.0/255.0 blue:36.0/255.0 alpha:1)];
         [baseInfoBackgroundView addSubview:_priceLb2];
@@ -645,16 +657,19 @@
     [_positionLb setTextColor:color(grayColor)];
     [_positionLb setFont:[UIFont systemFontOfSize:12]];
     [_positionLb setText:@"政策执行人"];
+    [_positionLb setBackgroundColor:color(clearColor)];
     [baseInfoBackgroundView addSubview:_positionLb];
     
     _passengerNameLb = [[UILabel alloc]initWithFrame:CGRectMake(_positionLb.frame.origin.x, controlYLength(_positionLb), _positionLb.frame.size.width, _positionLb.frame.size.height)];
     [_passengerNameLb setFont:[UIFont systemFontOfSize:13]];
+    [_passengerNameLb setBackgroundColor:color(clearColor)];
     [baseInfoBackgroundView addSubview:_passengerNameLb];
     
     [baseInfoBackgroundView setFrame:CGRectMake(baseInfoBackgroundView.frame.origin.x, baseInfoBackgroundView.frame.origin.y, baseInfoBackgroundView.frame.size.width, controlYLength(_passengerNameLb))];
     
     UILabel *fillInPassengerLabel = [[UILabel alloc]initWithFrame:CGRectMake(baseInfoLabel.frame.origin.x, controlYLength(baseInfoBackgroundView), baseInfoLabel.frame.size.width, baseInfoLabel.frame.size.height)];
     [fillInPassengerLabel setFont:baseInfoLabel.font];
+    [fillInPassengerLabel setBackgroundColor:color(clearColor)];
     [fillInPassengerLabel setTextColor:baseInfoLabel.textColor];
     [fillInPassengerLabel setText:@"添加乘客"];
     [self.contentView addSubview:fillInPassengerLabel];
@@ -671,6 +686,7 @@
     [selectedPassengerLabel setFont:[UIFont systemFontOfSize:13]];
     [selectedPassengerLabel setTextColor:color(grayColor)];
     [selectedPassengerLabel setText:@"已选乘客"];
+    [selectedPassengerLabel setBackgroundColor:color(clearColor)];
     [addPassengersBackgroundView addSubview:selectedPassengerLabel];
     
     UIButton *clearPassengerBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -734,6 +750,7 @@
     
     UILabel *selectContactLabel = [[UILabel alloc]initWithFrame:CGRectMake(15, 0, _subjoinView.frame.size.width - 30, 25)];
     [selectContactLabel setFont:baseInfoLabel.font];
+    [selectContactLabel setBackgroundColor:color(clearColor)];
     [selectContactLabel setTextColor:baseInfoLabel.textColor];
     [selectContactLabel setText:@"选择联系人"];
     [_subjoinView addSubview:selectContactLabel];
@@ -749,6 +766,7 @@
     [contactNameLeft setFont:[UIFont systemFontOfSize:13]];
     [contactNameLeft setTextColor:color(grayColor)];
     [contactNameLeft setText:@"姓名"];
+    [contactNameLeft setBackgroundColor:color(clearColor)];
     _contactNameTf = [[UITextField alloc]initWithFrame:CGRectMake(10, 0, selectContactBackgroundView.frame.size.width - contactNameLeft.frame.size.height - 10, contactNameLeft.frame.size.height)];
     [_contactNameTf setFont:[UIFont systemFontOfSize:13]];
     [_contactNameTf setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
@@ -765,6 +783,7 @@
     [contactPhoneNumleft setFont:contactNameLeft.font];
     [contactPhoneNumleft setTextColor:contactNameLeft.textColor];
     [contactPhoneNumleft setText:@"手机"];
+    [contactPhoneNumleft setBackgroundColor:color(clearColor)];
     _contactPhoneNumTf = [[UITextField alloc]initWithFrame:CGRectMake(_contactNameTf.frame.origin.x, controlYLength(_contactNameTf), _contactNameTf.frame.size.width, _contactNameTf.frame.size.height)];
     [_contactPhoneNumTf setFont:_contactNameTf.font];
     [_contactPhoneNumTf setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
@@ -795,6 +814,7 @@
     [postAndPayLabel setFont:baseInfoLabel.font];
     [postAndPayLabel setTextColor:baseInfoLabel.textColor];
     [postAndPayLabel setText:@"配送与支付"];
+    [postAndPayLabel setBackgroundColor:color(clearColor)];
     [_subjoinView addSubview:postAndPayLabel];
     
     UIView *postAndPayBackgroundView = [[UIView alloc]initWithFrame:CGRectMake(selectContactBackgroundView.frame.origin.x, controlYLength(postAndPayLabel), selectContactBackgroundView.frame.size.width, 0)];
@@ -807,6 +827,7 @@
     UILabel *postTypeLeft = [[UILabel alloc]initWithFrame:contactNameLeft.bounds];
     [postTypeLeft setTextColor:contactNameLeft.textColor];
     [postTypeLeft setText:@"配送方式"];
+    [postTypeLeft setBackgroundColor:color(clearColor)];
     [postTypeLeft setFont:contactNameLeft.font];
     //    UIImageView *postTypeRight = [[UIImageView alloc]initWithImage:imageNameAndType(@"arrow", Nil)];
     //    [postTypeRight setFrame:CGRectMake(0, 0, 10, 15)];
@@ -814,6 +835,7 @@
     _postTypeTf = [[UITextField alloc]initWithFrame:CGRectMake(_contactNameTf.frame.origin.x, 0, _contactNameTf.frame.size.width, _contactNameTf.frame.size.height)];
     [_postTypeTf setFont:_contactNameTf.font];
     [_postTypeTf setText:@"无需"];
+    [_postTypeTf setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
     [_postTypeTf setLeftView:postTypeLeft];
     [_postTypeTf setLeftViewMode:UITextFieldViewModeAlways];
     [_postTypeTf setEnabled:NO];
@@ -825,10 +847,12 @@
     UILabel *postAddressLeft = [[UILabel alloc]initWithFrame:contactNameLeft.bounds];
     [postAddressLeft setTextColor:contactNameLeft.textColor];
     [postAddressLeft setText:@"配送地址"];
+    [postAddressLeft setBackgroundColor:color(clearColor)];
     [postAddressLeft setFont:contactNameLeft.font];
     _postAddressTf = [[UITextField alloc]initWithFrame:CGRectMake(_contactNameTf.frame.origin.x, controlYLength(_postTypeTf), _contactNameTf.frame.size.width, _contactNameTf.frame.size.height)];
     [_postAddressTf setFont:_contactNameTf.font];
     [_postAddressTf setText:@"无需"];
+    [_postAddressTf setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
     [_postAddressTf setLeftView:postAddressLeft];
     [_postAddressTf setLeftViewMode:UITextFieldViewModeAlways];
     [_postAddressTf setEnabled:NO];
@@ -848,12 +872,14 @@
     UILabel *payTypeLeft = [[UILabel alloc]initWithFrame:postTypeLeft.bounds];
     [payTypeLeft setFont:postTypeLeft.font];
     [payTypeLeft setText:@"支付方式"];
+    [payTypeLeft setBackgroundColor:color(clearColor)];
     [payTypeLeft setTextColor:postTypeLeft.textColor];
     _payTypeTf = [[UITextField alloc]initWithFrame:CGRectMake(_postTypeTf.frame.origin.x, controlYLength(_postAddressTf), postAndPayBackgroundView.frame.size.width - _postTypeTf.frame.origin.x, _postTypeTf.frame.size.height)];
     [_payTypeTf setFont:_contactNameTf.font];
     [_payTypeTf setText:@"银联支付"];
     [_payTypeTf setLeftView:payTypeLeft];
     [_payTypeTf setEnabled:NO];
+    [_payTypeTf setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
     [_payTypeTf setLeftViewMode:UITextFieldViewModeAlways];
     [postAndPayBackgroundView addSubview:_payTypeTf];
     
@@ -864,6 +890,7 @@
     [subjoinTextLabel setFont:baseInfoLabel.font];
     [subjoinTextLabel setTextColor:baseInfoLabel.textColor];
     [subjoinTextLabel setText:@"附加信息"];
+    [subjoinTextLabel setBackgroundColor:color(clearColor)];
     [_subjoinView addSubview:subjoinTextLabel];
     
     UIView *subjoinTextBackgroundView = [[UIView alloc]initWithFrame:CGRectMake(postAndPayBackgroundView.frame.origin.x, controlYLength(subjoinTextLabel), postAndPayBackgroundView.frame.size.width, 0)];

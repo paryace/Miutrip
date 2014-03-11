@@ -54,6 +54,7 @@
     [self.view addSubview:returnBtn];
     
     UILabel *corpInfo = [[UILabel alloc]initWithFrame:CGRectMake(10, controlYLength(self.topBar)+10, self.contentView.frame.size.width-20, 20)];
+    [corpInfo setBackgroundColor:color(clearColor)];
     [corpInfo setText:@"公司信息"];
     [corpInfo setTextColor:[UIColor colorWithRed:70/255.0 green:70/255.0 blue:200/255.0 alpha:1.0]];
     [self.contentView addSubview:corpInfo];
@@ -67,6 +68,7 @@
     
     UILabel *corpName = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, corpView.frame.size.width/4, corpView.frame.size.height/2)];
     [corpName setText:@"公司名称"];
+    [corpName setBackgroundColor:color(clearColor)];
     [corpName setTextAlignment:NSTextAlignmentCenter];
     [corpView addSubview:corpName];
     
@@ -76,6 +78,7 @@
     [name setBorderStyle:UITextBorderStyleNone];
     [name setDelegate:self];
     name.tag = CORPNAME_TAG;
+    [name setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
     name.clearButtonMode = UITextFieldViewModeWhileEditing;
     [corpView addSubview:name];
     
@@ -83,6 +86,7 @@
     
     UILabel *corpTel = [[UILabel alloc]initWithFrame:CGRectMake(0,corpName.frame.size.height, corpView.frame.size.width/4, corpView.frame.size.height/2)];
     [corpTel setText:@"公司电话"];
+    [corpTel setBackgroundColor:color(clearColor)];
     [corpTel setTextAlignment:NSTextAlignmentCenter];
     [corpView addSubview:corpTel];
     
@@ -91,11 +95,13 @@
     [tel setBorderStyle:UITextBorderStyleNone];
     [tel setDelegate:self];
     tel.tag = CORPTEL_TAG;
+    [tel setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
     //tel.keyboardType = UIKeyboardTypeNumberPad;
     tel.clearButtonMode = UITextFieldViewModeWhileEditing;
     [corpView addSubview:tel];
     
     UILabel *managerInfo = [[UILabel alloc]initWithFrame:CGRectMake(10, controlYLength(corpView)+10, self.contentView.frame.size.width-20, 20)];
+    [managerInfo setBackgroundColor:color(clearColor)];
     [managerInfo setText:@"管理员信息"];
     [managerInfo setTextColor:[UIColor colorWithRed:70/255.0 green:70/255.0 blue:200/255.0 alpha:1.0]];
     [self.contentView addSubview:managerInfo];
@@ -109,6 +115,7 @@
     
     UILabel *managerName = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, managerView.frame.size.width/4, managerView.frame.size.height/4)];
     [managerName setText:@"姓 名"];
+    [managerName setBackgroundColor:color(clearColor)];
     [managerName setTextAlignment:NSTextAlignmentCenter];
     [managerView addSubview:managerName];
     
@@ -118,6 +125,7 @@
     [nameField setBorderStyle:UITextBorderStyleNone];
     [nameField setDelegate:self];
     nameField.tag = USERNAME_TAG;
+    [nameField setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
     nameField.clearButtonMode = UITextFieldViewModeWhileEditing;
     [managerView addSubview:nameField];
     
@@ -125,6 +133,7 @@
     
     UILabel *managerPhone = [[UILabel alloc]initWithFrame:CGRectMake(0, controlYLength(name), managerView.frame.size.width/4, managerView.frame.size.height/4)];
     [managerPhone setText:@"手机号 "];
+    [managerPhone setBackgroundColor:color(clearColor)];
     [managerPhone setTextAlignment:NSTextAlignmentCenter];
     [managerView addSubview:managerPhone];
     
@@ -134,6 +143,7 @@
     [phone setDelegate:self];
     [managerView addSubview:phone];
     phone.tag = PHONE_TAG;
+    [phone setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
    // phone.keyboardType = UIKeyboardTypeNumberPad;
     phone.clearButtonMode = UITextFieldViewModeWhileEditing;
     [managerView addSubview:[self createLine:CGRectMake(0,managerView.frame.size.height*2/4,managerView.frame.size.width,0.5f)]];
@@ -141,12 +151,14 @@
 #pragma mark --礼品卡卡号
     UILabel *giftCardNumber = [[UILabel alloc] initWithFrame:CGRectMake(0, controlYLength(phone), managerView.frame.size.width/4, managerView.frame.size.height/4)];
     giftCardNumber.text = @"礼品卡号";
+    [giftCardNumber setBackgroundColor:color(clearColor)];
     giftCardNumber.textAlignment = NSTextAlignmentCenter;
     [managerView addSubview:giftCardNumber];
     
     UITextField *giftCardNumberField = [[UITextField alloc] initWithFrame:CGRectMake(managerView.frame.size.width/4, controlYLength(phone), managerView.frame.size.width*3/4, managerView.frame.size.height/4)];
     giftCardNumberField.borderStyle = UITextBorderStyleNone;
     giftCardNumberField.delegate = self;
+    [giftCardNumberField setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
     //giftCardNumberField.keyboardType = UIKeyboardTypeNumberPad;
     giftCardNumberField.tag = GIFTCARD_TAG;
     giftCardNumberField.clearButtonMode = UITextFieldViewModeWhileEditing;
@@ -156,6 +168,7 @@
     
     UILabel *code = [[UILabel alloc]initWithFrame:CGRectMake(0, controlYLength(giftCardNumber), managerView.frame.size.width/4, managerView.frame.size.height/4)];
     [code setText:@"激活码"];
+    [code setBackgroundColor:color(clearColor)];
     [code setTextAlignment:NSTextAlignmentCenter];
     [managerView addSubview:code];
     
@@ -164,6 +177,7 @@
     [codeField setBorderStyle:UITextBorderStyleNone];
     [codeField setDelegate:self];
     codeField.tag = CODEFIELD_TAG;
+    [codeField setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
     //codeField.keyboardType = UIKeyboardTypeNumberPad;
     codeField.clearButtonMode = UITextFieldViewModeWhileEditing;
     [managerView addSubview:codeField];

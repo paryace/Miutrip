@@ -763,6 +763,7 @@
     
     _titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(controlXLength(returnBtn) + 10, 0, self.topBar.frame.size.width/2 - 10 - controlXLength(returnBtn), self.topBar.frame.size.height/2)];
     [_titleLabel setAutoSize:YES];
+    [_titleLabel setBackgroundColor:color(clearColor)];
     [_titleLabel setTextColor:color(whiteColor)];
     [_titleLabel setFont:[UIFont systemFontOfSize:13]];
     [self.view addSubview:_titleLabel];
@@ -770,6 +771,7 @@
     _detailLabel = [[UILabel alloc]initWithFrame:CGRectMake(_titleLabel.frame.origin.x, controlYLength(_titleLabel), _titleLabel.frame.size.width, _titleLabel.frame.size.height)];
     [_detailLabel setFont:[UIFont systemFontOfSize:13]];
     [_detailLabel setAutoSize:YES];
+    [_detailLabel setBackgroundColor:color(clearColor)];
     [_detailLabel setTextColor:color(whiteColor)];
     [self.view addSubview:_detailLabel];
     
@@ -1192,6 +1194,7 @@
     _cheapestLb = [[UILabel alloc]initWithFrame:CGRectMake(controlXLength(_ticketPriceLb), AirListViewCellHeight/2 - 35, appFrame.size.width - controlXLength(_ticketPriceLb), 25)];
     [_cheapestLb setTextColor:color(redColor)];
     [_cheapestLb setText:@"最便宜"];
+    [_cheapestLb setBackgroundColor:color(clearColor)];
     [_cheapestLb setTextAlignment:NSTextAlignmentCenter];
     [_cheapestLb setFont:[UIFont systemFontOfSize:12]];
     [self.contentView addSubview:_cheapestLb];
@@ -1309,6 +1312,7 @@
 - (void)setSubviewFrame
 {
     _seatTypeLb = [[UILabel alloc]initWithFrame:CGRectMake(appFrame.size.width/5, 0, appFrame.size.width/5, AirListViewSubjoinCellHeight/2)];
+    [_seatTypeLb setBackgroundColor:color(clearColor)];
     [_seatTypeLb setFont:[UIFont systemFontOfSize:12]];
     [_seatTypeLb setAutoSize:YES];
     [_seatTypeLb setTextAlignment:NSTextAlignmentCenter];
@@ -1318,6 +1322,7 @@
     [_virginiaTicketLb setTextAlignment:NSTextAlignmentCenter];
     [_virginiaTicketLb setFont:[UIFont systemFontOfSize:12]];
     [_virginiaTicketLb setAutoSize:YES];
+    [_virginiaTicketLb setBackgroundColor:color(clearColor)];
     [_virginiaTicketLb setTextColor:color(grayColor)];
     [self addSubview:_virginiaTicketLb];
     
@@ -1325,10 +1330,12 @@
     [_priceLb setTextColor:color(colorWithRed:245.0/255.0 green:117.0/255.0 blue:36.0/255.0 alpha:1)];
     [_priceLb setTextAlignment:NSTextAlignmentCenter];
     [_priceLb setFont:[UIFont systemFontOfSize:12]];
+    [_priceLb setBackgroundColor:color(clearColor)];
     [_priceLb setAutoSize:YES];
     [self addSubview:_priceLb];
     
     _discountLb = [[UILabel alloc]initWithFrame:CGRectMake(_priceLb.frame.origin.x, controlYLength(_priceLb), _seatTypeLb.frame.size.width, _seatTypeLb.frame.size.height)];
+    [_discountLb setBackgroundColor:color(clearColor)];
     [_discountLb setTextAlignment:NSTextAlignmentCenter];
     [_discountLb setFont:[UIFont systemFontOfSize:12]];
     [_discountLb setAutoSize:YES];
@@ -1392,6 +1399,7 @@
 {
     _textLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, self.frame.size.width * 2/3, self.frame.size.height)];
     [_textLabel setTextAlignment:NSTextAlignmentRight];
+    [_textLabel setBackgroundColor:color(clearColor)];
     [self addSubview:_textLabel];
     
     _subjoinImageView = [[UIImageView alloc]initWithFrame:CGRectMake(controlXLength(_textLabel) - 5, _textLabel.frame.origin.y, _textLabel.frame.size.height, _textLabel.frame.size.height)];

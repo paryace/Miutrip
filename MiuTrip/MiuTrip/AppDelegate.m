@@ -37,26 +37,15 @@
 
     UINavigationController *navigationController = [[UINavigationController alloc]initWithRootViewController:_viewController];
     [navigationController setNavigationBarHidden:YES];
-
-    
-    if (deviceVersion >= 7.0) {
-        UIViewController *viewController = nil;
-        if (self.window.rootViewController.presentedViewController) {
-            viewController = self.window.rootViewController.presentedViewController;
-        }else{
-            viewController = self.window.rootViewController;
-        }
-        CGAffineTransform currentTransform = self.window.transform;
-        CGAffineTransform newTransform = CGAffineTransformScale(currentTransform, 1, (viewController.view.frame.size.height - 20)/viewController.view.frame.size.height);
-        [viewController.view.layer setAnchorPoint:CGPointMake(0.5f, 1.0f)];
-
-        [viewController.view setFrame:CGRectMake(0, 0, viewController.view.frame.size.width, viewController.view.frame.size.height)];
-        [viewController.view setTransform:newTransform];
-        self.window.rootViewController = navigationController;
-    [[UIApplication sharedApplication] setStatusBarHidden:YES];
+    self.window.rootViewController = navigationController;
+    //[[UIApplication sharedApplication] setStatusBarHidden:YES];
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
-}
+    
+    if (deviceVersion >= 7.0) {
+        [[UIApplication sharedApplication] setStatusBarHidden:YES];
+    }
+    
     return YES;
 }
 

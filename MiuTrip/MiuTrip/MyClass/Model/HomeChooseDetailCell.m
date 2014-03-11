@@ -42,12 +42,14 @@
     
     _policy = [[UILabel alloc]initWithFrame:CGRectMake(controlXLength(_userName)+10, self.viewItem.frame.size.height/6, self.viewItem.frame.size.width*2/3, self.viewItem.frame.size.height/3)];
     [_policy setText:@"差旅政策"];
+    [_policy setBackgroundColor:color(clearColor)];
     [_policy setFont:[UIFont fontWithName:@"ArialMT" size:13]];
     [_policy setTextAlignment:NSTextAlignmentLeft];
     [_viewItem addSubview:_policy];
     
     UILabel *Center = [[UILabel alloc]initWithFrame:CGRectMake(controlXLength(_userName)+10, self.viewItem.frame.size.height/2, self.viewItem.frame.size.width/5, self.viewItem.frame.size.height/3)];
     [Center setText:@"成本中心:"];
+    [Center setBackgroundColor:color(clearColor)];
     [Center setFont:[UIFont fontWithName:@"ArialMT" size:13]];
     [Center setTextAlignment:NSTextAlignmentLeft];
     [_viewItem addSubview:Center];
@@ -55,6 +57,7 @@
     _cost = [[UILabel alloc]initWithFrame:CGRectMake(controlXLength(Center), self.viewItem.frame.size.height/2, self.viewItem.frame.size.width*2/3, self.viewItem.frame.size.height/3)];
     [_cost setFont:[UIFont fontWithName:@"ArialMT" size:13]];
     [_cost setTextAlignment:NSTextAlignmentLeft];
+    [_cost setBackgroundColor:color(clearColor)];
     [_viewItem addSubview:_cost];
     
     _arrow = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"arrow"]];

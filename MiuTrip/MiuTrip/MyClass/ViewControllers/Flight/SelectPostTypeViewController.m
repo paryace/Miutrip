@@ -141,20 +141,11 @@
     [returnBtn setFrame:CGRectMake(0, 0, self.topBar.frame.size.height, self.topBar.frame.size.height)];
     [self setReturnButton:returnBtn];
     [self.view addSubview:returnBtn];
-    
-//    _indicatorView = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
-//    [_indicatorView setCenter:backgroundView.center];
-//    [self.view addSubview:_indicatorView];
 
     _theTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, controlYLength(self.topBar), self.view.frame.size.width, self.view.frame.size.height - controlYLength(self.topBar) - self.bottomBar.frame.size.height)];
     [_theTableView setSeparatorStyle:UITableViewCellSeparatorStyleSingleLine];
     [_theTableView setDelegate:self];
     [_theTableView setDataSource:self];
-//    UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, appFrame.size.width - 20, 40)];
-//    [label setBackgroundColor:color(blackColor)];
-//    [label setText:[NSString stringWithFormat:@"  选择配送方式"]];
-//    [label setTextColor:color(whiteColor)];
-//    [_theTableView setTableHeaderView:label];
     [self.view addSubview:_theTableView];
     
 //    [self.view setHidden:YES];

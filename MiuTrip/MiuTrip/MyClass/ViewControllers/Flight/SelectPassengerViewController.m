@@ -500,6 +500,7 @@
     CGFloat promptLbHeight = [Utils heightForWidth:selectNameBtn.frame.size.width text:propmtText font:[UIFont systemFontOfSize:14]] > 40?[Utils heightForWidth:selectPolicyBtn.frame.size.width text:propmtText font:[UIFont systemFontOfSize:14]]:40;
     UILabel *promptTextLb = [[UILabel alloc]initWithFrame:CGRectMake(selectNameBtn.frame.origin.x, controlYLength(selectPolicyBtn), selectNameBtn.frame.size.width, promptLbHeight)];
     [promptTextLb setFont:[UIFont systemFontOfSize:14]];
+    [promptTextLb setBackgroundColor:color(clearColor)];
     [promptTextLb setTextColor:color(darkGrayColor)];
     [promptTextLb setAutoBreakLine:YES];
     [promptTextLb setTag:502];

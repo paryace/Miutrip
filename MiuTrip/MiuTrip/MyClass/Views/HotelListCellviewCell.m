@@ -29,6 +29,7 @@
     //酒店名称
     _hotelName = [[UILabel alloc] initWithFrame:CGRectMake(65, 1, self.frame.size.width - 65, 20)];
     [_hotelName setFont:[UIFont boldSystemFontOfSize:15]];
+    [_hotelName setBackgroundColor:color(clearColor)];
     [_hotelName setTextColor:color(blackColor)];
     [_hotelName setNumberOfLines:1];
     [self addSubview:_hotelName];
@@ -48,6 +49,7 @@
     //地址
     _address = [[UILabel alloc] initWithFrame:CGRectMake(65, 23, self.frame.size.width - 140, 32)];
     [_address setTextColor:color(grayColor)];
+    [_address setBackgroundColor:color(clearColor)];
     [_address setFont:[UIFont systemFontOfSize:11]];
     [_address setNumberOfLines:2];
     [self addSubview:_address];
@@ -55,6 +57,7 @@
     //好评，评论
     _comment = [[UILabel alloc] initWithFrame:CGRectMake(65, 57, self.frame.size.width, 15)];
     [_comment setTextColor:color(grayColor)];
+    [_comment setBackgroundColor:color(clearColor)];
     [_comment setFont:[UIFont systemFontOfSize:12]];
     
     [self addSubview:_comment];

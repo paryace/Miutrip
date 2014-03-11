@@ -78,6 +78,7 @@
     UITextField * accountTf = [[UITextField alloc] initWithFrame:CGRectMake(controlXLength(account)+ 10, account.frame.origin.y, bgImageView.frame.size.width - 20 - account.frame.size.width, bgImageView.frame.size.height/2)];
     accountTf.clearButtonMode = UITextFieldViewModeWhileEditing;
     accountTf.tag = USERNAME;
+    [accountTf setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
     [self.contentView addSubview:accountTf];
     
     UIView *line = [[UIView alloc] initWithFrame:CGRectMake(account.frame.origin.x, controlYLength(account), bgImageView.frame.size.width - 10, 0.5)];
@@ -98,6 +99,7 @@
     psdTf.secureTextEntry = YES;
     psdTf.clearButtonMode = UITextFieldViewModeWhileEditing;
     psdTf.tag = PASSWORD;
+    [psdTf setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
     [self.contentView addSubview:psdTf];
     
     UIButton *forgrtPsd = [[UIButton alloc] initWithFrame:CGRectMake(controlXLength(bgImageView) - bgImageView.frame.size.width/4-30, controlYLength(bgImageView) + 2, bgImageView.frame.size.width/3, bgImageView.frame.size.height/2)];

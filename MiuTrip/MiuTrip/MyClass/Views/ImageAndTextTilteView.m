@@ -57,6 +57,7 @@
         //value
         _editableValue = [[UITextField alloc] initWithFrame:CGRectMake(controlXLength(title)+5,5, self.frame.size.width-controlXLength(title)-13-10, self.frame.size.height-10)];
         _editableValue.delegate = self;
+        [_editableValue setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
         [_editableValue setBackgroundColor:color(clearColor)];
         [_editableValue setBorderStyle:UITextBorderStyleRoundedRect];
         [_editableValue setFont:[UIFont boldSystemFontOfSize:15]];

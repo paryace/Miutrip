@@ -443,6 +443,7 @@ static const NSUInteger kDomainSection = 1;
 	[textField setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight];
 	[textField setAutocapitalizationType:UITextAutocapitalizationTypeNone];
 	[textField setAutocorrectionType:UITextAutocorrectionTypeNo];
+    [textField setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
 
 	NSUInteger s = [indexPath section];
 	NSUInteger r = [indexPath row];

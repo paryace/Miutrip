@@ -75,11 +75,13 @@
     UILabel *nameLabel = [[UILabel alloc]init];
     [nameLabel setFrame:CGRectMake(bgImgView.frame.origin.x+10, bgImgView.frame.origin.y+5, self.topBar.frame.size.width/6 + 10, self.topBar.frame.size.height/2+10)];
     [nameLabel setText:@"姓      名"];
+    [nameLabel setBackgroundColor:color(clearColor)];
     [nameLabel setFont:[UIFont systemFontOfSize:14]];
     [self.contentView addSubview:nameLabel];
     
     UILabel *imageLabel = [[UILabel alloc]initWithFrame:CGRectMake(controlXLength(nameLabel) + 5, nameLabel.frame.origin.y, 5, self.topBar.frame.size.height/2+10)];
     [imageLabel setText:@"*"];
+    [imageLabel setBackgroundColor:color(clearColor)];
     [imageLabel setTextColor:[UIColor redColor]];
     [imageLabel setFont:[UIFont systemFontOfSize:18]];
     [self.contentView addSubview:imageLabel];
@@ -99,11 +101,13 @@
     
     UILabel *costCenterLabel = [[UILabel alloc]initWithFrame:CGRectMake(nameLabel.frame.origin.x, bgImgView2.frame.origin.y +5, nameLabel.frame.size.width, nameLabel.frame.size.height)];
     [costCenterLabel setText:@"成本中心"];
+    [costCenterLabel setBackgroundColor:color(clearColor)];
     [costCenterLabel setFont:[UIFont systemFontOfSize:14]];
     [self.contentView addSubview:costCenterLabel];
     
     _costCenterNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(controlXLength(costCenterLabel) + 50 , costCenterLabel.frame.origin.y, costCenterLabel.frame.size.width*2, costCenterLabel.frame.size.height)];
     [_costCenterNameLabel setFont:[UIFont systemFontOfSize:14]];
+    [_costCenterNameLabel setBackgroundColor:color(clearColor)];
     [self.contentView addSubview:_costCenterNameLabel];
     
     
@@ -292,6 +296,7 @@
     
     _cost = [[UILabel alloc]initWithFrame:CGRectMake(10, 5, (appFrame.size.width - 50)/4+50, 40)];
     [_cost setFont:[UIFont systemFontOfSize:14]];
+    [_cost setBackgroundColor:color(clearColor)];
     [self.contentView addSubview:_cost];
 }
 

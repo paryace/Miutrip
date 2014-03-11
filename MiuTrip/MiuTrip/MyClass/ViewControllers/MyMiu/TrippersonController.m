@@ -232,6 +232,7 @@
     fieldName.clearButtonMode = UITextFieldViewModeWhileEditing;//一键清除
     [fieldName becomeFirstResponder];
     [fieldName setTag:100];
+    [fieldName setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
     fieldName.font=[UIFont fontWithName:@"Arial" size:20];
     [fieldName setDelegate:self];
     [backGroundView addSubview:fieldName];
@@ -240,6 +241,7 @@
     fieldFirstName.clearButtonMode = UITextFieldViewModeWhileEditing;//一键清除
     [fieldFirstName becomeFirstResponder];
     [fieldFirstName setTag:101];
+    [fieldFirstName setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
     fieldFirstName.font=[UIFont fontWithName:@"Arial" size:20];
     [fieldFirstName setDelegate:self];
     [backGroundView addSubview:fieldFirstName];
@@ -249,6 +251,7 @@
     fieldMiddlerName.clearButtonMode = UITextFieldViewModeWhileEditing;//一键清除
     [fieldMiddlerName becomeFirstResponder];
     [fieldMiddlerName setTag:102];
+    [fieldMiddlerName setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
     fieldMiddlerName.font=[UIFont fontWithName:@"Arial" size:20];
     [fieldMiddlerName setDelegate:self];
     [backGroundView addSubview:fieldMiddlerName];
@@ -257,6 +260,7 @@
     fieldLastName.clearButtonMode = UITextFieldViewModeWhileEditing;//一键清除
     [fieldLastName becomeFirstResponder];
     [fieldLastName setTag:103];
+    [fieldLastName setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
     fieldLastName.font=[UIFont fontWithName:@"Arial" size:20];
     [fieldLastName setDelegate:self];
     [backGroundView addSubview:fieldLastName];
@@ -267,6 +271,7 @@
     fieldCertificateNumber.clearButtonMode = UITextFieldViewModeWhileEditing;//一键清除
     [fieldCertificateNumber becomeFirstResponder];
     [fieldCertificateNumber setTag:104];
+    [fieldCertificateNumber setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
     fieldCertificateNumber.keyboardType=UIKeyboardTypeNumbersAndPunctuation;
     fieldCertificateNumber.font=[UIFont fontWithName:@"Arial" size:20];
     [fieldCertificateNumber setDelegate:self];
@@ -276,6 +281,7 @@
     fieldPhone.clearButtonMode = UITextFieldViewModeWhileEditing;//一键清除
     [fieldPhone becomeFirstResponder];
     [fieldPhone setTag:105];
+    [fieldPhone setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
     fieldPhone.keyboardType=UIKeyboardTypeNumbersAndPunctuation;
     fieldPhone.font=[UIFont fontWithName:@"Arial" size:20];
     [fieldPhone setDelegate:self];
@@ -286,6 +292,7 @@
     fieldEmail.clearButtonMode = UITextFieldViewModeWhileEditing;//一键清除
     [fieldEmail becomeFirstResponder];
     [fieldEmail setTag:106];
+    [fieldEmail setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
     fieldEmail.font=[UIFont fontWithName:@"Arial" size:20];
     [fieldEmail setDelegate:self];
     fieldEmail.keyboardType=UIKeyboardTypeEmailAddress;

@@ -23,6 +23,7 @@
 - (void)setUpViews{
     _userName = [[UILabel alloc]initWithFrame:CGRectMake(5,self.frame.size.height/8, self.frame.size.width, 30)];
     [_userName setText:@"========"];
+    [_userName setBackgroundColor:color(clearColor)];
     [self addSubview:_userName];
     
     //    _itemBtn = [UIButton buttonWithType:UIButtonTypeCustom];

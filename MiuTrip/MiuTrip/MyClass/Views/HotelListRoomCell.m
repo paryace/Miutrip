@@ -28,6 +28,7 @@
     //房型名称
     _roomName = [[UILabel alloc] initWithFrame:CGRectMake(5, 5, 90, 30)];
     [_roomName setFont:[UIFont systemFontOfSize:13]];
+    [_roomName setBackgroundColor:color(clearColor)];
     [_roomName setTextColor:color(blackColor)];
     [_roomName setNumberOfLines:2];
     [self addSubview:_roomName];
@@ -35,6 +36,7 @@
     //床型，早餐
     _bedAndBreakfast = [[UILabel alloc] initWithFrame:CGRectMake(100, 5, 50, 30)];
     [_bedAndBreakfast setFont:[UIFont systemFontOfSize:10]];
+    [_bedAndBreakfast setBackgroundColor:color(clearColor)];
     [_bedAndBreakfast setTextColor:color(blackColor)];
     [_bedAndBreakfast setNumberOfLines:2];
     [self addSubview:_bedAndBreakfast];
@@ -42,6 +44,7 @@
     //WIFI
     _wifi = [[UILabel alloc] initWithFrame:CGRectMake(160, 13, 60, 14)];
     [_wifi setFont:[UIFont systemFontOfSize:12]];
+    [_wifi setBackgroundColor:color(clearColor)];
     [_wifi setTextColor:color(blackColor)];
     [self addSubview:_wifi];
     
@@ -49,6 +52,7 @@
     _price = [[UILabel alloc] initWithFrame:CGRectMake(220, 13, 40, 14)];
     [_price setFont:[UIFont systemFontOfSize:12]];
     [_price setTextColor:PriceColor];
+    [_price setBackgroundColor:color(clearColor)];
     [self addSubview:_price];
     
     //预定按钮

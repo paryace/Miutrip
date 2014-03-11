@@ -381,6 +381,7 @@
     _postDescTf = [[UITextField alloc]initWithFrame:CGRectMake(controlXLength(postDescLeftLb) + 10, 0, contentBGView.frame.size.width - controlXLength(postDescLeftLb) - 10, postDescLeftLb.frame.size.height)];
     [_postDescTf setFont:postDescLeftLb.font];
     [_postDescTf setEnabled:NO];
+    [_postDescTf setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
     [_postDescTf setDelegate:self];
     [_postDescTf setBackgroundColor:color(clearColor)];
     [contentBGView addSubview:_postDescTf];
@@ -402,6 +403,7 @@
     [contentBGView addSubview:selectPostAddressLeft];
     _postAddressLb = [[UILabel alloc]initWithFrame:CGRectMake(_postDescTf.frame.origin.x, controlYLength(_postDescTf), _postDescTf.frame.size.width - _postDescTf.frame.size.height * 1.5, _postDescTf.frame.size.height)];
     [_postAddressLb setFont:postDescLeftLb.font];
+    [_postAddressLb setBackgroundColor:color(clearColor)];
     [_postAddressLb setTextColor:color(blackColor)];
     [_postAddressLb setAutoBreakLine:YES];
     [contentBGView addSubview:_postAddressLb];
@@ -424,6 +426,7 @@
     _recipientTf = [[UITextField alloc]initWithFrame:CGRectMake(_postDescTf.frame.origin.x, controlYLength(_postAddressLb), _postDescTf.frame.size.width, _postDescTf.frame.size.height)];
     [_recipientTf setFont:postDescLeftLb.font];
     [_recipientTf setDelegate:self];
+    [_recipientTf setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
     [contentBGView addSubview:_recipientTf];
     
     [contentBGView createLineWithParam:color(lightGrayColor) frame:CGRectMake(0, controlYLength(_recipientTf), contentBGView.frame.size.width, 0.5)];
@@ -438,6 +441,7 @@
     _provinceTf = [[UITextField alloc]initWithFrame:CGRectMake(_postDescTf.frame.origin.x, controlYLength(_recipientTf), _postDescTf.frame.size.width, _postDescTf.frame.size.height)];
     [_provinceTf setFont:postDescLeftLb.font];
     [_provinceTf setDelegate:self];
+    [_provinceTf setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
     [_provinceTf setEnabled:NO];
     [contentBGView addSubview:_provinceTf];
     UIButton *provinceSelectBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -452,6 +456,7 @@
     _cityTf = [[UITextField alloc]initWithFrame:CGRectMake(_postDescTf.frame.origin.x, controlYLength(_provinceTf), _postDescTf.frame.size.width, _postDescTf.frame.size.height)];
     [_cityTf setFont:postDescLeftLb.font];
     [_cityTf setDelegate:self];
+    [_cityTf setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
     [_cityTf setEnabled:NO];
     [contentBGView addSubview:_cityTf];
     [self createRightViewWithTitle:@"市" superView:_cityTf];
@@ -466,6 +471,7 @@
     _cantonTf = [[UITextField alloc]initWithFrame:CGRectMake(_postDescTf.frame.origin.x, controlYLength(_cityTf), _postDescTf.frame.size.width, _postDescTf.frame.size.height)];
     [_cantonTf setFont:postDescLeftLb.font];
     [_cantonTf setDelegate:self];
+    [_cantonTf setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
     [_cantonTf setEnabled:NO];
     [contentBGView addSubview:_cantonTf];
     [self createRightViewWithTitle:@"区" superView:_cantonTf];
@@ -487,6 +493,7 @@
     _addressDetailTf = [[UITextField alloc]initWithFrame:CGRectMake(_postDescTf.frame.origin.x, controlYLength(_cantonTf), _postDescTf.frame.size.width, _postDescTf.frame.size.height)];
     [_addressDetailTf setFont:postDescLeftLb.font];
     [_addressDetailTf setDelegate:self];
+    [_addressDetailTf setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
     [contentBGView addSubview:_addressDetailTf];
     
     [contentBGView createLineWithParam:color(lightGrayColor) frame:CGRectMake(0, controlYLength(_addressDetailTf), contentBGView.frame.size.width, 0.5)];
@@ -501,6 +508,7 @@
     _zipCodeTf = [[UITextField alloc]initWithFrame:CGRectMake(_postDescTf.frame.origin.x, controlYLength(_addressDetailTf), _postDescTf.frame.size.width, _postDescTf.frame.size.height)];
     [_zipCodeTf setFont:postDescLeftLb.font];
     [_zipCodeTf setDelegate:self];
+    [_zipCodeTf setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
     [contentBGView addSubview:_zipCodeTf];
     
     [contentBGView createLineWithParam:color(lightGrayColor) frame:CGRectMake(0, controlYLength(_zipCodeTf), contentBGView.frame.size.width, 0.5)];
@@ -515,6 +523,7 @@
     _telTf = [[UITextField alloc]initWithFrame:CGRectMake(_postDescTf.frame.origin.x, controlYLength(_zipCodeTf), _postDescTf.frame.size.width, _postDescTf.frame.size.height)];
     [_telTf setFont:postDescLeftLb.font];
     [_telTf setDelegate:self];
+    [_telTf setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
     [contentBGView addSubview:_telTf];
     
     [contentBGView createLineWithParam:color(lightGrayColor) frame:CGRectMake(0, controlYLength(_telTf), contentBGView.frame.size.width, 0.5)];

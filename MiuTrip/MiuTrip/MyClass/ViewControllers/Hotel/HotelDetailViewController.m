@@ -507,6 +507,7 @@
     //地址
     _address = [[UILabel alloc] initWithFrame:CGRectMake(75,0,width-85,16)];
     [_address setTextColor:color(blackColor)];
+    [_address setBackgroundColor:color(clearColor)];
     [_address setFont:[UIFont systemFontOfSize:13]];
     [self addSubview:_address];
     
@@ -579,12 +580,14 @@
     
     _title = [[UILabel alloc] initWithFrame:CGRectMake(15,0, 75, 15)];
     [_title setFont:[UIFont systemFontOfSize:13]];
+    [_title setBackgroundColor:color(clearColor)];
     [_title setTextColor:color(darkGrayColor)];
     [self addSubview:_title];
     
     _info = [[UILabel alloc] initWithFrame:CGRectMake(90, 0, width-98, height)];
     [_info setFont:[UIFont systemFontOfSize:12]];
     [_info setTextColor:color(darkGrayColor)];
+    [_info setBackgroundColor:color(clearColor)];
     [_info setLineBreakMode:NSLineBreakByCharWrapping];
     [_info setNumberOfLines:0];
     [self addSubview:_info];

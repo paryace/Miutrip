@@ -236,6 +236,7 @@
     [cardNumLeft setBackgroundColor:color(clearColor)];
     NSString *type = [detail objectForKey:@"CardTypeName"];
     UILabel *cardNumRight = [[UILabel alloc]initWithFrame:CGRectMake(controlXLength(cardNumLeft), cardNumLeft.frame.origin.y, frame.size.width, passenger.frame.size.height)];
+    [cardNumRight setBackgroundColor:color(clearColor)];
     NSString *number = [detail objectForKey:@"CardTypeNumber"];
     [cardNumLeft setText:[NSString stringWithFormat:@"%@:",type]];
     [cardNumRight setText:[NSString stringWithFormat:@"%@",number]];
@@ -259,6 +260,7 @@
     UILabel *costCenterLeft = [[UILabel alloc]initWithFrame:CGRectMake(0, controlYLength(phoneNumLeft), frame.size.width/3, passenger.frame.size.height)];
     [costCenterLeft setBackgroundColor:color(clearColor)];
     UILabel *costCenterRight = [[UILabel alloc]initWithFrame:CGRectMake(controlXLength(phoneNumLeft),controlYLength(phoneNumLeft), frame.size.width, passenger.frame.size.height)];
+    [costCenterRight setBackgroundColor:color(clearColor)];
     NSString *custom = [detail objectForKey:@"CustomizeItem1"];
     [costCenterLeft setText:@"成本中心:"];
     [costCenterRight setText:[NSString stringWithFormat:@"%@",custom]];
