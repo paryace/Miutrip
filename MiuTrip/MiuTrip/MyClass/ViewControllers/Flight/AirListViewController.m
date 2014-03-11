@@ -105,6 +105,7 @@
 
 - (void)getAirListWithRequest:(BaseRequestModel*)request
 {
+    [self addLoadingView];
     [_showDataSource removeAllObjects];
     [_theTableView reloadData];
     GetNormalFlightsRequest *flightsRequest = nil;
@@ -119,6 +120,7 @@
 
 - (void)getAirListDone:(GetNormalFlightsResponse*)response
 {
+    [self removeLoadingView];
     _dataSource = [NSMutableArray arrayWithArray:response.flights];
     if ([_dataSource count] != 0) {
         DomesticFlightDataDTO *flight = [_dataSource objectAtIndex:0];
@@ -131,6 +133,7 @@
 
 - (void)getPassengerPolicy
 {
+    [self addLoadingView];
     SEL selector = NSSelectorFromString(@"PolicyID");
     
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
@@ -773,7 +776,7 @@
     UIButton *prevBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [prevBtn.titleLabel setAutoSize:YES];
     [prevBtn setImage:imageNameAndType(@"button_date-left", nil) forState:UIControlStateNormal];
-    [prevBtn setFrame:CGRectMake(controlXLength(_titleLabel) + 10, 7.5, (self.topBar.frame.size.width/2 - 20)/5, self.topBar.frame.size.height - 15)];
+    [prevBtn setFrame:CGRectMake(controlXLength(_titleLabel) + 10, 4, (self.topBar.frame.size.width/2 - 20)/5, self.topBar.frame.size.height - 8)];
     [prevBtn setTag:300];
     [prevBtn addTarget:self action:@selector(changeTakeOffDate:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:prevBtn];

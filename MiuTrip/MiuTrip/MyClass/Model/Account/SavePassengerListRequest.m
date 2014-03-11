@@ -16,14 +16,26 @@
 
 @implementation SavePassengerResponse
 
-- (SavePassengerResponse*)getDataWithBookPassengers:(BookPassengersResponse*)passenger
++ (SavePassengerResponse*)getDataWithBookPassengers:(BookPassengersResponse*)passenger
 {
     SavePassengerResponse *savePassenger = [[SavePassengerResponse alloc]init];
     [savePassenger parshJsonToResponse:[[passenger JSONRepresentation] JSONValue]];
 //    savePassenger.IsServer = passenger.IsServer;
+    [savePassenger getObject];
     savePassenger.Name = passenger.UserName;
     
     return savePassenger;
+}
+
+- (void)getObject
+{
+    NSMutableArray *IDCardList = [NSMutableArray array];
+    for (NSDictionary *dict in _IDCardList) {
+        MemberIDcardResponse *IDCard = [[MemberIDcardResponse alloc]init];
+        [IDCard parshJsonToResponse:dict];
+        [IDCardList addObject:IDCard];
+    }
+    _IDCardList = IDCardList;
 }
 
 - (MemberIDcardResponse*)getDefaultIDCard

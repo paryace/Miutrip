@@ -106,7 +106,7 @@
     if (!_topBar) {
         _topBar = [[UIImageView alloc]init];
         [_topBar setUserInteractionEnabled:YES];
-        [_topBar setFrame:CGRectMake(0, 0, appFrame.size.width, 50)];
+        [_topBar setFrame:CGRectMake(0, 0, appFrame.size.width, 40)];
         [_topBar setBackgroundColor:[UIColor clearColor]];
         if (_titleLabel) {
             [self.view insertSubview:_topBar belowSubview:_titleLabel];
@@ -228,7 +228,7 @@
 {
     [super setTitle:title];
     if (!_titleLabel) {
-        _titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(self.view.frame.size.width/4, 0, self.view.frame.size.width/2, 50)];
+        _titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(self.view.frame.size.width/4, 0, self.view.frame.size.width/2, 40)];
         [_titleLabel setBackgroundColor:[UIColor clearColor]];
         [_titleLabel setTextColor:[UIColor whiteColor]];
         [_titleLabel setTextAlignment:NSTextAlignmentCenter];
@@ -494,7 +494,7 @@
     
     UIActivityIndicatorView *progressView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     [progressView setHidesWhenStopped:NO];
-    [progressView setCenter:CGPointMake(self.contentView.frame.size.width /2.0, self.contentView.frame.size.height/2.0)];
+    [progressView setCenter:self.contentView.center];
     [progressView startAnimating];
     [loadingView addSubview:progressView];
     
@@ -503,8 +503,10 @@
 
 -(void)removeLoadingView
 {
-    UIView *view = [_contentView viewWithTag:LOADING_VIEW_TAG];
-    [view removeFromSuperview];
+    while ([_contentView viewWithTag:LOADING_VIEW_TAG]) {
+        UIView *view = [_contentView viewWithTag:LOADING_VIEW_TAG];
+        [view removeFromSuperview];
+    }
 }
 
 

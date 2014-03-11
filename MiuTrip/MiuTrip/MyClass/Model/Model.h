@@ -21,6 +21,8 @@
 
 - (void)showPromptText:(NSString*)text model:(BOOL)model;
 
+- (void)showCoverIndicator:(BOOL)show;
+
 - (void)setUserInteractionEnabled:(BOOL)enabled;
 
 - (void)goToAirOrderList;

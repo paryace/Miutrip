@@ -153,6 +153,7 @@
 -(void) getLoginUserInfo{
     GetLoginUserInfoRequest *request = [[GetLoginUserInfoRequest alloc] initWidthBusinessType:BUSINESS_ACCOUNT methodName:@"GetUserLoginInfo"];
     [self.requestManager sendRequest:request];
+    [[Model shareModel] showCoverIndicator:YES];
 }
 
 -(void)requestDone:(BaseResponseModel *)response
@@ -176,6 +177,8 @@
 
 - (void)getUserLoginInfoDone:(GetLoginUserInfoResponse*)loginInfo
 {
+    [[Model shareModel] showCoverIndicator:NO];
+
     [loginInfo getObjects];
     [UserDefaults shareUserDefault].loginInfo = loginInfo;
     [_userName setText:loginInfo.UserName];
@@ -393,7 +396,7 @@
     [self.view addSubview:_company];
     
     UIButton *inlandBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [inlandBtn setFrame:CGRectMake(0, controlYLength(self.topBar) - 1, self.view.frame.size.width/3, self.topBar.frame.size.height - 5)];
+    [inlandBtn setFrame:CGRectMake(0, controlYLength(self.topBar) - 1, self.view.frame.size.width/3, self.topBar.frame.size.height)];
     [inlandBtn setTag:200];
     [_btnArray addObject:inlandBtn];
     [inlandBtn setBackgroundColor:color(clearColor)];
@@ -1196,11 +1199,11 @@
         [[Model shareModel]showPromptText:@"请选择起始地和目的地" model:NO];
         complete = NO;
     }else if ([Utils textIsEmpty:_startDateTf.date]){
-        [[Model shareModel] showPromptText:@"请选择出发日期和时间" model:NO];
+        [[Model shareModel] showPromptText:@"请选择出发日期" model:NO];
         complete = NO;
     }else if (_haveReturn){
         if ([Utils textIsEmpty:_returnDateTf.date]){
-            [[Model shareModel] showPromptText:@"请选择返回日期和时间" model:NO];
+            [[Model shareModel] showPromptText:@"请选择返回日期" model:NO];
             complete = NO;
         }
     }

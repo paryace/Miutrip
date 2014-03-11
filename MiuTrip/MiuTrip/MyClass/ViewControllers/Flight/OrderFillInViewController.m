@@ -220,6 +220,7 @@
 #pragma mark - get flight change rule
 - (void)getChangeRule
 {
+    [self addLoadingView];
     if (!_changeRules) {
         _changeRules = [NSMutableArray array];
     }
@@ -251,6 +252,7 @@
         [self.requestManager sendRequest:request];
         return;
     }
+    [self removeLoadingView];
     [self setSubjoinViewFrame];
 }
 
@@ -548,7 +550,7 @@
     _flightNumLb1 = [[UILabel alloc]initWithFrame:CGRectMake(_flightTimeLb1.frame.origin.x, controlYLength(_flightTimeLb1), _flightTimeLb1.frame.size.width, _flightTimeLb1.frame.size.height)];
     [_flightNumLb1 setFont:[UIFont systemFontOfSize:12]];
     [_flightNumLb1 setAutoSize:YES];
-    [_flightNumLb1 setText:[NSString stringWithFormat:@"%@ %@%@",self.firstFlight.AirLine.ShortName,self.firstFlight.AirLine.FlightClass,self.firstFlight.AirLine.AirLineCode]];
+    [_flightNumLb1 setText:[NSString stringWithFormat:@"%@ %@",self.firstFlight.AirLine.ShortName,self.firstFlight.Flight]];
     [_flightNumLb1 setTextColor:color(grayColor)];
     [baseInfoBackgroundView addSubview:_flightNumLb1];
     
@@ -601,7 +603,7 @@
         _flightNumLb2 = [[UILabel alloc]initWithFrame:CGRectMake(_flightTimeLb2.frame.origin.x, controlYLength(_flightTimeLb2), _flightNumLb1.frame.size.width, _flightNumLb1.frame.size.height)];
         [_flightNumLb2 setFont:[UIFont systemFontOfSize:12]];
         [_flightNumLb2 setAutoSize:YES];
-        [_flightNumLb2 setText:[NSString stringWithFormat:@"%@ %@%@",self.secondFlight.AirLine.ShortName,self.secondFlight.AirLine.FlightClass,self.secondFlight.AirLine.AirLineCode]];
+        [_flightNumLb2 setText:[NSString stringWithFormat:@"%@ %@",self.secondFlight.AirLine.ShortName,self.secondFlight.Flight]];
         [_flightNumLb2 setTextColor:color(grayColor)];
         [baseInfoBackgroundView addSubview:_flightNumLb2];
         

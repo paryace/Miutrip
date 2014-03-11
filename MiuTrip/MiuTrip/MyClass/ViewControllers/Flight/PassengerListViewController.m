@@ -45,6 +45,7 @@
 
 - (void)getContacts
 {
+    [self addLoadingView];
     if (![UserDefaults shareUserDefault].loginInfo) {
         
     }
@@ -60,6 +61,7 @@
 
 - (void)getContactsDone:(GetContactResponse*)response
 {
+    [self removeLoadingView];
     [response getObjects];
     _commonDataSource = [NSMutableArray arrayWithArray:response.result];
     _dataSource = _commonDataSource;
@@ -68,6 +70,7 @@
 
 - (void)getAllCorpStaff
 {
+    [self addLoadingView];
     GetCorpStaffRequest *request = [[GetCorpStaffRequest alloc]initWidthBusinessType:BUSINESS_ACCOUNT methodName:@"GetCorpStaff"];
     [request setCorpID:[UserDefaults shareUserDefault].loginInfo.CorpID];
     [self.requestManager sendRequest:request];
@@ -80,6 +83,7 @@
 
 - (void)getAllCorpStaffDone:(GetCorpStaffResponse*)response
 {
+    [self removeLoadingView];
     [response getObjects];
     _allDataSource = [NSMutableArray arrayWithArray:response.customers];
     _dataSource = _allDataSource;

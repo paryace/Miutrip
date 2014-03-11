@@ -130,6 +130,7 @@
         }else{
             [[Model shareModel] showPromptText:[NSString stringWithFormat:@"%@\n错误码%@",[reposneData objectForKey:@"errorMessage"],[reposneData objectForKey:@"errorCode"]] model:YES];
             [_delegate requestFailedWithErrorCode:[reposneData objectForKey:@"errorCode"] withErrorMsg:[reposneData objectForKey:@"errorMessage"]];
+            [[Model shareModel] showCoverIndicator:NO];
         }
     
 }
@@ -138,12 +139,13 @@
 {
     [[Model shareModel] showPromptText:@"请求失败!" model:YES];
     [[Model shareModel] setUserInteractionEnabled:YES];
+    [[Model shareModel] showCoverIndicator:NO];
 }
 
 - (void)failWithError:(NSError *)theError{
     
     [_delegate requestFailedWithErrorCode:[NSNumber numberWithInteger:theError.code] withErrorMsg:theError.localizedDescription];
-
+    [[Model shareModel] showCoverIndicator:NO];
 }
 
 -(BaseResponseModel*) getResponseFromRequestClassName:(NSString*) requestClassName{

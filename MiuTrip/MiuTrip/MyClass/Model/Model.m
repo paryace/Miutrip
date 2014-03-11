@@ -19,6 +19,7 @@ static      Model       *shareModel;
 
 @property (assign, nonatomic) BOOL                      showCoverView;
 @property (strong, nonatomic) NSTimer                   *timer;
+@property (strong, nonatomic) UIView                    *coverIndicatorView;
 
 @end
 
@@ -105,6 +106,47 @@ static      Model       *shareModel;
                                  [_subWindow removeFromSuperview];
                              }
                          }];
+    }
+}
+
+- (void)showCoverIndicator:(BOOL)show
+{
+    if (show) {
+        AppDelegate *appDelegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
+        UIView *view = appDelegate.window;
+        
+        if (!_coverIndicatorView) {
+            _coverIndicatorView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, appBounds.size.width, appBounds.size.height)];
+            [_coverIndicatorView setBackgroundColor:color(clearColor)];
+            UIView *coverBG = [[UIView alloc]initWithFrame:_coverIndicatorView.bounds];
+            [coverBG setBackgroundColor:color(blackColor)];
+            [coverBG setAlpha:0.5];
+            [_coverIndicatorView addSubview:coverBG];
+            UIActivityIndicatorView *indicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+            [indicatorView setCenter:_coverIndicatorView.center];
+            [indicatorView setTag:200];
+            [_coverIndicatorView setAlpha:0];
+            [_coverIndicatorView addSubview:indicatorView];
+        }
+        UIActivityIndicatorView *indicatorView = (UIActivityIndicatorView*)[_coverIndicatorView viewWithTag:200];
+        [indicatorView startAnimating];
+        if (_coverIndicatorView.superview) {
+            [_coverIndicatorView removeFromSuperview];
+        }
+        [view addSubview:_coverIndicatorView];
+        
+        [UIView animateWithDuration:0.25
+                         animations:^{
+                             [_coverIndicatorView setAlpha:1];
+                         }completion:^(BOOL finished){
+                             
+                         }];
+
+    }else{
+        if (_coverIndicatorView.superview) {
+            [_coverIndicatorView removeFromSuperview];
+            [_coverIndicatorView setAlpha:0];
+        }
     }
 }
 

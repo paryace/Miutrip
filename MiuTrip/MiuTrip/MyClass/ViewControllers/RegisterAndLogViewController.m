@@ -58,6 +58,7 @@
         [self.requestManager sendRequestWithoutToken:request];
         
         [[Model shareModel] setUserInteractionEnabled:NO];
+         [[Model shareModel] showCoverIndicator:YES];
     }
 }
 
@@ -68,7 +69,6 @@
 }
 
 -(void)requestDone:(BaseResponseModel *) response{
-    
     [[Model shareModel] setUserInteractionEnabled:YES];
     LoginResponse *loginReponse = (LoginResponse*)response;
     [[UserDefaults shareUserDefault] setAuthTkn:loginReponse.authTkn];

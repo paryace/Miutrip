@@ -45,7 +45,7 @@
 @property (nonatomic, strong) NSNumber  *Type;
 
 + (SavePassengerResponse*)getDataWithBookPassengers:(BookPassengersResponse*)passenger;
-
+- (void)getObject;
 - (MemberIDcardResponse*)getDefaultIDCard;
 
 @end
