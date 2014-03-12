@@ -398,7 +398,7 @@
         
         responderControl = _selectDateReasonBtn;
     }if (_illegalPrice) {
-        NSString *priceIllegalString = [NSString stringWithFormat:@"您预订的航班价格为%@元，违反了员工级须预订所选时段内最低价（%@元）航班的规定,请选择原因:",_selectFlight.Price,_flight.Price];
+        NSString *priceIllegalString = [NSString stringWithFormat:@"您预订的航班价格为%@元，违反了%@须预订所选时段内最低价（%@元）航班的规定,请选择原因:",_selectFlight.Price,_corpPolicy.PolicyName,_flight.Price];
         CGFloat priceLbHeight = [Utils heightForWidth:_contentView.frame.size.width - 20 text:priceIllegalString font:[UIFont systemFontOfSize:13]];
         UILabel *priceIllegalLb = [[UILabel alloc]initWithFrame:CGRectMake(10, controlYLength(responderControl) + 5, _contentView.frame.size.width - 20, priceLbHeight)];
         [priceIllegalLb setBackgroundColor:color(clearColor)];
@@ -428,7 +428,7 @@
         responderControl = _selectPriceReasonBtn;
     }if ([_corpPolicy.IsFltDiscountRC isEqualToString:@"T"]) {
         if (_illegalRate) {
-            NSString *rateIllegalString = [NSString stringWithFormat:@"您预订的航班折扣为%@折,违反了员工级须预订%@折以下航班的规定,请选择原因:",_selectFlight.Rate,_corpPolicy.FltDiscountRC];
+            NSString *rateIllegalString = [NSString stringWithFormat:@"您预订的航班折扣为%@折,违反了%@须预订%@折以下航班的规定,请选择原因:",_selectFlight.Rate,_corpPolicy.PolicyName,_corpPolicy.FltDiscountRC];
             CGFloat rateLbHeight = [Utils heightForWidth:_contentView.frame.size.width - 20 text:rateIllegalString font:[UIFont systemFontOfSize:13]];
             UILabel *rateIllegalLb = [[UILabel alloc]initWithFrame:CGRectMake(10, controlYLength(responderControl) + 5, _contentView.frame.size.width - 20, rateLbHeight)];
             [rateIllegalLb setBackgroundColor:color(clearColor)];

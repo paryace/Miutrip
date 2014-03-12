@@ -55,6 +55,8 @@
 @property (strong, nonatomic) NSObject  *editObject;
 @property (strong, nonatomic) NSObject  *passeditObject;
 @property (strong, nonatomic) NSIndexPath   *currentIndexPath;
+@property (strong, nonatomic) NSMutableArray *segmentItems;
+
 @end
 
 @implementation InCommonNameViewController
@@ -70,10 +72,10 @@
 }
 -(id)init{
     if (self = [super init]) {
-        
+        _segmentItems = [NSMutableArray array];
         [self setSubviewFrame];
-        [self getPassengers];
-        [_showtableView reloadData];
+//        [self getPassengers];
+//        [_showtableView reloadData];
         
     }
     return self;
@@ -113,15 +115,37 @@
     [rightBtn setFrame:CGRectMake(self.topBar.frame.size.width - self.topBar.frame.size.height, 0, self.topBar.frame.size.height, self.topBar.frame.size.height)];
     [rightBtn addTarget:self action:@selector(pressRightBtn:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:rightBtn];
+
+    
     //分段开关
+    UIButton *passengerBG = [[UIButton alloc]initWithFrame:CGRectMake(0, controlYLength(self.topBar), self.view.frame.size.width/2, self.topBar.frame.size.height)];
+    [passengerBG setTag:200];
+    [passengerBG setBackgroundImage:imageNameAndType(@"tab_no_selected", nil) forState:UIControlStateNormal];
+    [passengerBG setBackgroundImage:imageNameAndType(@"tab_selected", nil) forState:UIControlStateHighlighted];
+    [passengerBG setTitle:@"常用出行人" forState:UIControlStateNormal];
+    [passengerBG.titleLabel setFont:[UIFont systemFontOfSize:14]];
+    [passengerBG setTitleColor:color(blackColor) forState:UIControlStateNormal];
+    [passengerBG setTitleColor:color(whiteColor) forState:UIControlStateHighlighted];
+    [self.view addSubview:passengerBG];
+    UIButton *contactBG = [[UIButton alloc]initWithFrame:CGRectMake(controlXLength(passengerBG), passengerBG.frame.origin.y, passengerBG.frame.size.width, passengerBG.frame.size.height)];
+    [contactBG setTag:201];
+    [contactBG setBackgroundImage:imageNameAndType(@"tab_no_selected", nil) forState:UIControlStateNormal];
+    [contactBG setBackgroundImage:imageNameAndType(@"tab_selected", nil) forState:UIControlStateHighlighted];
+    [contactBG setTitle:@"常用联系人" forState:UIControlStateNormal];
+    [contactBG.titleLabel setFont:[UIFont systemFontOfSize:14]];
+    [contactBG setTitleColor:color(blackColor) forState:UIControlStateNormal];
+    [contactBG setTitleColor:color(whiteColor) forState:UIControlStateHighlighted];
+    [self.view addSubview:contactBG];
+    [_segmentItems addObject:passengerBG];
+    [_segmentItems addObject:contactBG];
     NSArray *arr =[[NSArray alloc]initWithObjects:@"常用出行人",@"常用联系人", nil];
     UISegmentedControl *mySegmentedControl = [ [ UISegmentedControl alloc ] initWithItems:arr];
     mySegmentedControl.segmentedControlStyle = UISegmentedControlStylePlain;
     [mySegmentedControl setFrame:CGRectMake(0, returnBtn.frame.size.height, self.view.frame.size.width, returnBtn.frame.size.height)];
-    [mySegmentedControl setBackgroundColor:[UIColor lightGrayColor]];
-    UIColor *myTint =[UIColor darkGrayColor];
+    [mySegmentedControl setBackgroundColor:[UIColor clearColor]];
+    UIColor *myTint =[UIColor clearColor];
     mySegmentedControl.tintColor = myTint;
-    [mySegmentedControl setBorderColor:color(lightGrayColor) width:2.0];
+//    [mySegmentedControl setBorderColor:color(lightGrayColor) width:2.0];
     
     [mySegmentedControl addTarget:self action:@selector(mypressSegment:) forControlEvents:UIControlEventValueChanged];
     [self.view addSubview:mySegmentedControl];
@@ -137,7 +161,7 @@
     [self.view addSubview:_showtableView];
     
     
-    
+    [self showListWithIndex:0];
     
 }
 - (void)pressRightBtn:(UIButton*)sender
@@ -242,9 +266,17 @@
 }
 -(void)mypressSegment:(UISegmentedControl*)sender{
     UISegmentedControl* control = (UISegmentedControl*)sender;
-    switch (control.selectedSegmentIndex) {
+    [self showListWithIndex:control.selectedSegmentIndex];
+}
+
+- (void)showListWithIndex:(NSInteger)index
+{
+    for (UIButton *selectBtn in _segmentItems) {
+        NSInteger imageTagIndex = selectBtn.tag - 200;
+        [selectBtn setHighlighted:(imageTagIndex == index)];
+    }
+    switch (index) {
         case 0:
-            
             if ([passengers count] == 0) {
                 [self getPassengers];
             }else{
@@ -253,7 +285,6 @@
             }
             break;
         case 1:
-            
             if ([getContactresponses count] == 0) {
                 [self getContacts];
             }

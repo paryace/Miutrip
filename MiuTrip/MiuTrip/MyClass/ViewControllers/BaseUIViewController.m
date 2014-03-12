@@ -388,22 +388,7 @@
     AppDelegate *appDelegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
     
     if ([appDelegate.window.rootViewController isKindOfClass:[UINavigationController class]]) {
-        //        if (![Model shareModel].mainView) {
-        //            [Model shareModel].mainView = [[RegisterAndLogViewController alloc]init];
-        //            if (_transitionType == TransitionNone) {
-        //                [self.navigationController pushViewController:[Model shareModel].mainView animated:NO];
-        //            }else{
-        //                [self.navigationController pushViewController:[Model shareModel].mainView animated:NO];
-        //                CATransition *transition = [Utils getAnimation:_transitionType subType:DirectionLeft];
-        //                [self.navigationController.view.layer addAnimation:transition forKey:@"viewtransition"];
-        //            }
-        //        }else{
-        //            if (_transitionType == TransitionNone) {
-        //                [self.navigationController popToViewController:[Model shareModel].mainView animated:NO];
-        //            }else
-        //                [self.navigationController popToViewController:[Model shareModel].mainView animated:YES];
-        //        }
-        //        [self performSelector:@selector(completionHandler:) withObject:_compleHandler afterDelay:(_transitionType == TransitionNone)?0:transitionDuration];
+        
         UINavigationController *navigationController = (UINavigationController*)(appDelegate.window.rootViewController);
         UIViewController *mainViewController = nil;
         for (UIViewController *viewController in navigationController.viewControllers) {

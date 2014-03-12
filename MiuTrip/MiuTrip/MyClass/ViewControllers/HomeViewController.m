@@ -31,6 +31,7 @@
 #import "HotelCityListViewController.h"
 #import "SqliteManager.h"
 #import "AppDelegate.h"
+#import "RegisterAndLogViewController.h"
 
 @interface HomeViewController (){
     NSDictionary *allDicData;
@@ -145,6 +146,8 @@
 
 - (void)logOff:(UIButton*)sender
 {
+    [[Model shareModel] showCoverIndicator:YES];
+
     LogoutRequest *request = [[LogoutRequest alloc]initWidthBusinessType:BUSINESS_ACCOUNT methodName:@"logout"];
     [self.requestManager sendRequest:request];
 }
@@ -170,9 +173,19 @@
 
 - (void)logOutDone:(LogoutResponse*)response
 {
+    [[Model shareModel] showCoverIndicator:NO];
     [[Model shareModel] showPromptText:@"注销成功" model:YES];
-    [[UserDefaults shareUserDefault]clearDefaults];
-    [self.navigationController popToRootViewControllerAnimated:YES];
+    [[UserDefaults shareUserDefault] clearDefaults];
+    RegisterAndLogViewController *registerAndLogView = [[RegisterAndLogViewController alloc]init];
+    [self.navigationController pushViewController:registerAndLogView animated:NO];
+    CATransition *transition = [Utils getAnimation:TransitionPush subType:DirectionLeft];
+    [self.navigationController.view.layer addAnimation:transition forKey:@"viewtransition"];
+    [self performSelector:@selector(resetRootView:) withObject:registerAndLogView afterDelay:transitionDuration];
+}
+
+- (void)resetRootView:(UIView*)viewController
+{
+    [self.navigationController setViewControllers:[NSMutableArray arrayWithObject:viewController]];
 }
 
 - (void)getUserLoginInfoDone:(GetLoginUserInfoResponse*)loginInfo
@@ -183,14 +196,7 @@
     [UserDefaults shareUserDefault].loginInfo = loginInfo;
     [_userName setText:loginInfo.UserName];
     [_position setText:[Utils nilToEmpty:loginInfo.DeptName]];
-    [_company setText:[Utils nilToEmpty:loginInfo.CorpName]];
-}
-
-
-- (void)logOutDone
-{
-    [[Model shareModel] showPromptText:@"注销成功" model:YES];
-    [self popToMainViewControllerTransitionType:TransitionPush completionHandler:nil];
+    [_company  setText:[Utils nilToEmpty:loginInfo.CorpName]];
 }
 
 - (void)requestError:(ASIHTTPRequest *)request
@@ -445,7 +451,8 @@
     [segmentedControl setAlpha:0.1];
     [self.view addSubview:segmentedControl];
     
-    [self getLoginUserInfo];
+
+//    [self getLoginUserInfo];
     
     [self setSubjoinViewFrame];
     
@@ -486,6 +493,12 @@
     [btn setHighlighted:YES];
     
     [self.contentView resetContentSize];
+    
+    if (![UserDefaults shareUserDefault].loginInfo) {
+        [self getLoginUserInfo];
+    }else{
+        [self getUserLoginInfoDone:[UserDefaults shareUserDefault].loginInfo];
+    }
 }
 
 #pragma mark - hotel item method

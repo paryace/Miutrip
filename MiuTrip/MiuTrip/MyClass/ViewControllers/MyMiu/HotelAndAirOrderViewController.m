@@ -38,7 +38,6 @@
 - (id)init
 {
     if (self = [super init]) {
-        [self getOrder];
         [self.view setHidden:NO];
         [self setSubviewFrame];
     }
@@ -236,7 +235,6 @@
         [self addProgressView];
         
     }
-    [self getOrder];
     [self setTopBarBackGroundImage:imageNameAndType(@"topbar", nil)];
     
     UIButton *returnBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -246,7 +244,17 @@
     [self setReturnButton:returnBtn];
     [self.view addSubview:returnBtn];
     
-    
+    [self getOrder];
+}
+
+- (void)setSubjoinViewFrame
+{
+    _theTableView = [[UITableView alloc]initWithFrame:CGRectMake((self.contentView.frame.size.width - AirOrderCellWidth)/2, controlYLength(self.topBar), AirOrderCellWidth, self.contentView.frame.size.height - self.bottomBar.frame.size.height - 10 - controlYLength(self.topBar))];
+    [_theTableView setBackgroundColor:color(clearColor)];
+    [_theTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+    [_theTableView setDelegate:self];
+    [_theTableView setDataSource:self];
+    [self.contentView addSubview:_theTableView];
 }
 
 - (void)addProgressView{
@@ -274,6 +282,7 @@
         _airRequest.NotTravel = [NSNumber numberWithBool:false];
         _airRequest.isCorpDelivery = [NSNumber numberWithBool:false];
         [self.requestManager sendRequest:_airRequest];
+        [self addLoadingView];
     }
     if (_orderType == OrderTypeHotel){
         _hotelRequest = [[GetOrderRequest alloc]initWidthBusinessType:BUSINESS_HOTEL methodName:@"GetOrders"];
@@ -283,12 +292,14 @@
         _hotelRequest.PageSize=[NSNumber numberWithInt:10];
         _hotelRequest.Status = [NSNumber numberWithInt:0];
         [self.requestManager sendRequest:_hotelRequest];
+        [self addLoadingView];
     }
     
 }
 
 - (void)requestDone:(BaseResponseModel *)response{
     NSLog(@"hhhhhh");
+    [self removeLoadingView];
     if (_orderType == OrderTypeAir) {
         if ([response isKindOfClass:[GetFlightOrderListResponse class]]) {
             NSLog(@"g=========et");
@@ -306,7 +317,7 @@
         }else if ([response isKindOfClass:[CancelFlightOrderResponse class]]) {
             
             NSLog(@"============");
-            CancelFlightOrderResponse *cancelFlight = (CancelFlightOrderResponse*)response;
+//            CancelFlightOrderResponse *cancelFlight = (CancelFlightOrderResponse*)response;
             //                NSArray *cancelDetail = cancelFlight.Data;
             NSLog(@"-----------------");
             
@@ -340,15 +351,6 @@
 
 - (void)requestFailedWithErrorCode:(NSNumber *)errorCode withErrorMsg:(NSString *)errorMsg{
     NSLog(@"error = %@",errorMsg);
-}
-- (void)setSubjoinViewFrame
-{
-    _theTableView = [[UITableView alloc]initWithFrame:CGRectMake((self.contentView.frame.size.width - AirOrderCellWidth)/2, controlYLength(self.topBar), AirOrderCellWidth, self.contentView.frame.size.height - self.bottomBar.frame.size.height - 10 - controlYLength(self.topBar))];
-    [_theTableView setBackgroundColor:color(clearColor)];
-    [_theTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
-    [_theTableView setDelegate:self];
-    [_theTableView setDataSource:self];
-    [self.contentView addSubview:_theTableView];
 }
 
 - (void)cancelOrder{

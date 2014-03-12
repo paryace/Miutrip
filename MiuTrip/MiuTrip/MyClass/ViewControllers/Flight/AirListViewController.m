@@ -59,6 +59,7 @@
 - (id)init
 {
     if (self = [super init]) {
+        [self.contentView setScrollEnabled:NO];
         _showDataSource = [NSMutableArray array];
         _conformPolicies = [NSMutableArray array];
         [self.contentView setHidden:NO];

@@ -73,7 +73,12 @@
             [array addObject:annotation];
         }
          [_mapView addAnnotations:array];
+        MKPointAnnotation *annotation = [array objectAtIndex:0];
         
+        MKCoordinateRegion region = _mapView.region;
+        region.center = annotation.coordinate;
+        region.span = MKCoordinateSpanMake(0.6,0.6);
+        [_mapView setRegion:region animated:YES];
     }else{
         double lat = [[_hotelData objectForKey:@"latitude"] doubleValue];
         double lng = [[_hotelData objectForKey:@"longitude"] doubleValue];
@@ -131,7 +136,6 @@
     return mapPin;
 }
 
-
 -(void)infoButtonPressed:(UIButton *)sender{
    
     if(_mapType == 0){
@@ -139,6 +143,13 @@
         [_tableView reloadData];
     }
     _tableView.hidden = NO;
+}
+
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    if (!_tableView.hidden) {
+        _tableView.hidden = YES;
+    }
 }
 
 #pragma mark  uitabelView handle

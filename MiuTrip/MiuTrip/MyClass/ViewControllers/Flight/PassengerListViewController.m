@@ -367,7 +367,7 @@
     [usPageBtn setFrame:CGRectMake(0, controlYLength(self.topBar), appFrame.size.width/3, 40)];
     [usPageBtn setBackgroundColor:color(clearColor)];
     [usPageBtn setTag:300];
-    [usPageBtn setBackgroundImage:imageNameAndType(@"tab_no_selected", nil) forState:UIControlStateHighlighted];
+    [usPageBtn setBackgroundImage:imageNameAndType(@"tab_no_selected", nil) forState:UIControlStateNormal];
     [usPageBtn setBackgroundImage:imageNameAndType(@"tab_selected", nil) forState:UIControlStateHighlighted];
     [usPageBtn.titleLabel setFont:[UIFont systemFontOfSize:14]];
     [usPageBtn setTitle:@"本部门员工" forState:UIControlStateNormal];
@@ -380,7 +380,7 @@
     [allPageBtn setFrame:CGRectMake(controlXLength(usPageBtn), usPageBtn.frame.origin.y, usPageBtn.frame.size.width, usPageBtn.frame.size.height)];
     [allPageBtn setBackgroundColor:color(clearColor)];
     [allPageBtn setTag:301];
-    [allPageBtn setBackgroundImage:imageNameAndType(@"tab_no_selected", nil) forState:UIControlStateHighlighted];
+    [allPageBtn setBackgroundImage:imageNameAndType(@"tab_no_selected", nil) forState:UIControlStateNormal];
     [allPageBtn setBackgroundImage:imageNameAndType(@"tab_selected", nil) forState:UIControlStateHighlighted];
     [allPageBtn.titleLabel setFont:[UIFont systemFontOfSize:14]];
     [allPageBtn setTitle:@"全部员工" forState:UIControlStateNormal];
@@ -393,7 +393,7 @@
     [commonPageBtn setFrame:CGRectMake(controlXLength(allPageBtn), usPageBtn.frame.origin.y, usPageBtn.frame.size.width, usPageBtn.frame.size.height)];
     [commonPageBtn setBackgroundColor:color(clearColor)];
     [commonPageBtn setTag:302];
-    [commonPageBtn setBackgroundImage:imageNameAndType(@"tab_no_selected", nil) forState:UIControlStateHighlighted];
+    [commonPageBtn setBackgroundImage:imageNameAndType(@"tab_no_selected", nil) forState:UIControlStateNormal];
     [commonPageBtn setBackgroundImage:imageNameAndType(@"tab_selected", nil) forState:UIControlStateHighlighted];
     [commonPageBtn.titleLabel setFont:[UIFont systemFontOfSize:14]];
     [commonPageBtn setTitle:@"常用联系人" forState:UIControlStateNormal];

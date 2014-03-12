@@ -59,11 +59,6 @@
     return self;
 }
 
-- (void)pressRightBtn:(UIButton*)sender
-{
-    
-}
-
 - (void)pressItem:(UIButton*)sender
 {   if(sender.tag==400){
     SelectCityController *selecttCityView =[[SelectCityController alloc]init];
@@ -195,14 +190,6 @@
     [returnBtn setFrame:CGRectMake(0, 0, self.topBar.frame.size.height, self.topBar.frame.size.height)];
     [self setReturnButton:returnBtn];
     [self.view addSubview:returnBtn];
-    UIButton *saveBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [saveBtn setFrame:CGRectMake(self.topBar.frame.size.width - self.topBar.frame.size.height-10, 5, self.topBar.frame.size.height, self.topBar.frame.size.height-10)];
-    [saveBtn setTitle:@"保存" forState:UIControlStateNormal];
-    [saveBtn addTarget:self action:@selector(settingSaveBtn:) forControlEvents:UIControlEventTouchUpInside];
-    [saveBtn setImage:imageNameAndType(@"cname_save_normal", nil) highlightImage:imageNameAndType(@"cname_save_press", nil) forState:ButtonImageStateBottom];
-    [self.view addSubview:saveBtn];
-    
-    
 }
 
 - (void)setSubjoinViewFrame

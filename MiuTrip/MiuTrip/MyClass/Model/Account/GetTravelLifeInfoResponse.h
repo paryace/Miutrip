@@ -42,6 +42,10 @@
 
 @property (nonatomic,strong) NSString *TimeSpan;
 
-
+- (NSString*)flightLevelDetail;
+- (NSString*)arrivePlaceDetail;
+- (NSString*)checkedInHotelDetail;
+- (NSString*)expenseDetail;
+- (NSString*)tripCareerDetail;
 
 @end

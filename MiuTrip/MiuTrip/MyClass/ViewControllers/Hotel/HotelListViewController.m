@@ -18,6 +18,7 @@
 #import "HotelListRoomCell.h"
 #import "GetCorpPolicyRequest.h"
 #import "GetCorpPolicyResponse.h"
+#import "HotelCompileViewController.h"
 
 @interface HotelListViewController ()
 
@@ -173,6 +174,7 @@
             [self sortByPrice];
             break;
         case 103:
+            
             break;
         default:
             break;

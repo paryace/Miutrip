@@ -75,7 +75,9 @@
 
     HomeViewController *homeView = [[HomeViewController alloc]init];
     [[Model shareModel] showPromptText:@"登陆成功" model:YES];
-    [self pushViewController:homeView transitionType:TransitionPush completionHandler:nil];
+    [self pushViewController:homeView transitionType:TransitionPush completionHandler:^{
+        [self.navigationController setViewControllers:[NSMutableArray arrayWithObject:homeView]];
+    }];
     
 }
 

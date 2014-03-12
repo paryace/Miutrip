@@ -84,6 +84,7 @@
 }
 
 - (void)getOrder{
+    [self addLoadingView];
     [_dataSource removeAllObjects];
     GetFlightOrderListRequest *airRequest = [[GetFlightOrderListRequest alloc]initWidthBusinessType:BUSINESS_FLIGHT methodName:@"GetOrderList"];
     
@@ -100,6 +101,8 @@
 }
 
 - (void)requestDone:(BaseResponseModel *)response{
+    [self removeLoadingView];
+    
     if ([response isKindOfClass:[GetFlightOrderListResponse class]]) {
         GetFlightOrderListResponse *orderResponse = (GetFlightOrderListResponse *)response;
         NSArray *orders = [orderResponse.orderLists objectForKey:@"Items"];
