@@ -181,6 +181,7 @@
 		1856475A184C66A20031E5D6 /* icon_arrow2.png in Resources */ = {isa = PBXBuildFile; fileRef = 18564757184C66A20031E5D6 /* icon_arrow2.png */; };
 		1856475B184C66A20031E5D6 /* icon_screening.png in Resources */ = {isa = PBXBuildFile; fileRef = 18564758184C66A20031E5D6 /* icon_screening.png */; };
 		18573C931849B36100A19D7E /* MiuTripOrderDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = 18573C921849B36100A19D7E /* MiuTripOrderDetail.m */; };
+		1873CC9118D0013C0022E6CF /* libMobClickLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1873CC8F18D0013C0022E6CF /* libMobClickLibrary.a */; };
 		187CBD1218485D2D00F25BD7 /* air_arr_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 187CBD0E18485D2D00F25BD7 /* air_arr_icon.png */; };
 		187CBD1318485D2D00F25BD7 /* air_arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 187CBD0F18485D2D00F25BD7 /* air_arrow.png */; };
 		187CBD1418485D2D00F25BD7 /* air_exchange.png in Resources */ = {isa = PBXBuildFile; fileRef = 187CBD1018485D2D00F25BD7 /* air_exchange.png */; };
@@ -717,6 +718,8 @@
 		18564758184C66A20031E5D6 /* icon_screening.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_screening.png; sourceTree = "<group>"; };
 		18573C911849B36100A19D7E /* MiuTripOrderDetail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MiuTripOrderDetail.h; sourceTree = "<group>"; };
 		18573C921849B36100A19D7E /* MiuTripOrderDetail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MiuTripOrderDetail.m; sourceTree = "<group>"; };
+		1873CC8F18D0013C0022E6CF /* libMobClickLibrary.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libMobClickLibrary.a; path = Sandbox/libMobClickLibrary.a; sourceTree = "<group>"; };
+		1873CC9018D0013C0022E6CF /* MobClick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MobClick.h; path = Sandbox/MobClick.h; sourceTree = "<group>"; };
 		187CBD0E18485D2D00F25BD7 /* air_arr_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = air_arr_icon.png; sourceTree = "<group>"; };
 		187CBD0F18485D2D00F25BD7 /* air_arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = air_arrow.png; sourceTree = "<group>"; };
 		187CBD1018485D2D00F25BD7 /* air_exchange.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = air_exchange.png; sourceTree = "<group>"; };
@@ -1237,15 +1240,16 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				12478A0618363B4000AA0083 /* libz.dylib in Frameworks */,
 				527E58F718B5A77600590A49 /* libUPPayPlugin.a in Frameworks */,
 				46D0F5DD188B9B370063CEE6 /* libsqlite3.dylib in Frameworks */,
 				B520CF70188A771700CBA018 /* CoreLocation.framework in Frameworks */,
+				1873CC9118D0013C0022E6CF /* libMobClickLibrary.a in Frameworks */,
 				B520CF6E188A770A00CBA018 /* MapKit.framework in Frameworks */,
 				B50FC073187935F400AF9BFD /* Security.framework in Frameworks */,
 				B50FC071187935EA00AF9BFD /* AdSupport.framework in Frameworks */,
 				B50FC06F187935E000AF9BFD /* QuartzCore.framework in Frameworks */,
 				18B47368184731AB003FF7AD /* libicucore.dylib in Frameworks */,
-				12478A0618363B4000AA0083 /* libz.dylib in Frameworks */,
 				1279151B183326B700CF94F4 /* CoreGraphics.framework in Frameworks */,
 				12478A0418363B2F00AA0083 /* MobileCoreServices.framework in Frameworks */,
 				12478A0218363B2800AA0083 /* SystemConfiguration.framework in Frameworks */,
@@ -1624,6 +1628,7 @@
 		1279154A1833292700CF94F4 /* Library */ = {
 			isa = PBXGroup;
 			children = (
+				1873CC8E18D001140022E6CF /* UMAnalytics_Sdk_2.2.1.OpenUDID */,
 				4673B340188B989D00CABE33 /* FMDatabase */,
 				4673B34D188B989D00CABE33 /* Sandbox */,
 				B50FC0691879318600AF9BFD /* UPPayPlugin */,
@@ -1780,6 +1785,15 @@
 				1856471D184C5F0D0031E5D6 /* button_date-right.png */,
 			);
 			path = AirQueryImage;
+			sourceTree = "<group>";
+		};
+		1873CC8E18D001140022E6CF /* UMAnalytics_Sdk_2.2.1.OpenUDID */ = {
+			isa = PBXGroup;
+			children = (
+				1873CC8F18D0013C0022E6CF /* libMobClickLibrary.a */,
+				1873CC9018D0013C0022E6CF /* MobClick.h */,
+			);
+			name = UMAnalytics_Sdk_2.2.1.OpenUDID;
 			sourceTree = "<group>";
 		};
 		18B47369184731DC003FF7AD /* RegexKitLite */ = {
@@ -3037,6 +3051,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(SRCROOT)/MiuTrip/Library/UPPayPlugin",
 					"$(SRCROOT)/MiuTrip/Library/FMDatabase",
+					/Users/apple/Desktop/Miutrip/MiuTrip/MiuTrip/Library/Sandbox,
 				);
 				OTHER_LDFLAGS = "-lxml2";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -3068,6 +3083,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(SRCROOT)/MiuTrip/Library/UPPayPlugin",
 					"$(SRCROOT)/MiuTrip/Library/FMDatabase",
+					/Users/apple/Desktop/Miutrip/MiuTrip/MiuTrip/Library/Sandbox,
 				);
 				OTHER_LDFLAGS = "-lxml2";
 				PRODUCT_NAME = "$(TARGET_NAME)";

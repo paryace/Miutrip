@@ -11,10 +11,27 @@
 #import "HomeViewController.h"
 #import "BindingAccountViewController.h"
 #import "AccountActViewController.h"
+#import "MobClick.h"
+
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    [MobClick checkUpdate];
+    [MobClick startWithAppkey:@"532016b856240b7b1c0be419" reportPolicy:SEND_INTERVAL channelId:@""];
+    
+    NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
+    [MobClick setAppVersion:version];
+    
+    
+    Class cls = NSClassFromString(@"UMANUtil");
+    SEL deviceIDSelector = @selector(openUDIDString);
+    NSString *deviceID = nil;
+    if(cls && [cls respondsToSelector:deviceIDSelector]){
+        deviceID = [cls performSelector:deviceIDSelector];
+    }
+    NSLog(@"{\"oid\": \"%@\"}", deviceID);
+    
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     NSLog(@"autoLogin = %d",[UserDefaults shareUserDefault].autoLogin);

@@ -111,7 +111,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "69"
             endingLineNumber = "69"
-            landmarkName = "-fireWithIllegalType:corpPolicy:"
+            landmarkName = "-init"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -127,7 +127,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "76"
             endingLineNumber = "76"
-            landmarkName = "-fireWithIllegalType:corpPolicy:"
+            landmarkName = "-fireWithIllegalType:corpPolicy:flight:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

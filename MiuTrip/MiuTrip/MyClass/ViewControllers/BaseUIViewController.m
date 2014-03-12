@@ -10,6 +10,7 @@
 #import "RegisterAndLogViewController.h"
 #import "AppDelegate.h"
 #import "HomeViewController.h"
+#import "MobClick.h"
 
 @interface BaseUIViewController ()
 
@@ -19,6 +20,9 @@
 @end
 
 @implementation BaseUIViewController
+
+
+
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -241,9 +245,18 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    NSString *pageView = NSStringFromClass([self class]);
+    [MobClick beginLogPageView:pageView];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyBoardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyBoardWillHide:) name:UIKeyboardWillHideNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyBoardChangeFrame:) name:UIKeyboardWillChangeFrameNotification object:nil];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    NSString *pageView = NSStringFromClass([self class]);
+    [MobClick endLogPageView:pageView];
 }
 
 - (void)viewDidDisappear:(BOOL)animated
