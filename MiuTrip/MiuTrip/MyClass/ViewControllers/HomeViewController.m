@@ -19,7 +19,6 @@
 #import "LoginUserInfoResponse.h"
 #import "GetLoginUserInfoRequest.h"
 #import "LoginInfoDTO.h"
-#import "HotelListViewController.h"
 #import "HotelCantonViewController.h"
 #import "DateSelectViewController.h"
 #import "LogoutRequest.h"
@@ -561,6 +560,8 @@
         case 504:
             [self showPriceRangeDialog];
             break;
+            
+
         case 505:
             [self gotoHotelCantonViewController];
             break;

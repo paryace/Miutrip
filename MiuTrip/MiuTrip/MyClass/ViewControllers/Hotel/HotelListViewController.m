@@ -19,6 +19,7 @@
 #import "GetCorpPolicyRequest.h"
 #import "GetCorpPolicyResponse.h"
 #import "HotelCompileViewController.h"
+#import "HotelCantonViewController.h"
 
 @interface HotelListViewController ()
 
@@ -174,12 +175,18 @@
             [self sortByPrice];
             break;
         case 103:
-            
+            [self cantonSelect];
             break;
         default:
             break;
     }
 }
+
+- (void)cantonSelect {
+    HotelCantonViewController *hcv = [[HotelCantonViewController alloc] init];
+    [self pushViewController:hcv transitionType:TransitionPush completionHandler:nil];
+}
+
 
 -(void)sortByRecommend
 {

@@ -61,7 +61,8 @@
 -(void)getCityCantons
 {
     GetHotelDistrictsRequest *request = [[GetHotelDistrictsRequest alloc] initWidthBusinessType:BUSINESS_COMMON methodName:@"GetDistricts"];
-    request.cityId = [NSNumber numberWithInt:448];
+    int hdc = [[HotelDataCache sharedInstance] checkInCityId];
+    request.cityId = [NSNumber numberWithInt:hdc];
     
     [self.requestManager sendRequest:request];
     
@@ -111,7 +112,7 @@
     HotelDataCache *hotelData = [HotelDataCache sharedInstance];
     hotelData.queryCantonName = [data objectForKey:@"DistrictName"];
     hotelData.queryCantonId = [[data objectForKey:@"ID"] intValue];
-    [self dismissViewControllerAnimated:NO completion:nil];
+    [self popViewControllerTransitionType:TransitionPush completionHandler:nil];
 }
 
 - (void)viewDidLoad
