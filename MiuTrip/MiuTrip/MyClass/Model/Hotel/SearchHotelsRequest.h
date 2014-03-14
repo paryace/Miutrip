@@ -27,6 +27,8 @@
 @property(strong,nonatomic) NSString *latitude;         //纬度
 @property(strong,nonatomic) NSString *longitude;        //经度
 @property(strong,nonatomic) NSNumber *radius;           //半径(有纬度、经度时比传)
+@property(strong,nonatomic) NSString *HotelPostion;     //区名
+@property(strong,nonatomic) NSNumber *HotelPostionId;   //区号
 
 
 @end

@@ -8,10 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
+#define kCELLHEIGHT  41.5f
+
 @interface SiftCorpCell : UITableViewCell
 
 @property (nonatomic, strong) UIImageView *btnImage;
 @property (nonatomic, strong) UILabel *airCorpName;
+
+@property (strong, nonatomic) NSString    *detail;
 
 @property (nonatomic, assign) BOOL isSelected;
 

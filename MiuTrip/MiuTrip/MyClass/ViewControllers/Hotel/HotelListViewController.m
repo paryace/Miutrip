@@ -23,6 +23,8 @@
 
 @interface HotelListViewController ()
 
+@property (strong, nonatomic) NSMutableDictionary  *hotelSiftRule;
+
 @end
 
 @implementation HotelListViewController
@@ -182,11 +184,29 @@
     }
 }
 
+/**
+ *酒店筛选
+ */
 - (void)cantonSelect {
-    HotelCantonViewController *hcv = [[HotelCantonViewController alloc] init];
-    [self pushViewController:hcv transitionType:TransitionPush completionHandler:nil];
+    HotelSiftViewController *hcv = [[HotelSiftViewController alloc] init];
+    [hcv setDelegate:self];
+    [self pushViewController:hcv transitionType:TransitionPush completionHandler:^{
+        [hcv GetDistricts];
+    }];
 }
 
+- (void)hotelSiftSelectDone:(NSMutableDictionary*)data
+{
+    [_hotelListData removeAllObjects];
+    [self addLoadingView];
+    
+    NSDictionary *canton = [data objectForKey:@"canton"];
+    if (![Utils isEmpty:canton]) {
+        [HotelDataCache sharedInstance].queryCantonName = [canton objectForKey:@"DistrictName"];
+        [HotelDataCache sharedInstance].queryCantonId   = [[canton objectForKey:@"ID"] intValue];
+    }
+    [self searchHotels];
+}
 
 -(void)sortByRecommend
 {
@@ -313,6 +333,9 @@
     _request.longitude = @"";
     _request.radius = [NSNumber numberWithInt:0];
     _request.IsPrePay = [NSNumber numberWithBool:YES];
+    
+    _request.HotelPostion = data.queryCantonName;
+    _request.HotelPostionId = [NSNumber numberWithInt:data.queryCantonId];
     
     [self.requestManager sendRequest:_request];
 }

@@ -7,6 +7,7 @@
 //
 
 #import "BaseRequestModel.h"
+#import "GetHotelDistrictsResponse.h"
 
 @interface GetHotelDistrictsRequest : BaseRequestModel
 

@@ -271,6 +271,8 @@
 }
 
 - (void)getOrder{
+//    [self addLoadingView];
+
     if (_orderType == OrderTypeAir){
         NSLog(@"ninininin");
         _airRequest = [[GetFlightOrderListRequest alloc]initWidthBusinessType:BUSINESS_FLIGHT methodName:@"GetOrderList"];
@@ -282,7 +284,6 @@
         _airRequest.NotTravel = [NSNumber numberWithBool:false];
         _airRequest.isCorpDelivery = [NSNumber numberWithBool:false];
         [self.requestManager sendRequest:_airRequest];
-        [self addLoadingView];
     }
     if (_orderType == OrderTypeHotel){
         _hotelRequest = [[GetOrderRequest alloc]initWidthBusinessType:BUSINESS_HOTEL methodName:@"GetOrders"];
@@ -292,7 +293,6 @@
         _hotelRequest.PageSize=[NSNumber numberWithInt:10];
         _hotelRequest.Status = [NSNumber numberWithInt:0];
         [self.requestManager sendRequest:_hotelRequest];
-        [self addLoadingView];
     }
     
 }

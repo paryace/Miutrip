@@ -14,6 +14,7 @@
 #import "PullRefreshTableViewController.h"
 #import "CustomIOS7AlertView.h"
 #import "UIPopoverListView.h"
+#import "HotelSiftViewController.h"
 
 typedef NS_ENUM(NSInteger, ListSortType)
 {
@@ -23,7 +24,7 @@ typedef NS_ENUM(NSInteger, ListSortType)
 };
 
 
-@interface HotelListViewController : PullRefreshTableViewController<CustomIOS7AlertViewDelegate,UIPopoverListViewDataSource,UIPopoverListViewDelegate>
+@interface HotelListViewController : PullRefreshTableViewController<CustomIOS7AlertViewDelegate,UIPopoverListViewDataSource,UIPopoverListViewDelegate,HotelSiftDelegate>
 
 @property (nonatomic,strong) SearchHotelsRequest *request;
 @property (nonatomic,assign) UIView              *titleView;

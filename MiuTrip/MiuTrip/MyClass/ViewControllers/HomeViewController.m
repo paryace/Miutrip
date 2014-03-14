@@ -1661,7 +1661,8 @@
         
         HotelSearchView *hotelSearchView = (HotelSearchView *)[self.contentView viewWithTag:2001];
         [hotelSearchView setPriceRange:[_popupListData objectAtIndex:indexPath.row]];
-        
+        HotelDataCache *data = [HotelDataCache sharedInstance];
+        data.priceRangeIndex = indexPath.row;
     }
     
 }
@@ -1672,12 +1673,13 @@
     return 45.0f;
 }
 
--(void)viewDidAppear:(BOOL)animated
+- (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
     
     HotelSearchView *hotelSearchView = (HotelSearchView*)[self.contentView viewWithTag:2001];
     [hotelSearchView setHotelCanton:[HotelDataCache sharedInstance].queryCantonName];
+    [hotelSearchView setPriceRange:[[HotelDataCache sharedInstance].priceRangeArray objectAtIndex:[HotelDataCache sharedInstance].priceRangeIndex]];
     [hotelSearchView updateDate];
     [hotelSearchView updateCity];
 }

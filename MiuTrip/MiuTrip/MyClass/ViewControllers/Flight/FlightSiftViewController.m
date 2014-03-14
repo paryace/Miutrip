@@ -12,7 +12,6 @@
 
 
 
-#define kCELLHEIGHT  41.5f
 
 
 @interface FlightSiftViewController ()
@@ -52,12 +51,6 @@
     return self;
 }
 
-
-
-
-
-
-
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
@@ -91,7 +84,7 @@
 {
     [self setBackGroundImage:imageNameAndType(@"home_bg", nil)];
     [self setTopBarBackGroundImage:imageNameAndType(@"topbar", nil)];
-    [self setTitle:@"筛选"];
+    [self setTitle:@"机票筛选"];
     
     UIButton *returnBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [returnBtn setBackgroundColor:color(clearColor)];

@@ -62,8 +62,27 @@
 {
     if (self = [super init]) {
         _Flight = [[DomesticFlightDataDTO alloc]init];
+        _RCofRate = @"0";
     }
     return self;
+}
+
+- (void)parshJsonToResponse:(NSObject *)jsonData
+{
+    [super parshJsonToResponse:jsonData];
+    if ([Utils isEmpty:_RCofRate]) {
+        _RCofRate = @"0";
+    }
+}
+
+- (void)setRCofRate:(NSString *)RCofRate
+{
+    if (_RCofRate != RCofRate) {
+        if ([Utils isEmpty:RCofRate]) {
+            RCofRate = @"0";
+        }
+        _RCofRate = RCofRate;
+    }
 }
 
 - (NSDictionary *)getRequestJsonString

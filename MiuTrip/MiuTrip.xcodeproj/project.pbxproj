@@ -377,6 +377,7 @@
 		46D9D2C1188BBC5500E8A1EF /* SendSMSRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 46D9D2A0188BBC5500E8A1EF /* SendSMSRequest.m */; };
 		46D9D2C2188BBC5500E8A1EF /* SendSMSResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 46D9D2A2188BBC5500E8A1EF /* SendSMSResponse.m */; };
 		527E58F718B5A77600590A49 /* libUPPayPlugin.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 46D0F5D8188B9B0E0063CEE6 /* libUPPayPlugin.a */; };
+		52AFBA4218D15B2100533E33 /* HotelSiftViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52AFBA4118D15B2100533E33 /* HotelSiftViewController.m */; };
 		52B2097F18B46B0700CAFE9A /* icon_finish.png in Resources */ = {isa = PBXBuildFile; fileRef = 52B2097E18B46B0700CAFE9A /* icon_finish.png */; };
 		52B2098218B4791F00CAFE9A /* ForgetPasswordRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 52B2098118B4791F00CAFE9A /* ForgetPasswordRequest.m */; };
 		52B2098518B4793600CAFE9A /* ForgetPasswordResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 52B2098418B4793600CAFE9A /* ForgetPasswordResponse.m */; };
@@ -1049,6 +1050,8 @@
 		46D9D2A0188BBC5500E8A1EF /* SendSMSRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SendSMSRequest.m; sourceTree = "<group>"; };
 		46D9D2A1188BBC5500E8A1EF /* SendSMSResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SendSMSResponse.h; sourceTree = "<group>"; };
 		46D9D2A2188BBC5500E8A1EF /* SendSMSResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SendSMSResponse.m; sourceTree = "<group>"; };
+		52AFBA4018D15B2100533E33 /* HotelSiftViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HotelSiftViewController.h; sourceTree = "<group>"; };
+		52AFBA4118D15B2100533E33 /* HotelSiftViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HotelSiftViewController.m; sourceTree = "<group>"; };
 		52B2097E18B46B0700CAFE9A /* icon_finish.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_finish.png; sourceTree = "<group>"; };
 		52B2098018B4791F00CAFE9A /* ForgetPasswordRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ForgetPasswordRequest.h; sourceTree = "<group>"; };
 		52B2098118B4791F00CAFE9A /* ForgetPasswordRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ForgetPasswordRequest.m; sourceTree = "<group>"; };
@@ -2157,6 +2160,8 @@
 				F2EECB6318924787005C7A81 /* HotelCompileViewController.m */,
 				FA6661C118AF0EDD00366241 /* HotelCityListViewController.h */,
 				FA6661C218AF0EDD00366241 /* HotelCityListViewController.m */,
+				52AFBA4018D15B2100533E33 /* HotelSiftViewController.h */,
+				52AFBA4118D15B2100533E33 /* HotelSiftViewController.m */,
 			);
 			path = Hotel;
 			sourceTree = "<group>";
@@ -2898,6 +2903,7 @@
 				18E9834218B317C7008C3ABC /* OnLineAllClass.m in Sources */,
 				18A905FA184C855300AE4835 /* DeleteMemberPassengerRequest.m in Sources */,
 				18A905FD184C878900AE4835 /* GetMemberDeliverListRequest.m in Sources */,
+				52AFBA4218D15B2100533E33 /* HotelSiftViewController.m in Sources */,
 				18A90600184C89C400AE4835 /* DeleteMemberDeliverRequest.m in Sources */,
 				18A13719184F13C100516ED3 /* GetCorpCostRequest.m in Sources */,
 				4673B350188B989D00CABE33 /* FMDatabase.m in Sources */,
@@ -3047,11 +3053,11 @@
 					/usr/include/libxml2,
 				);
 				INFOPLIST_FILE = "MiuTrip/MiuTrip-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(SRCROOT)/MiuTrip/Library/UPPayPlugin",
 					"$(SRCROOT)/MiuTrip/Library/FMDatabase",
-					/Users/apple/Desktop/Miutrip/MiuTrip/MiuTrip/Library/Sandbox,
+					"$(SRCROOT)/MiuTrip/Library/Sandbox",
 				);
 				OTHER_LDFLAGS = "-lxml2";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -3079,11 +3085,11 @@
 					/usr/include/libxml2,
 				);
 				INFOPLIST_FILE = "MiuTrip/MiuTrip-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(SRCROOT)/MiuTrip/Library/UPPayPlugin",
 					"$(SRCROOT)/MiuTrip/Library/FMDatabase",
-					/Users/apple/Desktop/Miutrip/MiuTrip/MiuTrip/Library/Sandbox,
+					"$(SRCROOT)/MiuTrip/Library/Sandbox",
 				);
 				OTHER_LDFLAGS = "-lxml2";
 				PRODUCT_NAME = "$(TARGET_NAME)";

@@ -62,10 +62,12 @@
 
 - (void)UPPayPluginResult:(NSString*)result
 {
-    [self popToMainViewControllerTransitionType:TransitionNone completionHandler:^{
-        NSLog(@"pop to main");
-        [[Model shareModel] goToAirOrderList];
-    }];
+    if ([result isEqualToString:@"Success"]) {
+        [self popToMainViewControllerTransitionType:TransitionNone completionHandler:^{
+            NSLog(@"pop to main");
+            [[Model shareModel] goToAirOrderList];
+        }];
+    }
 }
 
 - (void)pressOrderDetailBtn:(UIButton*)sender

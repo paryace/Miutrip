@@ -57,8 +57,15 @@
     }else
     {
         self.btnImage.image = [UIImage imageNamed:@"set_item_normal"];
-        
     }
+}
+
+- (void)setDetail:(NSString *)detail
+{
+    if (_detail != detail) {
+        _detail = detail;
+    }
+    [_airCorpName setText:detail];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
