@@ -287,6 +287,11 @@
         _request.ReserveType = @"2";
     }
     
+//    if (data.lat && data.lng) {
+//        _request.latitude = [NSString stringWithFormat:@"%f",data.lat];
+//        _request.longitude = [NSString stringWithFormat:@"%f",data.lng];
+//    }
+    
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:@"yyyy-MM-dd"];
     
@@ -329,13 +334,13 @@
     _request.SortBy = [NSNumber numberWithInt:6];
     _request.Facility = @"";
     _request.StarReted = @"";
-    _request.latitude = @"";
-    _request.longitude = @"";
     _request.radius = [NSNumber numberWithInt:0];
-    _request.IsPrePay = [NSNumber numberWithBool:YES];
+    _request.IsPrePay = [NSNumber numberWithBool:data.isPrePay];
     
-    _request.HotelPostion = data.queryCantonName;
-    _request.HotelPostionId = [NSNumber numberWithInt:data.queryCantonId];
+    if (data.queryCantonId) {
+        _request.HotelPosition = data.queryCantonName;
+        _request.HotelPositionId = [NSNumber numberWithInt:data.queryCantonId];
+    }
     
     [self.requestManager sendRequest:_request];
 }
@@ -742,6 +747,11 @@
        numberOfRowsInSection:(NSInteger)section
 {
     return _popupListData.count;
+}
+
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    
 }
 
 #pragma mark - UIPopoverListViewDelegate

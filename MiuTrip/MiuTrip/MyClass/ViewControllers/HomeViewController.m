@@ -141,6 +141,28 @@
             [HotelDataCache sharedInstance].lng = oldLocation.coordinate.longitude;
         }
     }
+
+    [self getNearHotels];
+}
+
+/**
+ *add shake handle
+ */
+- (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event
+{
+    if (motion == UIEventSubtypeMotionShake) {
+        [self findNearHotels];
+    }
+}
+
+- (void)getNearHotels
+{
+    [self gotoHotelList];
+}
+
+- (void)findNearHotels
+{
+    [self startLocation];
 }
 
 - (void)logOff:(UIButton*)sender

@@ -10,5 +10,24 @@
 
 @implementation SearchHotelsRequest
 
+- (id)init
+{
+    self = [super init];
+    if (self) {
+        _ServerFrom = deviceId;
+        _StarRated  = @"";
+    }
+    return self;
+}
+
+- (BaseRequestModel *)initWidthBusinessType:(BusinessType)bussinessType methodName:(NSString *)methodName
+{
+    self = [super initWidthBusinessType:bussinessType methodName:methodName];
+    if (self) {
+        _ServerFrom = deviceId;
+        _StarRated  = @"";
+    }
+    return self;
+}
 
 @end

@@ -27,6 +27,7 @@
 @property (strong, nonatomic) NSString             *queryCantonName;         //酒店位置
 @property (nonatomic) int                          queryCantonId;         //酒店所在区ID
 @property (strong, nonatomic) NSString             *keyWord;              //酒店名字
+@property (strong, nonatomic) NSString             *ReserveType;           //预订类型(为本人预订(1) 为多人预订(2))
 
 @property (strong, nonatomic) NSMutableArray              *customers;             //入住人
 

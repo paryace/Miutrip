@@ -338,14 +338,50 @@
     UIView *costView = [[UIView alloc] initWithFrame:CGRectMake(10, y+40, width-20, 0)];
     [scrollView addSubview:costView];
 
-    UILabel *orderAmount = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 200, 30)];
+    UILabel *orderAmount = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 100, 30)];
     [orderAmount setBackgroundColor:color(clearColor)];
     [orderAmount setFont:[UIFont systemFontOfSize:13]];
+    [orderAmount setAutoSize:YES];
     [orderAmount setTextColor:color(grayColor)];
     
     NSString *orderAmountText = [NSString stringWithFormat:@"订单总额：￥%d",_roomPrice];
     [orderAmount setText:orderAmountText];
     [costView addSubview:orderAmount];
+    
+    if (!data.isForSelf) {
+        UIButton *addBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [addBtn setFrame:CGRectMake(controlXLength(orderAmount) + 10, orderAmount.frame.origin.y, (costView.frame.size.width - controlXLength(orderAmount) - 10 - orderAmount.frame.origin.x/2)/3, orderAmount.frame.size.height)];
+        [addBtn setBackgroundImage:imageNameAndType(@"flight_btn_bg", nil) forState:UIControlStateNormal];
+        [addBtn setBackgroundImage:imageNameAndType(@"flight_btn_selected", nil) forState:UIControlStateHighlighted];
+        [addBtn setTitle:@"选择" forState:UIControlStateNormal];
+        [addBtn.titleLabel setFont:[UIFont systemFontOfSize:13]];
+        [addBtn setTag:500];
+        [addBtn addTarget:self action:@selector(pressEditCustomersBtn:) forControlEvents:UIControlEventTouchUpInside];
+        [addBtn setTitleColor:color(blackColor) forState:UIControlStateNormal];
+        [costView addSubview:addBtn];
+        
+        UIButton *editBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [editBtn setFrame:CGRectMake(controlXLength(addBtn), addBtn.frame.origin.y, addBtn.frame.size.width, addBtn.frame.size.height)];
+        [editBtn setBackgroundImage:imageNameAndType(@"flight_btn_bg", nil) forState:UIControlStateNormal];
+        [editBtn setBackgroundImage:imageNameAndType(@"flight_btn_selected", nil) forState:UIControlStateHighlighted];
+        [editBtn setTitle:@"编辑" forState:UIControlStateNormal];
+        [editBtn.titleLabel setFont:[UIFont systemFontOfSize:13]];
+        [editBtn addTarget:self action:@selector(pressEditCustomersBtn:) forControlEvents:UIControlEventTouchUpInside];
+        [editBtn setTag:501];
+        [editBtn setTitleColor:color(blackColor) forState:UIControlStateNormal];
+        [costView addSubview:editBtn];
+        
+        UIButton *newBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [newBtn setFrame:CGRectMake(controlXLength(editBtn), editBtn.frame.origin.y, editBtn.frame.size.width, editBtn.frame.size.height)];
+        [newBtn setBackgroundImage:imageNameAndType(@"flight_btn_bg", nil) forState:UIControlStateNormal];
+        [newBtn setBackgroundImage:imageNameAndType(@"flight_btn_selected", nil) forState:UIControlStateHighlighted];
+        [newBtn setTitle:@"新增" forState:UIControlStateNormal];
+        [newBtn.titleLabel setFont:[UIFont systemFontOfSize:13]];
+        [newBtn setTag:502];
+        [newBtn addTarget:self action:@selector(pressEditCustomersBtn:) forControlEvents:UIControlEventTouchUpInside];
+        [newBtn setTitleColor:color(blackColor) forState:UIControlStateNormal];
+        [costView addSubview:newBtn];
+    }
     
     UIColor *costBgColor = [UIColor colorWithPatternImage: [UIImage imageNamed:@"bg_hotel_cost.png"]];
     UIView *consumerTitle = [[UIView alloc] initWithFrame:CGRectMake(1,30,width-22,35)];
@@ -382,6 +418,8 @@
     tableView.delegate = self;
     tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [costView addSubview:tableView];
+    
+    [costView setFrame:CGRectMake(costView.frame.origin.x, costView.frame.origin.y, costView.frame.size.width, controlYLength(tableView))];
     
     y += 125+tableHeight;
     
@@ -473,6 +511,33 @@
 
 }
 
+#pragma mark - customers edit handle
+- (void)pressEditCustomersBtn:(UIButton*)sender
+{
+    switch (sender.tag) {
+        case 500:{
+            PassengerListViewController *passengerListView = [[PassengerListViewController alloc]init];
+            [passengerListView setDelegate:self];
+            [self pushViewController:passengerListView transitionType:TransitionPush completionHandler:^{
+                
+            }];
+            break;
+        }case 501:{
+            
+            break;
+        }case 502:{
+            
+            break;
+        }
+        default:
+            break;
+    }
+}
+
+- (void)selectDone:(NSMutableArray*)array
+{
+    
+}
 
 -(void)onBtnPressed:(UIButton*)sender{
     int tag = sender.tag;
@@ -482,6 +547,7 @@
             break;
         case 1002:
             [self showRoomCountPopView];
+            break;
         case 1003:
             [self showPopupListWithTitle:@"选择联系人" withType:2 withData:_contactorArray];
             break;
@@ -516,8 +582,13 @@
 
 
 -(void)showRoomCountPopView{
-     NSArray *array = [[NSArray alloc]initWithObjects:@"1", nil];
-    [self showPopupListWithTitle:@"房间数量" withType:0 withData:array];
+    NSArray *customers = [HotelDataCache sharedInstance].customers;
+    NSMutableArray *objects = [NSMutableArray array];
+    for ( int i = 0; i<[customers count]; i++) {
+        NSString *str = [NSString stringWithFormat:@"%d间",i + 1];
+        [objects addObject:str];
+    }
+    [self showPopupListWithTitle:@"房间数量" withType:0 withData:objects];
 }
 
 -(void)submitOrder{
