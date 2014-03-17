@@ -15,7 +15,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "332"
             endingLineNumber = "332"
-            landmarkName = "-pressMainBtn:"
+            landmarkName = "-tableView:didSelectRowAtIndexPath:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -31,8 +31,38 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "337"
             endingLineNumber = "337"
-            landmarkName = "-pressMainBtn:"
+            landmarkName = "-tableView:didSelectRowAtIndexPath:"
             landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[AirListViewController tableView:didSelectRowAtIndexPath:]"
+                  moduleName = "MiuTrip"
+                  urlString = "file://localhost/Users/apple/Desktop/Miutrip/MiuTrip/MiuTrip/MyClass/ViewControllers/Flight/AirListViewController.m"
+                  timestampString = "416728788.573736"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "337"
+                  endingLineNumber = "337"
+                  offsetFromSymbolStart = "820">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[AirListViewController tableView:didSelectRowAtIndexPath:]"
+                  moduleName = "MiuTrip"
+                  urlString = "file://localhost/Users/apple/Desktop/Miutrip/MiuTrip/MiuTrip/MyClass/ViewControllers/Flight/AirListViewController.m"
+                  timestampString = "416728788.574041"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "337"
+                  endingLineNumber = "337"
+                  offsetFromSymbolStart = "927">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -47,7 +77,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "404"
             endingLineNumber = "404"
-            landmarkName = "-checkOrderStatusWithCorpPolicy:withObject:"
+            landmarkName = "-pressSubjoinBtn:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -63,7 +93,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "408"
             endingLineNumber = "408"
-            landmarkName = "-checkOrderStatusWithCorpPolicy:withObject:"
+            landmarkName = "-pressSubjoinBtn:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -79,7 +109,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "441"
             endingLineNumber = "441"
-            landmarkName = "-checkOrderStatusWithCorpPolicy:withObject:"
+            landmarkName = "-goToOrderFillView"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -95,7 +125,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "444"
             endingLineNumber = "444"
-            landmarkName = "-checkOrderStatusWithCorpPolicy:withObject:"
+            landmarkName = "-goToOrderFillView"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -143,7 +173,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "445"
             endingLineNumber = "445"
-            landmarkName = "-checkOrderStatusWithCorpPolicy:withObject:"
+            landmarkName = "-goToOrderFillView"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -175,7 +205,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "925"
             endingLineNumber = "925"
-            landmarkName = "-pressFilterBtn:"
+            landmarkName = "-pressPriceCompareBtn:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -191,7 +221,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "939"
             endingLineNumber = "939"
-            landmarkName = "-pressFilterBtn:"
+            landmarkName = "-siftDone:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

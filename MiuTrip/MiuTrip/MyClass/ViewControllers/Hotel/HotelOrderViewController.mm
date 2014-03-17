@@ -14,6 +14,8 @@
 #import "SubmitOrderRequest.h"
 #import "Utils.h"
 #import "SubmitOrderResponse.h"
+#import "EditGuestViewController.h"
+
 
 #define KBtn_width        200
 #define KBtn_height       80
@@ -768,10 +770,29 @@
         apportionString = [NSString stringWithFormat:@"￥%d承担半价",_roomPrice/2];
     }
     cellView.costApportion.text = apportionString;
-    
     return cellView;
 }
 
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    EditGuestViewController *egvc = [[EditGuestViewController alloc] init];
+    customerTableViewCell *cell = (customerTableViewCell *)[tableView cellForRowAtIndexPath:indexPath];
+    egvc.userName.text = cell.name.text;
+    
+    egvc.selectResult = ^(NSString *userName, NSString *costCentre, NSString *shareAmount){
+        if (![costCentre isEqualToString:@"选着成本中心"]) {
+            cell.costCenter.text = costCentre;
+        }
+        if (![userName isEqualToString:cell.name.text]) {
+            cell.name.text = userName;
+        }
+        if (![cell.costApportion.text isEqualToString:@"选择分摊方式"]) {
+            
+        }
+    };
+    [self pushViewController:egvc transitionType:TransitionPush completionHandler:nil];
+}
 
 #pragma mark - uppay Alert
 
