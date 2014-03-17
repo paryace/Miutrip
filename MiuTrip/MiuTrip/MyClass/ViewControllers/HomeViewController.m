@@ -1276,42 +1276,45 @@
                 BookPassengersResponse *response = (BookPassengersResponse*) item;
                 customer.name = response.UserName;
                 customer.UID = response.UniqueID;
-                customer.passengerId = [response.PassengerID stringValue];
-                customer.corpUID = [response.CorpID stringValue];
+                customer.passengerId = [NSString stringWithFormat:@"%@",response.PassengerID];
+                customer.corpUID = [NSString stringWithFormat:@"%@",response.CorpUID];
                 customer.costCenter = response.DeptName;
                 customer.apportionRate = 1;
                 [data.customers addObject:customer];
                 
-            }else if([item isKindOfClass:[CorpStaffDTO class]]){
-                CorpStaffDTO *staff = (CorpStaffDTO*)item;
-                customer.name = staff.UserName;
-                customer.UID = staff.UniqueID;
-                customer.passengerId = [staff.PassengerID stringValue];
-                customer.corpUID = staff.CorpUID;
-                customer.costCenter = staff.DeptName;
-                customer.apportionRate = 1;
-                [data.customers addObject:customer];
-                
             }
+//                else if([item isKindOfClass:[CorpStaffDTO class]]){
+//                CorpStaffDTO *staff = (CorpStaffDTO*)item;
+//                customer.name = staff.UserName;
+//                customer.UID = staff.UniqueID;
+//                customer.passengerId = [NSString stringWithFormat:@"%@",staff.PassengerID];
+//                customer.corpUID = staff.CorpUID;
+//                customer.costCenter = staff.DeptName;
+//                customer.apportionRate = 1;
+//                [data.customers addObject:customer];
+//                
+//            }
             
         }
         
         HotelCustomerModel *model = [[HotelCustomerModel alloc] init];
-        if([policy isKindOfClass:[CorpStaffDTO class]]){
-            CorpStaffDTO *staff = (CorpStaffDTO*)policy;
-            model.name = staff.UserName;
-            model.UID = staff.UniqueID;
-            model.passengerId = [staff.PassengerID stringValue];
-            model.corpUID = staff.CorpUID;
-            model.policyId = [staff.PolicyID intValue];
-
-        }else if([policy isKindOfClass:[BookPassengersResponse class]]){
+//        if([policy isKindOfClass:[CorpStaffDTO class]]){
+//            CorpStaffDTO *staff = (CorpStaffDTO*)policy;
+//            model.name = staff.UserName;
+//            model.UID = staff.UniqueID;
+//            model.passengerId = [NSString stringWithFormat:@"%@",staff.PassengerID];
+//            model.corpUID = staff.CorpUID;
+//            model.policyId = [staff.PolicyID intValue];
+//
+//        }else
+        if([policy isKindOfClass:[BookPassengersResponse class]]){
             BookPassengersResponse *response = (BookPassengersResponse*)policy;
             model.name = response.UserName;
             model.UID = response.UniqueID;
-            model.passengerId = [response.PassengerID stringValue];
+            model.passengerId = [NSString stringWithFormat:@"%@",response.PassengerID];
             model.corpUID = response.CorpUID;
             model.policyId = [response.PolicyID intValue];
+            
         }
         data.executor = model;
         HotelListViewController * hotelListView  = [[HotelListViewController alloc] init];

@@ -10,6 +10,7 @@
 
 @class MemberIDcardResponse;
 @class AirlineCardReaponse;
+@class HotelCustomerModel;
 
 @interface GetContactResponse : BaseResponseModel
 
@@ -77,6 +78,8 @@
 @property (strong, nonatomic) NSNumber      *unfold;
 
 - (MemberIDcardResponse*)getDefaultIDCard;
+
+
 
 
 @end

@@ -62,6 +62,7 @@
 @property (strong, nonatomic) NSNumber          *IsShowMore;            //是否显示子舱位       bool
 @property (strong, nonatomic) NSString          *FlyTime;               //飞行时间
 @property (strong, nonatomic) NSString          *Guid;                  //航班查询GUID
+@property (strong, nonatomic) NSString          *MiutripGuid;
 @property (strong, nonatomic) NSString          *PassengerType;         //乘客类型
 
 

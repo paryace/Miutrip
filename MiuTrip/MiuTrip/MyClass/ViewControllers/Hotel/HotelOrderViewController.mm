@@ -39,6 +39,16 @@
 
 @interface HotelOrderViewController ()
 
+@property (strong, nonatomic) NSMutableArray    *customers;
+
+@property (strong, nonatomic) UIView            *costView;
+@property (strong, nonatomic) UIView            *customerBG;
+@property (strong, nonatomic) UIButton          *pressToSelectBtn;
+
+@property (strong, nonatomic) UIView            *contactView;
+
+@property (strong, nonatomic) UITableView       *tableView;
+
 @end
 
 @implementation HotelOrderViewController
@@ -119,7 +129,7 @@
     float height = self.contentView.frame.size.height - 78;
     
     UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0,40,width,height)];
-    scrollView.tag = 1000;
+    scrollView.tag = 2000;
     scrollView.delaysContentTouches = NO;
     [self.view addSubview:scrollView];
     
@@ -131,7 +141,7 @@
     [infoTitle setText:@"基本信息"];
     [scrollView addSubview:infoTitle];
     
-
+    
     UIImageView *introBgView = [[UIImageView alloc] init];
     [introBgView setFrame:CGRectMake(10, 25, width-20, 245)];
     [introBgView setBackgroundColor:color(whiteColor)];
@@ -210,7 +220,7 @@
     }
     
     [introBgView setFrame:CGRectMake(10, 25, width-20, firstSectionHeight)];
-   
+    
     
     //入住人手机
     UILabel *mobileTitle = [[UILabel alloc] initWithFrame:CGRectMake(16, y+3, 70, 40)];
@@ -335,11 +345,14 @@
     [costBg setBorderColor:color(lightGrayColor) width:1.0];
     [costBg setCornerRadius:5.0];
     [costBg setAlpha:1.0f];
-    [scrollView addSubview:costBg];
+//    [scrollView addSubview:costBg];
     
-    UIView *costView = [[UIView alloc] initWithFrame:CGRectMake(10, y+40, width-20, 0)];
-    [scrollView addSubview:costView];
-
+    _costView = [[UIView alloc] initWithFrame:CGRectMake(10, y+40, width-20, 0)];
+    [_costView setBackgroundColor:color(whiteColor)];
+    [_costView setBorderColor:color(lightGrayColor) width:1.0];
+    [_costView setCornerRadius:5.0];
+    [scrollView addSubview:_costView];
+    
     UILabel *orderAmount = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 100, 30)];
     [orderAmount setBackgroundColor:color(clearColor)];
     [orderAmount setFont:[UIFont systemFontOfSize:13]];
@@ -348,11 +361,11 @@
     
     NSString *orderAmountText = [NSString stringWithFormat:@"订单总额：￥%d",_roomPrice];
     [orderAmount setText:orderAmountText];
-    [costView addSubview:orderAmount];
+    [_costView addSubview:orderAmount];
     
     if (!data.isForSelf) {
         UIButton *addBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [addBtn setFrame:CGRectMake(controlXLength(orderAmount) + 10, orderAmount.frame.origin.y, (costView.frame.size.width - controlXLength(orderAmount) - 10 - orderAmount.frame.origin.x/2)/3, orderAmount.frame.size.height)];
+        [addBtn setFrame:CGRectMake(controlXLength(orderAmount) + 10, orderAmount.frame.origin.y, (_costView.frame.size.width - controlXLength(orderAmount) - 10 - orderAmount.frame.origin.x/2)/3, orderAmount.frame.size.height)];
         [addBtn setBackgroundImage:imageNameAndType(@"flight_btn_bg", nil) forState:UIControlStateNormal];
         [addBtn setBackgroundImage:imageNameAndType(@"flight_btn_selected", nil) forState:UIControlStateHighlighted];
         [addBtn setTitle:@"选择" forState:UIControlStateNormal];
@@ -360,7 +373,7 @@
         [addBtn setTag:500];
         [addBtn addTarget:self action:@selector(pressEditCustomersBtn:) forControlEvents:UIControlEventTouchUpInside];
         [addBtn setTitleColor:color(blackColor) forState:UIControlStateNormal];
-        [costView addSubview:addBtn];
+        [_costView addSubview:addBtn];
         
         UIButton *editBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [editBtn setFrame:CGRectMake(controlXLength(addBtn), addBtn.frame.origin.y, addBtn.frame.size.width, addBtn.frame.size.height)];
@@ -371,7 +384,7 @@
         [editBtn addTarget:self action:@selector(pressEditCustomersBtn:) forControlEvents:UIControlEventTouchUpInside];
         [editBtn setTag:501];
         [editBtn setTitleColor:color(blackColor) forState:UIControlStateNormal];
-        [costView addSubview:editBtn];
+        [_costView addSubview:editBtn];
         
         UIButton *newBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [newBtn setFrame:CGRectMake(controlXLength(editBtn), editBtn.frame.origin.y, editBtn.frame.size.width, editBtn.frame.size.height)];
@@ -382,14 +395,30 @@
         [newBtn setTag:502];
         [newBtn addTarget:self action:@selector(pressEditCustomersBtn:) forControlEvents:UIControlEventTouchUpInside];
         [newBtn setTitleColor:color(blackColor) forState:UIControlStateNormal];
-        [costView addSubview:newBtn];
+        [_costView addSubview:newBtn];
     }
     
+    _pressToSelectBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_pressToSelectBtn setFrame:CGRectMake(orderAmount.frame.origin.x, controlYLength(orderAmount) + 5, _costView.frame.size.width - orderAmount.frame.origin.x * 2, 40)];
+    [_pressToSelectBtn setBackgroundColor:color(colorWithRed:244.0/255.0 green:244.0/255.0 blue:244.0/255.0 alpha:1)];
+    [_pressToSelectBtn setTitle:@"点击进入姓名库选择" forState:UIControlStateNormal];
+    [_pressToSelectBtn setTitleColor:color(lightGrayColor) forState:UIControlStateNormal];
+    [_pressToSelectBtn setTitleColor:color(darkGrayColor) forState:UIControlStateHighlighted];
+    [_pressToSelectBtn setCornerRadius:2.5];
+    [_pressToSelectBtn setBorderColor:color(darkGrayColor) width:0.5];
+    [_pressToSelectBtn setShaowColor:color(darkGrayColor) offset:CGSizeMake(4, 4) opacity:1 radius:2.5];
+    [_pressToSelectBtn addTarget:self action:@selector(editCustomer:) forControlEvents:UIControlEventTouchUpInside];
+    [_costView addSubview:_pressToSelectBtn];
+    
+    _customerBG = [[UIView alloc]initWithFrame:CGRectMake(0, controlYLength(orderAmount), _costView.frame.size.width, 0)];
+    [_customerBG setBackgroundColor:color(clearColor)];
+    [_costView addSubview:_customerBG];
+    
     UIColor *costBgColor = [UIColor colorWithPatternImage: [UIImage imageNamed:@"bg_hotel_cost.png"]];
-    UIView *consumerTitle = [[UIView alloc] initWithFrame:CGRectMake(1,30,width-22,35)];
+    UIView *consumerTitle = [[UIView alloc] initWithFrame:CGRectMake(1,0,width-22,35)];
     [consumerTitle setBackgroundColor:costBgColor];
-    [costView addSubview:consumerTitle];
-
+    [_customerBG addSubview:consumerTitle];
+    
     UILabel *consumerNameTitle = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, (width-20)/4, 35)];
     [consumerNameTitle setBackgroundColor:color(clearColor)];
     [consumerNameTitle setFont:[UIFont systemFontOfSize:12]];
@@ -415,35 +444,44 @@
     [consumerTitle addSubview:costApportionTitle];
     
     
-    UITableView *tableView = [[UITableView alloc] initWithFrame:CGRectMake(1, 75, width - 22, tableHeight)];
-    tableView.dataSource = self;
-    tableView.delegate = self;
-    tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    [costView addSubview:tableView];
+    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(1 , controlYLength(costApportionTitle), width - 22, tableHeight)];
+    _tableView.dataSource = self;
+    _tableView.delegate = self;
+    [_tableView setScrollEnabled:NO];
+    [_tableView setBackgroundColor:color(clearColor)];
+    _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    [_customerBG addSubview:_tableView];
     
-    [costView setFrame:CGRectMake(costView.frame.origin.x, costView.frame.origin.y, costView.frame.size.width, controlYLength(tableView))];
+    [_customerBG setFrame:CGRectMake(_customerBG.frame.origin.x, _customerBG.frame.origin.y, _customerBG.frame.size.width, controlYLength(_tableView))];
+    [_costView setFrame:CGRectMake(_costView.frame.origin.x, _costView.frame.origin.y, _costView.frame.size.width, controlYLength(_customerBG))];
     
     y += 125+tableHeight;
     
+    _contactView = [[UIView alloc]initWithFrame:CGRectMake(0, y, self.view.frame.size.width, 0)];
+    [_contactView setBackgroundColor:color(clearColor)];
+    //    [contactView setBorderColor:color(lightGrayColor) width:1.0];
+    //    [contactView setCornerRadius:5.0];
+    [scrollView addSubview:_contactView];
+    
     //填写联系人
-    UILabel *contactorTitle = [[UILabel alloc] initWithFrame:CGRectMake(15, y+5, 150, 18)];
+    UILabel *contactorTitle = [[UILabel alloc] initWithFrame:CGRectMake(15, 5, 150, 18)];
     [contactorTitle setBackgroundColor:color(clearColor)];
     [contactorTitle setTextColor:UIColorFromRGB(0xff606c97)];
     [contactorTitle setFont:[UIFont systemFontOfSize:15]];
     [contactorTitle setText:@"填写联系人"];
-    [scrollView addSubview:contactorTitle];
+    [_contactView addSubview:contactorTitle];
     
     UIImageView *contactorBg = [[UIImageView alloc] init];
-    [contactorBg setFrame:CGRectMake(10, y+30, width-20, 81)];
+    [contactorBg setFrame:CGRectMake(10, 30, width-20, 0)];
     [contactorBg setBackgroundColor:color(whiteColor)];
     [contactorBg setBorderColor:color(lightGrayColor) width:1.0];
     [contactorBg setCornerRadius:5.0];
     [contactorBg setAlpha:1.0f];
-    [scrollView addSubview:contactorBg];
+    [_contactView addSubview:contactorBg];
     
     
-    UIView *contactorView = [[UIView alloc] initWithFrame:CGRectMake(10, y+31, width-20, 81)];
-    [scrollView addSubview:contactorView];
+    UIView *contactorView = [[UIView alloc] initWithFrame:CGRectMake(10, 31, width-20, 81)];
+    [_contactView addSubview:contactorView];
     
     UILabel *nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 60, 40)];
     [nameLabel setBackgroundColor:color(clearColor)];
@@ -485,6 +523,7 @@
     [mobileText setBorderStyle:UITextBorderStyleRoundedRect];
     [mobileText setTextColor:color(blackColor)];
     [mobileText setFont:[UIFont systemFontOfSize:13]];
+    [mobileText setBackgroundColor:color(clearColor)];
     [mobileText setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
     [mobileText setText:[UserDefaults shareUserDefault].loginInfo.Mobilephone];
     [contactorView addSubview:mobileText];
@@ -493,10 +532,11 @@
     [arrow6 setFrame:CGRectMake(width - 46, 32, 12, 18)];
     [contactorView addSubview:arrow6];
     
-    UIButton *contactBtn = [[UIButton alloc] initWithFrame:CGRectMake(width-60, y+31, 40, 81)];
+    UIButton *contactBtn = [[UIButton alloc] initWithFrame:CGRectMake(width-60, 31, 40, 81)];
     contactBtn.tag = 1003;
+    [contactBtn setBackgroundColor:color(clearColor)];
     [contactBtn addTarget:self action:@selector(onBtnPressed:) forControlEvents:UIControlEventTouchUpInside];
-    [scrollView addSubview:contactBtn];
+    [_contactView addSubview:contactBtn];
     
     
     UIButton *submitOrderBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -505,12 +545,74 @@
     [submitOrderBtn setTitleColor:color(whiteColor) forState:UIControlStateNormal];
     [submitOrderBtn.titleLabel setFont:[UIFont boldSystemFontOfSize:18]];
     [submitOrderBtn setTitle:@"提交订单" forState:UIControlStateNormal];
-    [submitOrderBtn setFrame:CGRectMake(80, y+130, width-80*2, 40)];
+    [submitOrderBtn setFrame:CGRectMake(80, 130, width-80*2, 40)];
+    [submitOrderBtn setTag:1004];
     [submitOrderBtn addTarget:self action:@selector(userPayAction:) forControlEvents:UIControlEventTouchUpInside];
-    [scrollView addSubview:submitOrderBtn];
+    [_contactView addSubview:submitOrderBtn];
     
-    scrollView.contentSize = CGSizeMake(width,  y+200);
+    [contactorBg setFrame:CGRectMake(contactorBg.frame.origin.x, contactorBg.frame.origin.y, contactorBg.frame.size.width, contactBtn.frame.size.height)];
+    [_contactView setFrame:CGRectMake(_contactView.frame.origin.x, _contactView.frame.origin.y, _contactView.frame.size.width, controlYLength(submitOrderBtn))];
+    
+    scrollView.contentSize = CGSizeMake(width,  controlYLength(_contactView));
+    
+    [self setSelectCustomers:NO];
+}
 
+- (void)setSelectCustomers:(BOOL)animation
+{
+    NSArray *data = [HotelDataCache sharedInstance].customers;
+    
+    UIScrollView *scrollView = (UIScrollView*)[self.view viewWithTag:2000];
+    
+    if ([HotelDataCache sharedInstance].isForSelf) {
+        [_customerBG setHidden:NO];
+        [_pressToSelectBtn setHidden:YES];
+        return;
+    }
+    
+    if ([data count] == 0 || !data) {
+        [_customerBG setHidden:YES];
+        [_pressToSelectBtn setHidden:NO];
+        if (animation) {
+            [UIView animateWithDuration:0.25
+                             animations:^{
+                                 [_costView setFrame:CGRectMake(_costView.frame.origin.x, _costView.frame.origin.y, _costView.frame.size.width, controlYLength(_pressToSelectBtn) + 5)];
+                             }completion:^(BOOL finished){
+                                 [scrollView setContentSize:CGSizeMake(scrollView.frame.size.width, controlYLength(_contactView))];
+
+                                 [_tableView reloadData];
+                             }];
+        }else{
+            [_costView setFrame:CGRectMake(_costView.frame.origin.x, _costView.frame.origin.y, _costView.frame.size.width, controlYLength(_pressToSelectBtn) + 5)];
+            [scrollView setContentSize:CGSizeMake(scrollView.frame.size.width, controlYLength(_contactView))];
+
+            [_tableView reloadData];
+        }
+    }else{
+        [_customerBG setHidden:NO];
+        [_pressToSelectBtn setHidden:YES];
+        if (animation) {
+            [UIView animateWithDuration:0.25
+                             animations:^{
+                                 [_tableView setFrame:CGRectMake(_tableView.frame.origin.x, _tableView.frame.origin.y, _tableView.frame.size.width, 40 * [data count])];
+                                 [_customerBG setFrame:CGRectMake(_customerBG.frame.origin.x, _customerBG.frame.origin.y, _customerBG.frame.size.width, controlYLength(_tableView))];
+                                 [_costView setFrame:CGRectMake(_costView.frame.origin.x, _costView.frame.origin.y, _costView.frame.size.width, controlYLength(_customerBG))];
+                                 [_contactView setFrame:CGRectMake(_contactView.frame.origin.x, controlYLength(_costView) + 5, _contactView.frame.size.width, _contactView.frame.size.height)];
+                             }completion:^(BOOL finished){
+                                 [scrollView setContentSize:CGSizeMake(scrollView.frame.size.width, controlYLength(_contactView))];
+
+                                 [_tableView reloadData];
+                             }];
+        }else{
+            [_tableView setFrame:CGRectMake(_tableView.frame.origin.x, _tableView.frame.origin.y, _tableView.frame.size.width, 40 * [data count])];
+            [_customerBG setFrame:CGRectMake(_customerBG.frame.origin.x, _customerBG.frame.origin.y, _customerBG.frame.size.width, controlYLength(_tableView))];
+            [_costView setFrame:CGRectMake(_costView.frame.origin.x, _costView.frame.origin.y, _costView.frame.size.width, controlYLength(_customerBG))];
+            [_contactView setFrame:CGRectMake(_contactView.frame.origin.x, controlYLength(_costView) + 5, _contactView.frame.size.width, _contactView.frame.size.height)];
+            [scrollView setContentSize:CGSizeMake(scrollView.contentSize.width, controlYLength(_contactView))];
+
+            [_tableView reloadData];
+        }
+    }
 }
 
 #pragma mark - customers edit handle
@@ -519,13 +621,14 @@
     switch (sender.tag) {
         case 500:{
             PassengerListViewController *passengerListView = [[PassengerListViewController alloc]init];
+            [passengerListView setSelectedPassengers:[HotelDataCache sharedInstance].customers];
             [passengerListView setDelegate:self];
             [self pushViewController:passengerListView transitionType:TransitionPush completionHandler:^{
                 
             }];
             break;
         }case 501:{
-            
+            [_tableView setEditing:!_tableView.editing animated:YES];
             break;
         }case 502:{
             
@@ -538,7 +641,23 @@
 
 - (void)selectDone:(NSMutableArray*)array
 {
-    
+    NSMutableArray *data = [NSMutableArray array];
+    for (id object in array) {
+        HotelCustomerModel *customer = [HotelCustomerModel getCustomer:object];
+        [data addObject:customer];
+    }
+    [HotelDataCache sharedInstance].customers = data;
+    [self setSelectCustomers:YES];
+}
+
+- (void)editCustomer:(UIButton*)sender
+{
+    PassengerListViewController *passengerListView = [[PassengerListViewController alloc]init];
+    [passengerListView setSelectedPassengers:[HotelDataCache sharedInstance].customers];
+    [passengerListView setDelegate:self];
+    [self pushViewController:passengerListView transitionType:TransitionPush completionHandler:^{
+        
+    }];
 }
 
 -(void)onBtnPressed:(UIButton*)sender{
@@ -566,7 +685,7 @@
         [self removeLoadingView];
         [self addChildView];
     }else if([response isKindOfClass:[SubmitOrderResponse class]]){
-//        SubmitOrderResponse *orderResponse = (SubmitOrderResponse*)response;
+        //        SubmitOrderResponse *orderResponse = (SubmitOrderResponse*)response;
     }
 }
 
@@ -635,7 +754,7 @@
         }else{
             request.ccValue = @"";
         }
-
+        
     }
     
     request.CityId = [NSNumber numberWithInt:data.checkInCityId];
@@ -654,7 +773,7 @@
     request.Remarks = @"";
     request.RoomNumber = [NSNumber numberWithInt:1];
     request.GuestMobile = data.guestMobile;
-
+    
     request.ContactID = [NSNumber numberWithInt:data.contactorId];
     request.ContactName = data.contactorMobile;
     request.ContactMobile = data.contactorMobile;
@@ -773,6 +892,105 @@
     return cellView;
 }
 
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return YES;
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        NSMutableArray *data = [HotelDataCache sharedInstance].customers;
+        id object = [data objectAtIndex:indexPath.row];
+        [data removeObject:object];
+        
+        [_tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        if ([data count] == 0 || !data) {
+            [_tableView setEditing:NO animated:YES];
+        }
+        [self setSelectCustomers:YES];
+    }
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSLog(@"select");
+}
+
+- (void)dataSource:(NSMutableArray*)dataSource removeObject:(id)object
+{
+    if ([object isKindOfClass:[BookPassengersResponse class]]){
+        BookPassengersResponse *passenger = object;
+        passenger.CorpUID = [Utils NULLToEmpty:passenger.CorpUID];
+        NSMutableArray *removeObjects = [NSMutableArray array];
+        for (id subObject in dataSource) {
+            if ([subObject isKindOfClass:[CorpStaffDTO class]]) {
+                CorpStaffDTO *subStaff = subObject;
+                if ([passenger.CorpUID isEqualToString:subStaff.CorpUID]) {
+                    [removeObjects addObject:subStaff];
+                }
+            }else if ([subObject isKindOfClass:[BookPassengersResponse class]]){
+                BookPassengersResponse *subPassenger = subObject;
+                if ([passenger.CorpUID isEqualToString:subPassenger.CorpUID]) {
+                    [removeObjects addObject:subPassenger];
+                }
+            }else if ([subObject isKindOfClass:[GetLoginUserInfoResponse class]]){
+                GetLoginUserInfoResponse *logInfo = subObject;
+                if ([passenger.CorpUID isEqualToString:logInfo.UID]) {
+                    [removeObjects addObject:logInfo];
+                }
+            }else if ([subObject isKindOfClass:[HotelCustomerModel class]]){
+                HotelCustomerModel *subCustomer = subObject;
+                if ([passenger.CorpUID isEqualToString:subCustomer.corpUID]) {
+                    [removeObjects addObject:subCustomer];
+                }
+            }
+        }
+        
+        for (id removeObject in removeObjects) {
+            if ([dataSource containsObject:removeObject]) {
+                [dataSource removeObject:removeObject];
+            }
+        }
+    }
+    
+}
+
+- (BOOL)dataSource:(NSMutableArray*)dataSource containsObject:(id)object
+{
+    BOOL contains = NO;
+    
+    if ([object isKindOfClass:[BookPassengersResponse class]]){
+        BookPassengersResponse *passenger = object;
+        passenger.CorpUID = [Utils NULLToEmpty:passenger.CorpUID];
+        for (id subObject in dataSource) {
+            if ([subObject isKindOfClass:[CorpStaffDTO class]]) {
+                CorpStaffDTO *subStaff = subObject;
+                if ([passenger.CorpUID isEqualToString:subStaff.CorpUID]) {
+                    contains = YES;
+                }
+            }else if ([subObject isKindOfClass:[BookPassengersResponse class]]){
+                BookPassengersResponse *subPassenger = subObject;
+                if ([passenger.CorpUID isEqualToString:subPassenger.CorpUID]) {
+                    contains = YES;
+                }
+            }else if ([subObject isKindOfClass:[GetLoginUserInfoResponse class]]){
+                GetLoginUserInfoResponse *subLogInfo = subObject;
+                if ([passenger.CorpUID isEqualToString:subLogInfo.UID]) {
+                    contains = YES;
+                }
+            }else if ([subObject isKindOfClass:[HotelCustomerModel class]]){
+                HotelCustomerModel *subCustomer = subObject;
+                if ([passenger.CorpUID isEqualToString:subCustomer.corpUID]) {
+                    contains = YES;
+                }
+            }
+        }
+    }
+    
+    
+    return contains;
+}
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -826,14 +1044,14 @@
 - (void)userPayAction:(id)sender
 {
     
-//    [UPPayPlugin startPay:@"201401050307110027842" mode:kMode viewController:self delegate:self];
+    //    [UPPayPlugin startPay:@"201401050307110027842" mode:kMode viewController:self delegate:self];
     
-//    NSString* urlString = [NSString stringWithFormat:kConfigTnUrl, @"201401050307110027842"];
-//    NSURL* url = [NSURL URLWithString:urlString];
-//	NSMutableURLRequest * urlRequest=[NSMutableURLRequest requestWithURL:url];
-//    NSURLConnection* urlConn = [[NSURLConnection alloc] initWithRequest:urlRequest delegate:self];
-//    [urlConn start];
-//    [self showAlertWait];
+    //    NSString* urlString = [NSString stringWithFormat:kConfigTnUrl, @"201401050307110027842"];
+    //    NSURL* url = [NSURL URLWithString:urlString];
+    //	NSMutableURLRequest * urlRequest=[NSMutableURLRequest requestWithURL:url];
+    //    NSURLConnection* urlConn = [[NSURLConnection alloc] initWithRequest:urlRequest delegate:self];
+    //    [urlConn start];
+    //    [self showAlertWait];
 }
 
 
@@ -907,39 +1125,39 @@
 //    unsigned char       *ptr;
 //    struct if_msghdr    *ifm;
 //    struct sockaddr_dl  *sdl;
-//    
+//
 //    mib[0] = CTL_NET;
 //    mib[1] = AF_ROUTE;
 //    mib[2] = 0;
 //    mib[3] = AF_LINK;
 //    mib[4] = NET_RT_IFLIST;
-//    
+//
 //    NSString* noUID = @"";
-//    
+//
 //    if ((mib[5] = if_nametoindex("en0")) == 0) {
 //        return noUID;
 //    }
-//    
+//
 //    if (sysctl(mib, 6, NULL, &len, NULL, 0) < 0) {
 //        return noUID;
 //    }
-//    
+//
 //    if ((buf = (char*)malloc(len)) == NULL) {
 //        return noUID;
 //    }
-//    
+//
 //    if (sysctl(mib, 6, buf, &len, NULL, 0) < 0) {
 //        free(buf);
 //        return noUID;
 //    }
-//    
+//
 //    ifm = (struct if_msghdr *)buf;
 //    sdl = (struct sockaddr_dl *)(ifm + 1);
 //    ptr = (unsigned char *)LLADDR(sdl);
 //    NSString *outstring = [NSString stringWithFormat:@"%02x%02x%02x%02x%02x%02x",
 //                           *ptr, *(ptr+1), *(ptr+2), *(ptr+3), *(ptr+4), *(ptr+5)];
 //    free(buf);
-//    
+//
 //    return outstring;
 //}
 
@@ -969,6 +1187,7 @@
 }
 
 -(void)setUpView{
+    [self setBackgroundColor:color(clearColor)];
     
     int width = self.frame.size.width;
     int height = self.frame.size.height;
@@ -978,14 +1197,14 @@
     [_name setTextColor:color(blackColor)];
     [_name setFont:[UIFont systemFontOfSize:13]];
     [_name setTextAlignment:NSTextAlignmentCenter];
-    [self addSubview:_name];
+    [self.contentView addSubview:_name];
     
     _costCenter = [[UILabel alloc] initWithFrame:CGRectMake(width/4, 0, width/4, height)];
     [_costCenter setBackgroundColor:color(clearColor)];
     [_costCenter setTextColor:color(blackColor)];
     [_costCenter setFont:[UIFont systemFontOfSize:13]];
     [_costCenter setTextAlignment:NSTextAlignmentCenter];
-    [self addSubview:_costCenter];
+    [self.contentView addSubview:_costCenter];
     
     int left = (width/4)*2;
     _costApportion = [[UILabel alloc] initWithFrame:CGRectMake(left,0,width-left, height)];
@@ -993,11 +1212,11 @@
     [_costApportion setTextColor:color(blackColor)];
     [_costApportion setFont:[UIFont systemFontOfSize:11]];
     [_costApportion setTextAlignment:NSTextAlignmentCenter];
-    [self addSubview:_costApportion];
+    [self.contentView addSubview:_costApportion];
     
     UIImageView *arrow = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"arrow.png"]];
     [arrow setFrame:CGRectMake(width - 40, 14, 12, 18)];
-    [self addSubview:arrow];
+    [self.contentView addSubview:arrow];
     
 }
 

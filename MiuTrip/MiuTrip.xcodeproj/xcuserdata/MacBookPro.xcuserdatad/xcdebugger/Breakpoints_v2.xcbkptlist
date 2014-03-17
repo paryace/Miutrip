@@ -10,58 +10,60 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MiuTrip/MyClass/ViewControllers/Hotel/HotelOrderViewController.mm"
-            timestampString = "416480199.658048"
+            timestampString = "416736564.621987"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "654"
-            endingLineNumber = "654"
+            startingLineNumber = "756"
+            endingLineNumber = "756"
             landmarkName = "-submitOrder"
             landmarkType = "5">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[HotelOrderViewController submitOrder]"
-                  moduleName = "MiuTrip"
-                  urlString = "file:///Users/MacBookPro/Desktop/Github%20worker/Miutrip/MiuTrip/MiuTrip/MyClass/ViewControllers/Hotel/HotelOrderViewController.mm"
-                  timestampString = "416480200.136032"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "654"
-                  endingLineNumber = "654"
-                  offsetFromSymbolStart = "5467">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[HotelOrderViewController submitOrder]"
-                  moduleName = "MiuTrip"
-                  urlString = "file:///Users/MacBookPro/Desktop/Github%20worker/Miutrip/MiuTrip/MiuTrip/MyClass/ViewControllers/Hotel/HotelOrderViewController.mm"
-                  timestampString = "416480200.139242"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "654"
-                  endingLineNumber = "654"
-                  offsetFromSymbolStart = "8688">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MiuTrip/MyClass/ViewControllers/Flight/PassengerListViewController.m"
+            timestampString = "416714783.46379"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "178"
+            endingLineNumber = "178"
+            landmarkName = "-tableView:cellForRowAtIndexPath:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MiuTrip/MyClass/ViewControllers/Flight/PassengerListViewController.m"
+            timestampString = "416717503.942113"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "290"
+            endingLineNumber = "290"
+            landmarkName = "-dataSource:containsObject:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MiuTrip/MyClass/ViewControllers/Hotel/HotelOrderViewController.mm"
-            timestampString = "416480199.658048"
+            timestampString = "416735779.680947"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "722"
-            endingLineNumber = "722"
-            landmarkName = "-popoverListView:didSelectIndexPath:"
+            startingLineNumber = "445"
+            endingLineNumber = "445"
+            landmarkName = "-addChildView"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -72,28 +74,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MiuTrip/MyClass/ViewControllers/Hotel/HotelOrderViewController.mm"
-            timestampString = "416480199.658048"
+            timestampString = "416736564.621987"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "515"
-            endingLineNumber = "515"
-            landmarkName = "-pressEditCustomersBtn:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "MiuTrip/MyClass/ViewControllers/Hotel/HotelOrderViewController.mm"
-            timestampString = "416480199.658048"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "537"
-            endingLineNumber = "537"
-            landmarkName = "-selectDone:"
+            startingLineNumber = "958"
+            endingLineNumber = "958"
+            landmarkName = "-dataSource:containsObject:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

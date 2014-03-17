@@ -7,7 +7,30 @@
 //
 
 #import "HotelCustomerModel.h"
+#import "GetContactRequest.h"
 
 @implementation HotelCustomerModel
+
+
++ (HotelCustomerModel *)getCustomer:(id)object
+{
+    if ([object isKindOfClass:[BookPassengersResponse class]]) {
+        BookPassengersResponse *response = object;
+        HotelCustomerModel *customer = [[HotelCustomerModel alloc]init];
+        customer.name = response.UserName;
+        customer.UID = response.UniqueID;
+        customer.passengerId = [NSString stringWithFormat:@"%@",response.PassengerID];
+        customer.corpUID = [NSString stringWithFormat:@"%@",response.CorpUID];
+        customer.costCenter = response.DeptName;
+        customer.apportionRate = 1;
+        
+        return customer;
+    }else if ([object isKindOfClass:[HotelCustomerModel class]]){
+        return object;
+    }else
+        return nil;
+}
+
+
 
 @end

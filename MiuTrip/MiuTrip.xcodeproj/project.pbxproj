@@ -387,6 +387,7 @@
 		52E5077118CEE52D00F0DCF8 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 52E5076E18CEE52D00F0DCF8 /* Default@2x.png */; };
 		52E507BC18CEF39400F0DCF8 /* DefaultIOS7.png in Resources */ = {isa = PBXBuildFile; fileRef = 52E507BA18CEF39400F0DCF8 /* DefaultIOS7.png */; };
 		52E507BD18CEF39400F0DCF8 /* DefaultIOS7@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 52E507BB18CEF39400F0DCF8 /* DefaultIOS7@2x.png */; };
+		52EA6F4D18D6EB260042A001 /* NewPersonViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52EA6F4C18D6EB260042A001 /* NewPersonViewController.m */; };
 		B501CFA01852F5DC00802FD9 /* HotelListCellviewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B501CF9F1852F5DC00802FD9 /* HotelListCellviewCell.m */; };
 		B507B84618570A6C003541B2 /* LoadMoreTableFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = B507B84518570A6C003541B2 /* LoadMoreTableFooterView.m */; };
 		B50FC06F187935E000AF9BFD /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B50FC06E187935E000AF9BFD /* QuartzCore.framework */; };
@@ -1065,6 +1066,8 @@
 		52E5076E18CEE52D00F0DCF8 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default@2x.png"; path = "Resource/Default@2x.png"; sourceTree = "<group>"; };
 		52E507BA18CEF39400F0DCF8 /* DefaultIOS7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = DefaultIOS7.png; path = Resource/DefaultIOS7.png; sourceTree = "<group>"; };
 		52E507BB18CEF39400F0DCF8 /* DefaultIOS7@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "DefaultIOS7@2x.png"; path = "Resource/DefaultIOS7@2x.png"; sourceTree = "<group>"; };
+		52EA6F4B18D6EB260042A001 /* NewPersonViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewPersonViewController.h; sourceTree = "<group>"; };
+		52EA6F4C18D6EB260042A001 /* NewPersonViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewPersonViewController.m; sourceTree = "<group>"; };
 		B501CF9E1852F5DC00802FD9 /* HotelListCellviewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HotelListCellviewCell.h; sourceTree = "<group>"; };
 		B501CF9F1852F5DC00802FD9 /* HotelListCellviewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HotelListCellviewCell.m; sourceTree = "<group>"; };
 		B507B84418570A6C003541B2 /* LoadMoreTableFooterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoadMoreTableFooterView.h; sourceTree = "<group>"; };
@@ -1836,6 +1839,8 @@
 				18E982E918B30D90008C3ABC /* PassengerListViewController.m */,
 				18E982F218B30D90008C3ABC /* SelectPassengerViewController.h */,
 				18E982F318B30D90008C3ABC /* SelectPassengerViewController.m */,
+				52EA6F4B18D6EB260042A001 /* NewPersonViewController.h */,
+				52EA6F4C18D6EB260042A001 /* NewPersonViewController.m */,
 				18E982F418B30D90008C3ABC /* SelectPostTypeViewController.h */,
 				18E982F518B30D90008C3ABC /* SelectPostTypeViewController.m */,
 				18E982F618B30D90008C3ABC /* TakeOffTimePickerViewController.h */,
@@ -2810,6 +2815,7 @@
 				124789FB1836363100AA0083 /* SBJsonStreamWriterState.m in Sources */,
 				B57E177E188BB48900E6BF16 /* CustomIOS7AlertView.m in Sources */,
 				18E9833D18B317C7008C3ABC /* GetInsuranceConfigResponse.m in Sources */,
+				52EA6F4D18D6EB260042A001 /* NewPersonViewController.m in Sources */,
 				124789F21836363100AA0083 /* LoadingMoreTableFooterView.m in Sources */,
 				F2EECB58189246A8005C7A81 /* HotelSelectedDetailCell.m in Sources */,
 				46D9D2B7188BBC5500E8A1EF /* GetDistrictsRequest.m in Sources */,

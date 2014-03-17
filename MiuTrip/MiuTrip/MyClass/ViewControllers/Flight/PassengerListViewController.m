@@ -8,6 +8,7 @@
 
 #import "PassengerListViewController.h"
 #import "Common.h"
+#import "HotelCustomerModel.h"
 
 @interface PassengerListViewController ()
 
@@ -183,13 +184,14 @@
     }
     
     id object = [_dataSource objectAtIndex:indexPath.row];
-    if ([object isKindOfClass:[CorpStaffDTO class]]) {
-        CorpStaffDTO *corpStaff = object;
-        cell.Name = corpStaff.UserName;
-        cell.UID = corpStaff.CorpUID;
-        cell.DeptName = corpStaff.DeptName;
-        cell.leftImageHighlighted = [self dataSource:_selectedPassengers containsObject:object];
-    }else if ([object isKindOfClass:[BookPassengersResponse class]]){
+//    if ([object isKindOfClass:[CorpStaffDTO class]]) {
+//        CorpStaffDTO *corpStaff = object;
+//        cell.Name = corpStaff.UserName;
+//        cell.UID = corpStaff.CorpUID;
+//        cell.DeptName = corpStaff.DeptName;
+//        cell.leftImageHighlighted = [self dataSource:_selectedPassengers containsObject:object];
+//    }else
+    if ([object isKindOfClass:[BookPassengersResponse class]]){
         BookPassengersResponse *contact = object;
         cell.Name = contact.UserName;
         cell.UID = contact.CorpUID;
@@ -218,36 +220,37 @@
 
 - (void)dataSource:(NSMutableArray*)dataSource removeObject:(id)object
 {
-    if ([object isKindOfClass:[CorpStaffDTO class]]) {
-        CorpStaffDTO *staff = object;
-        staff.CorpUID = [Utils NULLToEmpty:staff.CorpUID];
-        NSMutableArray *removeObjects = [NSMutableArray array];
-        for (id subObject in dataSource) {
-            if ([subObject isKindOfClass:[CorpStaffDTO class]]) {
-                CorpStaffDTO *subStaff = subObject;
-                if ([staff.CorpUID isEqualToString:subStaff.CorpUID]) {
-                    [removeObjects addObject:subObject];
-                }
-            }else if ([subObject isKindOfClass:[BookPassengersResponse class]]){
-                BookPassengersResponse *passenger = subObject;
-                if ([passenger.CorpUID isEqualToString:staff.CorpUID]) {
-                    [removeObjects addObject:subObject];
-                }
-            }else if ([subObject isKindOfClass:[GetLoginUserInfoResponse class]]){
-                GetLoginUserInfoResponse *logInfo = subObject;
-                if ([logInfo.UID isEqualToString:staff.CorpUID]) {
-                    [removeObjects addObject:logInfo];
-                }
-            }
-        }
-        
-        for (id removeObject in removeObjects) {
-            if ([dataSource containsObject:removeObject]) {
-                [dataSource removeObject:removeObject];
-            }
-        }
-        
-    }else if ([object isKindOfClass:[BookPassengersResponse class]]){
+//    if ([object isKindOfClass:[CorpStaffDTO class]]) {
+//        CorpStaffDTO *staff = object;
+//        staff.CorpUID = [Utils NULLToEmpty:staff.CorpUID];
+//        NSMutableArray *removeObjects = [NSMutableArray array];
+//        for (id subObject in dataSource) {
+//            if ([subObject isKindOfClass:[CorpStaffDTO class]]) {
+//                CorpStaffDTO *subStaff = subObject;
+//                if ([staff.CorpUID isEqualToString:subStaff.CorpUID]) {
+//                    [removeObjects addObject:subObject];
+//                }
+//            }else if ([subObject isKindOfClass:[BookPassengersResponse class]]){
+//                BookPassengersResponse *passenger = subObject;
+//                if ([passenger.CorpUID isEqualToString:staff.CorpUID]) {
+//                    [removeObjects addObject:subObject];
+//                }
+//            }else if ([subObject isKindOfClass:[GetLoginUserInfoResponse class]]){
+//                GetLoginUserInfoResponse *logInfo = subObject;
+//                if ([logInfo.UID isEqualToString:staff.CorpUID]) {
+//                    [removeObjects addObject:logInfo];
+//                }
+//            }
+//        }
+//        
+//        for (id removeObject in removeObjects) {
+//            if ([dataSource containsObject:removeObject]) {
+//                [dataSource removeObject:removeObject];
+//            }
+//        }
+//        
+//    }else
+    if ([object isKindOfClass:[BookPassengersResponse class]]){
         BookPassengersResponse *passenger = object;
         passenger.CorpUID = [Utils NULLToEmpty:passenger.CorpUID];
         NSMutableArray *removeObjects = [NSMutableArray array];
@@ -255,17 +258,22 @@
             if ([subObject isKindOfClass:[CorpStaffDTO class]]) {
                 CorpStaffDTO *subStaff = subObject;
                 if ([passenger.CorpUID isEqualToString:subStaff.CorpUID]) {
-                    [removeObjects addObject:subObject];
+                    [removeObjects addObject:subStaff];
                 }
             }else if ([subObject isKindOfClass:[BookPassengersResponse class]]){
                 BookPassengersResponse *subPassenger = subObject;
                 if ([passenger.CorpUID isEqualToString:subPassenger.CorpUID]) {
-                    [removeObjects addObject:subObject];
+                    [removeObjects addObject:subPassenger];
                 }
             }else if ([subObject isKindOfClass:[GetLoginUserInfoResponse class]]){
                 GetLoginUserInfoResponse *logInfo = subObject;
-                if ([logInfo.UID isEqualToString:passenger.CorpUID]) {
+                if ([passenger.CorpUID isEqualToString:logInfo.UID]) {
                     [removeObjects addObject:logInfo];
+                }
+            }else if ([subObject isKindOfClass:[HotelCustomerModel class]]){
+                HotelCustomerModel *subCustomer = subObject;
+                if ([passenger.CorpUID isEqualToString:subCustomer.corpUID]) {
+                    [removeObjects addObject:subCustomer];
                 }
             }
         }
@@ -276,33 +284,35 @@
             }
         }
     }
+
 }
 
 - (BOOL)dataSource:(NSMutableArray*)dataSource containsObject:(id)object
 {
     BOOL contains = NO;
-    if ([object isKindOfClass:[CorpStaffDTO class]]) {
-        CorpStaffDTO *staff = object;
-        staff.CorpUID = [Utils NULLToEmpty:staff.CorpUID];
-        for (id subObject in dataSource) {
-            if ([subObject isKindOfClass:[CorpStaffDTO class]]) {
-                CorpStaffDTO *subStaff = subObject;
-                if ([staff.CorpUID isEqualToString:subStaff.CorpUID]) {
-                    contains = YES;
-                }
-            }else if ([subObject isKindOfClass:[BookPassengersResponse class]]){
-                BookPassengersResponse *passenger = subObject;
-                if ([passenger.CorpUID isEqualToString:staff.CorpUID]) {
-                    contains = YES;
-                }
-            }else if ([subObject isKindOfClass:[GetLoginUserInfoResponse class]]){
-                GetLoginUserInfoResponse *subLogInfo = subObject;
-                if ([staff.CorpUID isEqualToString:subLogInfo.UID]) {
-                    contains = YES;
-                }
-            }
-        }
-    }else if ([object isKindOfClass:[BookPassengersResponse class]]){
+//    if ([object isKindOfClass:[CorpStaffDTO class]]) {
+//        CorpStaffDTO *staff = object;
+//        staff.CorpUID = [Utils NULLToEmpty:staff.CorpUID];
+//        for (id subObject in dataSource) {
+//            if ([subObject isKindOfClass:[CorpStaffDTO class]]) {
+//                CorpStaffDTO *subStaff = subObject;
+//                if ([staff.CorpUID isEqualToString:subStaff.CorpUID]) {
+//                    contains = YES;
+//                }
+//            }else if ([subObject isKindOfClass:[BookPassengersResponse class]]){
+//                BookPassengersResponse *passenger = subObject;
+//                if ([passenger.CorpUID isEqualToString:staff.CorpUID]) {
+//                    contains = YES;
+//                }
+//            }else if ([subObject isKindOfClass:[GetLoginUserInfoResponse class]]){
+//                GetLoginUserInfoResponse *subLogInfo = subObject;
+//                if ([staff.CorpUID isEqualToString:subLogInfo.UID]) {
+//                    contains = YES;
+//                }
+//            }
+//        }
+//    }else
+    if ([object isKindOfClass:[BookPassengersResponse class]]){
         BookPassengersResponse *passenger = object;
         passenger.CorpUID = [Utils NULLToEmpty:passenger.CorpUID];
         for (id subObject in dataSource) {
@@ -321,9 +331,15 @@
                 if ([passenger.CorpUID isEqualToString:subLogInfo.UID]) {
                     contains = YES;
                 }
+            }else if ([subObject isKindOfClass:[HotelCustomerModel class]]){
+                HotelCustomerModel *subCustomer = subObject;
+                if ([passenger.CorpUID isEqualToString:subCustomer.corpUID]) {
+                    contains = YES;
+                }
             }
         }
     }
+
     
     return contains;
 }

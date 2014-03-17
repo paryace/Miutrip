@@ -7,6 +7,7 @@
 //
 
 #import "GetContactResponse.h"
+#import "HotelCustomerModel.h"
 
 @implementation GetContactResponse
 
