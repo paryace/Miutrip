@@ -7,7 +7,8 @@
 //
 
 #import "EditGuestViewController.h"
-
+#import "GetCorpCostRequest.h"
+#import "GetCorpCostResponse.h"
 
 
 #define editView_width        appBounds.size.width - 20
@@ -37,6 +38,7 @@
     if (self = [super init]) {
         _costCentre = @"选择成本中心";
         _ShareAmount = @"选择分摊方式";
+        [self sendRequest];
         [self.view setHidden:NO];
         [self setSubView];
         [self createCostCentreView];
@@ -49,6 +51,7 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
 }
+
 
 
 - (void)setSubView
@@ -139,8 +142,8 @@
 
 - (void)createCostCentreView
 {
-    _costCentreArray = [[NSMutableArray alloc] initWithObjects:@"销售部",@"行政部",@"资源部",@"运营部",@"财务部",@"技术部",@"市场部", nil];
-    
+    //_costCentreArray = [[NSMutableArray alloc] initWithObjects:@"销售部",@"行政部",@"资源部",@"运营部",@"财务部",@"技术部",@"市场部", nil];
+    _costCentreArray = [[NSMutableArray alloc] init];
     
      _costCentreList = [[UITableView alloc] initWithFrame:CGRectMake(50, 50, appFrame.size.width - 100, _costCentreArray.count * 27) style:UITableViewStylePlain];
     _costCentreList.delegate = self;
@@ -162,6 +165,39 @@
     
     [self.view addSubview:_costCentreList];
     _costCentreList.hidden = YES;
+}
+
+
+
+
+- (void)sendRequest
+{
+    GetCorpCostRequest *request = [[GetCorpCostRequest alloc] initWidthBusinessType:BUSINESS_ACCOUNT methodName:@"GetCorpCost"];
+    request.corpId = [[[UserDefaults shareUserDefault] loginInfo] CorpID];
+    [self.requestManager sendRequest:request];
+}
+
+
+- (void)requestDone:(BaseResponseModel *)response
+{
+    GetCorpCostResponse *responseN = (GetCorpCostResponse *)response;
+    NSArray *costs = responseN.costs;
+    NSArray *SelectItem = [[costs lastObject] objectForKey:@"SelectItem"];
+    for (int i = 0; i < SelectItem.count; i ++) {
+        NSDictionary *dic = [SelectItem objectAtIndex:i];
+        NSString *itemText = [dic objectForKey:@"ItemText"];
+        [_costCentreArray addObject:itemText];
+        NSLog(@"%@",itemText);
+    }
+    
+    _costCentreList.frame = CGRectMake(50, 50, appFrame.size.width - 100, _costCentreArray.count * 27);
+    [_costCentreList reloadData];
+}
+
+- (void)requestFailedWithErrorCode:(NSNumber *)errorCode withErrorMsg:(NSString *)errorMsg
+{
+    NSStringFromSelector(_cmd);
+    NSLog(@" %@ 失败",NSStringFromSelector(_cmd));
 }
 
 - (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
