@@ -19,6 +19,10 @@
 
 
 @interface EditGuestViewController ()
+{
+    BOOL isCostCentre;
+    UIView *shadowView;
+}
 
 @end
 
@@ -93,10 +97,13 @@
     
     [editView addSubview:name];
     
-    _userName = [[UITextField alloc] initWithFrame:CGRectMake(name.frame.size.width + 5, 0, 100, 33)];
+    _userName = [[UITextField alloc] initWithFrame:CGRectMake(name.frame.size.width + 5, 2, 100, 30)];
     _userName.placeholder = @"请输入姓名";
     _userName.font = [UIFont systemFontOfSize:13];
     _userName.textColor = color(darkGrayColor);
+    _userName.delegate = self;
+    _userName.borderStyle = UITextBorderStyleRoundedRect;
+    _userName.clearButtonMode = UITextFieldViewModeWhileEditing;
     [editView addSubview:_userName];
     
   
@@ -139,35 +146,48 @@
     [editView addSubview:shareBtn];
 }
 
+- (void)createShadowView
+{
+    shadowView = [[UIView alloc] initWithFrame:self.view.bounds];
+    shadowView.alpha = 0.0f;
+    shadowView.backgroundColor = [UIColor darkGrayColor];
+    [self.view addSubview:shadowView];
+}
 
 - (void)createCostCentreView
 {
+    [self createShadowView];
     //_costCentreArray = [[NSMutableArray alloc] initWithObjects:@"销售部",@"行政部",@"资源部",@"运营部",@"财务部",@"技术部",@"市场部", nil];
+    _shareAmountArray = [[NSArray alloc] initWithObjects:@"承担全价",@"承担半价",@"不承担费用", nil];
     _costCentreArray = [[NSMutableArray alloc] init];
     
-     _costCentreList = [[UITableView alloc] initWithFrame:CGRectMake(50, 50, appFrame.size.width - 100, _costCentreArray.count * 27) style:UITableViewStylePlain];
+     _costCentreList = [[UITableView alloc] initWithFrame:CGRectMake(50, 70, appFrame.size.width - 100, (_mArray.count+1) * 27) style:UITableViewStylePlain];
     _costCentreList.delegate = self;
     _costCentreList.dataSource = self;
     _costCentreList.showsVerticalScrollIndicator = NO;
+    _costCentreList.bounces = NO;
+    [_costCentreList.layer setCornerRadius:5.0f];
+    [_costCentreList.layer setShadowColor:color(grayColor).CGColor];
+    [_costCentreList.layer setShadowOpacity:.1];
     
+
+    [self.view addSubview:_costCentreList];
+    _costCentreList.alpha = 0;
+}
+
+- (void)tableViewHeadViewWithTitle:(NSString *)title{
+
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, _costCentreList.frame.size.width, 27)];
-    view.backgroundColor = [UIColor blackColor];
+    view.backgroundColor = [UIColor blueColor];
     UILabel *viewLabel = [[UILabel alloc] initWithFrame:view.bounds];
     viewLabel.backgroundColor = color(clearColor);
-    [viewLabel setText:@"选择成本中心"];
-    viewLabel.textAlignment = NSTextAlignmentCenter;
+    [viewLabel setText:title];
+    viewLabel.textAlignment = NSTextAlignmentLeft;
     viewLabel.textColor = color(whiteColor);
     viewLabel.font = [UIFont systemFontOfSize:14];
     [view addSubview:viewLabel];
     _costCentreList.tableHeaderView = view;
-
-    
-    
-    [self.view addSubview:_costCentreList];
-    _costCentreList.hidden = YES;
 }
-
-
 
 
 - (void)sendRequest
@@ -190,7 +210,7 @@
         NSLog(@"%@",itemText);
     }
     
-    _costCentreList.frame = CGRectMake(50, 50, appFrame.size.width - 100, _costCentreArray.count * 27);
+    _costCentreList.frame = CGRectMake(50, 70, appFrame.size.width - 100, (_mArray.count +1)* 27);
     [_costCentreList reloadData];
 }
 
@@ -202,7 +222,7 @@
 
 - (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return _costCentreArray.count;
+    return _mArray.count;
 }
 
 
@@ -214,7 +234,8 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"CostCentre"];
     }
     
-    cell.textLabel.text = [_costCentreArray objectAtIndex:indexPath.row];
+    cell.textLabel.text = [_mArray objectAtIndex:indexPath.row];
+    cell.textLabel.textColor = [UIColor darkGrayColor];
     
     return cell;
 }
@@ -222,22 +243,103 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UIView *editView = (UIView *)[self.view viewWithTag:editView_tag];
+    
+    if (isCostCentre) {
     UILabel *costlabel = (UILabel *)[editView viewWithTag:costCentre_label_tag];
     
-    NSString *oneCost = [_costCentreArray objectAtIndex:indexPath.row];
+    NSString *oneCost = [_mArray objectAtIndex:indexPath.row];
     _costCentre = oneCost;
   
     NSLog(@"%@",_costCentre);
     costlabel.text = _costCentre;
-    _costCentreList.hidden = YES;
+    }
+    //_costCentreList.hidden = YES;
+    if (isCostCentre == NO) {
+        UILabel *shareLabel = (UILabel *)[self.view viewWithTag:shareAmount_label_tag];
+        NSString *oneShare = [_mArray objectAtIndex:indexPath.row];
+        shareLabel.text = oneShare;
+    }
     
-    self.selectResult(_userName.text,costlabel.text,nil);
+    [self endDisplay];
+    
+  
+}
+- (void)viewWillDisappear:(BOOL)animated
+{
+    UIView *editView = (UIView *)[self.view viewWithTag:editView_tag];
+    UILabel *costlabel = (UILabel *)[editView viewWithTag:costCentre_label_tag];
+    UILabel *shareLabel = (UILabel *)[self.view viewWithTag:shareAmount_label_tag];
+    self.selectResult(_userName.text,costlabel.text,shareLabel.text);
 }
 
+/*
+ 
+ - (void)fadeIn
+ {
+ self.transform = CGAffineTransformMakeScale(1.3, 1.3);
+ self.alpha = 0;
+ [UIView animateWithDuration:.35 animations:^{
+ self.alpha = 1;
+ self.transform = CGAffineTransformMakeScale(1, 1);
+ }];
+ 
+ }
+ - (void)fadeOut
+ {
+ [UIView animateWithDuration:.35 animations:^{
+ self.transform = CGAffineTransformMakeScale(1.3, 1.3);
+ self.alpha = 0.0;
+ } completion:^(BOOL finished) {
+ if (finished) {
+ [_overlayView removeFromSuperview];
+ [self removeFromSuperview];
+ }
+ }];
+ }
+ */
+- (void)grayShowWhenTouch
+{
+    shadowView.alpha = 0.5f;
+    
+}
+- (void)grayEndShowWhenTouch
+{
+    shadowView.alpha = 0.0f;
+
+}
+
+- (void)beginDisplay
+{
+    [self grayShowWhenTouch];
+    _costCentreList.transform = CGAffineTransformMakeScale(1.3, 1.3);
+    _costCentreList.alpha = 0;
+    [UIView animateWithDuration:0.35f animations:^{
+        _costCentreList.alpha = 1;
+        _costCentreList.transform = CGAffineTransformMakeScale(1, 1);
+    }];
+    _costCentreList.frame = CGRectMake(50, 70, appFrame.size.width - 100, (_mArray.count+1) * 27);
+    
+}
+
+- (void)endDisplay
+{
+    [self grayEndShowWhenTouch];
+    [UIView animateWithDuration:0.35f animations:^{
+        _costCentreList.transform = CGAffineTransformMakeScale(1.3, 1.3);
+        _costCentreList.alpha = 0;
+
+    }];
+    //_costCentreList.frame = CGRectMake(50, 50, appFrame.size.width - 100, (_mArray.count+1) * 27);
+
+}
 
 - (void)selectCostCentre:(UIButton *)btn
 {
-    _costCentreList.hidden = NO;
+    isCostCentre = YES;
+    _mArray = _costCentreArray;
+    [self tableViewHeadViewWithTitle:@" 选择成本中心"];
+    [_costCentreList reloadData];
+    [self beginDisplay];
     NSLog(@"1111");
 }
 
@@ -245,7 +347,11 @@
 
 - (void)shareAmountChoose:(UIButton *)btn
 {
-       NSLog(@"1111");
+    isCostCentre = NO;
+    _mArray = _shareAmountArray;
+    [self tableViewHeadViewWithTitle:@" 选择分摊方式"];
+    [_costCentreList reloadData];
+    [self beginDisplay];
 }
 
 - (void)setUpLabel:(UILabel *)label withText:(NSString *)text
@@ -260,6 +366,17 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return 27;
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [_userName resignFirstResponder];
+    return YES;
+}
+
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    [_userName resignFirstResponder];
 }
 
 - (void)didReceiveMemoryWarning

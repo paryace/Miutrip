@@ -885,9 +885,13 @@
     NSString *apportionString = nil;
     if(customer.apportionRate == 1){
         apportionString = [NSString stringWithFormat:@"￥%d承担全价",_roomPrice];
-    }else{
+    }else if(customer.apportionRate == 0.5f){
         apportionString = [NSString stringWithFormat:@"￥%d承担半价",_roomPrice/2];
+    }else if(customer.apportionRate == 0.0 ){
+        apportionString = [NSString stringWithFormat:@"不承担费用"];
+
     }
+    
     cellView.costApportion.text = apportionString;
     return cellView;
 }
@@ -919,14 +923,22 @@
     egvc.userName.text = cell.name.text;
     
     egvc.selectResult = ^(NSString *userName, NSString *costCentre, NSString *shareAmount){
-        if (![costCentre isEqualToString:@"选着成本中心"]) {
+        if (![costCentre isEqualToString:@"选择成本中心"]) {
             cell.costCenter.text = costCentre;
         }
         if (![userName isEqualToString:cell.name.text]) {
             cell.name.text = userName;
         }
-        if (![cell.costApportion.text isEqualToString:@"选择分摊方式"]) {
-            
+        if (![shareAmount isEqualToString:@"选择分摊方式"]) {
+            if ([shareAmount isEqualToString:@"承担全价"]) {
+                cell.costApportion.text = [NSString stringWithFormat:@"￥%d承担全价",_roomPrice];
+            }else if([shareAmount isEqualToString:@"承担半价"]){
+                cell.costApportion.text = [NSString stringWithFormat:@"￥%d承担半价",_roomPrice/2];
+                
+            }else {
+                cell.costApportion.text = [NSString stringWithFormat:@"不承担费用"];
+                
+            }
         }
     };
     [self pushViewController:egvc transitionType:TransitionPush completionHandler:nil];
@@ -1006,7 +1018,6 @@
     
     return contains;
 }
-
 
 #pragma mark - uppay Alert
 
