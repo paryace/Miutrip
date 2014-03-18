@@ -8,7 +8,7 @@
 
 #import "BaseUIViewController.h"
 
-@interface EditGuestViewController : BaseUIViewController<UITableViewDataSource,UITableViewDelegate>
+@interface EditGuestViewController : BaseUIViewController<UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate>
 
 @property (strong, nonatomic) UITextField *userName;
 @property (strong, nonatomic) NSString *costCentre;
@@ -16,6 +16,8 @@
 
 @property (strong, nonatomic) UITableView *costCentreList;
 @property (strong, nonatomic) NSMutableArray *costCentreArray;
+@property (strong, nonatomic) NSArray *shareAmountArray;
+@property (strong, nonatomic) NSArray *mArray;
 @property (copy, nonatomic)   void (^selectResult)(NSString *, NSString *, NSString *);
 
 @end
