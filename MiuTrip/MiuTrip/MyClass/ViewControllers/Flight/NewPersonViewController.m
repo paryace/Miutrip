@@ -10,6 +10,9 @@
 
 @interface NewPersonViewController ()
 
+@property (strong, nonatomic) UITextField   *nameTf;
+@property (strong, nonatomic) UITextField   *costCenterTf;
+
 @end
 
 @implementation NewPersonViewController
@@ -21,6 +24,25 @@
         // Custom initialization
     }
     return self;
+}
+
+- (id)init
+{
+    self = [super init];
+    if (self) {
+        [self setSubviewFrame];
+    }
+    return self;
+}
+
+- (void)pressRightBtn:(UIButton*)sender
+{
+    if ([Utils textIsEmpty:_nameTf.text]) {
+        [[Model shareModel] showPromptText:@"请输入姓名" model:YES];
+        return;
+    }
+    BookPassengersResponse *passenger = [[BookPassengersResponse alloc]init];
+    passenger.UserName = _nameTf.text;
 }
 
 
@@ -50,6 +72,42 @@
     [self.view addSubview:rightBtn];
     
     [self setSubjoinViewFrame];
+}
+
+- (void)setSubjoinViewFrame
+{
+    UIView *contentBG = [[UIView alloc]initWithFrame:CGRectMake(10, controlYLength(self.topBar) + 5, self.view.frame.size.width - 20, 35 * 2)];
+    [contentBG setBackgroundColor:color(whiteColor)];
+    [contentBG setBorderColor:color(lightGrayColor) width:0.5];
+    [contentBG setCornerRadius:2.5];
+    [self.view addSubview:contentBG];
+    
+    UILabel *NameLeft = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 60, 35)];
+    [NameLeft setBackgroundColor:color(clearColor)];
+    [NameLeft setText:@"姓名"];
+    [NameLeft setFont:[UIFont systemFontOfSize:13]];
+    _nameTf = [[UITextField alloc]initWithFrame:CGRectMake(0, 0, contentBG.frame.size.width, NameLeft.frame.size.height)];
+    [_nameTf setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
+    [_nameTf setFont:[UIFont systemFontOfSize:13]];
+    [_nameTf setLeftViewMode:UITextFieldViewModeAlways];
+    [_nameTf setLeftView:NameLeft];
+    [contentBG addSubview:_nameTf];
+    
+    UILabel *costCenterLeft = [[UILabel alloc]initWithFrame:NameLeft.bounds];
+    [costCenterLeft setBackgroundColor:color(clearColor)];
+    [costCenterLeft setFont:[UIFont systemFontOfSize:13]];
+    [costCenterLeft setText:@"成本中心"];
+    _costCenterTf = [[UITextField alloc]initWithFrame:CGRectMake(_nameTf.frame.origin.x, controlYLength(_nameTf), _nameTf.frame.size.width, _nameTf.frame.size.height)];
+    [_costCenterTf setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
+    [_costCenterTf setFont:[UIFont systemFontOfSize:13]];
+    [_costCenterTf setLeftViewMode:UITextFieldViewModeAlways];
+    [_costCenterTf setLeftView:costCenterLeft];
+    [contentBG addSubview:_costCenterTf];
+    
+    UIButton *costCenterBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [costCenterBtn setFrame:_costCenterTf.frame];
+    [costCenterBtn setBackgroundColor:color(clearColor)];
+    [contentBG addSubview:costCenterBtn];
 }
 
 

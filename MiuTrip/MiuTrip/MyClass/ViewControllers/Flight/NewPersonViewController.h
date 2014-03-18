@@ -8,6 +8,14 @@
 
 #import "BaseUIViewController.h"
 
+@protocol NewPersonDelegate <NSObject>
+
+- (void)editOrNewPersonDone:(BookPassengersResponse*)passenger;
+
+@end
+
 @interface NewPersonViewController : BaseUIViewController
+
+@property (assign, nonatomic) id<NewPersonDelegate> delegate;
 
 @end

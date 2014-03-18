@@ -74,13 +74,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MiuTrip/MyClass/ViewControllers/Hotel/HotelOrderViewController.mm"
-            timestampString = "416736564.621987"
+            timestampString = "416739458.172943"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "958"
-            endingLineNumber = "958"
-            landmarkName = "-dataSource:containsObject:"
-            landmarkType = "5">
+            startingLineNumber = "973"
+            endingLineNumber = "973"
+            landmarkName = "@implementation HotelOrderViewController"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
