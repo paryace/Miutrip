@@ -24,6 +24,8 @@
 @property (nonatomic,strong) UILabel *checkOutDateWeek;
 @property (nonatomic,strong) UILabel *checkOutDateYear;
 
+@property (nonatomic,strong) NSString *checkInCityName;
+
 -(id)initWidthFrame:(CGRect)frame widthdata:(HotelDataCache*)data;
 
 -(void)setPriceRange:(NSString *) rangeText;

@@ -41,7 +41,7 @@
                   symbolName = "-[AirListViewController tableView:didSelectRowAtIndexPath:]"
                   moduleName = "MiuTrip"
                   urlString = "file://localhost/Users/apple/Desktop/Miutrip/MiuTrip/MiuTrip/MyClass/ViewControllers/Flight/AirListViewController.m"
-                  timestampString = "416801695.726652"
+                  timestampString = "416893559.524282"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "337"
@@ -55,7 +55,7 @@
                   symbolName = "-[AirListViewController tableView:didSelectRowAtIndexPath:]"
                   moduleName = "MiuTrip"
                   urlString = "file://localhost/Users/apple/Desktop/Miutrip/MiuTrip/MiuTrip/MyClass/ViewControllers/Flight/AirListViewController.m"
-                  timestampString = "416801695.726942"
+                  timestampString = "416893559.524612"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "337"
@@ -239,6 +239,130 @@
             endingLineNumber = "198"
             landmarkName = "-pressBtnItem:"
             landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MiuTrip/MyClass/ViewControllers/Hotel/HotelOrderViewController.mm"
+            timestampString = "416889120.844687"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "718"
+            endingLineNumber = "718"
+            landmarkName = "-submitOrder"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MiuTrip/MyClass/RequestHandle/RequestManager.m"
+            timestampString = "416886472.800657"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "113"
+            endingLineNumber = "113"
+            landmarkName = "-requestFinished:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MiuTrip/MyClass/ViewControllers/Hotel/HotelOrderViewController.mm"
+            timestampString = "416889120.844687"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "806"
+            endingLineNumber = "806"
+            landmarkName = "-submitOrder"
+            landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[HotelOrderViewController submitOrder]"
+                  moduleName = "MiuTrip"
+                  urlString = "file://localhost/Users/apple/Desktop/Miutrip/MiuTrip/MiuTrip/MyClass/ViewControllers/Hotel/HotelOrderViewController.mm"
+                  timestampString = "416893559.530195"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "806"
+                  endingLineNumber = "806"
+                  offsetFromSymbolStart = "9206">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[HotelOrderViewController submitOrder]"
+                  moduleName = "MiuTrip"
+                  urlString = "file://localhost/Users/apple/Desktop/Miutrip/MiuTrip/MiuTrip/MyClass/ViewControllers/Hotel/HotelOrderViewController.mm"
+                  timestampString = "416893559.530521"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "806"
+                  endingLineNumber = "806"
+                  offsetFromSymbolStart = "10072">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MiuTrip/MyClass/ViewControllers/Hotel/HotelOrderViewController.mm"
+            timestampString = "416889314.17318"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "107"
+            endingLineNumber = "107"
+            landmarkName = "-initParams"
+            landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[HotelOrderViewController initParams]"
+                  moduleName = "MiuTrip"
+                  urlString = "file://localhost/Users/apple/Desktop/Miutrip/MiuTrip/MiuTrip/MyClass/ViewControllers/Hotel/HotelOrderViewController.mm"
+                  timestampString = "416893559.530868"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "107"
+                  endingLineNumber = "107"
+                  offsetFromSymbolStart = "2453">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[HotelOrderViewController initParams]"
+                  moduleName = "MiuTrip"
+                  urlString = "file://localhost/Users/apple/Desktop/Miutrip/MiuTrip/MiuTrip/MyClass/ViewControllers/Hotel/HotelOrderViewController.mm"
+                  timestampString = "416893559.53118"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "107"
+                  endingLineNumber = "107"
+                  offsetFromSymbolStart = "3935">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

@@ -23,6 +23,21 @@
     return self;
 }
 
+- (void)setPriceDic:(NSDictionary *)priceDic
+{
+    if (_priceDic != priceDic) {
+        _priceDic = priceDic;
+    }
+    
+    UIButton *bookBtn = (UIButton*)[self viewWithTag:1000];
+    NSInteger guaranteeType = [[priceDic objectForKey:@"GuaranteeType"] integerValue];
+    if (guaranteeType == 0) {
+        [bookBtn setEnabled:YES];
+    }else{
+        [bookBtn setEnabled:NO];
+    }
+}
+
 -(void)setUpView{
     
     //房型名称
@@ -60,6 +75,7 @@
     [bookBtn setBackgroundImage:[UIImage imageNamed:@"button_booking"] forState:UIControlStateNormal];
     [bookBtn setBackgroundImage:[UIImage imageNamed:@"button_booking_pressed"] forState:UIControlStateHighlighted];
     [bookBtn setBackgroundColor:color(clearColor)];
+    [bookBtn setTag:1000];
     [bookBtn.titleLabel setFont:[UIFont systemFontOfSize:13]];
     [bookBtn.titleLabel setTextColor:color(whiteColor)];
     [bookBtn setTitle:@"预定" forState:UIControlStateNormal];
@@ -78,6 +94,7 @@
     data.selectedHotelId = _hotelId;
     data.selectedHotelName = _hotelName;
     data.selectedRoomData = _roomData;
+//    data.selectedCityName = _cityName;
 
     NSArray *pricePolicies = [_roomData objectForKey:@"PricePolicies"];
     NSDictionary *priceDic = [pricePolicies objectAtIndex:0];

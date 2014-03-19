@@ -632,6 +632,12 @@
 {
     HotelDataCache *data = [HotelDataCache sharedInstance];
     
+    HotelSearchView *hotelSearchView = (HotelSearchView*)[self.contentView viewWithTag:2001];
+    ImageAndTextTilteView *cityView = (ImageAndTextTilteView*)[hotelSearchView viewWithTag:500];
+    if (!data.checkInCityName) {
+        data.checkInCityName = cityView.valueView.text;
+    }
+    
     if([_customBtn.goalBtn.selectBtn.titleLabel.text isEqualToString:@"因公"]){
         data.isPrivte = NO;
     }else{

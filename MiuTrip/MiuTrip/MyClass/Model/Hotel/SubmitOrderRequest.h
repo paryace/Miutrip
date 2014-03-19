@@ -14,6 +14,7 @@
 @property(strong,nonatomic) NSNumber *ReserveType;
 @property(strong,nonatomic) NSString *PolicyUid;
 @property(strong,nonatomic) NSNumber *CityId;
+@property(strong,nonatomic) NSString *CityName;
 @property(strong,nonatomic) NSNumber *HotelID;
 @property(strong,nonatomic) NSNumber *RoomOTAType;
 @property(strong,nonatomic) NSNumber *RoomTypeID;
@@ -23,7 +24,7 @@
 @property(strong,nonatomic) NSString *LeaveDate;
 @property(strong,nonatomic) NSNumber *RoomNumber;
 @property(strong,nonatomic) NSString *ArriveTime;
-@property(strong,nonatomic) NSNumber *ContactID;
+@property(strong,nonatomic) NSString *ContactID;
 @property(strong,nonatomic) NSString *ContactName;
 @property(strong,nonatomic) NSString *ContactMobile;
 @property(strong,nonatomic) NSNumber *ConfirmType;

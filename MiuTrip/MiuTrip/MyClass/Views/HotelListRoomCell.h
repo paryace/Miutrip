@@ -19,6 +19,10 @@
 
 @property (nonatomic,assign) NSDictionary  *roomData;
 @property (nonatomic,assign) NSString      *hotelName;
+//@property (nonatomic,strong) NSString      *cityName;
+
+@property (nonatomic,strong) NSDictionary       *priceDic;
+
 @property (nonatomic)       int            hotelId;
 
 @end

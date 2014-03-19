@@ -48,6 +48,8 @@
 
 @property (strong, nonatomic) UITableView       *tableView;
 
+@property (strong, nonatomic) UITextField       *customerMobile;            //入住人手机
+
 @end
 
 @implementation HotelOrderViewController
@@ -102,7 +104,7 @@
         customer.apportionRate = 1;
         [customers addObject:customer];
         
-        data.contactorId = [[UserDefaults shareUserDefault].loginInfo.UID intValue];
+        data.contactorId = [UserDefaults shareUserDefault].loginInfo.UID;
         data.contactorMobile = [UserDefaults shareUserDefault].loginInfo.Mobilephone;
         data.contactorName = [UserDefaults shareUserDefault].loginInfo.UserName;
         
@@ -241,12 +243,12 @@
     [line3 setBackgroundColor:color(lightGrayColor)];
     [scrollView addSubview:line3];
     
-    UITextField *customerMobile = [[UITextField alloc] initWithFrame:CGRectMake(105, y+4, width - 130, 34)];
-    [customerMobile setTextColor:color(blackColor)];
-    [customerMobile setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
-    [customerMobile setBorderStyle:UITextBorderStyleRoundedRect];
-    [customerMobile setFont:[UIFont systemFontOfSize:14]];
-    [scrollView addSubview:customerMobile];
+    _customerMobile = [[UITextField alloc] initWithFrame:CGRectMake(105, y+4, width - 130, 34)];
+    [_customerMobile setTextColor:color(blackColor)];
+    [_customerMobile setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
+    [_customerMobile setBorderStyle:UITextBorderStyleRoundedRect];
+    [_customerMobile setFont:[UIFont systemFontOfSize:14]];
+    [scrollView addSubview:_customerMobile];
     
     y += 40;
     
@@ -758,6 +760,7 @@
         
     }
     
+    request.CityName = data.checkInCityName;
     request.CityId = [NSNumber numberWithInt:data.checkInCityId];
     request.HotelID = [NSNumber numberWithInt:data.selectedHotelId];
     request.RoomOTAType = [NSNumber numberWithInt:[[data.selectedRoomData objectForKey:@"RoomOTAType"] intValue]];
@@ -773,11 +776,15 @@
     
     request.Remarks = @"";
     request.RoomNumber = [NSNumber numberWithInt:1];
-    request.GuestMobile = data.guestMobile;
+    if ([Utils textIsEmpty:_customerMobile.text]) {
+        [[Model shareModel] showPromptText:@"请输入入住人手机号码" model:YES];
+        return;
+    }
+    request.GuestMobile = _customerMobile.text;
     
-    request.ContactID = [NSNumber numberWithInt:data.contactorId];
-    request.ContactName = data.contactorMobile;
-    request.ContactMobile = data.contactorMobile;
+    request.ContactID = [UserDefaults shareUserDefault].loginInfo.UID;
+    request.ContactName = [UserDefaults shareUserDefault].loginInfo.UserName;
+    request.ContactMobile = [UserDefaults shareUserDefault].loginInfo.Mobilephone;
     
     NSArray *priceInfos = [policies objectForKey:@"PriceInfos"];
     NSDictionary *roomPriceDic = [priceInfos objectAtIndex:0];
@@ -1185,6 +1192,18 @@
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
+}
+
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    [self clearKeyBoard];
+}
+
+- (void)clearKeyBoard
+{
+    if ([_customerMobile isFirstResponder]) {
+        [_customerMobile resignFirstResponder];
+    }
 }
 
 @end

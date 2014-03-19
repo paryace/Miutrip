@@ -516,6 +516,10 @@
             NSDictionary *priceDic = [pricePolicies objectAtIndex:0];
             NSArray *priceInfos = [priceDic objectForKey:@"PriceInfos"];
             NSDictionary *roomPriceDic = [priceInfos objectAtIndex:0];
+            
+            
+            
+            [cellView setPriceDic:priceDic];
    
             cellView.roomData = roomDic;
             cellView.hotelId = [[dic objectForKey:@"hotelId"] intValue];
