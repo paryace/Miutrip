@@ -168,12 +168,18 @@
 
 - (void)pressOrderDetailBtn
 {
-    [[Model shareModel] goToHotelOrderList];
+    [self popToMainViewControllerTransitionType:TransitionNone completionHandler:^{
+        NSLog(@"pop to main");
+        [[Model shareModel] goToHotelOrderList];
+    }];
 }
 
 - (void)pressLittleMiuBtn
 {
-    [[Model shareModel] goToLittleMiu];
+    [self popToMainViewControllerTransitionType:TransitionNone completionHandler:^{
+        [[Model shareModel] goToLittleMiu];
+
+    }];
 }
 
 - (void)UPPay
