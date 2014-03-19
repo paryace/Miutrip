@@ -8,6 +8,7 @@
 
 #import "BaseUIViewController.h"
 #import "PassengerListViewController.h"
+#import "NewPersonViewController.h"
 
 @protocol SelectPassengerDelegate <NSObject>
 
@@ -22,7 +23,7 @@
 
 @end
 
-@interface SelectPassengerViewController : BaseUIViewController<UITableViewDataSource,UITableViewDelegate,PassengerListViewDelegate,SelectPolicyDelegate>
+@interface SelectPassengerViewController : BaseUIViewController<UITableViewDataSource,UITableViewDelegate,PassengerListViewDelegate,SelectPolicyDelegate,NewPersonDelegate>
 
 @property (assign, nonatomic) id<SelectPassengerDelegate> delegate;
 @property (nonatomic)         int businessType;

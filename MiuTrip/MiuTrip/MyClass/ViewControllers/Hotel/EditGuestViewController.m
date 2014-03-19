@@ -9,6 +9,7 @@
 #import "EditGuestViewController.h"
 #import "GetCorpCostRequest.h"
 #import "GetCorpCostResponse.h"
+#import "HotelDataCache.h"
 
 
 #define editView_width        appBounds.size.width - 20
@@ -24,6 +25,12 @@
     UIView *shadowView;
 }
 
+@property (strong, nonatomic) GetCorpCostResponse *costCenter;
+@property (strong, nonatomic) UILabel      *costCenterLb;
+@property (strong, nonatomic) UILabel      *shareAcLb;
+
+@property (strong, nonatomic) HotelCustomerModel *customer;
+
 @end
 
 @implementation EditGuestViewController
@@ -37,11 +44,17 @@
     return self;
 }
 
-- (id)init
+- (id)initWithIndex:(NSInteger)index
 {
     if (self = [super init]) {
-        _costCentre = @"选择成本中心";
-        _ShareAmount = @"选择分摊方式";
+        _customerIndex = index;
+        if (index != -1) {
+            _customer = [[HotelDataCache sharedInstance].customers objectAtIndex:index];
+        }
+        
+        _shareAmount = -1;
+        _shareAmountArray = [[NSArray alloc] initWithObjects:@"不承担费用",@"承担半价",@"承担全价", nil];
+
         [self sendRequest];
         [self.view setHidden:NO];
         [self setSubView];
@@ -56,12 +69,57 @@
 	// Do any additional setup after loading the view.
 }
 
-
+- (void)pressRightBtn:(UIButton*)sender
+{
+    if (_customer) {
+        if (![Utils textIsEmpty:_userName.text]) {
+            _customer.name = _userName.text;
+        }
+        if (_costCentre) {
+            [HotelDataCache sharedInstance].centerItem = _costCentre;
+            _customer.costCenter = _costCentre.ItemText;
+        }
+        if (_shareAmount >= 0 && _shareAmount <= 1) {
+            _customer.apportionRate = _shareAmount;
+        }
+    }else{
+        if ([Utils textIsEmpty:_userName.text]) {
+            [[Model shareModel] showPromptText:@"请输入姓名" model:YES];
+            return;
+        }else if (!_costCentre){
+            [[Model shareModel] showPromptText:@"请选择成本中心" model:YES];
+            return;
+        }else if (_shareAmount == -1){
+            [[Model shareModel] showPromptText:@"请选择费用分摊比例" model:YES];
+            return;
+        }
+        HotelCustomerModel *customer = [[HotelCustomerModel alloc]init];
+        customer.name = _userName.text;
+        [HotelDataCache sharedInstance].centerItem = _costCentre;
+        customer.costCenter = _costCentre.ItemText;
+        customer.apportionRate = _shareAmount;
+        [[HotelDataCache sharedInstance].customers addObject:customer];
+    }
+    
+    [self popViewControllerTransitionType:TransitionPush completionHandler:^{
+        [self.delegate editGuestDone:_customerIndex];
+    }];
+}
 
 - (void)setSubView
 {
     [self addTitleWithTitle:@"编辑入住人" withRightView:nil];
     //[self addLoadingView];
+    HotelCustomerModel *customer = _customer;
+    
+    UIButton *rightBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [rightBtn setBackgroundColor:color(clearColor)];
+    [rightBtn setFrame:CGRectMake(appFrame.size.width - 40, 0, 40, 40)];
+    [rightBtn setScaleX:0.7 scaleY:0.7];
+    [rightBtn setImage:imageNameAndType(@"abs__ic_cab_done_holo_dark", nil) forState:UIControlStateNormal];
+    [rightBtn setImage:imageNameAndType(@"abs__ic_cab_done_holo_light", nil) forState:UIControlStateHighlighted];
+    [rightBtn addTarget:self action:@selector(pressRightBtn:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:rightBtn];
     
     //UIView *editView = [[UIView alloc] initWithFrame:CGRectMake(10, self.topBar.frame.size.height+ 10 ,appBounds.size.width - 20, 100)];
     UIView *editView = [[UIView alloc] initWithFrame:CGRectMake(10, 40+ 10 ,editView_width, 101)];
@@ -103,6 +161,7 @@
     _userName.textColor = color(darkGrayColor);
     _userName.delegate = self;
     _userName.borderStyle = UITextBorderStyleRoundedRect;
+    [_userName setText:customer.name];
     _userName.clearButtonMode = UITextFieldViewModeWhileEditing;
     [editView addSubview:_userName];
     
@@ -115,12 +174,12 @@
     [editView addSubview:cost];
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     button.frame = CGRectMake(cost.frame.size.width + 5, 34, 80, editView_height / 3);
-    UILabel *buttonL = [[UILabel alloc] initWithFrame:button.frame];
-    buttonL.tag = costCentre_label_tag;
-   [self setUpLabel:buttonL withText:_costCentre];
-    buttonL.textAlignment = NSTextAlignmentLeft;
+    _costCenterLb = [[UILabel alloc] initWithFrame:button.frame];
+    _costCenterLb.tag = costCentre_label_tag;
+   [self setUpLabel:_costCenterLb withText:[self getCostCenterDesc]];
+    _costCenterLb.textAlignment = NSTextAlignmentLeft;
    // [button setTitle:_costCentre forState:UIControlStateNormal];
-    [editView addSubview:buttonL];
+    [editView addSubview:_costCenterLb];
     [button addTarget:self action:@selector(selectCostCentre:) forControlEvents:UIControlEventTouchUpInside];
     [editView addSubview:button];
     
@@ -137,13 +196,37 @@
     //[shareBtn setTitle:_ShareAmount forState:UIControlStateNormal];
     shareBtn.frame = CGRectMake(share.frame.size.width + 5, 68, 80, editView_height / 3);
     
-    UILabel *buttonS = [[UILabel alloc] initWithFrame:shareBtn.frame];
-    buttonS.tag = shareAmount_label_tag;
-    [self setUpLabel:buttonS withText:_ShareAmount];
-    buttonS.textAlignment = NSTextAlignmentLeft;
-    [editView addSubview:buttonS];
+    UILabel *shareAcLb = [[UILabel alloc] initWithFrame:shareBtn.frame];
+    shareAcLb.tag = shareAmount_label_tag;
+    [self setUpLabel:shareAcLb withText:[self getShareAmountDesc]];
+    shareAcLb.textAlignment = NSTextAlignmentLeft;
+    [editView addSubview:shareAcLb];
     [shareBtn addTarget:self action:@selector(shareAmountChoose:) forControlEvents:UIControlEventTouchUpInside];
     [editView addSubview:shareBtn];
+}
+
+- (NSString *)getCostCenterDesc
+{
+    if (![Utils textIsEmpty:_customer.costCenter]) {
+        return _customer.costCenter;
+    }else{
+        return @"选择成本中心";
+    }
+}
+
+- (NSString *)getShareAmountDesc
+{
+    if (_customer) {
+        if (_customer.apportionRate == 0.0) {
+            return [_shareAmountArray objectAtIndex:0];
+        }else if (_customer.apportionRate == 0.5) {
+            return [_shareAmountArray objectAtIndex:1];
+        }else if (_customer.apportionRate == 1.0){
+            return [_shareAmountArray objectAtIndex:2];
+        }
+    }
+    
+    return @"选择分摊方式";
 }
 
 - (void)createShadowView
@@ -158,7 +241,6 @@
 {
     [self createShadowView];
     //_costCentreArray = [[NSMutableArray alloc] initWithObjects:@"销售部",@"行政部",@"资源部",@"运营部",@"财务部",@"技术部",@"市场部", nil];
-    _shareAmountArray = [[NSArray alloc] initWithObjects:@"承担全价",@"承担半价",@"不承担费用", nil];
     _costCentreArray = [[NSMutableArray alloc] init];
     
      _costCentreList = [[UITableView alloc] initWithFrame:CGRectMake(50, 70, appFrame.size.width - 100, (_mArray.count+1) * 27) style:UITableViewStylePlain];
@@ -178,7 +260,7 @@
 - (void)tableViewHeadViewWithTitle:(NSString *)title{
 
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, _costCentreList.frame.size.width, 27)];
-    view.backgroundColor = [UIColor blueColor];
+    view.backgroundColor = [UIColor colorWithPatternImage: [UIImage imageNamed:@"bg_hotel_cost.png"]];
     UILabel *viewLabel = [[UILabel alloc] initWithFrame:view.bounds];
     viewLabel.backgroundColor = color(clearColor);
     [viewLabel setText:title];
@@ -192,6 +274,7 @@
 
 - (void)sendRequest
 {
+    [self addLoadingView];
     GetCorpCostRequest *request = [[GetCorpCostRequest alloc] initWidthBusinessType:BUSINESS_ACCOUNT methodName:@"GetCorpCost"];
     request.corpId = [[[UserDefaults shareUserDefault] loginInfo] CorpID];
     [self.requestManager sendRequest:request];
@@ -200,15 +283,16 @@
 
 - (void)requestDone:(BaseResponseModel *)response
 {
+    [self removeLoadingView];
+    
     GetCorpCostResponse *responseN = (GetCorpCostResponse *)response;
-    NSArray *costs = responseN.costs;
-    NSArray *SelectItem = [[costs lastObject] objectForKey:@"SelectItem"];
-    for (int i = 0; i < SelectItem.count; i ++) {
-        NSDictionary *dic = [SelectItem objectAtIndex:i];
-        NSString *itemText = [dic objectForKey:@"ItemText"];
-        [_costCentreArray addObject:itemText];
-        NSLog(@"%@",itemText);
+    [responseN getObjects];
+    [HotelDataCache sharedInstance].corpCost = responseN;
+    if ([responseN.costs count] != 0) {
+        CostCenterList *list = [responseN.costs objectAtIndex:0];
+        _costCentreArray = list.SelectItem;
     }
+    [_costCenterLb setText:[self getCostCenterDesc]];
     
     _costCentreList.frame = CGRectMake(50, 70, appFrame.size.width - 100, (_mArray.count +1)* 27);
     [_costCentreList reloadData];
@@ -232,10 +316,14 @@
     
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"CostCentre"];
+        cell.textLabel.textColor = [UIColor darkGrayColor];
     }
-    
-    cell.textLabel.text = [_mArray objectAtIndex:indexPath.row];
-    cell.textLabel.textColor = [UIColor darkGrayColor];
+    id object = [_mArray objectAtIndex:indexPath.row];
+    if ([object isKindOfClass:[CostCenterItem class]]) {
+        CostCenterItem *item = object;
+        cell.textLabel.text = item.ItemText;
+    }else if ([object isKindOfClass:[NSString class]])
+        cell.textLabel.text = [_mArray objectAtIndex:indexPath.row];
     
     return cell;
 }
@@ -247,16 +335,29 @@
     if (isCostCentre) {
     UILabel *costlabel = (UILabel *)[editView viewWithTag:costCentre_label_tag];
     
-    NSString *oneCost = [_mArray objectAtIndex:indexPath.row];
-    _costCentre = oneCost;
-  
-    NSLog(@"%@",_costCentre);
-    costlabel.text = _costCentre;
+        CostCenterItem *item = [_mArray objectAtIndex:indexPath.row];
+        _costCentre = item;
+        
+        costlabel.text = _costCentre.ItemText;
     }
     //_costCentreList.hidden = YES;
-    if (isCostCentre == NO) {
+    else if (isCostCentre == NO) {
         UILabel *shareLabel = (UILabel *)[self.view viewWithTag:shareAmount_label_tag];
         NSString *oneShare = [_mArray objectAtIndex:indexPath.row];
+        switch (indexPath.row) {
+            case 0:{
+                _shareAmount = 0.0;
+                break;
+            }case 1:{
+                _shareAmount = 0.5;
+                break;
+            }case 2:{
+                _shareAmount = 1.0;
+                break;
+            }
+            default:
+                break;
+        }
         shareLabel.text = oneShare;
     }
     
@@ -264,12 +365,18 @@
     
   
 }
+
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    [self endDisplay];
+}
+
 - (void)viewWillDisappear:(BOOL)animated
 {
-    UIView *editView = (UIView *)[self.view viewWithTag:editView_tag];
-    UILabel *costlabel = (UILabel *)[editView viewWithTag:costCentre_label_tag];
-    UILabel *shareLabel = (UILabel *)[self.view viewWithTag:shareAmount_label_tag];
-    self.selectResult(_userName.text,costlabel.text,shareLabel.text);
+//    UIView *editView = (UIView *)[self.view viewWithTag:editView_tag];
+//    UILabel *costlabel = (UILabel *)[editView viewWithTag:costCentre_label_tag];
+//    UILabel *shareLabel = (UILabel *)[self.view viewWithTag:shareAmount_label_tag];
+//    self.selectResult(_userName.text,costlabel.text,shareLabel.text);
 }
 
 /*
@@ -311,13 +418,18 @@
 - (void)beginDisplay
 {
     [self grayShowWhenTouch];
+
+
     _costCentreList.transform = CGAffineTransformMakeScale(1.3, 1.3);
     _costCentreList.alpha = 0;
     [UIView animateWithDuration:0.35f animations:^{
+
         _costCentreList.alpha = 1;
         _costCentreList.transform = CGAffineTransformMakeScale(1, 1);
     }];
-    _costCentreList.frame = CGRectMake(50, 70, appFrame.size.width - 100, (_mArray.count+1) * 27);
+    _costCentreList.frame = CGRectMake(_costCentreList.frame.origin.x, _costCentreList.frame.origin.y, appFrame.size.width - 100, (_mArray.count+1) * 27);
+    [_costCentreList setCenter:self.view.center];
+
     
 }
 

@@ -33,7 +33,7 @@
 @property(strong,nonatomic) NSString *UserIP;
 @property(strong,nonatomic) NSNumber *CcIndex;
 @property(strong,nonatomic) NSString *CcValue;
-@property(strong,nonatomic) NSArray *Guests;
+@property(strong,nonatomic) NSArray  *Guests;
 
 
 @end

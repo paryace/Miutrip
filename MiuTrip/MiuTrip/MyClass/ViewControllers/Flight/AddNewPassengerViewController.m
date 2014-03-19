@@ -66,7 +66,14 @@
 
 - (void)pressRightBtn:(UIButton*)sender
 {
-    [self savePassenger];
+    
+}
+
+- (void)getPassenger
+{
+    if (!_passengerInfo) {
+//        _passengerInfo = [[BookPassengersResponse alloc]init];
+    }
 }
 
 - (void)savePassenger

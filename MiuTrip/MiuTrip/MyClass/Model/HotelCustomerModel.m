@@ -31,6 +31,15 @@
         return nil;
 }
 
+- (id)init
+{
+    self = [super init];
+    if (self) {
+        _shareAmount = 1.0;
+    }
+    return self;
+}
+
 
 
 @end

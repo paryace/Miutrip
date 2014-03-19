@@ -14,7 +14,6 @@
 #import "SubmitOrderRequest.h"
 #import "Utils.h"
 #import "SubmitOrderResponse.h"
-#import "EditGuestViewController.h"
 
 
 #define KBtn_width        200
@@ -631,7 +630,9 @@
             [_tableView setEditing:!_tableView.editing animated:YES];
             break;
         }case 502:{
-            
+            EditGuestViewController *egvc = [[EditGuestViewController alloc] initWithIndex:-1];
+            [egvc setDelegate:self];
+            [self pushViewController:egvc transitionType:TransitionPush completionHandler:nil];
             break;
         }
         default:
@@ -881,7 +882,7 @@
     
     HotelCustomerModel *customer = [[HotelDataCache sharedInstance].customers objectAtIndex:indexPath.row];
     cellView.name.text = customer.name;
-    cellView.costCenter.text = @"";
+    cellView.costCenter.text = [Utils NULLToEmpty:customer.costCenter];
     NSString *apportionString = nil;
     if(customer.apportionRate == 1){
         apportionString = [NSString stringWithFormat:@"￥%d承担全价",_roomPrice];
@@ -918,30 +919,36 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    EditGuestViewController *egvc = [[EditGuestViewController alloc] init];
-    customerTableViewCell *cell = (customerTableViewCell *)[tableView cellForRowAtIndexPath:indexPath];
-    egvc.userName.text = cell.name.text;
+    EditGuestViewController *egvc = [[EditGuestViewController alloc] initWithIndex:indexPath.row];
+    [egvc setDelegate:self];
+//    customerTableViewCell *cell = (customerTableViewCell *)[tableView cellForRowAtIndexPath:indexPath];
+//    egvc.userName.text = cell.name.text;
     
-    egvc.selectResult = ^(NSString *userName, NSString *costCentre, NSString *shareAmount){
-        if (![costCentre isEqualToString:@"选择成本中心"]) {
-            cell.costCenter.text = costCentre;
-        }
-        if (![userName isEqualToString:cell.name.text]) {
-            cell.name.text = userName;
-        }
-        if (![shareAmount isEqualToString:@"选择分摊方式"]) {
-            if ([shareAmount isEqualToString:@"承担全价"]) {
-                cell.costApportion.text = [NSString stringWithFormat:@"￥%d承担全价",_roomPrice];
-            }else if([shareAmount isEqualToString:@"承担半价"]){
-                cell.costApportion.text = [NSString stringWithFormat:@"￥%d承担半价",_roomPrice/2];
-                
-            }else {
-                cell.costApportion.text = [NSString stringWithFormat:@"不承担费用"];
-                
-            }
-        }
-    };
+//    egvc.selectResult = ^(NSString *userName, NSString *costCentre, NSString *shareAmount){
+//        if (![costCentre isEqualToString:@"选择成本中心"]) {
+//            cell.costCenter.text = costCentre;
+//        }
+//        if (![userName isEqualToString:cell.name.text]) {
+//            cell.name.text = userName;
+//        }
+//        if (![shareAmount isEqualToString:@"选择分摊方式"]) {
+//            if ([shareAmount isEqualToString:@"承担全价"]) {
+//                cell.costApportion.text = [NSString stringWithFormat:@"￥%d承担全价",_roomPrice];
+//            }else if([shareAmount isEqualToString:@"承担半价"]){
+//                cell.costApportion.text = [NSString stringWithFormat:@"￥%d承担半价",_roomPrice/2];
+//                
+//            }else {
+//                cell.costApportion.text = [NSString stringWithFormat:@"不承担费用"];
+//                
+//            }
+//        }
+//    };
     [self pushViewController:egvc transitionType:TransitionPush completionHandler:nil];
+}
+
+- (void)editGuestDone:(NSInteger)index
+{
+    [self setSelectCustomers:YES];
 }
 
 - (void)dataSource:(NSMutableArray*)dataSource removeObject:(id)object
@@ -1059,6 +1066,7 @@
     //    NSURLConnection* urlConn = [[NSURLConnection alloc] initWithRequest:urlRequest delegate:self];
     //    [urlConn start];
     //    [self showAlertWait];
+    [self submitOrder];
 }
 
 
@@ -1195,6 +1203,7 @@
 
 -(void)setUpView{
     [self setBackgroundColor:color(clearColor)];
+    [self setSelectionStyle:UITableViewCellSelectionStyleNone];
     
     int width = self.frame.size.width;
     int height = self.frame.size.height;

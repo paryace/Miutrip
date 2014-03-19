@@ -57,22 +57,34 @@
     }
 }
 
+#pragma mark - edit or add new person
+- (void)editOrNewPersonDone:(BookPassengersResponse*)passenger
+{
+    if (![_dataSource containsObject:passenger]) {
+        if (!_dataSource) {
+            _dataSource = [NSMutableArray array];
+        }
+        [_dataSource addObject:passenger];
+    }
+    [self selectDone:_dataSource];
+}
+
 #pragma  mark - select passenger handle
 - (void)selectPassenger:(UIButton*)sender
 {
     switch (sender.tag) {
         case 200:{
-            if (!_passengerListViewController) {
                 _passengerListViewController = [[PassengerListViewController alloc]init];
+                [_passengerListViewController setSelectedPassengers:_dataSource];
                 [_passengerListViewController setDelegate:self];
-            }
             [self pushViewController:_passengerListViewController transitionType:TransitionPush completionHandler:nil];
             break;
         }case 201:{
             [_theTableView setEditing:!_theTableView.editing animated:YES];
             break;
         }case 202:{
-            AddNewPassengerViewController *viewController = [[AddNewPassengerViewController alloc]init];
+            NewPersonViewController *viewController = [[NewPersonViewController alloc]initWithObject:nil];
+            [viewController setDelegate:self];
             [self pushViewController:viewController transitionType:TransitionPush completionHandler:nil];
             break;
         }
@@ -118,35 +130,38 @@
 - (BOOL)checkIDNumValidateWithData:(NSArray*)data
 {
     BOOL isValidate = YES;
-    NSMutableString *promptText = [NSMutableString string];
-    for (id object in data) {
-        if (promptText.length != 0) {
-            [promptText appendFormat:@"\n"];
+    if (_businessType == 0) {
+        NSMutableString *promptText = [NSMutableString string];
+        for (id object in data) {
+            if (promptText.length != 0) {
+                [promptText appendFormat:@"\n"];
+            }
+            BOOL objectIsValidate = NO;
+            if ([object isKindOfClass:[GetLoginUserInfoResponse class]]) {
+                GetLoginUserInfoResponse *userInfo = object;
+                NSString *cardNumber = [userInfo getDefaultIDCard].CardNumber;
+                NSLog(@"name = %@",cardNumber);
+                objectIsValidate = [Utils isValidateIdNum:cardNumber];
+                if (!objectIsValidate) {
+                    [promptText appendFormat:@"%@身份证号:%@",userInfo.UserName,[userInfo getDefaultIDCard].CardNumber];
+                    isValidate = objectIsValidate;
+                }
+            }else if ([object isKindOfClass:[BookPassengersResponse class]]){
+                BookPassengersResponse *passenger = object;
+                NSString *cardNumber = [passenger getDefaultIDCard].CardNumber;
+                NSLog(@"name = %@",cardNumber);
+                objectIsValidate = [Utils isValidateIdNum:cardNumber];
+                if (!objectIsValidate) {
+                    [promptText appendFormat:@"%@身份证号:%@",passenger.UserName,[passenger getDefaultIDCard].CardNumber];
+                    isValidate = objectIsValidate;
+                }
+            }
         }
-        BOOL objectIsValidate = NO;
-        if ([object isKindOfClass:[GetLoginUserInfoResponse class]]) {
-            GetLoginUserInfoResponse *userInfo = object;
-            NSString *cardNumber = [userInfo getDefaultIDCard].CardNumber;
-            NSLog(@"name = %@",cardNumber);
-            objectIsValidate = [Utils isValidateIdNum:cardNumber];
-            if (!objectIsValidate) {
-                [promptText appendFormat:@"%@身份证号:%@",userInfo.UserName,[userInfo getDefaultIDCard].CardNumber];
-                isValidate = objectIsValidate;
-            }
-        }else if ([object isKindOfClass:[BookPassengersResponse class]]){
-            BookPassengersResponse *passenger = object;
-            NSString *cardNumber = [passenger getDefaultIDCard].CardNumber;
-            NSLog(@"name = %@",cardNumber);
-            objectIsValidate = [Utils isValidateIdNum:cardNumber];
-            if (!objectIsValidate) {
-                [promptText appendFormat:@"%@身份证号:%@",passenger.UserName,[passenger getDefaultIDCard].CardNumber];
-                isValidate = objectIsValidate;
-            }
+        if (!isValidate) {
+            [[Model shareModel]showPromptText:[NSString stringWithFormat:@"下列用户身份证号码不正确\n%@\n请修改或重新选择",promptText] model:YES];
         }
     }
-    if (!isValidate) {
-        [[Model shareModel]showPromptText:[NSString stringWithFormat:@"下列用户身份证号码不正确\n%@\n请修改或重新选择",promptText] model:YES];
-    }
+    
     return isValidate;
 }
 
@@ -350,7 +365,8 @@
 {
     id object = [_dataSource objectAtIndex:indexPath.row];
     BookPassengersResponse *passenger = [self getPassengerWithParams:object];
-    AddNewPassengerViewController *viewController = [[AddNewPassengerViewController alloc]initWithParams:passenger];
+    NewPersonViewController *viewController = [[NewPersonViewController alloc]initWithObject:passenger];
+    [viewController setDelegate:self];
     [self pushViewController:viewController transitionType:TransitionPush completionHandler:nil];
 }
 

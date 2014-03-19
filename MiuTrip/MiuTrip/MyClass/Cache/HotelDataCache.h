@@ -9,6 +9,9 @@
 #import <Foundation/Foundation.h>
 #import "HotelCustomerModel.h"
 
+@class GetCorpCostResponse;
+@class CostCenterItem;
+
 @interface HotelDataCache : NSObject
 
 
@@ -30,6 +33,8 @@
 @property (strong, nonatomic) NSString             *ReserveType;           //预订类型(为本人预订(1) 为多人预订(2))
 
 @property (strong, nonatomic) NSMutableArray              *customers;             //入住人
+@property (strong, nonatomic) GetCorpCostResponse         *corpCost;              //公司成本中心
+@property (strong, nonatomic) CostCenterItem              *centerItem;            //成本中心
 
 
 @property (strong, nonatomic) NSString             *orderNum;              //订单号

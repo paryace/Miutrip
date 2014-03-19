@@ -24,13 +24,13 @@
     [MobClick setAppVersion:version];
     
     
-    Class cls = NSClassFromString(@"UMANUtil");
-    SEL deviceIDSelector = @selector(openUDIDString);
-    NSString *deviceID = nil;
-    if(cls && [cls respondsToSelector:deviceIDSelector]){
-        deviceID = [cls performSelector:deviceIDSelector];
-    }
-    NSLog(@"{\"oid\": \"%@\"}", deviceID);
+//    Class cls = NSClassFromString(@"UMANUtil");
+//    SEL deviceIDSelector = @selector(openUDIDString);
+//    NSString *deviceID = nil;
+//    if(cls && [cls respondsToSelector:deviceIDSelector]){
+//        deviceID = [cls performSelector:deviceIDSelector];
+//    }
+//    NSLog(@"{\"oid\": \"%@\"}", deviceID);
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
@@ -54,6 +54,7 @@
 
     UINavigationController *navigationController = [[UINavigationController alloc]initWithRootViewController:_viewController];
     [navigationController setNavigationBarHidden:YES];
+
     self.window.rootViewController = navigationController;
     //[[UIApplication sharedApplication] setStatusBarHidden:YES];
     self.window.backgroundColor = [UIColor whiteColor];

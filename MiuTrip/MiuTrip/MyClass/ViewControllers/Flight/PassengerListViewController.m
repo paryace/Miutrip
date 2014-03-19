@@ -44,6 +44,15 @@
     return self;
 }
 
+- (void)setSelectedPassengers:(NSMutableArray *)selectedPassengers
+{
+    if (!selectedPassengers) {
+        _selectedPassengers = [NSMutableArray array];
+    }else{
+        _selectedPassengers = selectedPassengers;
+    }
+}
+
 - (void)getContacts
 {
     [self addLoadingView];

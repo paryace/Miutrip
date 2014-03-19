@@ -19,6 +19,8 @@
 @property (nonatomic,strong) NSString    *UID;
 @property (nonatomic)        int         policyId;
 
+@property (nonatomic,assign) float       shareAmount;
+
 + (HotelCustomerModel*)getCustomer:(id)object;
 
 @end

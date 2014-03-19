@@ -10,4 +10,38 @@
 
 @implementation GetCorpCostResponse
 
+- (void)getObjects
+{
+    NSMutableArray *costs = [NSMutableArray array];
+    for (NSDictionary *dic in _costs) {
+        CostCenterList *center = [[CostCenterList alloc]init];
+        [center parshJsonToResponse:dic];
+        [center getObjects];
+        [costs addObject:center];
+    }
+    _costs = costs;
+}
+
+@end
+
+
+@implementation CostCenterList
+
+- (void)getObjects
+{
+    NSMutableArray *SelectItem = [NSMutableArray array];
+    for (NSDictionary *dic in _SelectItem) {
+        CostCenterItem *item = [[CostCenterItem alloc]init];
+        [item parshJsonToResponse:dic];
+        [SelectItem addObject:item];
+    }
+    _SelectItem = SelectItem;
+}
+
+@end
+
+@implementation CostCenterItem
+
+
+
 @end

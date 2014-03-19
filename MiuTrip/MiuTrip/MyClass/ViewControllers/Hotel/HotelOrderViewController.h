@@ -11,9 +11,10 @@
 //#import "UPPayPluginDelegate.h"
 //#import "UPPayPlugin.h"
 #import "PassengerListViewController.h"
+#import "EditGuestViewController.h"
 
 @interface HotelOrderViewController : BaseUIViewController<UIPopoverListViewDataSource,UIPopoverListViewDelegate,
-                                     UITableViewDataSource,UITableViewDelegate,PassengerListViewDelegate>
+                                     UITableViewDataSource,UITableViewDelegate,PassengerListViewDelegate,EditGuestDelegate>
 
 @property (strong,nonatomic) NSArray        *popupListData;
 @property (nonatomic)        int            popupType;

@@ -7,6 +7,13 @@
 //
 
 #import "BaseUIViewController.h"
+#import "UIPopoverListView.h"
+
+typedef NS_OPTIONS(NSInteger, CustomerEditType){
+    CustomerAdd,
+    CustomerEdit
+};
+
 
 @protocol NewPersonDelegate <NSObject>
 
@@ -14,8 +21,10 @@
 
 @end
 
-@interface NewPersonViewController : BaseUIViewController
+@interface NewPersonViewController : BaseUIViewController<UIPopoverListViewDataSource,UIPopoverListViewDelegate>
 
 @property (assign, nonatomic) id<NewPersonDelegate> delegate;
+
+- (id)initWithObject:(BookPassengersResponse*)passenger;
 
 @end
