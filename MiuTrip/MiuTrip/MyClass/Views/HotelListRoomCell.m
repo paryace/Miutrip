@@ -29,12 +29,16 @@
         _priceDic = priceDic;
     }
     
+    HotelDataCache *data = [HotelDataCache sharedInstance];
+    
     UIButton *bookBtn = (UIButton*)[self viewWithTag:1000];
     NSInteger guaranteeType = [[priceDic objectForKey:@"GuaranteeType"] integerValue];
-    if (guaranteeType == 0) {
-        [bookBtn setEnabled:YES];
-    }else{
-        [bookBtn setEnabled:NO];
+    if (!data.isPrePay) {
+        if (guaranteeType == 0) {
+            [bookBtn setEnabled:YES];
+        }else{
+            [bookBtn setEnabled:NO];
+        }
     }
 }
 

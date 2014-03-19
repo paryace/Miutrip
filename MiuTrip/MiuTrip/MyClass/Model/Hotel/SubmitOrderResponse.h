@@ -13,5 +13,5 @@
 
 @property(strong,nonatomic) NSNumber *OrderType;
 @property(strong,nonatomic) NSString *SerialId;
-@property(strong,nonatomic) NSString *PaySerialId;
+@property(strong,nonatomic) NSString *paySerialId;
 @end

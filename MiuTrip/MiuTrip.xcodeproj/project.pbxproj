@@ -378,6 +378,7 @@
 		46D9D2C1188BBC5500E8A1EF /* SendSMSRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 46D9D2A0188BBC5500E8A1EF /* SendSMSRequest.m */; };
 		46D9D2C2188BBC5500E8A1EF /* SendSMSResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 46D9D2A2188BBC5500E8A1EF /* SendSMSResponse.m */; };
 		527E58F718B5A77600590A49 /* libUPPayPlugin.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 46D0F5D8188B9B0E0063CEE6 /* libUPPayPlugin.a */; };
+		529455D118D964EB00670D67 /* HotelOrderResultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 529455D018D964EB00670D67 /* HotelOrderResultViewController.m */; };
 		52AFBA4218D15B2100533E33 /* HotelSiftViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52AFBA4118D15B2100533E33 /* HotelSiftViewController.m */; };
 		52B2097F18B46B0700CAFE9A /* icon_finish.png in Resources */ = {isa = PBXBuildFile; fileRef = 52B2097E18B46B0700CAFE9A /* icon_finish.png */; };
 		52B2098218B4791F00CAFE9A /* ForgetPasswordRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 52B2098118B4791F00CAFE9A /* ForgetPasswordRequest.m */; };
@@ -1054,6 +1055,8 @@
 		46D9D2A0188BBC5500E8A1EF /* SendSMSRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SendSMSRequest.m; sourceTree = "<group>"; };
 		46D9D2A1188BBC5500E8A1EF /* SendSMSResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SendSMSResponse.h; sourceTree = "<group>"; };
 		46D9D2A2188BBC5500E8A1EF /* SendSMSResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SendSMSResponse.m; sourceTree = "<group>"; };
+		529455CF18D964EB00670D67 /* HotelOrderResultViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HotelOrderResultViewController.h; path = MiuTrip/MyClass/ViewControllers/Hotel/HotelOrderResultViewController.h; sourceTree = SOURCE_ROOT; };
+		529455D018D964EB00670D67 /* HotelOrderResultViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HotelOrderResultViewController.m; path = MiuTrip/MyClass/ViewControllers/Hotel/HotelOrderResultViewController.m; sourceTree = SOURCE_ROOT; };
 		52AFBA4018D15B2100533E33 /* HotelSiftViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HotelSiftViewController.h; sourceTree = "<group>"; };
 		52AFBA4118D15B2100533E33 /* HotelSiftViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HotelSiftViewController.m; sourceTree = "<group>"; };
 		52B2097E18B46B0700CAFE9A /* icon_finish.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_finish.png; sourceTree = "<group>"; };
@@ -2150,9 +2153,12 @@
 		B57A0AA8184EC7C000A33831 /* Hotel */ = {
 			isa = PBXGroup;
 			children = (
+				529455CF18D964EB00670D67 /* HotelOrderResultViewController.h */,
+				529455D018D964EB00670D67 /* HotelOrderResultViewController.m */,
 				B5C7C85E186578B7008914D0 /* HotelOrderViewController.h */,
 				B5C7C85F186578B7008914D0 /* HotelOrderViewController.mm */,
 				B57A0AA9184EC7E100A33831 /* HotelListViewController.h */,
+				F2EECB6218924787005C7A81 /* HotelCompileViewController.h */,
 				B57A0AAA184EC7E100A33831 /* HotelListViewController.m */,
 				B5157F84185BF84100AF3E0C /* HotelCommentViewController.h */,
 				B5157F85185BF84100AF3E0C /* HotelCommentViewController.m */,
@@ -2164,7 +2170,6 @@
 				B53DA0831877F67800868278 /* HotelMapViewControler.m */,
 				F2EECB5F1892475D005C7A81 /* HotelAddViewController.h */,
 				F2EECB601892475D005C7A81 /* HotelAddViewController.m */,
-				F2EECB6218924787005C7A81 /* HotelCompileViewController.h */,
 				F2EECB6318924787005C7A81 /* HotelCompileViewController.m */,
 				FA6661C118AF0EDD00366241 /* HotelCityListViewController.h */,
 				FA6661C218AF0EDD00366241 /* HotelCityListViewController.m */,
@@ -2823,6 +2828,7 @@
 				18E982FC18B30D90008C3ABC /* OrderResultViewController.m in Sources */,
 				127C6844183A0AB20055784D /* CustomBtn.m in Sources */,
 				18E9833918B317C7008C3ABC /* GetFlightChangeRuleResponse.m in Sources */,
+				529455D118D964EB00670D67 /* HotelOrderResultViewController.m in Sources */,
 				B53496B91846E3C6001BC8D1 /* BaseResponseModel.m in Sources */,
 				46D9D2C1188BBC5500E8A1EF /* SendSMSRequest.m in Sources */,
 				124789E01836363100AA0083 /* ASIAuthenticationDialog.m in Sources */,

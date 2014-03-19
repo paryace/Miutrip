@@ -13,10 +13,13 @@
 #import "AccountActViewController.h"
 #import "MobClick.h"
 
+#import "HotelOrderResultViewController.h"
+
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+#if 1
     [MobClick checkUpdate];
     [MobClick startWithAppkey:@"532016b856240b7b1c0be419" reportPolicy:SEND_INTERVAL channelId:@""];
     
@@ -54,8 +57,14 @@
 
     UINavigationController *navigationController = [[UINavigationController alloc]initWithRootViewController:_viewController];
     [navigationController setNavigationBarHidden:YES];
-
     self.window.rootViewController = navigationController;
+#endif
+#if 0
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+
+    HotelOrderResultViewController *horvc = [[HotelOrderResultViewController alloc] initWithParams:nil];
+    self.window.rootViewController =horvc;
+#endif
     //[[UIApplication sharedApplication] setStatusBarHidden:YES];
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];

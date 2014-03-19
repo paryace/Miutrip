@@ -9,6 +9,8 @@
 #import "BaseUIViewController.h"
 #import "GetFlightOrderListRequest.h"
 #import "GetOrderRequest.h"
+#import "UPPayPlugin.h"
+#import "UPPayPluginDelegate.h"
 
 @class HotelOrderDetail;
 @class AirOrderDetail;
@@ -22,7 +24,7 @@ typedef NS_OPTIONS(NSInteger, OrderDetail) {
     OrderPay
 };
 
-@interface HotelAndAirOrderViewController : BaseUIViewController<UITableViewDataSource,UITableViewDelegate,BusinessDelegate>
+@interface HotelAndAirOrderViewController : BaseUIViewController<UITableViewDataSource,UITableViewDelegate,BusinessDelegate,UPPayPluginDelegate>
 
 @property (strong, nonatomic) GetFlightOrderListRequest     *airRequest;
 @property (strong, nonatomic) GetOrderRequest     *hotelRequest;

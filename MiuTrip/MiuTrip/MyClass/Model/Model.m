@@ -180,6 +180,30 @@ static      Model       *shareModel;
     }
 }
 
+- (void)goToHotelOrderList
+{
+    AppDelegate *appDelegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
+    if (appDelegate.window.rootViewController.presentedViewController) {
+        HotelAndAirOrderViewController *airOrderViewController = [[HotelAndAirOrderViewController alloc]initWithOrderType:OrderTypeHotel];
+        UIViewController *viewController = appDelegate.window.rootViewController.presentedViewController;
+        if ([viewController isKindOfClass:[UINavigationController class]]) {
+            UINavigationController *navigationController = (UINavigationController*)viewController;
+            [navigationController pushViewController:airOrderViewController animated:YES];
+        }else{
+            [viewController presentViewController:airOrderViewController animated:YES completion:nil];
+        }
+    }else{
+        HotelAndAirOrderViewController *airOrderViewController = [[HotelAndAirOrderViewController alloc]initWithOrderType:OrderTypeHotel];
+        UIViewController *viewController = appDelegate.window.rootViewController;
+        if ([viewController isKindOfClass:[UINavigationController class]]) {
+            UINavigationController *navigationController = (UINavigationController*)viewController;
+            [navigationController pushViewController:airOrderViewController animated:YES];
+        }else{
+            [viewController presentViewController:airOrderViewController animated:YES completion:nil];
+        }
+    }
+}
+
 - (void)goToLittleMiu
 {
     AppDelegate *appDelegate = (AppDelegate*)[UIApplication sharedApplication].delegate;

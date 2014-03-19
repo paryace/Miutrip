@@ -209,16 +209,16 @@
     [_cancleBtn setBackgroundImage:imageNameAndType(@"order_cancle", nil) forState:UIControlStateNormal];
     [_unfoldView addSubview:_cancleBtn];
     
-    //    _doneBtn = [CustomBtn buttonWithType:UIButtonTypeCustom];
-    //    [_doneBtn setBackgroundColor:color(clearColor)];
-    //    [_doneBtn setFrame:CGRectMake(_unfoldView.frame.size.width - controlXLength(_cancleBtn), _cancleBtn.frame.origin.y, _cancleBtn.frame.size.width, _cancleBtn.frame.size.height)];
-    //    [_doneBtn setTitle:@"重新支付" forState:UIControlStateNormal];
-    //    [_doneBtn setTitleColor:color(blackColor) forState:UIControlStateNormal];
-    //    [_doneBtn.titleLabel setFont:[UIFont systemFontOfSize:13]];
-    //    [_doneBtn setBackgroundImage:imageNameAndType(@"hotel_done_nromal", nil) forState:UIControlStateNormal];
-    //    [_doneBtn setBackgroundImage:imageNameAndType(@"hotel_done_press", nil) forState:UIControlStateHighlighted];
-    //    [_doneBtn setBackgroundImage:imageNameAndType(@"hotel_done_press", nil) forState:UIControlStateSelected];
-    //    [_unfoldView addSubview:_doneBtn];
+        _doneBtn = [CustomBtn buttonWithType:UIButtonTypeCustom];
+        [_doneBtn setBackgroundColor:color(clearColor)];
+        [_doneBtn setFrame:CGRectMake(_unfoldView.frame.size.width - controlXLength(_cancleBtn), _cancleBtn.frame.origin.y, _cancleBtn.frame.size.width, _cancleBtn.frame.size.height)];
+        [_doneBtn setTitle:@"重新支付" forState:UIControlStateNormal];
+        [_doneBtn setTitleColor:color(blackColor) forState:UIControlStateNormal];
+        [_doneBtn.titleLabel setFont:[UIFont systemFontOfSize:13]];
+        [_doneBtn setBackgroundImage:imageNameAndType(@"hotel_done_nromal", nil) forState:UIControlStateNormal];
+        [_doneBtn setBackgroundImage:imageNameAndType(@"hotel_done_press", nil) forState:UIControlStateHighlighted];
+        [_doneBtn setBackgroundImage:imageNameAndType(@"hotel_done_press", nil) forState:UIControlStateSelected];
+        [_unfoldView addSubview:_doneBtn];
     
     [_unfoldView setFrame:CGRectMake(_unfoldView.frame.origin.x, _unfoldView.frame.origin.y, _unfoldView.frame.size.width, controlYLength(_cancleBtn) + 10)];
     [_unfoldView setHidden:YES];

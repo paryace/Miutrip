@@ -61,6 +61,7 @@
 @property (nonatomic)         int                  roomCount;
 
 @property (strong, nonatomic) NSDictionary         *selcetedReason;
+@property (assign, nonatomic) int                  hotelPrice;
 
 
 + (HotelDataCache*)sharedInstance;

@@ -191,7 +191,12 @@
         //NSLog(@"week is:%@",strWeek);
         
         [hotelCell unfoldViewShow:data];
-        [hotelCell.cancleBtn addTarget:self action:@selector(cancelHotelOrder) forControlEvents:UIControlEventTouchUpInside];
+        [hotelCell.cancleBtn addTarget:self action:@selector(cancelHotelOrder:) forControlEvents:UIControlEventTouchUpInside];
+        [hotelCell.doneBtn addTarget:self action:@selector(doneHotelOrder:) forControlEvents:UIControlEventTouchUpInside];
+        hotelCell.cancleBtn.tag = 222;
+        hotelCell.doneBtn.tag = 222;
+        hotelCell.cancleBtn.indexPath = indexPath;
+        hotelCell.doneBtn.indexPath = indexPath;
 
     }
     
@@ -363,13 +368,27 @@
     [self.requestManager sendRequest:cancelOrder];
 }
 
-- (void)cancelHotelOrder{
+- (void)cancelHotelOrder:(CustomBtn *)btn
+{
     [[Model shareModel]showPromptText:@"正在取消订单..." model:NO];
     CancelHotelOrderRequest *cancelHotelOrder = [[CancelHotelOrderRequest alloc]initWidthBusinessType:BUSINESS_HOTEL methodName:@"CancelOrder"];
     cancelHotelOrder.OrderID = @"H131105000137";
     cancelHotelOrder.ReasonID = [NSNumber numberWithInt:1];
     
     [self.requestManager sendRequest:cancelHotelOrder];
+}
+
+- (void)doneHotelOrder:(CustomBtn *)done
+{
+    NSDictionary *dic = [_dataSource objectAtIndex:done.indexPath.row];
+    NSString *spID = [dic objectForKey:@"PaySerialId"];
+    [UPPayPlugin startPay:spID sysProvide:nil spId:nil mode:@"00" viewController:self delegate:self];
+    
+}
+
+- (void)UPPayPluginResult:(NSString *)result
+{
+
 }
 
 - (NSDate *)timeForString:(NSString *)string {

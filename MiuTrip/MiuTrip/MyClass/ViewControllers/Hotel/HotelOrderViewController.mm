@@ -14,6 +14,8 @@
 #import "SubmitOrderRequest.h"
 #import "Utils.h"
 #import "SubmitOrderResponse.h"
+#import "HotelOrderResultViewController.h"
+
 
 
 #define KBtn_width        200
@@ -688,12 +690,20 @@
         [self removeLoadingView];
         [self addChildView];
     }else if([response isKindOfClass:[SubmitOrderResponse class]]){
-        //        SubmitOrderResponse *orderResponse = (SubmitOrderResponse*)response;
+        SubmitOrderResponse *orderResponse = (SubmitOrderResponse*)response;
+        HotelOrderResultViewController *orderResult = [[HotelOrderResultViewController alloc] initWithParams:orderResponse];
+        [self pushViewController:orderResult transitionType:TransitionPush completionHandler:nil];
+        
+        
+        
     }
 }
 
+#pragma mark - UPPay
+
 -(void)requestFailedWithErrorCode:(NSNumber *)errorCode withErrorMsg:(NSString *)errorMsg{
     NSLog(@"%@",errorMsg);
+    
 }
 
 
@@ -720,6 +730,7 @@
     SubmitOrderRequest *request = [[SubmitOrderRequest alloc] initWidthBusinessType:BUSINESS_HOTEL methodName:@"SubmitOrder"];
     
     HotelDataCache *data = [HotelDataCache sharedInstance];
+    data.hotelPrice = _roomPrice;
     
     if(data.isPrivte){
         request.FeeType = [NSNumber numberWithInt:2];
@@ -1133,11 +1144,11 @@
     connection = nil;
 }
 
-- (void)UPPayPluginResult:(NSString *)result
-{
-    NSString* msg = [NSString stringWithFormat:kResult, result];
-    [self showAlertMessage:msg];
-}
+//- (void)UPPayPluginResult:(NSString *)result
+//{
+//    NSString* msg = [NSString stringWithFormat:kResult, result];
+//    [self showAlertMessage:msg];
+//}
 
 //- (NSString*)currentUID
 //{

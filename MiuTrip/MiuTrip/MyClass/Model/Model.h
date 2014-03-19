@@ -27,6 +27,8 @@
 
 - (void)goToAirOrderList;
 
+- (void)goToHotelOrderList;
+
 - (void)goToLittleMiu;
 
 
