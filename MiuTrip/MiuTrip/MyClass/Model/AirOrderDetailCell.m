@@ -211,7 +211,7 @@
     
     NSString *note = [params objectForKey:@"Note"];
     if ([note isKindOfClass:[NSNull class]]) {
-        note = @"";
+        note = @"无";
     }
     
     float height = [self getHeightFromString:note];
@@ -280,6 +280,10 @@
     UILabel *cardNumRight = [[UILabel alloc]initWithFrame:CGRectMake(controlXLength(cardNumLeft), cardNumLeft.frame.origin.y, frame.size.width, passenger.frame.size.height)];
     [cardNumRight setBackgroundColor:color(clearColor)];
     NSString *number = [detail objectForKey:@"CardTypeNumber"];
+    
+   
+    
+
 #pragma mark 证件类型描述
     NSString *cardType = [self cardTypeDescr:type];
     [cardNumLeft setText:[NSString stringWithFormat:@"%@:",cardType]];
@@ -294,12 +298,25 @@
     [view addSubview:cardNumRight];
     
     UILabel *phoneNumLeft = [[UILabel alloc]initWithFrame:CGRectMake(0, controlYLength(cardNumLeft), frame.size.width/3, passenger.frame.size.height)];
-    //    UILabel *phoneNumRight = [[UILabel alloc]initWithFrame:CGRectMake(controlXLength(cardNumRight), controlYLength(cardNumLeft), frame.size.width, frame.size.height)];
+    
     [phoneNumLeft setBackgroundColor:color(clearColor)];
     [phoneNumLeft setText:@"手机:"];
     [phoneNumLeft setTextAlignment:NSTextAlignmentRight];
     [phoneNumLeft setFont:[UIFont systemFontOfSize:12]];
     [view addSubview:phoneNumLeft];
+    
+    UILabel *phoneNumRight = [[UILabel alloc]initWithFrame:CGRectMake(controlXLength(cardNumLeft), controlYLength(cardNumLeft), cardNumRight.frame.size.width,  cardNumRight.frame.size.height)];
+     NSString *mobileNumber = [detail objectForKey:@"Mobile"];
+    if ([mobileNumber isKindOfClass:[NSNull class]]) {
+        mobileNumber = @"无";
+    }
+    
+    [phoneNumRight setBackgroundColor:color(clearColor)];
+    [phoneNumRight setTextColor:color(blackColor)];
+    [phoneNumRight setText:[NSString stringWithFormat:@"%@",mobileNumber]];
+    [phoneNumRight setTextAlignment:NSTextAlignmentLeft];
+    [phoneNumRight setFont:[UIFont systemFontOfSize:12]];
+    [view addSubview:phoneNumRight];
     
     UILabel *costCenterLeft = [[UILabel alloc]initWithFrame:CGRectMake(0, controlYLength(phoneNumLeft), frame.size.width/3, passenger.frame.size.height)];
     [costCenterLeft setBackgroundColor:color(clearColor)];
@@ -307,7 +324,7 @@
     [costCenterRight setBackgroundColor:color(clearColor)];
     NSString *custom = [detail objectForKey:@"CustomizeItem1"];
     if ([custom isKindOfClass:[NSNull class]]) {
-        custom = @"";
+        custom = @"无";
     }
     [costCenterLeft setText:@"成本中心:"];
     [costCenterRight setText:[NSString stringWithFormat:@"%@",custom]];

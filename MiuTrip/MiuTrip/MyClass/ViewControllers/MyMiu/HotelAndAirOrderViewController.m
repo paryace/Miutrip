@@ -68,7 +68,15 @@
         NSLog(@"unfold = %d",[[detail objectForKey:@"unfold"] boolValue]);
         CGFloat noteHeight = [UserDefaults shareUserDefault].airNoteHeigth;
         if ([[detail objectForKey:@"unfold"] boolValue]) {
-            rowHeight = AirOrderCellUnfoldHeight + AirItemHeight * [(NSArray*)[detail objectForKey:@"FltPassengers"] count] +noteHeight;
+            NSArray *array = [[_dataSource reverseObjectEnumerator] allObjects];
+            NSDictionary *data = [array objectAtIndex:indexPath.row];
+            NSNumber *statusCode = [data objectForKey:@"Status"];
+            NSInteger statusNum = [statusCode integerValue];
+            CGFloat temp = 0;
+            if (statusNum != 1) {
+                temp = 48.5f;
+            }
+            rowHeight = AirOrderCellUnfoldHeight + AirItemHeight * [(NSArray*)[detail objectForKey:@"FltPassengers"] count] +noteHeight - temp;
         }else
             rowHeight = AirOrderCellHeight;
     }else if (_orderType == OrderTypeHotel){
@@ -140,10 +148,6 @@
         airCell.timeLabel.text = handm;
         [airCell unfoldViewShow:data];
        // AirNoteHeight = airCell.noteMsg_height;
-
-        NSString *paysSID = [data objectForKey:@"PaySerialId"];
-        
-        NSLog(@"paySID %@",paysSID);
         
         NSNumber *statusCode = [data objectForKey:@"Status"];
         NSInteger statusNum = [statusCode integerValue];
