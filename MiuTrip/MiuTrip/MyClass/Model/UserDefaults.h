@@ -48,6 +48,7 @@
 
 @property (strong, nonatomic) NSArray                   *allCity;                   //城市列表
 
+@property (assign ,nonatomic) CGFloat                   airNoteHeigth;
 - (void)clearDefaults;
 
 - (NSString *)getPriceRange;

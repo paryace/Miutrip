@@ -46,6 +46,9 @@
 
 //@property (strong, nonatomic) UIImageView               *rightArrow;
 @property (strong, nonatomic) AirOrderDetail            *airDetail;
+@property (strong, nonatomic) UILabel               *noteMsg;
+
+@property (assign, nonatomic) CGFloat               noteMsg_height;
 
 - (void)setViewContentWithParams:(NSDictionary*)params;
 

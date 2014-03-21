@@ -100,6 +100,18 @@
     //    [_rightArrow setUserInteractionEnabled:YES];
     [self.contentView addSubview:_rightArrow];
 }
+
+-(CGFloat) getHeightFromString:(NSString *) string
+{
+    UIFont *font = [UIFont systemFontOfSize:12];
+    NSAttributedString *attributedText = [[NSAttributedString alloc] initWithString:
+                                          string attributes:@{NSFontAttributeName: font}];
+    
+    CGRect rect = [attributedText boundingRectWithSize:CGSizeMake(self.contentView.frame.size.width-20, 9999) options:NSStringDrawingUsesLineFragmentOrigin context:nil];
+    
+    return ceilf(rect.size.height);
+}
+
 - (void)setSubjoinViewFrameWithPrarams:(NSDictionary*)params
 {
     UIView *prevView = [self.contentView viewWithTag:300];
@@ -124,7 +136,9 @@
     _orderStatusLabel = [[UILabel alloc]initWithFrame:CGRectMake(controlXLength(_orderNumLabel), _orderNumLabel.frame.origin.y, _orderNumLabel.frame.size.width, _orderNumLabel.frame.size.height)];
     [_orderStatusLabel setBackgroundColor:color(clearColor)];
     NSNumber *status = [passengers objectForKey:@"Status"];
-    [_orderStatusLabel setText:[NSString stringWithFormat:@"订单状态:%@",status]];
+    NSString *statusDecri = [self orderStauts:status];
+#pragma mark 订单状态描述
+    [_orderStatusLabel setText:[NSString stringWithFormat:@"订单状态:%@",statusDecri]];
     [_orderStatusLabel setFont:[UIFont systemFontOfSize:12]];
     [_unfoldView addSubview:_orderStatusLabel];
     
@@ -187,7 +201,35 @@
     [_phoneLabel setFont:[UIFont systemFontOfSize:12]];
     [_unfoldView addSubview:_phoneLabel];
     
-    UIImageView *line = [[UIImageView alloc]initWithFrame:CGRectMake(0, controlYLength(_nameLabel), _unfoldView.frame.size.width, 0.5)];
+    
+#pragma mark note
+    UILabel *addition = [[UILabel alloc] initWithFrame:CGRectMake(_nameLabel.frame.origin.x, controlYLength(_nameLabel), _nameLabel.frame.size.width, _nameLabel.frame.size.height)];
+    addition.backgroundColor = [UIColor clearColor];
+    addition.text = @"附加信息";
+    addition.font = [UIFont systemFontOfSize:12];
+    [_unfoldView addSubview:addition];
+    
+    NSString *note = [params objectForKey:@"Note"];
+    if ([note isKindOfClass:[NSNull class]]) {
+        note = @"";
+    }
+    
+    float height = [self getHeightFromString:note];
+    
+    _noteMsg = [[UILabel alloc] initWithFrame:CGRectMake(_phoneLabel.frame.origin.x, controlYLength(_phoneLabel), _phoneLabel.frame.size.width, height)];
+    _noteMsg.backgroundColor = color(clearColor);
+    [_noteMsg setAutoBreakLine:YES];
+    [_unfoldView addSubview:_noteMsg];
+    
+
+    UIImageView *line = [[UIImageView alloc]initWithFrame:CGRectMake(0, controlYLength(_noteMsg), _unfoldView.frame.size.width, 0.5)];
+    UserDefaults *UserD = [UserDefaults shareUserDefault];
+     UserD.airNoteHeigth =  _noteMsg.bounds.size.height;
+    if (height <= _phoneLabel.frame.size.height) {
+
+        line.frame = CGRectMake(0, controlYLength(addition), _unfoldView.frame.size.width, 0.5);
+        UserD.airNoteHeigth = addition.bounds.size.height;
+    }
     [line setBackgroundColor:color(lightGrayColor)];
     [line setAlpha:0.5];
     [_unfoldView addSubview:line];
@@ -238,7 +280,9 @@
     UILabel *cardNumRight = [[UILabel alloc]initWithFrame:CGRectMake(controlXLength(cardNumLeft), cardNumLeft.frame.origin.y, frame.size.width, passenger.frame.size.height)];
     [cardNumRight setBackgroundColor:color(clearColor)];
     NSString *number = [detail objectForKey:@"CardTypeNumber"];
-    [cardNumLeft setText:[NSString stringWithFormat:@"%@:",type]];
+#pragma mark 证件类型描述
+    NSString *cardType = [self cardTypeDescr:type];
+    [cardNumLeft setText:[NSString stringWithFormat:@"%@:",cardType]];
     [cardNumRight setText:[NSString stringWithFormat:@"%@",number]];
     [cardNumLeft setTextAlignment:NSTextAlignmentRight];
     [cardNumLeft setFont:[UIFont systemFontOfSize:12]];
@@ -262,6 +306,9 @@
     UILabel *costCenterRight = [[UILabel alloc]initWithFrame:CGRectMake(controlXLength(phoneNumLeft),controlYLength(phoneNumLeft), frame.size.width, passenger.frame.size.height)];
     [costCenterRight setBackgroundColor:color(clearColor)];
     NSString *custom = [detail objectForKey:@"CustomizeItem1"];
+    if ([custom isKindOfClass:[NSNull class]]) {
+        custom = @"";
+    }
     [costCenterLeft setText:@"成本中心:"];
     [costCenterRight setText:[NSString stringWithFormat:@"%@",custom]];
     [costCenterRight setFont:[UIFont systemFontOfSize:12]];
@@ -271,7 +318,79 @@
     [view addSubview:costCenterRight];
     return view;
 }
+/*
+ "1--创建待支付 2---出票中 3--已出票
+ 4--驳回  5--已取消"
+ */
+- (NSString *)orderStauts:(NSNumber *)orderCode
+{
+    NSInteger code = [orderCode integerValue];
+    NSString *stautsDesr = nil;
+    switch (code) {
+        case 1:
+            stautsDesr = @"待支付";
+            break;
+        case 2:
+            stautsDesr = @"出票中";
+            break;
+        case 3:
+            stautsDesr = @"已出票";
+            break;
+        case 4:
+            stautsDesr = @"驳回";
+            break;
+        case 5:
+            stautsDesr = @"已取消";
+            break;
+        default:
+            break;
+    }
+    return stautsDesr;
+}
 
+/*
+ "证件类型
+ 0：身份证
+ 1：护照
+ 2：军官证
+ 3：回乡证
+ 4：港澳通行证
+ 5：台胞证
+ 9：其他
+ "
+ */
+- (NSString *)cardTypeDescr:(NSString *)type
+{
+    NSInteger cardT = [type integerValue];
+    NSString *cardType = nil;
+    switch (cardT) {
+        case 0:
+            cardType = @"身份证";
+            break;
+        case 1:
+            cardType = @"护照";
+            break;
+        case 2:
+            cardType = @"军官证";
+            break;
+        case 3:
+            cardType = @"回乡证";
+            break;
+        case 4:
+            cardType = @"港澳通行证";
+            break;
+        case 5:
+            cardType = @"台胞证";
+            break;
+        case 9:
+            cardType = @"其他";
+            break;
+            
+        default:
+            break;
+    }
+    return cardType;
+}
 
 - (UIImageView *)createLineWithFrame:(CGRect)rect
 {

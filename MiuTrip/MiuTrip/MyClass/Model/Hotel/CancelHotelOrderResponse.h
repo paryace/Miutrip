@@ -8,7 +8,7 @@
 
 #import "BaseResponseModel.h"
 
-@interface CancelHotelResponse : BaseResponseModel
+@interface CancelHotelOrderResponse: BaseResponseModel
 
 @property (strong , nonatomic) NSString  *OrderID;
 

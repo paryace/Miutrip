@@ -6,8 +6,8 @@
 //  Copyright (c) 2014年 michael. All rights reserved.
 //
 
-#import "CancelHotelResponse.h"
+#import "CancelHotelOrderResponse.h"
 
-@implementation CancelHotelResponse
+@implementation CancelHotelOrderResponse
 
 @end

@@ -212,7 +212,7 @@
         _doneBtn = [CustomBtn buttonWithType:UIButtonTypeCustom];
         [_doneBtn setBackgroundColor:color(clearColor)];
         [_doneBtn setFrame:CGRectMake(_unfoldView.frame.size.width - controlXLength(_cancleBtn), _cancleBtn.frame.origin.y, _cancleBtn.frame.size.width, _cancleBtn.frame.size.height)];
-        [_doneBtn setTitle:@"重新支付" forState:UIControlStateNormal];
+        [_doneBtn setTitle:@"继续支付" forState:UIControlStateNormal];
         [_doneBtn setTitleColor:color(blackColor) forState:UIControlStateNormal];
         [_doneBtn.titleLabel setFont:[UIFont systemFontOfSize:13]];
         [_doneBtn setBackgroundImage:imageNameAndType(@"hotel_done_nromal", nil) forState:UIControlStateNormal];
@@ -256,7 +256,10 @@
     [cardNumLabelRight setFont:[UIFont systemFontOfSize:12]];
     [cardNumLabelRight setBackgroundColor:color(clearColor)];
     NSString *cardNum = [detail objectForKey:@""];
-    [cardNumLabelRight setText:[NSString stringWithFormat:@"%@",cardNum]];
+    if ([cardNum isKindOfClass:[NSNull class]]) {
+        cardNum = @"";
+    }
+    [cardNumLabelRight setText:cardNum];
     [cardNumLabel addSubview:cardNumLabelRight];
     [cardNumLabel addSubview:cardNumLabelLeft];
     [view addSubview:cardNumLabel];
@@ -273,7 +276,10 @@
     [costCenterLabelRight setFont:[UIFont systemFontOfSize:12]];
     [costCenterLabelRight setBackgroundColor:color(clearColor)];
     NSString *costcenter = [detail objectForKey:@"CostCenter"];
-    [costCenterLabelRight setText:[NSString stringWithFormat:@"%@",costcenter]];
+    if ([costcenter isKindOfClass:[NSNull class]]) {
+        costcenter = @"";
+    }
+    [costCenterLabelRight setText:costcenter];
     [costCenterLabel addSubview:costCenterLabelRight];
     [costCenterLabel addSubview:costCenterLabelLeft];
     [view addSubview:costCenterLabel];

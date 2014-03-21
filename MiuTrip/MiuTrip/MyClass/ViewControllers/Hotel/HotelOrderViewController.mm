@@ -1073,9 +1073,9 @@
 #pragma mark - UPPayPlugin Test
 
 
-- (void)userPayAction:(id)sender
+- (void)userPayAction:(UIButton *)sender
 {
-    
+
     //    [UPPayPlugin startPay:@"201401050307110027842" mode:kMode viewController:self delegate:self];
     
     //    NSString* urlString = [NSString stringWithFormat:kConfigTnUrl, @"201401050307110027842"];
@@ -1085,6 +1085,8 @@
     //    [urlConn start];
     //    [self showAlertWait];
     [self submitOrder];
+    sender.enabled = NO;
+
 }
 
 

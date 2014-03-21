@@ -1,6 +1,7 @@
 //
 //  HotelAndAirOrderViewController.m
 //  MiuTrip
+
 //
 //  Created by SuperAdmin on 13-11-21.
 //  Copyright (c) 2013年 michael. All rights reserved.
@@ -18,10 +19,12 @@
 #import "CancelFlightOrderResponse.h"
 #import "Model.h"
 #import "CancelHotelOrderRequest.h"
-#import "CancelHotelResponse.h"
+#import "CancelHotelOrderResponse.h"
+
 
 @interface HotelAndAirOrderViewController ()
-
+{
+}
 @end
 
 @implementation HotelAndAirOrderViewController
@@ -63,9 +66,9 @@
         NSArray *datasource = [[_dataSource reverseObjectEnumerator]allObjects];
         NSDictionary *detail = [datasource objectAtIndex:indexPath.row];
         NSLog(@"unfold = %d",[[detail objectForKey:@"unfold"] boolValue]);
-        
+        CGFloat noteHeight = [UserDefaults shareUserDefault].airNoteHeigth;
         if ([[detail objectForKey:@"unfold"] boolValue]) {
-            rowHeight = AirOrderCellUnfoldHeight + AirItemHeight * [(NSArray*)[detail objectForKey:@"FltPassengers"] count];
+            rowHeight = AirOrderCellUnfoldHeight + AirItemHeight * [(NSArray*)[detail objectForKey:@"FltPassengers"] count] +noteHeight;
         }else
             rowHeight = AirOrderCellHeight;
     }else if (_orderType == OrderTypeHotel){
@@ -135,10 +138,34 @@
         airCell.mainDateLabel.text = monday;
         airCell.subDateLabel.text = yandw;
         airCell.timeLabel.text = handm;
-        
         [airCell unfoldViewShow:data];
-        [airCell.cancleBtn addTarget:self action:@selector(cancelOrder) forControlEvents:UIControlEventTouchUpInside];
+       // AirNoteHeight = airCell.noteMsg_height;
+
+        NSString *paysSID = [data objectForKey:@"PaySerialId"];
+        
+        NSLog(@"paySID %@",paysSID);
+        
+        NSNumber *statusCode = [data objectForKey:@"Status"];
+        NSInteger statusNum = [statusCode integerValue];
+/*
+     "1--创建待支付 2---出票中 3--已出票
+     4--驳回  5--已取消"
+*/
+        if (statusNum == 1) {
+            airCell.doneBtn.hidden = NO;
+            airCell.cancleBtn.hidden = NO;
+        }else
+        {
+            airCell.doneBtn.hidden = YES;
+            airCell.cancleBtn.hidden = YES;
+        }
+        
+        [airCell.doneBtn addTarget:self action:@selector(doneOrder:) forControlEvents:UIControlEventTouchUpInside];
+        [airCell.cancleBtn addTarget:self action:@selector(cancelOrder:) forControlEvents:UIControlEventTouchUpInside];
+
         [airCell.cancleBtn setTag:111];
+        airCell.doneBtn.indexPath = indexPath;
+        airCell.cancleBtn.indexPath = indexPath;
         
     }else if (_orderType == OrderTypeHotel){
 
@@ -191,13 +218,24 @@
         //NSLog(@"week is:%@",strWeek);
         
         [hotelCell unfoldViewShow:data];
-        [hotelCell.cancleBtn addTarget:self action:@selector(cancelHotelOrder:) forControlEvents:UIControlEventTouchUpInside];
-        [hotelCell.doneBtn addTarget:self action:@selector(doneHotelOrder:) forControlEvents:UIControlEventTouchUpInside];
-        hotelCell.cancleBtn.tag = 222;
-        hotelCell.doneBtn.tag = 222;
-        hotelCell.cancleBtn.indexPath = indexPath;
-        hotelCell.doneBtn.indexPath = indexPath;
-
+        
+        //获取订单状态
+        NSNumber *status = [data objectForKey:@"Status"];
+        NSInteger statusNumber = [status integerValue];
+        
+        if (statusNumber == 2 || statusNumber == 4 || statusNumber == 5 || statusNumber == 7 || statusNumber == 8 || statusNumber == 9 || statusNumber == 10) {
+            hotelCell.cancleBtn.hidden = YES;
+            hotelCell.doneBtn.hidden = YES;
+        }else{
+            hotelCell.cancleBtn.enabled = YES;
+            hotelCell.doneBtn.enabled = YES;
+            [hotelCell.cancleBtn addTarget:self action:@selector(cancelHotelOrder:) forControlEvents:UIControlEventTouchUpInside];
+            [hotelCell.doneBtn addTarget:self action:@selector(doneHotelOrder:) forControlEvents:UIControlEventTouchUpInside];
+            hotelCell.cancleBtn.tag = 222;
+            hotelCell.doneBtn.tag = 222;
+            hotelCell.cancleBtn.indexPath = indexPath;
+            hotelCell.doneBtn.indexPath = indexPath;
+        }
     }
     
     
@@ -285,7 +323,7 @@
         //            _airRequest.UID = @"00100052";
         _airRequest.CorpID = @"22";
         _airRequest.PageNumber = [NSNumber numberWithInt:1];
-        _airRequest.PageSize = [NSNumber numberWithInt:10];
+        _airRequest.PageSize = [NSNumber numberWithInt:NSIntegerMax];
         _airRequest.NotTravel = [NSNumber numberWithBool:false];
         _airRequest.isCorpDelivery = [NSNumber numberWithBool:false];
         [self.requestManager sendRequest:_airRequest];
@@ -321,61 +359,100 @@
             
         }else if ([response isKindOfClass:[CancelFlightOrderResponse class]]) {
             
-            NSLog(@"============");
-//            CancelFlightOrderResponse *cancelFlight = (CancelFlightOrderResponse*)response;
-            //                NSArray *cancelDetail = cancelFlight.Data;
-            NSLog(@"-----------------");
-            
+            NSString *result = [NSString stringWithFormat:@"订单取消成功"];
+            [[Model shareModel]showPromptText:result model:NO];
+            [_theTableView reloadData];
         }
         
         
     }
     if (_orderType == OrderTypeHotel) {
         if (response) {
-            GetOrderResponse *orderResponse = (GetOrderResponse *)response;
-            NSArray *hotelOrder = orderResponse.Data;
-            
-            for (NSDictionary *order in hotelOrder) {
-                [order setValue:[NSNumber numberWithBool:NO] forKey:@"unfold"];
+            if ([response isKindOfClass:[CancelHotelOrderResponse class]]) {
+                //CancelHotelOrderResponse *responseC = (CancelHotelOrderResponse *) response;
+                
+                NSString *result = [NSString stringWithFormat:@"订单取消成功"];
+                [[Model shareModel]showPromptText:result model:NO];
+                [_theTableView reloadData];
+                
+            }else if ([response isKindOfClass:[GetOrderResponse class]]){
+                GetOrderResponse *orderResponse = (GetOrderResponse *)response;
+                NSArray *hotelOrder = orderResponse.Data;
+                
+                for (NSDictionary *order in hotelOrder) {
+                    [order setValue:[NSNumber numberWithBool:NO] forKey:@"unfold"];
+                }
+                _dataSource = hotelOrder;
+                
+                if (_pageIndex==1) {
+                    [self removeProgressView];
+                }
+                [self setSubjoinViewFrame];
+
             }
-            _dataSource = hotelOrder;
-            
-            if (_pageIndex==1) {
-                [self removeProgressView];
-            }
-            [self setSubjoinViewFrame];
-            
         }
     }
-    if ([response isKindOfClass:[CancelHotelResponse class]]) {
-        CancelHotelResponse *response = (CancelHotelResponse *) response;
-    }
-    
-    
 }
 
 - (void)requestFailedWithErrorCode:(NSNumber *)errorCode withErrorMsg:(NSString *)errorMsg{
     NSLog(@"error = %@",errorMsg);
 }
 
-- (void)cancelOrder{
+
+#pragma mark 机票 支付订单
+- (void)doneOrder:(CustomBtn *)done
+{
+    NSArray *array = [[_dataSource reverseObjectEnumerator] allObjects];
+    NSDictionary *data = [array objectAtIndex:done.indexPath.row];
+    NSString * paysSID = [data objectForKey:@"PaySerialId"];
+    NSLog(@"----%@",paysSID);
+    if ([paysSID isKindOfClass:[NSNull class]]) {
+        
+    }else
+    {
+        [UPPayPlugin startPay:paysSID sysProvide:nil spId:nil mode:@"00" viewController:self delegate:self];
+
+    }
+}
+
+- (void)UPPayPluginResult:(NSString *)result
+{
+    
+}
+
+- (void)cancelOrder:(CustomBtn *)cancel{
     [[Model shareModel] showPromptText:@"取消发送中... ..." model:NO];
+    NSArray *array = [[_dataSource reverseObjectEnumerator] allObjects];
+    NSDictionary *data = [array objectAtIndex:cancel.indexPath.row];
+    NSString *supOrderNumber = [data objectForKey:@"SUPOrderID"];
+    
+    NSDictionary *flts = [[data objectForKey:@"Flts"] objectAtIndex:0];
+    NSString *orderNumber = [flts objectForKey:@"OrderID"];
+    
+    NSNumber *orderType = [data objectForKey:@"OrderType"];
+    
     CancelFlightOrderRequest *cancelOrder = [[CancelFlightOrderRequest alloc]initWidthBusinessType:BUSINESS_FLIGHT methodName:@"CancelOrder"];
-    cancelOrder.SelfOrderID = @"F000000390";
-    cancelOrder.OTAOrderID = @"66752752";
-    cancelOrder.reason = @"test";
-    cancelOrder.oTAType = [NSNumber numberWithInt:3];
+    cancelOrder.SelfOrderID = orderNumber;
+    cancelOrder.OTAOrderID = supOrderNumber;
+    cancelOrder.reason = @"1";
+    cancelOrder.oTAType = orderType;//[NSNumber numberWithInt:3];
     [self.requestManager sendRequest:cancelOrder];
+    cancel.enabled = NO;
 }
 
 - (void)cancelHotelOrder:(CustomBtn *)btn
 {
+    NSInteger index = btn.indexPath.row;
+    NSDictionary *orderDic = [_dataSource objectAtIndex:index];
+    //获取订单号
+    NSString *orderId = [orderDic objectForKey:@"OrderID"];
     [[Model shareModel]showPromptText:@"正在取消订单..." model:NO];
     CancelHotelOrderRequest *cancelHotelOrder = [[CancelHotelOrderRequest alloc]initWidthBusinessType:BUSINESS_HOTEL methodName:@"CancelOrder"];
-    cancelHotelOrder.OrderID = @"H131105000137";
+    cancelHotelOrder.OrderID = orderId;
     cancelHotelOrder.ReasonID = [NSNumber numberWithInt:1];
     
     [self.requestManager sendRequest:cancelHotelOrder];
+    btn.enabled = NO;
 }
 
 - (void)doneHotelOrder:(CustomBtn *)done
@@ -386,10 +463,6 @@
     
 }
 
-- (void)UPPayPluginResult:(NSString *)result
-{
-
-}
 
 - (NSDate *)timeForString:(NSString *)string {
     NSMutableString *timeString = [[NSMutableString alloc] initWithString:string];

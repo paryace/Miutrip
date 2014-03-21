@@ -11,6 +11,6 @@
 @interface CancelHotelOrderRequest : BaseRequestModel
 
 @property (strong , nonatomic) NSString   *OrderID;
-@property (assign , nonatomic) NSNumber    *ReasonID;
+@property (strong , nonatomic) NSNumber    *ReasonID;
 
 @end
