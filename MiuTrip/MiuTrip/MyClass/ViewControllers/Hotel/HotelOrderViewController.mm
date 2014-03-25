@@ -104,6 +104,7 @@
         customer.passengerId = [UserDefaults shareUserDefault].loginInfo.UID;
         customer.corpUID = [NSString stringWithFormat:@"%@",[UserDefaults shareUserDefault].loginInfo.CorpID];
         customer.apportionRate = 1;
+        [customers removeAllObjects];
         [customers addObject:customer];
         
         data.contactorId = [UserDefaults shareUserDefault].loginInfo.UID;
