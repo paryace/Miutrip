@@ -12,14 +12,12 @@
 #import "BindingAccountViewController.h"
 #import "AccountActViewController.h"
 #import "MobClick.h"
-
 #import "HotelOrderResultViewController.h"
 
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-#if 1
     [MobClick checkUpdate];
     [MobClick startWithAppkey:@"532016b856240b7b1c0be419" reportPolicy:SEND_INTERVAL channelId:@""];
     
@@ -27,13 +25,13 @@
     [MobClick setAppVersion:version];
     
     
-//    Class cls = NSClassFromString(@"UMANUtil");
-//    SEL deviceIDSelector = @selector(openUDIDString);
-//    NSString *deviceID = nil;
-//    if(cls && [cls respondsToSelector:deviceIDSelector]){
-//        deviceID = [cls performSelector:deviceIDSelector];
-//    }
-//    NSLog(@"{\"oid\": \"%@\"}", deviceID);
+    //    Class cls = NSClassFromString(@"UMANUtil");
+    //    SEL deviceIDSelector = @selector(openUDIDString);
+    //    NSString *deviceID = nil;
+    //    if(cls && [cls respondsToSelector:deviceIDSelector]){
+    //        deviceID = [cls performSelector:deviceIDSelector];
+    //    }
+    //    NSLog(@"{\"oid\": \"%@\"}", deviceID);
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
@@ -51,20 +49,14 @@
         [Model shareModel].mainView = _viewController;
     }
     
-//   BindingAccountViewController * bindingAccVC = [[BindingAccountViewController alloc] init];
-//    
-//    self.window.rootViewController = bindingAccVC;
-
+    //   BindingAccountViewController * bindingAccVC = [[BindingAccountViewController alloc] init];
+    //
+    //    self.window.rootViewController = bindingAccVC;
+    
     UINavigationController *navigationController = [[UINavigationController alloc]initWithRootViewController:_viewController];
     [navigationController setNavigationBarHidden:YES];
+    
     self.window.rootViewController = navigationController;
-#endif
-#if 0
-    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-
-    HotelOrderResultViewController *horvc = [[HotelOrderResultViewController alloc] initWithParams:nil];
-    self.window.rootViewController =horvc;
-#endif
     //[[UIApplication sharedApplication] setStatusBarHidden:YES];
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
@@ -75,7 +67,6 @@
     
     return YES;
 }
-
 - (void)applicationWillResignActive:(UIApplication *)application
 {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

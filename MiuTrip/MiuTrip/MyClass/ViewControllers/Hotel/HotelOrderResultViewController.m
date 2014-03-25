@@ -162,7 +162,7 @@
     [continuePayBtn.titleLabel setFont:[UIFont systemFontOfSize:13]];
     [continuePayBtn setTitle:@"继续支付" forState:UIControlStateNormal];
     [continuePayBtn setTitleColor:color(colorWithRed:50.0/255.0 green:120.0/255.0 blue:160.0/255.0 alpha:1) forState:UIControlStateHighlighted];
-    [continuePayBtn addTarget:self action:@selector(UPPay) forControlEvents:UIControlEventTouchUpInside];
+    [continuePayBtn addTarget:self action:@selector(UPPay:) forControlEvents:UIControlEventTouchUpInside];
     [self.contentView addSubview:continuePayBtn];
 }
 
@@ -182,9 +182,17 @@
     }];
 }
 
-- (void)UPPay
+- (void)UPPay:(UIButton *)btn
 {
-    [UPPayPlugin startPay:self.response.paySerialId sysProvide:nil spId:nil mode:@"00" viewController:self delegate:self];
+    HotelDataCache *data = [HotelDataCache sharedInstance];
+    if (data.isPrePay) {
+        [UPPayPlugin startPay:self.response.paySerialId sysProvide:nil spId:nil mode:@"00" viewController:self delegate:self];
+        btn.enabled = NO;
+    }else{
+        [[Model shareModel] showPromptText:@"支付方式为现付，请及时到店支付" model:YES];
+        }
+    
+    
 }
 
 - (void)UPPayPluginResult:(NSString *)result

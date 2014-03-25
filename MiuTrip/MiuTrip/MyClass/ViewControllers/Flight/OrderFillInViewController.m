@@ -60,8 +60,10 @@
 @property (strong, nonatomic) NSMutableArray        *changeRules;
 @property (strong, nonatomic) UILabel               *firstRuleLb;
 @property (strong, nonatomic) UILabel               *secondRuleLb;
+@property (assign, nonatomic) CGFloat               moveOffSet;
 
 @end
+
 
 @implementation OrderFillInViewController
 
@@ -694,7 +696,6 @@
     [clearPassengerBtn setTitleColor:color(blackColor) forState:UIControlStateNormal];
     [clearPassengerBtn.titleLabel setFont:[UIFont systemFontOfSize:12]];
     [clearPassengerBtn setFrame:CGRectMake(controlXLength(selectedPassengerLabel), selectedPassengerLabel.frame.origin.y, selectedPassengerLabel.frame.size.width/4, selectedPassengerLabel.frame.size.height)];
-#pragma mark --为个人订票时需要隐藏的"清空按钮" tag
     [clearPassengerBtn setTag:400];
     [clearPassengerBtn addTarget:self action:@selector(editPassenger:) forControlEvents:UIControlEventTouchUpInside];
     [addPassengersBackgroundView addSubview:clearPassengerBtn];
@@ -704,7 +705,6 @@
     [addPassengerBtn setTitleColor:color(blackColor) forState:UIControlStateNormal];
     [addPassengerBtn.titleLabel setFont:[UIFont systemFontOfSize:12]];
     [addPassengerBtn setFrame:CGRectMake(controlXLength(clearPassengerBtn), clearPassengerBtn.frame.origin.y, clearPassengerBtn.frame.size.width, clearPassengerBtn.frame.size.height)];
-#pragma mark --为个人订票时需要隐藏的"新增按钮" tag
     [addPassengerBtn setTag:401];
     [addPassengerBtn addTarget:self action:@selector(editPassenger:) forControlEvents:UIControlEventTouchUpInside];
     [addPassengersBackgroundView addSubview:addPassengerBtn];
@@ -894,6 +894,7 @@
     [_subjoinView addSubview:subjoinTextLabel];
     
     UIView *subjoinTextBackgroundView = [[UIView alloc]initWithFrame:CGRectMake(postAndPayBackgroundView.frame.origin.x, controlYLength(subjoinTextLabel), postAndPayBackgroundView.frame.size.width, 0)];
+    subjoinTextBackgroundView.tag = 100;
     [subjoinTextBackgroundView setBackgroundColor:color(whiteColor)];
     [subjoinTextBackgroundView setCornerRadius:2.5];
     [subjoinTextBackgroundView setShaowColor:color(lightGrayColor) offset:CGSizeMake(4, 4) opacity:1 radius:2.5];
@@ -901,7 +902,8 @@
     [_subjoinView addSubview:subjoinTextBackgroundView];
     
     _detailTextTv = [[UITextView alloc]initWithFrame:CGRectMake(_postTypeTf.frame.origin.x, 0, _postTypeTf.frame.size.width, 80)];
-    [_detailTextTv setText:@"附加信息"];
+    _detailTextTv.delegate = self;
+    [_detailTextTv setText:@""];
     [subjoinTextBackgroundView addSubview:_detailTextTv];
     
     [subjoinTextBackgroundView setFrame:CGRectMake(subjoinTextBackgroundView.frame.origin.x, subjoinTextBackgroundView.frame.origin.y, subjoinTextBackgroundView.frame.size.width, controlYLength(_detailTextTv))];
@@ -925,6 +927,7 @@
     
 }
 
+
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
     if ([textField isFirstResponder]) {
@@ -946,6 +949,51 @@
         canResignFirstResponder = YES;
     }
     return canResignFirstResponder;
+}
+
+
+- (void)keyBoardDidShow:(NSNotification *)notification
+{
+    
+    NSDictionary *dic = [notification userInfo];
+    NSValue *keyValue = [dic objectForKey:UIKeyboardFrameEndUserInfoKey];
+    CGRect  keyBoardSize = [keyValue CGRectValue];
+    
+    CGFloat length = 0;
+    if (deviceVersion < 7) {
+        length = 64.0;
+    }
+    
+    UIEdgeInsets contentInsents = UIEdgeInsetsMake(0.0, 0.0, keyBoardSize.size.height + length, 0.0);
+    self.contentView.contentInset = contentInsents;
+    self.contentView.scrollIndicatorInsets = contentInsents;
+    CGRect aRect = self.view.frame;
+    aRect.size.height  -= keyBoardSize.size.height ;
+    
+    
+    
+    UIView *textViewSuper = (UIView *)[_subjoinView viewWithTag:100];
+    CGFloat x = _detailTextTv.frame.origin.x + _subjoinView.frame.origin.x + textViewSuper.frame.origin.x + self.contentView.frame.origin.x;
+    CGFloat y = _detailTextTv.frame.origin.y + _subjoinView.frame.origin.y + textViewSuper.frame.origin.y + self.contentView.frame.origin.y;
+    CGPoint point = CGPointMake(x, y);
+    
+    if (!CGRectContainsPoint(aRect, point)) {
+        
+        CGPoint scrollPoint = CGPointMake(0.0, y - keyBoardSize.size.height);
+//        self.contentView.frame = CGRectMake(self.contentView.frame.origin.x
+//                                            , self.contentView.frame.origin.y - scrollPoint.y + self.contentView.contentOffset.y - 30, self.contentView.frame.size.width, self.contentView.frame.size.height);
+        [self.contentView setContentOffset:scrollPoint animated:YES];
+    }
+    
+}
+- (void)keyBoardWillHide:(NSNotification *)notification
+{
+    
+    UIEdgeInsets contentInsets = UIEdgeInsetsZero;
+    self.contentView.contentInset = contentInsets;
+    self.contentView.scrollIndicatorInsets = contentInsets;
+    
+    
 }
 
 - (void)viewDidLoad
@@ -1028,10 +1076,12 @@
 {
     NSString *insurance = @"允许";
     if (![corpPolicy.Insurance isEqualToString:@"T"]) {
+        
         insurance = [NSString stringWithFormat:@"不%@",insurance];
     }
     [_insuranceLb setText:insurance];
 }
+
 
 @end
 

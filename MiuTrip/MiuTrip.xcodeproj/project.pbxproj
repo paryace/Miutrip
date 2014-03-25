@@ -830,7 +830,7 @@
 		18B4736A184731DC003FF7AD /* RegexKitLite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegexKitLite.h; sourceTree = "<group>"; };
 		18B4736B184731DC003FF7AD /* RegexKitLite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegexKitLite.m; sourceTree = "<group>"; };
 		18E982DE18B30D90008C3ABC /* AddNewPassengerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddNewPassengerViewController.h; sourceTree = "<group>"; };
-		18E982DF18B30D90008C3ABC /* AddNewPassengerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddNewPassengerViewController.m; sourceTree = "<group>"; };
+		18E982DF18B30D90008C3ABC /* AddNewPassengerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AddNewPassengerViewController.m; path = Flight/AddNewPassengerViewController.m; sourceTree = "<group>"; };
 		18E982E018B30D90008C3ABC /* AirListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AirListViewController.h; sourceTree = "<group>"; };
 		18E982E118B30D90008C3ABC /* AirListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AirListViewController.m; sourceTree = "<group>"; };
 		18E982E218B30D90008C3ABC /* FlightSiftViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlightSiftViewController.h; sourceTree = "<group>"; };
@@ -1807,7 +1807,6 @@
 			isa = PBXGroup;
 			children = (
 				18E982DE18B30D90008C3ABC /* AddNewPassengerViewController.h */,
-				18E982DF18B30D90008C3ABC /* AddNewPassengerViewController.m */,
 				18E982E018B30D90008C3ABC /* AirListViewController.h */,
 				18E982E118B30D90008C3ABC /* AirListViewController.m */,
 				18E982E218B30D90008C3ABC /* FlightSiftViewController.h */,
@@ -2127,6 +2126,7 @@
 				B590F177186140C0002D6A6D /* PullRefreshTableViewController.m */,
 				1812686418BC694600BDF2F9 /* BindingAccountViewController.h */,
 				1812686518BC694600BDF2F9 /* BindingAccountViewController.m */,
+				18E982DF18B30D90008C3ABC /* AddNewPassengerViewController.m */,
 				F227CE3118BD87C200F07E48 /* AccountActViewController.h */,
 				F227CE3218BD87C200F07E48 /* AccountActViewController.m */,
 				18E982DD18B30D90008C3ABC /* Flight */,
@@ -2140,8 +2140,8 @@
 			isa = PBXGroup;
 			children = (
 				529455CF18D964EB00670D67 /* HotelOrderResultViewController.h */,
-				529455D018D964EB00670D67 /* HotelOrderResultViewController.m */,
 				B5C7C85E186578B7008914D0 /* HotelOrderViewController.h */,
+				529455D018D964EB00670D67 /* HotelOrderResultViewController.m */,
 				B5C7C85F186578B7008914D0 /* HotelOrderViewController.mm */,
 				B57A0AA9184EC7E100A33831 /* HotelListViewController.h */,
 				F2EECB6218924787005C7A81 /* HotelCompileViewController.h */,

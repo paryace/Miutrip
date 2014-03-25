@@ -16,7 +16,7 @@
 
 
 @interface HotelOrderViewController : BaseUIViewController<UIPopoverListViewDataSource,UIPopoverListViewDelegate,
-                                     UITableViewDataSource,UITableViewDelegate,PassengerListViewDelegate,EditGuestDelegate>
+                                     UITableViewDataSource,UITableViewDelegate,PassengerListViewDelegate,EditGuestDelegate,UITextFieldDelegate>
 
 @property (strong,nonatomic) NSArray        *popupListData;
 @property (nonatomic)        int            popupType;

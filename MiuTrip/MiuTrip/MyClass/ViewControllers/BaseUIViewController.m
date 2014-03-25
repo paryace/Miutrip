@@ -44,6 +44,7 @@
     if (self) {
         _contentView = [[BaseContentView alloc]initWithFrame:appBounds];
         [_contentView setSuperResponder:self];
+        [_contentView setPagingEnabled:NO];
         //[_contentView setHidden:YES];
         _requestManager = [[RequestManager alloc]init];
         [_requestManager setDelegate:self];
@@ -248,6 +249,7 @@
     NSString *pageView = NSStringFromClass([self class]);
     [MobClick beginLogPageView:pageView];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyBoardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyBoardDidShow:) name:UIKeyboardDidShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyBoardWillHide:) name:UIKeyboardWillHideNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyBoardChangeFrame:) name:UIKeyboardWillChangeFrameNotification object:nil];
 }
@@ -294,6 +296,11 @@
 - (void)keyBoardChangeFrame:(NSNotification *)notification
 {
     //subview rewrite
+}
+
+- (void)keyBoardDidShow:(NSNotification *)notification
+{
+
 }
 
 - (UIView *)findKeyboard

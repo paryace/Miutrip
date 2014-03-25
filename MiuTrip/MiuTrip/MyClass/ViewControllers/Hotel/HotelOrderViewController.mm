@@ -250,6 +250,7 @@
     [_customerMobile setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
     [_customerMobile setBorderStyle:UITextBorderStyleRoundedRect];
     [_customerMobile setFont:[UIFont systemFontOfSize:14]];
+    _customerMobile.delegate = self;
     [scrollView addSubview:_customerMobile];
     
     y += 40;
@@ -561,6 +562,12 @@
     [self setSelectCustomers:NO];
 }
 
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [textField resignFirstResponder];
+    return YES;
+}
+
 - (void)setSelectCustomers:(BOOL)animation
 {
     NSArray *data = [HotelDataCache sharedInstance].customers;
@@ -692,7 +699,12 @@
     }else if([response isKindOfClass:[SubmitOrderResponse class]]){
         SubmitOrderResponse *orderResponse = (SubmitOrderResponse*)response;
         HotelOrderResultViewController *orderResult = [[HotelOrderResultViewController alloc] initWithParams:orderResponse];
-        [self pushViewController:orderResult transitionType:TransitionPush completionHandler:nil];
+        [self pushViewController:orderResult transitionType:TransitionPush completionHandler:^{
+            BOOL ispre = [[HotelDataCache sharedInstance] isPrePay];
+            if (!ispre) {
+                [[Model shareModel] showPromptText:@"支付方式为现付，请及时到店支付" model:NO];
+            }
+        }];
         
         
         

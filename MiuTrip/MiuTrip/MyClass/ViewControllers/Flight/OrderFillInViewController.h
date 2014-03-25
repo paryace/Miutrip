@@ -18,7 +18,7 @@
 @class SubmitFlightOrderRequest;
 @class OnlinePassengersDTO;
 
-@interface OrderFillInViewController : BaseUIViewController<UITableViewDataSource,UITableViewDelegate,PassengerListViewDelegate,CommonlyNameSelectDelegate,UITextFieldDelegate,PostTypeDelegate>
+@interface OrderFillInViewController : BaseUIViewController<UITableViewDataSource,UITableViewDelegate,PassengerListViewDelegate,CommonlyNameSelectDelegate,UITextFieldDelegate,PostTypeDelegate,UITextViewDelegate>
 
 @property (strong, nonatomic) id policyExecutor;
 @property (strong, nonatomic) NSArray   *passengers;
