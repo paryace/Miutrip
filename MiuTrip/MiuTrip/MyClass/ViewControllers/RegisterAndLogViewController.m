@@ -117,6 +117,7 @@
     [unameLeftView setBackgroundColor:color(clearColor)];
     [unameLeftView setImage:imageNameAndType(@"log_uname", nil) forState:UIControlStateNormal];
     _userName = [[UITextField alloc]initWithFrame:CGRectMake(30, controlYLength(subjoinTopImageView) + 15, self.view.frame.size.width - 60, unameLeftView.frame.size.height)];
+    _userName.delegate = self;
     [_userName setBackgroundColor:color(clearColor)];
     [_userName setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
     [_userName setFont:[UIFont systemFontOfSize:14]];
@@ -134,6 +135,7 @@
     [pwordLeftView setBackgroundColor:color(clearColor)];
     [pwordLeftView setImage:imageNameAndType(@"log_pword", nil) forState:UIControlStateNormal];
     _passWord = [[UITextField alloc]initWithFrame:CGRectMake(_userName.frame.origin.x, controlYLength(_userName) + 15, _userName.frame.size.width, _userName.frame.size.height)];
+    _passWord.delegate = self;
     [_passWord setBackgroundColor:color(clearColor)];
     [_passWord setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
     [_passWord setFont:[UIFont systemFontOfSize:14]];
@@ -192,6 +194,53 @@
     [doneBtn setBackgroundImage:imageNameAndType(@"done_btn_press", nil) forState:UIControlStateSelected];
     [doneBtn addTarget:self action:@selector(pressBtn:) forControlEvents:UIControlEventTouchUpInside];
     [self.contentView addSubview:doneBtn];
+}
+
+- (void)keyBoardWillShow:(NSNotification *)notification
+{
+    NSDictionary *info = [notification userInfo];
+    CGSize KeyBoardSize = [[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size;
+    
+    UIEdgeInsets contentInsets = UIEdgeInsetsMake(0, 0, KeyBoardSize.height, 0);
+    self.contentView.contentInset = contentInsets;
+    self.contentView.scrollIndicatorInsets = contentInsets;
+    
+    CGRect aRect = self.view.frame;
+    aRect.size.height -= KeyBoardSize.height;
+    
+    CGPoint point = CGPointMake(_activeText.frame.origin.x
+                                , _activeText.frame.origin.y);
+    
+    if (!CGRectContainsPoint(aRect, point)) {
+        CGPoint scrollPoint = CGPointMake(0, _activeText.frame.origin.y - KeyBoardSize.height);
+        [self.contentView setContentOffset:scrollPoint animated:YES];
+    }
+    
+    
+    
+    
+}
+
+- (void)keyBoardWillHide:(NSNotification *)notification
+{
+    NSDictionary *dic = [notification userInfo];
+    
+    NSValue *timeDur = [dic objectForKey:UIKeyboardAnimationDurationUserInfoKey];
+    NSTimeInterval timeDura;
+    [timeDur getValue:&timeDura];
+    
+    [UIView animateWithDuration:timeDura animations:^{
+        UIEdgeInsets contentInsets = UIEdgeInsetsZero;
+        self.contentView.contentInset = contentInsets;
+        self.contentView.scrollIndicatorInsets = contentInsets;
+    }];
+
+}
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
+{
+    _activeText = textField;
+    
+    return YES;
 }
 
 - (void)viewDidLoad

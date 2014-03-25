@@ -10,10 +10,11 @@
 #import "LoginRequest.h"
 #import "LoginResponse.h"
 
-@interface RegisterAndLogViewController : BaseUIViewController
+@interface RegisterAndLogViewController : BaseUIViewController<UITextFieldDelegate>
 
 @property (strong, nonatomic) UITextField                   *userName;
 @property (strong, nonatomic) UITextField                   *passWord;
+@property (strong, nonatomic) UITextField                   *activeText;
 
 @property (assign, nonatomic) BOOL                          autoLogStatus;
 

@@ -464,9 +464,9 @@
         }else if ([flightDate timeIntervalSince1970] >= [self.takeOffDate timeIntervalSince1970] - [_corpPolicy.PreMinute integerValue] * 60 && [flightDate timeIntervalSince1970] <= [self.takeOffDate timeIntervalSince1970] + [_corpPolicy.PreMinute integerValue] * 60) {
             conformPolicy = NO;
             
-            for (DomesticFlightDataDTO *flight in _conformPolicies) {
-                if ([flight.conformLevel isEqualToString:@"B"]) {
-                    [_policyIllegalView setFlight:flight];
+            for (DomesticFlightDataDTO *subFlight in _conformPolicies) {
+                if ([subFlight.conformLevel isEqualToString:@"B"]) {
+                    [_policyIllegalView setFlight:subFlight];
                 }
             }
             

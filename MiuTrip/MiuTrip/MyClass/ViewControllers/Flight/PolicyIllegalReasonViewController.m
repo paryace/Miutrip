@@ -145,7 +145,7 @@
 
 - (void)order
 {
-    [_RCDatas setValue:_flight forKey:@"flight"];
+    [_RCDatas setValue:_selectFlight forKey:@"flight"];
     if (_illegalDate) {
         ReasonCodeDTO *reasonDTO = [_RCDatas objectForKey:@"PreBookReasonCodeN"];
         if (!reasonDTO) {

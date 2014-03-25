@@ -829,7 +829,7 @@
 		18B47367184731AB003FF7AD /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
 		18B4736A184731DC003FF7AD /* RegexKitLite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegexKitLite.h; sourceTree = "<group>"; };
 		18B4736B184731DC003FF7AD /* RegexKitLite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegexKitLite.m; sourceTree = "<group>"; };
-		18E982DE18B30D90008C3ABC /* AddNewPassengerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddNewPassengerViewController.h; sourceTree = "<group>"; };
+		18E982DE18B30D90008C3ABC /* AddNewPassengerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AddNewPassengerViewController.h; path = Flight/AddNewPassengerViewController.h; sourceTree = "<group>"; };
 		18E982DF18B30D90008C3ABC /* AddNewPassengerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AddNewPassengerViewController.m; path = Flight/AddNewPassengerViewController.m; sourceTree = "<group>"; };
 		18E982E018B30D90008C3ABC /* AirListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AirListViewController.h; sourceTree = "<group>"; };
 		18E982E118B30D90008C3ABC /* AirListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AirListViewController.m; sourceTree = "<group>"; };
@@ -1806,7 +1806,6 @@
 		18E982DD18B30D90008C3ABC /* Flight */ = {
 			isa = PBXGroup;
 			children = (
-				18E982DE18B30D90008C3ABC /* AddNewPassengerViewController.h */,
 				18E982E018B30D90008C3ABC /* AirListViewController.h */,
 				18E982E118B30D90008C3ABC /* AirListViewController.m */,
 				18E982E218B30D90008C3ABC /* FlightSiftViewController.h */,
@@ -2126,6 +2125,7 @@
 				B590F177186140C0002D6A6D /* PullRefreshTableViewController.m */,
 				1812686418BC694600BDF2F9 /* BindingAccountViewController.h */,
 				1812686518BC694600BDF2F9 /* BindingAccountViewController.m */,
+				18E982DE18B30D90008C3ABC /* AddNewPassengerViewController.h */,
 				18E982DF18B30D90008C3ABC /* AddNewPassengerViewController.m */,
 				F227CE3118BD87C200F07E48 /* AccountActViewController.h */,
 				F227CE3218BD87C200F07E48 /* AccountActViewController.m */,
@@ -2140,8 +2140,8 @@
 			isa = PBXGroup;
 			children = (
 				529455CF18D964EB00670D67 /* HotelOrderResultViewController.h */,
-				B5C7C85E186578B7008914D0 /* HotelOrderViewController.h */,
 				529455D018D964EB00670D67 /* HotelOrderResultViewController.m */,
+				B5C7C85E186578B7008914D0 /* HotelOrderViewController.h */,
 				B5C7C85F186578B7008914D0 /* HotelOrderViewController.mm */,
 				B57A0AA9184EC7E100A33831 /* HotelListViewController.h */,
 				B57A0AAA184EC7E100A33831 /* HotelListViewController.m */,
@@ -2425,6 +2425,9 @@
 				LastUpgradeCheck = 0500;
 				ORGANIZATIONNAME = michael;
 				TargetAttributes = {
+					12791514183326B700CF94F4 = {
+						DevelopmentTeam = 38UDN8LHXH;
+					};
 					1279152F183326B700CF94F4 = {
 						TestTargetID = 12791514183326B700CF94F4;
 					};
@@ -3045,8 +3048,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_CXX_LIBRARY = "libstdc++";
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Miutrip Information Technology (Shanghai) Co., Ltd (38UDN8LHXH)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Miutrip Information Technology (Shanghai) Co., Ltd (38UDN8LHXH)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Michael M (75E9VZ56LK)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Michael M (75E9VZ56LK)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MiuTrip/MiuTrip-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
@@ -3063,7 +3066,7 @@
 				);
 				OTHER_LDFLAGS = "-lxml2";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "E8E7747B-6AFD-4701-A5D3-E7CC717D3E4F";
+				PROVISIONING_PROFILE = "59A283CF-BBAE-48AC-B234-934FCFEC73D4";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = "armv7 arm64 armv7s";
@@ -3077,8 +3080,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_CXX_LIBRARY = "libstdc++";
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Miutrip Information Technology (Shanghai) Co., Ltd (38UDN8LHXH)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Miutrip Information Technology (Shanghai) Co., Ltd (38UDN8LHXH)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Michael M (75E9VZ56LK)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Michael M (75E9VZ56LK)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MiuTrip/MiuTrip-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
@@ -3095,7 +3098,7 @@
 				);
 				OTHER_LDFLAGS = "-lxml2";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "E8E7747B-6AFD-4701-A5D3-E7CC717D3E4F";
+				PROVISIONING_PROFILE = "59A283CF-BBAE-48AC-B234-934FCFEC73D4";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = "armv7 arm64 armv7s";
